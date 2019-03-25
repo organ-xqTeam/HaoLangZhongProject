@@ -22,7 +22,7 @@
 		ON ui.`id`=adc.`user_id`
 		WHERE 
 		drug_id =#{drugId,jdbcType=VARCHAR}
-		AND user_id=#{userId,jdbcType=VARCHAR}
+		<!--  AND user_id=#{userId,jdbcType=VARCHAR} -->
 		AND adc.del_flag=0
 		ORDER BY create_date DESC
 		LIMIT 3
@@ -36,7 +36,7 @@
 		`sys_air_drug_comment`
 		WHERE 
 		drug_id =#{drugId,jdbcType=VARCHAR}
-		AND user_id=#{userId,jdbcType=VARCHAR}
+		<!-- AND user_id=#{userId,jdbcType=VARCHAR} -->
 		AND del_flag=0
 		GROUP BY star_grade
 	</select>

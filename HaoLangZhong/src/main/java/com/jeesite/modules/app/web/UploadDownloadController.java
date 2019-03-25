@@ -110,6 +110,7 @@ public class UploadDownloadController extends BaseController {
 
 	/**
 	 * 文件上传
+	 * hlz/sys/fileInfo/upload
 	 * */
 	@ResponseBody
 	@RequestMapping(value = "/upload", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
