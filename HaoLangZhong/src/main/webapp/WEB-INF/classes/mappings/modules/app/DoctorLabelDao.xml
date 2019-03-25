@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.app.dao.DoctorLabelDao">
+	<select id="queryList" resultType="hashmap">
+		select * from sys_doctor_label where type = #{type} and del_flag = '0'
+	</select>
+	<select id="queryListByIds" resultType="hashmap">
+		select 
+			* 
+		from
+			sys_doctor_label
+		where
+			id in 
+			<foreach item="item" index="index" collection="ids" 
+				open="(" separator="," close=")">
+  				#{item}
+			</foreach>
+		and
+			del_flag = '0'
+	</select>
+	
+</mapper>

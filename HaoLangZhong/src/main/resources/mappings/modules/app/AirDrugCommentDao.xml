@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.app.dao.AirDrugCommentDao">
+	
+	<!-- 查询数据
+	<select id="findList" resultType="AirDrugComment">
+		SELECT ${sqlMap.column.toSql()}
+		FROM ${sqlMap.table.toSql()}
+		<where>
+			${sqlMap.where.toSql()}
+		</where>
+		ORDER BY ${sqlMap.order.toSql()}
+	</select> -->
+	<!-- 通过 GrugId和UserId获取评论信息-->
+	<select id="findAirDrugCommentListByGrugIdAndUserId"  resultType="hashmap" parameterType="hashmap">
+		SELECT
+		adc.*,ui.nike_name
+		FROM 
+		`sys_air_drug_comment` adc
+		LEFT JOIN 
+		`sys_user_info`  ui
+		ON ui.`id`=adc.`user_id`
+		WHERE 
+		drug_id =#{drugId,jdbcType=VARCHAR}
+		AND user_id=#{userId,jdbcType=VARCHAR}
+		AND adc.del_flag=0
+		ORDER BY create_date DESC
+		LIMIT 3
+	
+	</select>
+	<!-- 通过 GrugId和UserId获取每个星级的数量 star_grade 星级 ,count数量-->
+	<select id="findAirDrugCommentStarCountByGrugIdAndUserId"  resultType="hashmap" parameterType="hashmap">
+		SELECT
+		star_grade,COUNT(*) as count
+		FROM 
+		`sys_air_drug_comment`
+		WHERE 
+		drug_id =#{drugId,jdbcType=VARCHAR}
+		AND user_id=#{userId,jdbcType=VARCHAR}
+		AND del_flag=0
+		GROUP BY star_grade
+	</select>
+	
+	
+</mapper>

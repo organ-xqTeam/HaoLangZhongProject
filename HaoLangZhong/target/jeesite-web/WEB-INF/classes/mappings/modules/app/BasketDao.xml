@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.app.dao.BasketDao">
+	<select id="getBasketByUserId" resultType="hashmap" parameterType="hashmap">
+  		SELECT 
+		sad.pic1,sad.id,sad.`name`,sad.`pay_price`,SUM(sbd.`drug_count`) AS drug_count,(SUM(sbd.`drug_count`)*pay_price) AS grug_total_price 
+		FROM
+		`sys_basket` sb
+		INNER JOIN
+		`sys_user_info` sui
+		ON sb.`user_id`=sui.`id`
+		INNER JOIN 
+		`sys_basket_drug` sbd
+		ON sbd.`basket_id`=sb.`id`
+		INNER JOIN 
+		`sys_air_drug` sad
+		ON 
+		sad.`id`=sbd.`drug_id`
+		WHERE 
+		sui.`id`=#{userId,jdbcType=VARCHAR}
+		AND 
+		sad.del_flag="0"
+		AND
+		sb.del_flag="0"
+		AND 
+		sbd.del_flag="0"
+		GROUP BY
+		sad.id
+	</select>
+	<select id="selectCountBasketByUserId" parameterType="hashmap" resultType ="java.lang.Long">
+		SELECT 
+		count(1) 
+		FROM
+		`sys_basket` sb
+		WHERE 
+		user_id=#{userId,jdbcType=VARCHAR}
+		AND
+		del_flag="0"
+	</select>
+	<insert id="insertBasketByUserId" parameterType="hashmap" >
+		INSERT INTO `sys_basket` (
+		  `create_date`,
+		  `del_Flag`,
+		  `user_id`
+		) 
+		VALUES
+		  (
+		    now(),
+		    '0',
+		    #{userId,jdbcType=VARCHAR}
+		  ) 
+	</insert>
+	<!-- 插入购物商品关系表 -->
+	<insert id="insertBasketDrugByUserIdAndDrudId" parameterType="hashmap">
+	INSERT INTO `sys_basket_drug` (
+	  `create_date`,
+	  `del_flag`,
+	  `basket_id`,
+	  `drug_id`,
+	  `lose_flag`,
+	  `drug_count`
+	) 
+	VALUES
+	  (
+	    NOW(),
+	    '0',
+	    
+	    (
+			SELECT 
+			 id
+			FROM
+			`sys_basket` 
+			WHERE 
+			user_id=#{userId,jdbcType=VARCHAR} 
+			LIMIT 1
+	    ),
+	    #{drugId,jdbcType=VARCHAR},
+	    '0',
+	    #{drugCount,jdbcType=VARCHAR}
+	  ) 
+	</insert>
+	<update id="delFlagDrugBasketByDrugId" parameterType="hashmap">
+	UPDATE 
+		 `sys_basket_drug` 
+			<trim prefix="SET" suffixOverrides="," >
+				del_flag="1",
+			</trim>
+		where 
+			drug_id= #{drugId,jdbcType=VARCHAR}	
+			and 
+			basket_id =
+			(select id from sys_basket where user_id =#{userId,jdbcType=VARCHAR} limit 1)
+			
+	</update>
+	
+</mapper>

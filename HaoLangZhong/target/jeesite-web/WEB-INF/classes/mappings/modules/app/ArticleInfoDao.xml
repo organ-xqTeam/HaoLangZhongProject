@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.app.dao.ArticleInfoDao">
+	
+	<select id="queryList" resultType="hashmap" parameterType="com.jeesite.modules.app.entity.ArticleInfo">
+		select * from sys_article_info where 1=1 and del_flag='0'
+	  	<if test="title != null">
+	  		and title like concat('%',#{title},'%')
+	  	</if>
+	  	<if test="type != null">
+	  		and type = #{type}
+	  	</if>
+	  	limit #{pageModel.start}, #{pageModel.end}
+	</select>
+	
+	<select id="queryCount" resultType="java.lang.Integer" parameterType="com.jeesite.modules.app.entity.ArticleInfo">
+		select count(*) from sys_article_info where 1=1 and del_flag='0'
+	  	<if test="title != null">
+	  		and title like concat('%',#{title},'%')
+	  	</if>
+	  	<if test="type != null">
+	  		and type = #{type}
+	  	</if>
+	</select>
+	
+	<select id="findOneById" resultType="hashmap">
+		select * from sys_article_info where del_flag='0' and id=#{id}
+	</select>
+	
+</mapper>

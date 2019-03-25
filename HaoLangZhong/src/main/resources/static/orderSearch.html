@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+  <meta charset="UTF-8">
+  <title>订单搜索</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <script type="text/javascript">
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+  </script>
+  <link rel="stylesheet" href="static/css/common.css">
+  <link rel="stylesheet" href="static/css/user.css">
+  <link rel="stylesheet" href="static/css/swiper.min.css">
+  <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/js/mianG.js"></script>
+  <style>
+  .nav{
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    display: flex;
+    height: .4rem;
+    border-bottom: 0.01rem solid #cccccc47;
+    font-size: .18rem;
+  }
+  .back{
+    position: absolute;
+    right: .1rem;
+    top: 0.07rem;
+  }
+  .img200{
+    height: auto !important;
+    width: .25rem;
+  }
+  .content_list{
+    padding: .15rem;
+  }
+  .list_top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.01rem solid #cccccc47;
+    padding-bottom: .15rem;
+  }
+  .button{
+    background: #7e1f01;
+    padding: .03rem .15rem;
+    border-radius: .05rem;
+    color: #fff;
+  }
+  .list_content{
+    display: flex;
+    align-items: center;
+    margin-top: .25rem;
+  }
+  .img300{
+    width: .55rem;
+    border-radius: 50%;
+    margin-right: .18rem;
+  }
+  .title{
+    font-size: .16rem;
+    font-weight: 600;
+  }
+
+
+   /*tou*/
+   .img_box{
+      background: rgba(0,0,0,0.6);
+      border-radius: 50%;
+      width: .3rem;
+      height: .3rem;
+      padding: .05rem;
+    }
+    .top{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+      padding:.06rem .12rem;
+    }
+    .img_input{
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border-radius: .2rem;
+      padding: .06rem 0.08rem;
+      width: 2.5rem;
+    }
+    .img_input input{
+      outline: none;
+      border: none;
+      padding-left: .2rem;
+    }
+    .top{
+      background: #f3f3f3;
+    }
+    .img500{
+      width: .25rem;;
+    }
+    .img400{
+     width: .2rem;
+   }
+   .time_search{
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin: .12rem 0;
+     padding: 0 .2rem;
+   }
+   .time{
+     border:0.01rem solid #7e1f01;
+     width: 2.2rem;
+     border-radius: .04rem;
+   }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <div class="img_wrap">
+      <img src="static/images/wode-left.png" class="img500"/>
+    </div>
+    <div class="img_input">
+      <img src="static/images/shouye-sousuo.png" class="img400"/>
+      <input placeholder="请输入关键字"/>
+    </div>
+    <div>
+      搜索
+    </div>
+  </div>
+  <div class="time_search">
+    <input type="date" class="time"/>
+    <span class="button">时间搜索</span>
+  </div>
+  <div class="content">
+    <div class="content_list">
+       <div class="list_top">
+         <div>订单时间：2019-02-04 13：22</div>
+         <div class="button">接单</div>
+       </div>
+       <div class="list_content">
+          <img src="static/images/head.png" class="img300"/>
+          <div>
+            <div class="title">傻子与白痴</div>
+            <span>头部 病症 针灸</span>
+          </div>
+       </div>
+    </div>
+  </div>
+<script>
+</script>
+</body>
+</html>

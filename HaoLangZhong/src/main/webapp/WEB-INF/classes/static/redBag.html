@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+  <meta charset="UTF-8">
+  <title>我的红包</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <script type="text/javascript">
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+  </script>
+  <link rel="stylesheet" href="static/css/common.css">
+  <link rel="stylesheet" href="static/css/user.css">
+  <link rel="stylesheet" href="static/css/swiper.min.css">
+  <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/js/mianG.js"></script>
+  <script type="text/javascript">
+  var userId="";
+  var token="";
+  var addressId="";
+  var pageObj={
+		initData(){
+				var cookieStr=document.cookie.split(";")
+				console.log(cookieStr);
+			    token=Global.getCookie("token");
+			    userId=Global.getCookie("userid");
+				console.log("userId:"+userId)
+				console.log("token:"+token)
+				addressId=Global.getParameter("id");
+			    pageObj.getRedBig();
+			 },
+			 init(){
+			   pageObj.initData()
+			 },
+			getRedBig(){
+				 let postdata=JSON.stringify({
+					 "token":token,
+					 "userId":userId
+			      })
+				 Global.ajaxRequest(Global.api+"/discountController/showDiscount",postdata)
+			     .then((res) => {
+			    	 console.log()
+			    	 var  discount=res.data.discount;
+			    	 $(".main").append(`
+			    			  <h3>红包总额（元）</h3>
+			    			  <span class="dabai">￥ ${parseFloat(discount.discountPrice/100).toFixed(2)}</span>
+			    	  `)
+			    	 /**
+			    	 {
+					    "data": {
+					        "discount": {
+					            "isNewRecord": false,
+					            "id": "1",
+					            "remarks": "备注",
+					            "createDate": "2019-03-15 01:53",
+					            "updateBy": "更新人",
+					            "createBy": "创建人",
+					            "userId": "123",
+					            "discountPrice": "100"
+					        }
+					    },
+					    "code": 0,
+					    "msg": "成功"
+					}
+			    	 **/
+			     })
+			 }
+		  }
+		  $(function(){
+			  	/* document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7";
+			  	document.cookie="userid=123"; */
+			  	console.log("userid---"+Global.getCookie("userid"));
+			  	console.log("token---"+Global.getCookie("token"));
+			  	
+			    pageObj.init();
+			})
+			  
+  </script>  
+  <style>
+   .img100{
+     width: .5rem;
+   }
+   .head{
+     text-align: center;
+     margin-top: 1rem;
+   }
+   .main{
+     text-align: center;
+     margin-top: .3rem;
+   }
+   .dabai{
+     font-size: .5rem;
+   }
+  </style>
+</head>
+<body>
+ <div class="head">
+   <img src="static/images/redbag.png" class="img100"/>
+ </div>
+ <div class="main">
+  <!-- <h3>红包总额（元）</h3>
+  <span class="dabai">￥200.00</span> -->
+ </div>
+<script>
+
+</script>
+</body>
+</html>

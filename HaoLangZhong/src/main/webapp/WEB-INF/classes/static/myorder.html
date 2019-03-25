@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+  <meta charset="UTF-8">
+  <title>我的订单</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <script type="text/javascript">
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+  </script>
+  <link rel="stylesheet" href="static/css/common.css">
+  <link rel="stylesheet" href="static/css/user.css">
+  <link rel="stylesheet" href="static/css/swiper.min.css">
+  <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/js/mianG.js"></script>
+  <style>
+   .nav_tab{
+     display: flex;
+     justify-content: space-around;
+     align-items: center;
+     height: .6rem;
+   }
+   .nav_tab div{
+    width: .8rem;
+    /* background: #ccc; */
+    text-align: center;
+    padding-bottom: 0.15rem;
+   }
+   .nav_tab div:hover{
+     border-bottom:0.01rem solid #eb6003;
+     color: #eb6003;
+   }
+   .line{
+     width: 100;
+     height: .8em;
+     background: #cccccc47;
+     margin-top: -0.1rem;
+   }
+   .img100{
+     width: .9rem;
+   }
+   .content_main{
+     padding: .2rem;
+   }
+   .content_list{
+     line-height: .4rem;
+   }
+   .list_top{
+     display: flex;
+     justify-content: space-between;
+   }
+   .list_button{
+     text-align: right;
+   }
+   .list_foot{
+     text-align: right;
+   }
+   .text_color{
+    color: #eb6003;
+   }
+   .remove{
+    font-size: .2rem;
+    color: #fff;
+    background: #ccc;
+    padding: 0.03rem 0.12rem;
+    border-radius: .05rem;
+   }
+   .go{
+    font-size: .2rem;
+    color: #fff;
+    background: #eb6003;
+    padding: 0.03rem 0.12rem;
+    border-radius: .05rem;
+   }
+  </style>
+  <script type="text/javascript">
+  var userId="";
+  var token="";
+  var addressId="";
+  var pageObj={
+		initData(){
+				var cookieStr=document.cookie.split(";")
+				console.log(cookieStr);
+			    token=Global.getCookie("token");
+			    userId=Global.getCookie("userid");
+				console.log("userId:"+userId)
+				console.log("token:"+token)
+				addressId=Global.getParameter("id");
+			    pageObj.getOrderByState();
+			 },
+			 init(){
+			   pageObj.initData()
+			 },
+			 goOrderdetails(orderId){
+				 console.log(orderId);
+				 window.location.href="orderdetails.html?orderId="+orderId;
+				 
+			 },
+			 //通过不用的状态展示订单
+			 getOrderByState(orderStatus){
+				 $(".content_main").empty();
+				 let postdata=JSON.stringify({
+					 "token":token,
+					 "userId":userId,
+					 "orderStatus":orderStatus,
+					 "pageNum":"1",
+					 "pageSize":"100"
+			      })
+			     Global.ajaxRequest(Global.api+"/basketController/showMyOrderList",postdata)
+			     .then((res) => {
+			    	 console.log(res);
+			    	 var orderList=res.data.orderList;
+			    	 
+			    	 orderList.forEach(function(item){
+			    		 console.log(item)
+			    		 let pics=item.pics.split(",");
+			    		 var imgs=``;
+    			         for(var i = 0; i < pics.length; i++) {
+    			        	 imgs += `<img src="${Global.picUrl+pics[i]}" class="img100"/>`
+    			         }
+			    		 $(".content_main").append(`
+			    				   <div class="content_list" onclick="pageObj.goOrderdetails(${item.id})">
+			    			      <div class="list_top">
+			    			         <div>
+			    			           <span>${Global.formatTimestamp(item.create_date)}</span>
+			    			         </div>
+			    			         <span class="text_color">
+			    			         	${ item.order_status=='0'? '等待买家付款' : '' }   
+			    			         	${ item.order_status=='1'? '买家已付款' : '' }   
+			    			         	${ item.order_status=='2'? '卖家已发货' : '' }   
+			    			         	${ item.order_status=='3'? '已收货' : '' }   
+			    			         	${ item.order_status=='-2'? '发货出现问题' : '' }   
+			    			         	${ item.order_status=='-3'? '收货出现问题' : '' }   
+			    			         	${ item.order_status=='4'? '已评价' : '' }   
+			    			         </span>
+			    			      </div>
+			    			      <div class="list_center">
+			    			      	 ${imgs}
+			    			      </div>
+			    			      <div class="list_foot">
+			    			         <div>
+			    			           <span>共${item.total_count}件商品 实付:</span>
+			    			           <span class="text_color">￥ ${parseFloat(item.really_price/100).toFixed(2)}</span>
+			    			         </div>
+			    			      </div>
+			    			      <div class="list_button">
+			    			        <div>
+			    			        	${ item.order_status=='4'? '<span class="remove">删除订单</span>' : '' }  
+			    			        	${ item.order_status=='0'? '<span class="go">去付款</span>' : '' }  
+			    			        	${ item.order_status=='2'? '<span class="go">确认订单</span>' : '' }  
+			    			        	${ item.order_status=='3'? '<span class="go">去评价</span>' : '' }  
+			    			        </div>
+			    			      </div>
+			    			   </div>			    				 
+			    				 `);
+			    	 })
+			    	 
+			      });
+				
+			 }
+		  }
+		  $(function(){
+			  	/* document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7";
+			  	document.cookie="userid=123"; */
+			    pageObj.init();
+			})
+			  
+  </script>
+</head>
+<body>
+<div class="nav_tab">
+   <div onclick="pageObj.getOrderByState()">全部</div>
+   <div onclick="pageObj.getOrderByState('1,2')">待收货</div>
+   <div onclick="pageObj.getOrderByState('0')">待付款</div>
+   <div onclick="pageObj.getOrderByState('3')">待评价</div>
+</div>
+<div class="line"></div>
+<div class="content_main">
+
+   <div class="content_list">
+      <div class="list_top">
+         <div>
+           <span>2019-01-25</span>
+           <span>18:13:05</span>
+         </div>
+         <span class="text_color">
+         		  等待买家付款
+         </span>
+      </div>
+      <div class="list_center">
+         <img src="static/images/head.png" class="img100"/>
+         <img src="static/images/head.png" class="img100"/>
+      </div>
+      <div class="list_foot">
+         <div>
+           <span>共2件商品 实付:</span>
+           <span class="text_color">￥200</span>
+         </div>
+      </div>
+      <div class="list_button">
+        <div>
+           <span class="remove">删除订单</span>
+           <span class="go">去付款</span>
+        </div>
+      </div>
+   </div>
+   
+</div>
+<script>
+
+</script>
+</body>
+</html>

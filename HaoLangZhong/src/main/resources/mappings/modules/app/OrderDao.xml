@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.app.dao.OrderDao">
+	
+	<!-- 查询数据
+	<select id="findList" resultType="Order">
+		SELECT ${sqlMap.column.toSql()}
+		FROM ${sqlMap.table.toSql()}
+		<where>
+			${sqlMap.where.toSql()}
+		</where>
+		ORDER BY ${sqlMap.order.toSql()}
+	</select> -->
+	<insert id="insertOrder" parameterType="hashmap" >
+	INSERT INTO 
+		sys_order 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+  			<if test="id != null" >
+				 id,
+			</if>
+  			<if test="orderNo != null" >
+				 order_no,
+			</if>
+  			<if test="orderStatus != null" >
+				 order_status,
+			</if>
+  			<if test="productCount != null" >
+				 product_count,
+			</if>
+  			<if test="totalPrice != null" >
+				 total_price,
+			</if>
+  			<if test="logisticsPrice != null" >
+				 logistics_price,
+			</if>
+  			<if test="discountPrice != null" >
+				 discount_price,
+			</if>
+  			<if test="reallyPrice != null" >
+				 really_price,
+			</if>
+  			<if test="payChannel != null" >
+				 pay_channel,
+			</if>
+  			<if test="outTradeNo != null" >
+				 out_trade_no,
+			</if>
+  			<if test="createDate != null" >
+				 create_date,
+			</if>
+  			<if test="updateDate != null" >
+				 update_date,
+			</if>
+  			<if test="createBy != null" >
+				 create_by,
+			</if>
+  			<if test="updateBy != null" >
+				 update_by,
+			</if>
+  			<if test="payDate != null" >
+				 pay_date,
+			</if>
+  			<if test="userId != null" >
+				 user_id,
+			</if>
+  			<if test="addressId != null" >
+				 address_id,
+			</if>
+  			<if test="logisticsId != null" >
+				 logistics_id,
+			</if>
+  			<if test="deliveryDate != null" >
+				 delivery_date,
+			</if>
+  			<if test="deliveryName != null" >
+				 delivery_name,
+			</if>
+  			<if test="deliveryAddress != null" >
+				 delivery_address,
+			</if>
+  			<if test="deliveryPhone != null" >
+				 delivery_phone,
+			</if>
+  			<if test="totalCount != null" >
+				 total_count,
+			</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="id != null" >
+				 	#{id,jdbcType=VARCHAR},
+			</if>
+  			<if test="orderNo != null" >
+				#{orderNo,jdbcType=VARCHAR},
+			</if>
+  			<if test="orderStatus != null" >
+				 #{orderStatus,jdbcType=VARCHAR},
+			</if>
+  			<if test="productCount != null" >
+				  #{productCount,jdbcType=VARCHAR},
+			</if>
+  			<if test="totalPrice != null" >
+				 #{totalPrice,jdbcType=VARCHAR},
+			</if>
+  			<if test="logisticsPrice != null" >
+				#{logisticsPrice,jdbcType=VARCHAR},
+			</if>
+  			<if test="discountPrice != null" >
+				 #{discountPrice,jdbcType=VARCHAR},
+			</if>
+  			<if test="reallyPrice != null" >
+				 #{reallyPrice,jdbcType=VARCHAR},
+			</if>
+  			<if test="payChannel != null" >
+				 #{payChannel,jdbcType=VARCHAR},
+			</if>
+  			<if test="outTradeNo != null" >
+				  #{outTradeNo,jdbcType=VARCHAR},
+			</if>
+  			<if test="createDate != null" >
+				 NOW(),
+			</if>
+  			<if test="updateDate != null" >
+				 NOW(),
+			</if>
+  			<if test="createBy != null" >
+				#{createBy,jdbcType=VARCHAR},
+			</if>
+  			<if test="updateBy != null" >
+				 #{updateBy,jdbcType=VARCHAR},
+			</if>
+  			<if test="payDate != null" >
+				 NOW(),
+			</if>
+  			<if test="userId != null" >
+				 #{userId,jdbcType=VARCHAR},
+			</if>
+  			<if test="addressId != null" >
+				 #{addressId,jdbcType=VARCHAR},
+			</if>
+  			<if test="logisticsId != null" >
+				  #{logisticsId,jdbcType=VARCHAR},
+			</if>
+  			<if test="deliveryDate != null" >
+				 NOW(),
+			</if> 	
+			 <if test="deliveryName != null" >
+				 #{deliveryName,jdbcType=VARCHAR},
+			</if>
+  			<if test="deliveryAddress != null" >
+				#{deliveryAddress,jdbcType=VARCHAR},
+			</if>
+  			<if test="deliveryPhone != null" >
+				 #{deliveryPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="totalCount != null" >
+				 #{totalCount,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<select id="selectIdByOrderNo" parameterType="hashmap" resultType="java.lang.Integer">
+		select so.id from sys_order so
+		where 
+		order_no=#{orderNo,jdbcType=VARCHAR}
+		limit  1
+	</select>
+
+	<!-- 通过userId和订单状态查找集合 -->
+	<select id="findOrderInfoByOrderStatusAndUserId" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+		so.`total_price`,so.id,so.`really_price`,so.create_date, so.user_id,so.order_status, GROUP_CONCAT(sad.pic1) AS pics ,so.`discount_price`,
+		SUM(buy_count) AS total_count
+		FROM `sys_order`  so
+		INNER JOIN 
+		`sys_order_detail` sod
+		ON
+		sod.`order_id`=so.`id`
+		INNER JOIN 
+		`sys_air_drug` sad 
+		ON
+		sad.id = sod.grud_id
+			<trim prefix=" where " suffixOverrides="and"> 
+			<if test="userId!=null">
+				so.user_id =#{userId,jdbcType=VARCHAR}
+				and
+			</if>
+			<if test="orderStatus != null ">
+				
+				so.order_status in (${orderStatus})
+				and
+			</if>
+			so.del_flag="0"
+		</trim>
+		GROUP BY 
+		id
+		<trim prefix=" limit " >
+			<if test="pageModel != null">
+			  #{pageModel.start}, #{pageModel.end}
+			</if>
+		</trim>
+	
+	</select>
+	<update id="updateDelFlagOrderByOrderId" parameterType="hashmap">
+	UPDATE 
+	 `sys_order` 
+	SET
+	  `del_flag` = "1"
+	
+	WHERE `id` = #{orderId,jdbcType=VARCHAR}
+	
+	</update>
+	
+</mapper>

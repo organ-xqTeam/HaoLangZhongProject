@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+  <meta charset="UTF-8">
+  <title>我的药方</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <script type="text/javascript">
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+  </script>
+  <link rel="stylesheet" href="static/css/common.css">
+  <link rel="stylesheet" href="static/css/user.css">
+  <link rel="stylesheet" href="static/css/swiper.min.css">
+  <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/js/mianG.js"></script>
+  <style>
+   .line{
+     width: 100;
+     height: .8em;
+     background: #cccccc47;
+   }
+   .img100{
+     width: .13rem;
+   }
+   .img200{
+     width: 1rem;
+   }
+   .peifang_head{
+     padding: .15rem;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     border-bottom: 0.01rem solid #cccccc47;
+   }
+   .head_left :first-child{
+     font-size: .16rem;
+     font-weight: 600;
+   }
+   .head_left :nth-child(2){
+     color: #ec6001;
+     border:0.01rem solid #ec6001;
+     font-size: .5em;
+     padding: 0 .02rem;
+   }
+   .content_content{
+     padding: .3rem;
+    margin-bottom: -0.5rem;
+   }
+   .content_text {
+    border-bottom: 0.01rem solid #ccc;
+   }
+   .content_text li{ 
+     line-height: .3rem;
+   }
+   .content_text :nth-child(3){
+      padding-bottom: .2rem;
+   }
+   .content_text li :first-child{
+       display: inline-block;
+       width: 1rem;
+       /* background: red; */
+       font-size: .18rem;
+       color: #ccc;
+   }
+   .content_text li :nth-child(2){
+      display: inline-block;
+      width: 1rem;
+      /* background: #ccc; */
+      font-size: .2rem;
+      color: #ec6001;
+      margin-left: .2rem;
+   }
+   .content_foot{
+     margin-top: .3rem;
+     padding-right: .3rem;
+   }
+   .foot_main{
+     text-align: right;
+   }
+   .foot_main :first-child{
+     font-weight: 600;
+   }
+   .foot_main :nth-child(2){
+     color: #ec6001;
+   }
+   .imgBox{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 0.01rem solid #ccc;
+    padding-bottom: .12rem;
+   }
+   .content_text{
+     height: 1.5rem;
+   }
+  </style>
+  <script type="text/javascript">
+  var userId="";
+  var token="";
+  var addressId="";
+  var pageObj={
+		initData(){
+				var cookieStr=document.cookie.split(";")
+				console.log(cookieStr);
+			    token=Global.getCookie("token");
+			    userId=Global.getCookie("userid");
+				console.log("userId:"+userId)
+				console.log("token:"+token)
+				addressId=Global.getParameter("id");
+			    pageObj.showAirPrescription();
+			 },
+			 init(){
+			   pageObj.initData()
+			 },
+			 //通过不用的状态展示订单
+			 showAirPrescription(orderStatus){
+				//   
+				let postdata=JSON.stringify({
+					 "token":token,
+					 "userId":userId,
+			     })
+				Global.ajaxRequest(Global.api+"/airPrescriptionController/showAirPrescription",postdata)
+			     .then((res) => {
+			    	 console.log(res);
+			    	 var airPrescriptionList=res.result.data.airPrescriptionList;
+			    	 airPrescriptionList.forEach(function(item,index){
+			    		 var pics="";
+			    		 if(item.pic1!=null){
+			    			 pics+="<img src='"+item.pic1+"' class='img200'/>";
+			    		 }
+			    		 if(item.pic2!=null){
+			    			 pics+="<img src='"+item.pic2+"' class='img200'/>";
+			    		 }
+			    		 if(item.pic3!=null){
+			    			 pics+="<img src='"+item.pic3+"' class='img200'/>";
+			    		 }
+				    	 $(".peifangList").append(`
+				    			  <div class="peifang_head">
+				    			    <div class="head_left">
+				    			      <span>配方${index+1}</span>
+				    			      ${ item.checkState=='0'? '<span>未审核</span>' : '' }   
+				    			      ${ item.checkState=='1'? '<span>已审核</span>' : '' }   
+				    			    </div>
+				    			    <div class="head_right">
+				    			      <span>${item.createDate}</span>
+				    			      <!-- <img src="static/images/wode-down.png" class="img100"/> -->
+				    			    </div> 
+				    			  </div>
+				    			  <div class="peifang_content">
+				    			    <div class="content_list">
+				    			        <div class="content_content">
+				    			           <div class="content_text">
+				    			             	${item.content}
+				    			           </div>
+				    			        </div>
+				    			        <div class="content_content">
+				    			          <div class="imgBox">
+				    			            ${pics}
+				    			          </div>
+				    			        </div>
+				    			    </div>  
+				    			  </div>			    			 
+				    			 `)
+			    		 
+			    	 })
+			    	 /**
+			    	 {
+					    "result": {
+					        "data": {
+					            "airPrescriptionList": [
+					                {
+					                    "isNewRecord": false,
+					                    "id": "5",
+					                    "remarks": "默认备注",
+					                    "createDate": "2019-03-07 22:15",
+					                    "updateBy": "更新人",
+					                    "createBy": "创建人",
+					                    "content": "这是一个药方",
+					                    "pic1": "http://192.168.1.30:8980/js//f/sys/fileInfo/viewPic/1552015081276_12.jpg",
+					                    "pic2": "http://192.168.1.30:8980/js//f/sys/fileInfo/viewPic/1552015081388_170.jpg",
+					                    "checkState": "0",
+					                    "userId": "123",
+					                    "payPrice": "0",
+					                    "delFlag": "0"
+					                },
+					                {
+					                    "isNewRecord": false,
+					                    "id": "6",
+					                    "remarks": "默认备注",
+					                    "createDate": "2019-03-07 22:17",
+					                    "updateBy": "更新人",
+					                    "createBy": "创建人",
+					                    "content": "这是一个药方",
+					                    "pic1": "http://192.168.1.30:8980/js//f/sys/fileInfo/viewPic//1552015205204_420.jpg",
+					                    "pic2": "http://192.168.1.30:8980/js//f/sys/fileInfo/viewPic//1552015205229_26.jpg",
+					                    "checkState": "0",
+					                    "userId": "123",
+					                    "payPrice": "0",
+					                    "delFlag": "0"
+					                },
+					                {
+					                    "isNewRecord": false,
+					                    "id": "7",
+					                    "remarks": "默认备注",
+					                    "createDate": "2019-03-07 22:21",
+					                    "updateBy": "更新人",
+					                    "createBy": "创建人",
+					                    "content": "这是一个药方",
+					                    "pic1": "http://192.168.1.30:8980/js//f/sys/fileInfo/viewPic//1552015443643_849.jpg",
+					                    "checkState": "0",
+					                    "userId": "123",
+					                    "payPrice": "0",
+					                    "delFlag": "0"
+					                }
+					            ]
+					        },
+					        "code": 0,
+					        "msg": "成功"
+					    }
+					}
+			 **/
+			     })
+				
+			 }
+		  }
+		  $(function(){
+			  	/* document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7";
+			  	document.cookie="userid=123"; */
+			    pageObj.init();
+			})
+			    
+  </script>
+</head>
+<body>
+<div class="line"></div>
+<div class="peifangList">
+ <!--  <div class="peifang_head">
+    <div class="head_left">
+      <span>配方一</span>
+      <span>已审核</span>
+    </div>
+    <div class="head_right">
+      <span>2019-1-25</span>
+      <img src="static/images/wode-down.png" class="img100"/>
+    </div> 
+  </div>
+  <div class="peifang_content">
+    <div class="content_list">
+        <div class="content_content">
+           <div class="content_text">
+             当归50g，黑枸杞100g，人参80g
+           </div>
+        </div>
+        <div class="content_content">
+          <div class="imgBox">
+             <img src="static/images/head.png" class="img200"/>
+             <img src="static/images/head.png" class="img200"/>
+             <img src="static/images/head.png" class="img200"/>
+          </div>
+        </div>
+    </div>  
+  </div> -->
+</div>
+<script>
+
+</script>
+</body>
+</html>

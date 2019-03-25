@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.app.dao.FileInfoDao">
+	
+	<insert id="saveFileInfo" parameterType="hashmap"> 
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">
+			select replace(uuid(),'-','') from dual		
+		</selectKey>
+		insert into sys_file_info (
+			id,
+			filename,
+			filepath,
+			thumb,
+			type, 
+			abbreviated, 
+			weight, 
+			height, 
+			create_by, 
+			create_date,
+			del_flag
+		)
+		values (
+			#{id,jdbcType=VARCHAR},
+			#{filename,jdbcType=VARCHAR},
+			#{filepath,jdbcType=VARCHAR},
+			#{thumb,jdbcType=VARCHAR},
+			#{type,jdbcType=INTEGER}, 
+			#{abbreviated,jdbcType=VARCHAR},
+			#{weight,jdbcType=VARCHAR},	
+			#{height,jdbcType=INTEGER}, 
+			#{create_by,jdbcType=VARCHAR},
+			#{create_date,jdbcType=VARCHAR},
+			#{del_flag,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<select id="getFileInfo" resultType="hashmap">
+	  	SELECT * FROM sys_file_info WHERE id=#{id}
+	</select>
+	<select id="getFileInfoByFilepathOne" resultType="hashmap" parameterType="hashmap">
+	  	SELECT * FROM sys_file_info WHERE filepath=#{filepath,jdbcType=VARCHAR} limit 1
+	</select>
+	
+	
+</mapper>

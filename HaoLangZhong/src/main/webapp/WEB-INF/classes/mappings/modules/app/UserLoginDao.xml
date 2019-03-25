@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.app.dao.UserLoginDao">
+	
+	<insert id="register" parameterType="hashmap"> 
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">
+			select replace(uuid(),'-','') from dual		
+		</selectKey>
+		insert into sys_user_info (
+			id,
+			mobile,
+			password,
+			regtime, 
+			islock,
+			isauthentication,
+			type,
+			create_date,
+			del_flag
+		)
+		values (
+			#{id,jdbcType=VARCHAR},
+			#{mobile,jdbcType=VARCHAR},
+			#{password,jdbcType=VARCHAR},
+			#{regtime,jdbcType=INTEGER}, 
+			#{islock,jdbcType=VARCHAR},
+			#{isauthentication,jdbcType=VARCHAR},
+			#{type,jdbcType=VARCHAR},	
+			#{create_date,jdbcType=VARCHAR},
+			#{del_flag,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<select id="getUserInfo" resultType="hashmap" parameterType="com.jeesite.modules.app.entity.User">
+	  	SELECT * FROM sys_user_info WHERE 1=1
+	  	<if test="mobile != null ">
+	  		and mobile=#{mobile}
+	  	</if>
+	  	<if test="type != null ">
+	  		and type=#{type}
+	  	</if>
+	  	and del_flag = '0' limit 0,1
+	</select>
+	
+	<select id="registerCheck" resultType="int" parameterType="String">
+	  	SELECT count(*) FROM sys_user_info WHERE mobile=#{mobile} and del_flag = '0'
+	</select>
+	
+ 	<update id="updateUser" parameterType="hashmap">
+		update sys_user_info
+	    <set>
+	      <if test="password != null">password=#{password},</if>
+	      <if test="lastlogin != null">lastlogin=#{lastlogin}</if>
+	    </set>
+		where 1=1 
+	  	<if test="id != null ">
+	  		and id = #{id}
+	  	</if>
+	  	<if test="mobile != null ">
+	  		and mobile = #{mobile}
+	  	</if>
+	</update>
+	
+</mapper>

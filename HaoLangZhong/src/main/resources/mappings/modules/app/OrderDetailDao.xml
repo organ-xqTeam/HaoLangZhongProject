@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.app.dao.OrderDetailDao">
+	
+	<!-- 查询数据
+	<select id="findList" resultType="OrderDetail">
+		SELECT ${sqlMap.column.toSql()}
+		FROM ${sqlMap.table.toSql()}
+		<where>
+			${sqlMap.where.toSql()}
+		</where>
+		ORDER BY ${sqlMap.order.toSql()}
+	</select> -->
+	<insert id="insertOrderDetail"  parameterType="hashmap" >
+	 <!-- <foreach collection="list" item="item" separator=";"> -->
+		INSERT INTO
+			sys_order_detail 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+  			<if test="id != null" >
+				 id,
+			</if>
+  			<if test="orderCode != null" >
+				 order_code,
+			</if>
+  			<if test="grudId != null" >
+				 grud_id,
+			</if>
+  			<if test="prescriptionId != null" >
+				 prescription_id,
+			</if>
+  			<if test="productName != null" >
+				 product_name,
+			</if>
+  			<if test="productPrice != null" >
+				 product_price,
+			</if>
+  			<if test="discountRate != null" >
+				 discount_rate,
+			</if>
+  			<if test="onlyPrice != null" >
+				 only_price,
+			</if>
+  			<if test="buyCount != null" >
+				 buy_count,
+			</if>
+  			<if test="subtotalPrice != null" >
+				 subtotal_price,
+			</if>
+  			<if test="invalidFlag != null" >
+				 invalid_flag,
+			</if>
+  			<if test="remarks != null" >
+				 remarks,
+			</if>
+  			<if test="delFlag != null" >
+				 del_flag,
+			</if>
+  			<if test="createDate != null" >
+				 create_date,
+			</if>
+  			<if test="updateDate != null" >
+				 update_date,
+			</if>
+  			<if test="createBy != null" >
+				 create_by,
+			</if>
+  			<if test="updateBy != null" >
+				 update_by,
+			</if>
+  			<if test="orderId != null" >
+				 order_id,
+			</if>
+		</trim>
+		
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="id != null" >
+				 	#{id,jdbcType=VARCHAR},
+			</if>
+
+  			<if test="orderCode != null" >
+				 #{orderCode,jdbcType=VARCHAR},
+			</if>
+  			<if test="grudId != null" >
+				 #{grudId,jdbcType=VARCHAR},
+			</if>
+  			<if test="prescriptionId != null" >
+				  #{prescriptionId,jdbcType=VARCHAR},
+			</if>
+  			<if test="productName != null" >
+				 #{productName,jdbcType=VARCHAR},
+			</if>
+  			<if test="productPrice != null" >
+				#{productPrice,jdbcType=VARCHAR},
+			</if>
+  			<if test="discountRate != null" >
+				 #{discountRate,jdbcType=VARCHAR},
+			</if>
+  			<if test="onlyPrice != null" >
+				#{onlyPrice,jdbcType=VARCHAR},
+			</if>
+  			<if test="buyCount != null" >
+				 #{buyCount,jdbcType=VARCHAR},
+			</if>
+  			<if test="subtotalPrice != null" >
+				  #{subtotalPrice,jdbcType=VARCHAR},
+			</if>
+  			<if test="invalidFlag != null" >
+				  #{invalidFlag,jdbcType=VARCHAR},
+			</if>
+  			<if test="remarks != null" >
+				 #{remarks,jdbcType=VARCHAR},
+			</if>
+  			<if test="delFlag != null" >
+				 #{delFlag,jdbcType=VARCHAR},
+			</if>
+  			<if test="createDate != null" >
+				Now(),
+			</if>
+  			<if test="updateDate != null" >
+				Now(),
+			</if>
+  			<if test="createBy != null" >
+				 #{createBy,jdbcType=VARCHAR},
+			</if>
+  			<if test="updateBy != null" >
+				#{updateBy,jdbcType=VARCHAR},
+			</if>
+  			<if test="orderId != null" >
+				#{orderId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	 <!-- </foreach> -->
+	</insert>
+	
+</mapper>

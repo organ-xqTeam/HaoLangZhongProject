@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+  <meta charset="UTF-8">
+  <title>意见反馈</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <script type="text/javascript">
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+  </script>
+  <link rel="stylesheet" href="static/css/common.css">
+  <link rel="stylesheet" href="static/css/user.css">
+  <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/js/mianG.js"></script>
+  <style>
+   .line{
+     width: 100;
+     height: .8em;
+     background: #cccccc47;
+   }
+   .text{
+     width:100%;
+     border: none;
+     outline: none;
+     padding: .6em;
+     height: 9em;
+     border: 0.01rem solid #ccc;
+   }
+.addpicWrap .addpicBtn{
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  background: url(static/images/add.png) center center no-repeat;
+  background-size: 100%;
+}
+.addpicWrap .addedPic{
+  display: flex;
+  flex-wrap: wrap;
+}
+.addpicWrap .addedPic .picWrap{
+  position: relative;
+  /* padding: 16.6666%; */
+  padding: calc(16.6666% - 0.05rem);
+  margin: 0.05rem;
+}
+.addpicWrap .addedPic .picWrap>img{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.addpicWrap .delPic{
+  display: inline-block;
+  width: 0.2rem;
+  height: 0.2rem;
+  background: url(static/images/移除@2x.png) center center no-repeat;
+  background-size: 100%;
+  position: absolute;
+  top: 0.06rem;
+  right: 0.06rem;
+}
+.content_top{
+  padding: .5em;
+}
+/* 星评 */
+.starsWrap{
+    height: 0.25rem;
+    width: 1.3rem;
+}
+.stars{
+  width: 100%;
+  height: 100%;
+  justify-content: space-around;
+}
+.stars>li{
+  font-size: 0;
+  height: 100%;
+  width: 1rem;
+}
+.stars>li.stars1{
+  background: url(static/images/星星@2x.png) center center no-repeat;
+  background-size: 100% 100%;
+}
+.stars>li.stars0{
+  background: url(static/images/星星\ 拷贝@2x.png) center center no-repeat;
+  background-size: 100% 100%;
+}
+.content_center{
+  padding: .6em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.img100{
+  width: 3.5em;
+}
+.content_foot{
+  padding: .8em;
+}
+.foot_title{
+  line-height: 2.5em;
+  border-bottom: 0.01em solid #ccc;
+}
+.foot_flex{
+  display: flex;
+  justify-content: space-around;
+  margin-top: .8em;
+}
+.flex_foot{
+  display: flex;
+  flex-direction: column;
+}
+.flex_foot :last-child{
+  color:#eb6003;
+}
+.content_button{
+  width: 86%;
+  margin: .5rem auto;
+}
+.content_button div{
+    background: #7e1f03;
+    color: #fff;
+    text-align: center;
+    padding: .1rem 0;
+    border-radius: .08rem;
+}
+.upImgtext{
+  line-height: .4rem;
+}
+.nav{
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  display: flex;
+  height: .4rem;
+}
+.back{
+  position: absolute;
+  left: .1rem;
+  top: 0.07rem;
+}
+.img200{
+  height: auto !important;
+  width: .2rem;
+}
+.duanluo{
+  padding: .12rem;
+}
+/* confirm模态框 */
+.msgWrap{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.msgWrap .msgMask{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.msgWrap .msg{
+  width: 2.33rem;
+  min-height: 1.26rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: .2rem
+}
+.msgWrap .msg .msgText{
+  font-size: 0.16rem;
+  color: rgba(61, 61, 61, 1);
+  font-weight: 550;
+}
+.msgWrap .msg .msgCtrl{
+  margin-bottom: 0.2rem;
+}
+.msgWrap .msg .msgCtrl .closeMsg,
+.msgWrap .msg .msgCtrl .gotoCallback{
+  display: inline-block;
+  width: 0.71rem;
+  height: 0.34rem;
+  border-radius: 0.05rem;
+  line-height: 0.34rem;
+  text-align: center;
+  font-size: 0.14rem;
+  margin: 0 0.1rem;
+}
+.msgWrap .msg .msgCtrl .gotoCallback{
+  background-color: rgba(230, 230, 230, 1);
+  color: rgba(61, 61, 61, 1);
+}
+.msgWrap .msg .msgCtrl .closeMsg{
+  background-color: rgba(126, 31, 1, 1);
+  color: #fff;
+}
+.cancel{
+    border: 0.01rem solid #ccc;
+    padding: 0.06rem .2rem;
+    border-radius: .05rem;
+}
+.content_list{
+  margin-top: -0.5rem;
+}
+</style>
+</head>
+<body>
+<div class="nav">
+  <img src="static/images/fanhui.png" class="back img200"/>
+  <span>意见反馈</span>
+</div>
+<div class="content_main">
+   <p class="duanluo">
+     我们知道我们业务还不成熟，还有许多需要改进的地方，所以我们需要您的吐槽来帮助我们发现问题，您的意见是我们前进的动力~
+   </p>
+   <div class="content_top">
+     <textarea class="text" placeholder="请输入您的意见"></textarea>
+    <div class="content_button">
+      <div class="submit">发送</div>
+    </div>
+</div>
+<script>
+   $(".submit").click(function(){
+      let $msgDiv = $(`
+            <div class="msgWrap">
+                <div class="msgMask"></div>
+                <div class="msg">
+                    <span class="msgText">您的意见我们已经收</span>
+                    <span class="msgText">到非常感谢!</span>
+                    <p class="msgCtrl">
+                      <span class="closeMsg">确定</span>
+                    </p>
+                </div>
+            </div>
+      `);
+      $("body").append($msgDiv);
+      $(" .msgWrap .cancel").click(function(){
+         $msgDiv.remove()
+      })
+   })
+</script>
+</body>
+</html>

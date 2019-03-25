@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+  <meta charset="UTF-8">
+  <title>传参</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <script type="text/javascript">
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+  </script>
+  <style>
+  </style>
+</head>
+<body>
+<script>
+  // 197fb180439d11e9a903bcaec5595fa3
+  let url=window.location.href.split("?")[1]
+  console.log("url")
+  let id=url.split("userid=")[1]
+  console.log(id) 
+  document.cookie="userid="+id
+</script>
+</body>
+</html>

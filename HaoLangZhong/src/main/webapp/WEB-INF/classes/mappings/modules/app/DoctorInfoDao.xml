@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.app.dao.DoctorInfoDao">
+	
+	<select id="queryListByLabel" resultType="hashmap" parameterType="com.jeesite.modules.app.entity.DoctorInfo">
+		select 
+			u.id as 'id',
+			u.icon as 'icon',
+			d.name as 'name',
+			d.cost as 'cost',
+			(select GROUP_CONCAT(content) from sys_doctor_label where del_flag='0' and type='3' and id in (select labelid from sys_doctor_label_item where doctorid=u.id and del_flag='0')) as 'label',
+			(select count(*) from sys_consultation_order where doctorid=u.id and orderstate='8' and del_flag='0') as 'consultation_times',
+			(select sum(total) from sys_doctor_gift_order where doctorid=u.id and del_flag='0' and orderstate='2') as 'gifts'
+		from 
+			sys_user_info u
+		left join 
+			sys_doctor_info d on u.id = d.doctorid
+		WHERE
+			doctorid IN (
+				SELECT
+					doctorid 
+				FROM
+				(
+					SELECT
+						doctorid,
+						COUNT( doctorid ) AS 'count' 
+					FROM
+						sys_doctor_label_item 
+					WHERE
+						labelid IN 
+						<foreach item="item" index="index" collection="labels"
+	     					 open="(" separator="," close=")">
+	       					 #{item}
+	  					</foreach>
+					and 
+						del_flag = '0'
+					GROUP BY
+						doctorid 
+				) AS t 
+				WHERE
+					t.count = #{count} 
+			)
+		and
+			u.del_flag = '0'
+		and 
+			d.del_flag = '0'
+		limit #{pageModel.start}, #{pageModel.end}
+	</select>
+	
+	<select id="queryCountByLabel" resultType="java.lang.Integer" parameterType="com.jeesite.modules.app.entity.DoctorInfo">
+		select 
+			count(*)
+		from 
+			sys_user_info u
+		left join 
+			sys_doctor_info d on u.id = d.doctorid
+		WHERE
+			doctorid IN (
+				SELECT
+					doctorid 
+				FROM
+				(
+					SELECT
+						doctorid,
+						COUNT( doctorid ) AS 'count' 
+					FROM
+						sys_doctor_label_item 
+					WHERE
+						labelid IN 
+						<foreach item="item" index="index" collection="labels"
+	     					 open="(" separator="," close=")">
+	       					 #{item}
+	  					</foreach>
+					and 
+						del_flag = '0'
+					GROUP BY
+						doctorid 
+				) AS t 
+				WHERE
+					t.count = #{count} 
+			)
+		and
+			u.del_flag = '0'
+		and 
+			d.del_flag = '0'
+	</select>
+	
+	<select id="queryList" resultType="hashmap" parameterType="com.jeesite.modules.app.entity.DoctorInfo">
+		select 
+			u.id as 'id',
+			u.icon as 'icon',
+			d.name as 'name',
+			d.cost as 'cost',
+			(select GROUP_CONCAT(content) from sys_doctor_label where del_flag='0' and type='3' and id in (select labelid from sys_doctor_label_item where doctorid=u.id and del_flag='0')) as 'label',
+			(select count(*) from sys_consultation_order where doctorid=u.id and orderstate='8' and del_flag='0') as 'consultation_times',
+			(select sum(total) from sys_doctor_gift_order where doctorid=u.id and del_flag='0' and orderstate='2') as 'gifts'
+		from 
+			sys_user_info u
+		left join 
+			sys_doctor_info d on u.id = d.doctorid
+		where
+			u.del_flag = '0'
+		and 
+			d.del_flag = '0'
+		limit #{pageModel.start}, #{pageModel.end}
+	</select>
+	
+	<select id="queryCount" resultType="java.lang.Integer" parameterType="com.jeesite.modules.app.entity.DoctorInfo">
+		select 
+			count(*)
+		from 
+			sys_user_info u
+		left join 
+			sys_doctor_info d on u.id = d.doctorid
+		where
+			u.del_flag = '0'
+		and 
+			d.del_flag = '0'
+	</select>
+	
+	<select id="findOneByDoctorid" resultType="hashmap">
+		select 
+			u.id as 'id',
+			u.icon as 'icon',
+			d.name as 'name',
+			d.cost as 'cost',
+			(select GROUP_CONCAT(content) from sys_doctor_label where del_flag='0' and type='3' and id in (select labelid from sys_doctor_label_item where doctorid=u.id and del_flag='0')) as 'label',
+			(select count(*) from sys_consultation_order where doctorid=u.id and orderstate='8' and del_flag='0') as 'consultation_times',
+			(select sum(total) from sys_doctor_gift_order where doctorid=u.id and del_flag='0' and orderstate='2') as 'gifts',
+			(select count(*) from sys_doctor_comment where doctorid=u.id and del_flag='0') as 'comment_times',
+			d.introduce as 'introduce',
+			p.introducepic1 as 'introducepic1',
+			p.introducepic2 as 'introducepic2',
+			p.introducepic3 as 'introducepic3',
+			p.introducevideo as 'introducevideo'
+		from 
+			sys_user_info u
+		left join 
+			sys_doctor_info d on u.id = d.doctorid
+		left join 
+			sys_doctor_pic p on u.id = p.doctorid 
+		where
+			u.del_flag = '0'
+		and 
+			d.del_flag = '0'
+		and 
+			u.id = #{doctorid}
+		limit 0,1
+	</select>
+	
+	<select id="queryCommentList" resultType="hashmap" parameterType="com.jeesite.modules.app.entity.DoctorInfo">
+		select 
+			u.icon as 'icon',
+			u.nike_name as 'name',
+			c.start as 'start',
+			c.content as 'content',
+			DATE_FORMAT(c.create_date,"%Y-%m-%d %T") as 'date'
+		from 
+			sys_doctor_comment c
+		left join 
+			sys_user_info u on c.userid = u.id
+		where 
+			c.doctorid = #{id}
+		and 
+			c.del_flag = '0'
+		order by
+			c.create_date desc
+		limit #{pageModel.start}, #{pageModel.end}
+	</select>
+	
+	<select id="queryCommentCount" resultType="java.lang.Integer" parameterType="com.jeesite.modules.app.entity.DoctorInfo">
+		select 
+			count(*)
+		from 
+			sys_doctor_comment c
+		left join 
+			sys_user_info u on c.userid = u.id
+		where 
+			c.doctorid = #{id}
+		and 
+			c.del_flag = '0'
+	</select>
+	
+	<select id="queryConsultationList" resultType="hashmap" parameterType="com.jeesite.modules.app.entity.DoctorInfo">
+		select
+			o.consultationid as 'id',
+			u.icon as 'icon',
+			u.nike_name as 'nickname',
+			o.create_date as 'time',
+			c.content as 'content'
+		from 
+			sys_consultation_order o
+		left join 
+			sys_consultation c on c.id = o.consultationid
+		left join 
+			sys_user_info u on u.id = o.create_by
+		where 
+			o.doctorid = #{id}
+		and 
+			o.del_flag = '0'
+		and 
+			c.del_flag = '0'
+		order by 
+			time desc
+		limit #{pageModel.start}, #{pageModel.end}
+	</select>
+	
+	<select id="queryConsultationCount" resultType="java.lang.Integer" parameterType="com.jeesite.modules.app.entity.DoctorInfo">
+		select
+			count(*)
+		from 
+			sys_consultation_order o
+		left join 
+			sys_consultation c on c.id = o.consultationid
+		left join 
+			sys_user_info u on u.id = o.create_by
+		where 
+			o.doctorid = #{id}
+		and 
+			o.del_flag = '0'
+		and 
+			c.del_flag = '0'
+	</select>
+	
+	<select id="findOrderCount" resultType="java.lang.Integer">
+		select count(*) from sys_consultation_order where del_flag='0' and doctorid=#{id}
+	</select>
+
+</mapper>

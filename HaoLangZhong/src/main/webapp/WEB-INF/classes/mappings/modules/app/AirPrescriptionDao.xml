@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.app.dao.AirPrescriptionDao">
+	
+	<!-- 查询数据
+	<select id="findList" resultType="AirPrescription">
+		SELECT ${sqlMap.column.toSql()}
+		FROM ${sqlMap.table.toSql()}
+		<where>
+			${sqlMap.where.toSql()}
+		</where>
+		ORDER BY ${sqlMap.order.toSql()}
+	</select> -->
+	<select id="getlistByPrescriptionIds"  resultType="hashmap" parameterType="hashmap">
+		SELECT ap.* ,COUNT(id) type_count, SUM(pay_price) type_total_price 
+		FROM 
+		sys_air_prescription  ap
+		<if test="list != null">
+			INNER JOIN 
+			 ( 
+			<trim suffixOverrides="UNION ALL" >
+				<foreach collection="list"  item="id">
+					SELECT #{id,jdbcType=VARCHAR}  ids
+					UNION ALL
+				</foreach>
+			</trim>
+			 ) du 
+			
+			 ON
+			ap.id=du.ids
+		</if>
+		GROUP BY  
+		ap.id
+	</select>
+	<insert id="insertAirPrescription" parameterType="com.jeesite.modules.app.entity.AirPrescription">
+	INSERT INTO 
+		sys_air_prescription 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+		
+		  	<if test="id != null" >
+				 	id,
+			</if>
+		  	<if test="content != null" >
+				 	content,
+			</if>
+		  	<if test="pic1 != null" >
+				 	pic1,
+			</if>
+		  	<if test="pic2 != null" >
+				 	pic2,
+			</if>
+		  	<if test="pic3 != null" >
+				 	pic3,
+			</if>
+		  	<if test="checkState != null" >
+				 	check_state,
+			</if>
+		  	<if test="userId != null" >
+				 	user_id,
+			</if>
+		  	<if test="payPrice != null" >
+				 	pay_price,
+			</if>
+		  	<if test="createDate != null" >
+				 	create_date,
+			</if>
+		  	<if test="updateDate != null" >
+				 	update_date,
+			</if>
+		  	<if test="remarks != null" >
+				 	remarks,
+			</if>
+		  	<if test="createBy != null" >
+				 	create_by,
+			</if>
+		  	<if test="updateBy != null" >
+				 	update_by,
+			</if>
+		  	<if test="delFlag != null" >
+				 	del_flag,
+			</if>
+		
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="id != null" >
+				 	#{id,jdbcType=BIGINT},
+			</if>
+		  	<if test="content != null" >
+				 	#{content,jdbcType=VARCHAR},
+			</if>
+		  	<if test="pic1 != null" >
+				 	#{pic1,jdbcType=VARCHAR},
+			</if>
+		  	<if test="pic2 != null" >
+				 	#{pic2,jdbcType=VARCHAR},
+			</if>
+		  	<if test="pic3 != null" >
+				 	#{pic3,jdbcType=VARCHAR},
+			</if>
+		  	<if test="checkState != null" >
+				 	#{checkState,jdbcType=VARCHAR},
+			</if>
+		  	<if test="userId != null" >
+				 	#{userId,jdbcType=VARCHAR},
+			</if>
+		  	<if test="payPrice != null" >
+				 #{payPrice,jdbcType=VARCHAR},
+			</if>
+		  	<if test="createDate != null" >
+				 	NOW(),
+			</if>
+		  	<if test="updateDate != null" >
+				 	NOW(),
+			</if>
+		  	<if test="remarks != null" >
+				 	#{remarks,jdbcType=VARCHAR},
+			</if>
+		  	<if test="createBy != null" >
+				 	#{createBy,jdbcType=VARCHAR},
+			</if>
+		  	<if test="updateBy != null" >
+				 	#{updateBy,jdbcType=VARCHAR},
+			</if>
+		  	<if test="delFlag != null" >
+				 	#{delFlag,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	
+	</insert>
+	
+</mapper>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.app.dao.UserInfoDao">
+	<select id="getByshareCode" resultType="hashmap" parameterType="hashmap">
+		select sui.* from sys_user_info as sui
+		inner join 
+		sys_user_share sus
+		on sus.user_id=sui.id
+		 where sus.share_code=#{shareCode,jdbcType=VARCHAR} and sui.del_flag="0"   limit 1
+	</select>
+	<update id="updateIsInviteByMobile"  parameterType="hashmap">
+		UPDATE 
+	 	`sys_user_info` 
+		SET
+	  	`update_date` = now(),
+	  	`is_invite` = #{isInvite,jdbcType=VARCHAR} 
+		WHERE `mobile` = #{mobile,jdbcType=VARCHAR}
+	</update>
+	<select id="getByMobile" resultType="hashmap" parameterType="hashmap">
+		select * from sys_user_info where mobile=#{mobile,jdbcType=VARCHAR} and del_flag="0"   limit 1
+	</select>
+	
+	<select id="findUserInfo" resultType="hashmap">
+		select * from sys_user_info where id=#{id}
+	</select>
+	
+	<update id="saveUserInfo" parameterType="hashmap">
+		update sys_user_info
+	    <set>
+			<if test="nike_name != null">nike_name=#{nike_name},</if>
+			<if test="icon != null">icon=#{icon}</if>
+	    </set>
+		where id=#{id}
+	</update>
+	
+	<insert id="saveDoctorInfo" parameterType="hashmap"> 
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">
+			select replace(uuid(),'-','') from dual		
+		</selectKey>
+		insert into sys_doctor_info (
+			id,
+			doctorid,
+			name,
+			telephone,
+			idcard, 
+			adress,
+			create_date,
+			del_flag
+		)
+		values (
+			#{id,jdbcType=VARCHAR},
+			#{doctorid,jdbcType=VARCHAR},
+			#{name,jdbcType=VARCHAR},
+			#{telephone,jdbcType=VARCHAR},
+			#{idcard,jdbcType=VARCHAR},
+			#{adress,jdbcType=VARCHAR},
+			#{create_date,jdbcType=VARCHAR},
+			#{del_flag,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<insert id="saveDoctorPic" parameterType="hashmap"> 
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">
+			select replace(uuid(),'-','') from dual		
+		</selectKey>
+		insert into sys_doctor_pic (
+			id,
+			doctorid,
+			certificate1,
+			certificate2,
+			certificate3, 
+			create_date,
+			del_flag
+		)
+		values (
+			#{id,jdbcType=VARCHAR},
+			#{doctorid,jdbcType=VARCHAR},
+			#{certificate1,jdbcType=VARCHAR},
+			#{certificate2,jdbcType=VARCHAR},
+			#{certificate3,jdbcType=VARCHAR},
+			#{create_date,jdbcType=VARCHAR},			
+			#{del_flag,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<update id="updateDoctorInfo" parameterType="hashmap">
+		update sys_doctor_info
+	    <set>
+			<if test="technical != null">technical=#{technical},</if>
+			<if test="classify != null">classify=#{classify},</if>
+			<if test="introduce != null">introduce=#{introduce}</if>
+	    </set>
+		where doctorid=#{doctorid}
+	</update>
+	
+	<update id="deleteDoctorLable" parameterType="String"> 
+		update sys_doctor_label_item set del_flag = '1' where doctorid=#{doctorid}
+	</update>
+	
+	<insert id="saveDoctorLable" parameterType="java.util.List"> 
+		insert into sys_doctor_label_item (
+			id,
+			doctorid,
+			labelid,
+			create_date, 
+			del_flag
+		)
+		values 
+		<foreach collection="list" item="item" index="index" separator=",">
+       	(
+			(SELECT REPLACE(UUID(), '-', '') AS id),
+			#{item.doctorid,jdbcType=VARCHAR},
+			#{item.labelid,jdbcType=VARCHAR},
+			#{item.create_date,jdbcType=INTEGER}, 
+			#{item.del_flag,jdbcType=VARCHAR}
+		)
+        </foreach>
+	</insert>
+	
+	<update id="updateDoctorPic" parameterType="hashmap">
+		update sys_doctor_pic
+	    <set>
+	      <if test="introducepic1 != null">introducepic1=#{introducepic1},</if>
+	      <if test="introducepic2 != null">introducepic2=#{introducepic2},</if>
+	      <if test="introducepic3 != null">introducepic3=#{introducepic3},</if>
+	      <if test="introducevideo != null">introducevideo=#{introducevideo}</if>	    
+	    </set>
+	  	where doctorid=#{doctorid}
+	</update>
+	
+</mapper>

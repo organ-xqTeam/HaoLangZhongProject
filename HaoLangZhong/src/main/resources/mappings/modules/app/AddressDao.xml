@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.app.dao.AddressDao">
+	
+	<!-- 查询数据
+	<select id="findList" resultType="Address">
+		SELECT ${sqlMap.column.toSql()}
+		FROM ${sqlMap.table.toSql()}
+		<where>
+			${sqlMap.where.toSql()}
+		</where>
+		ORDER BY ${sqlMap.order.toSql()}
+	</select> -->
+	<insert id="insertAddress"  parameterType="hashmap">
+	INSERT INTO 
+		sys_address 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+		  	<if test="id != null" >
+				 	id,
+			</if>
+			<if test="userId != null" >
+				 	user_id,
+			</if>
+			<if test="realName != null" >
+				 	real_name,
+			</if>
+			<if test="phone != null" >
+				 	phone,
+			</if>
+			<if test="phone2 != null" >
+				 	phone2,
+			</if>
+			<if test="province != null" >
+				 	province,
+			</if>
+			<if test="city != null" >
+				 	city,
+			</if>
+			<if test="area != null" >
+				 	area,
+			</if>
+			<if test="street != null" >
+				 	street,
+			</if>
+			<if test="zip != null" >
+				 	zip,
+			</if>
+			<if test="isDefault != null" >
+				 	is_default,
+			</if>
+
+			<if test="createDate != null" >
+				 	create_date,
+			</if>
+			<if test="updateDate != null" >
+				 	update_date,
+			</if>
+			<if test="createBy != null" >
+				 	create_by,
+			</if>
+			<if test="updateBy != null" >
+				 	update_by,
+			</if>
+			<if test="remarks != null" >
+				 	remarks,
+			</if>
+			<if test="delFlag != null" >
+				 	del_flag,
+			</if>		
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="id != null" >
+				 	#{id,jdbcType=BIGINT},
+			</if>
+
+			<if test="userId != null" >
+				 	#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="realName != null" >
+				 	#{realName,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null" >
+				 	#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="phone2 != null" >
+				 	#{phone2,jdbcType=VARCHAR},
+			</if>
+			<if test="province != null" >
+				 	#{province,jdbcType=VARCHAR},
+			</if>
+			<if test="city != null" >
+				 	#{city,jdbcType=VARCHAR},
+			</if>
+			<if test="area != null" >
+				 	#{area,jdbcType=VARCHAR},
+			</if>
+			<if test="street != null" >
+				    #{street,jdbcType=VARCHAR},
+			</if>
+			<if test="zip != null" >
+				 	 #{zip,jdbcType=VARCHAR},
+			</if>
+			<if test="isDefault != null" >
+				 	 #{isDefault,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null" >
+				 	NOW(),
+			</if>
+			<if test="updateDate != null" >
+				 	NOW(),
+			</if>
+			<if test="createBy != null" >
+				 	 #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateBy != null" >
+				 	#{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks != null" >
+				 	#{remarks,jdbcType=VARCHAR},,
+			</if>
+			<if test="delFlag != null" >
+				 	#{delFlag,jdbcType=VARCHAR},
+			</if>
+		  	
+		</trim>
+	</insert>
+	<update id="updateIsDefaultByUserId" parameterType="hashmap">
+		UPDATE 
+	  `sys_address` 
+		SET
+		  `is_default` = '0'
+		where
+		 `user_id` = #{userId,jdbcType=VARCHAR}
+	</update>
+	<!--  -->
+	<select id="showAddressByUserId"  parameterType="hashmap" resultType="hashmap">
+		SELECT 
+		  * 
+		FROM
+		  `sys_address` 
+		  WHERE 
+		  user_id=#{userId,jdbcType=VARCHAR}
+		  and
+		  del_flag="0"
+	</select>
+	<!-- 将单独的addressId 的 isDefault更新成1 -->
+	<update id="updateIsDefault1ById" parameterType="hashmap">
+		UPDATE 
+	  `sys_address` 
+		SET
+		  `is_default` = '1'
+		where
+		 `id` = #{addressId,jdbcType=VARCHAR}
+	</update>
+	<!-- 删除地址(软删除) -->
+	<update id="delAddress" parameterType="hashmap">
+		UPDATE 
+	  `sys_address` 
+		SET
+		  `del_flag` = '1'
+		where
+		 `id` = #{addressId,jdbcType=VARCHAR}
+	</update>
+	<!-- 通过addressId 更新地址信息 -->
+	<update  id="updateAddress" parameterType="hashmap">
+	UPDATE 
+		 `sys_address` 
+			<trim prefix="SET" suffixOverrides="," >
+				<if test="userId != null" >
+					 	user_id=#{userId,jdbcType=VARCHAR},
+				</if>
+				<if test="realName != null" >
+					 	real_name=#{realName,jdbcType=VARCHAR},
+				</if>
+				<if test="phone != null" >
+					 	phone=#{phone,jdbcType=VARCHAR},
+				</if>
+				<if test="phone2 != null" >
+					 	phone2=#{phone2,jdbcType=VARCHAR},
+				</if>
+				<if test="province != null" >
+					 	province=#{province,jdbcType=VARCHAR},
+				</if>
+				<if test="city != null" >
+					 	city=#{city,jdbcType=VARCHAR},
+				</if>
+				<if test="area != null" >
+					 	area=#{area,jdbcType=VARCHAR},
+				</if>
+				<if test="street != null" >
+					    street=#{street,jdbcType=VARCHAR},
+				</if>
+				<if test="zip != null" >
+					 	 zip=#{zip,jdbcType=VARCHAR},
+				</if>
+				<if test="isDefault != null" >
+					 	 is_default=#{isDefault,jdbcType=VARCHAR},
+				</if>
+				<if test="createDate != null" >
+					 	create_date=NOW(),
+				</if>
+				<if test="updateDate != null" >
+					 	update_date=NOW(),
+				</if>
+				<if test="createBy != null" >
+					 	 create_by=#{createBy,jdbcType=VARCHAR},
+				</if>
+				<if test="updateBy != null" >
+					 	update_by=#{updateBy,jdbcType=VARCHAR},
+				</if>
+				<if test="remarks != null" >
+					 	remarks=#{remarks,jdbcType=VARCHAR},,
+				</if>
+				<if test="delFlag != null" >
+					 	del_flag=#{delFlag,jdbcType=VARCHAR},
+				</if>
+			</trim>
+		where 
+			id= #{addressId,jdbcType=VARCHAR}
+	</update>	
+	<!-- 通过主键查找唯一地址 -->
+	<select id="showAddressByPrimary"  parameterType="hashmap" resultType="hashmap">
+		SELECT 
+		  * 
+		FROM
+		`sys_address` 
+		WHERE 
+		id=#{addressId,jdbcType=VARCHAR}
+		and
+		del_flag="0"
+		limit 1
+	</select>
+	<!-- 得到此用户的默认收货地址 -->
+	<select id="showAddressDefaultByUserId"  parameterType="hashmap" resultType="hashmap">
+		<if test="addressId == null" >
+			SELECT 
+			  * 
+			FROM
+			`sys_address` 
+			WHERE 
+			is_default="1"
+			and
+			del_flag="0"
+			and
+			user_id=#{userId,jdbcType=VARCHAR}
+			limit 1
+		</if>
+		<if test="addressId != null" >
+			SELECT 
+			  * 
+			FROM
+			`sys_address` 
+			WHERE 
+			id=#{addressId,jdbcType=VARCHAR}
+			and
+			del_flag="0"
+			and
+			user_id=#{userId,jdbcType=VARCHAR}
+			limit 1
+		</if>
+	</select>
+</mapper>

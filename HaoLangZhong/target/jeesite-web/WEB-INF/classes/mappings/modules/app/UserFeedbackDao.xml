@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.app.dao.UserFeedbackDao">
+	
+	<insert id="saveFeedback" parameterType="hashmap"> 
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">
+			select replace(uuid(),'-','') from dual		
+		</selectKey>
+		insert into sys_user_feedback (
+			id,
+			userid,
+			content,
+			pics,
+			create_date, 
+			del_flag
+		)
+		values (
+			#{id,jdbcType=VARCHAR},
+			#{userid,jdbcType=VARCHAR},
+			#{content,jdbcType=VARCHAR},
+			#{pics,jdbcType=VARCHAR},
+			#{create_date,jdbcType=VARCHAR},
+			#{del_flag,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+</mapper>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.app.dao.UserShareDao">
+	
+	<!-- 查询数据
+	<select id="findList" resultType="UserShare">
+		SELECT ${sqlMap.column.toSql()}
+		FROM ${sqlMap.table.toSql()}
+		<where>
+			${sqlMap.where.toSql()}
+		</where>
+		ORDER BY ${sqlMap.order.toSql()}
+	</select> -->
+	<insert id="insertUserShareMap"  parameterType="hashmap">
+		INSERT INTO `sys_user_share`
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+  	
+  			<if test="shareCode != null" >
+				 share_code,
+			</if>
+  			<if test="userId != null" >
+				 user_id,
+			</if>
+  			<if test="isUse != null" >
+				 is_use,
+			</if>
+  			<if test="sharePrice != null" >
+				 share_price,
+			</if>
+  			<if test="createDate != null" >
+				 create_date,
+			</if>
+  			<if test="updateDate != null" >
+				 update_date,
+			</if>
+  			<if test="createBy != null" >
+				 create_by,
+			</if>
+  			<if test="updateBy != null" >
+				 update_by,
+			</if>
+  			<if test="delFlag != null" >
+				 del_flag,
+			</if>
+		</trim> 
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="shareCode != null" >
+				 #{shareCode,jdbcType=VARCHAR},
+			</if>
+  			<if test="userId != null" >
+				#{userId,jdbcType=VARCHAR},
+			</if>
+  			<if test="isUse != null" >
+				#{isUse,jdbcType=VARCHAR},
+			</if>
+  			<if test="sharePrice != null" >
+				 #{sharePrice,jdbcType=VARCHAR},
+			</if>
+  			<if test="createDate != null" >
+				 NOW(),
+			</if>
+  			<if test="updateDate != null" >
+				  NOW(),
+			</if>
+  			<if test="createBy != null" >
+				  #{createBy,jdbcType=VARCHAR},
+			</if>
+  			<if test="updateBy != null" >
+				 #{updateBy,jdbcType=VARCHAR},
+			</if>
+  			<if test="delFlag != null" >
+				 #{delFlag,jdbcType=VARCHAR},
+			</if>
+			
+	
+  	
+		</trim>
+		  
+		
+
+	</insert>
+	
+</mapper>

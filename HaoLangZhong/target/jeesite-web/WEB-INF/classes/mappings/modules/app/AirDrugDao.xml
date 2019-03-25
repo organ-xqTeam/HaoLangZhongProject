@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.app.dao.AirDrugDao">
+	
+	<!-- 查询数据
+	<select id="findList" resultType="AirDrug">
+		SELECT ${sqlMap.column.toSql()}
+		FROM ${sqlMap.table.toSql()}
+		<where>
+			${sqlMap.where.toSql()}
+		</where>
+		ORDER BY ${sqlMap.order.toSql()}
+	</select> -->
+	<select id="getAirDrugFirstList" resultType="hashmap" parameterType="com.jeesite.modules.app.entity.AirDrug">
+		SELECT ad.*,adl.name as lname FROM sys_air_drug ad
+		LEFT JOIN 
+		sys_air_drug_relation_label  adrl
+		on 
+		adrl.drug_id=ad.id
+		LEFT JOIN 
+		sys_air_drug_label adl
+		on 
+		adrl.drug_label_id=adl.id
+		<trim prefix=" where "  suffixOverrides=" and"> 
+			<if test="firstFlag !=null">
+			 	ad.first_flag=#{firstFlag,jdbcType=VARCHAR}  and
+			</if>
+			 ad.del_flag=0 
+		</trim>
+		<trim prefix=" ORDER BY " >
+			ad.update_date DESC
+		</trim>
+		<if test="limit !=null">
+			 	limit ${limit}
+		</if>
+	</select>
+	<!-- 通过搜索内容进行各种关键词模糊查询药品 -->
+	<select id="queryListLike" resultType="hashmap" parameterType="hashmap">
+		SELECT ad.*,IFNULL(COUNT(adc.id),0) AS `comment_count` FROM sys_air_drug  ad
+ 		LEFT JOIN 
+		`sys_air_drug_comment`  adc
+		ON 
+		adc.`drug_id`=ad.`id`
+		<trim prefix=" where " suffixOverrides=" and">
+			<if test="drugSearchLike !=null" >
+				(
+				ad.name LIKE #{drugSearchLike,jdbcType=VARCHAR}
+				OR
+				ad.memo LIKE #{drugSearchLike,jdbcType=VARCHAR}
+				OR
+				ad.remarks LIKE #{drugSearchLike,jdbcType=VARCHAR}
+				OR
+				ad.drug_code LIKE #{drugSearchLike,jdbcType=VARCHAR}
+				OR
+				ad.drug_ln LIKE #{drugSearchLike,jdbcType=VARCHAR} 
+				) and
+			</if>
+			 ad.del_flag=0 
+		</trim>
+		GROUP BY ad.`id`
+		<trim prefix=" ORDER BY " >
+			<if test="drugSearchLike !=null">
+				ad.name LIKE #{drugSearchLike,jdbcType=VARCHAR}  DESC,
+				ad.drug_ln LIKE #{drugSearchLike,jdbcType=VARCHAR} DESC,
+				ad.memo LIKE #{drugSearchLike,jdbcType=VARCHAR}  DESC,
+				ad.remarks LIKE #{drugSearchLike,jdbcType=VARCHAR} DESC,
+				ad.drug_code LIKE #{drugSearchLike,jdbcType=VARCHAR} DESC,
+			</if>
+			update_date DESC
+		</trim>
+		<trim prefix=" limit " >
+			<if test="pageModel != null">
+			  #{pageModel.start}, #{pageModel.end}
+			</if>
+		</trim>
+	</select>
+	<!-- 通过id获得商品基本信息信息和库存-->
+	<select id="findOneAirDrugAndInventoryById" resultType="hashmap" parameterType="com.jeesite.modules.app.entity.AirDrug">
+		SELECT 
+		ad.* ,  adi.`drug_count`#库存数量
+		FROM `sys_air_drug`  AS ad
+		LEFT JOIN  `sys_air_drug_inventory` adi #库存表
+		ON ad.`drug_inventory_id`=adi.`id`
+		WHERE ad.id =#{id,jdbcType=VARCHAR} AND ad.del_flag=0 
+	</select>
+	<!-- 通过药品id获取此药品的类别显示出相关推荐的药品  drugId -->
+	<select id="findCommendAirDrugListBydrugId" resultType="hashmap" parameterType="hashmap">
+	 SELECT 
+		ad.* 
+		FROM `sys_air_drug` ad
+		INNER JOIN 
+		`sys_air_drug_relation_category` drc #类别与药品关系表
+		ON ad.`id`=drc.`drug_id`
+		INNER JOIN 
+		`sys_air_drug_category` dc
+		ON dc.`id`=drc.`category_id`
+		WHERE 
+		dc.`id`IN 
+		(
+			SELECT 
+			dc1.`id`
+			FROM 
+			 `sys_air_drug` ad1
+			INNER JOIN 
+			`sys_air_drug_relation_category` drc1 #类别与药品关系表
+			ON ad1.`id`=drc1.`drug_id`
+			INNER JOIN 
+			`sys_air_drug_category` dc1 #类别表
+			ON dc1.`id`=drc1.`category_id`
+			WHERE 	
+			ad1.`id`= #{drugId,jdbcType=VARCHAR}
+			AND
+			ad1.del_flag=0 
+			GROUP BY dc1.`id`
+			 
+		)
+		AND 
+		ad.id !=  #{drugId,jdbcType=VARCHAR} 
+		AND
+	    ad.del_flag=0 
+		ORDER BY  ad.first_flag = "1" DESC , ad.update_date DESC
+		<trim prefix=" limit " >
+			<if test="pageModel != null">
+			  #{pageModel.start}, #{pageModel.end}
+			</if>
+		</trim>
+	</select>
+	<select id="findAirDrugSearch"  resultType="hashmap" parameterType="hashmap">
+			SELECT 
+			  ad.`id`,
+			  ad.`name`,
+			  ad.`memo`,
+			  ad.`pay_price`,
+			  ad.`pic1`,
+			  ad.`drug_inventory_id`,
+			  ad.`del_flag`,
+			  ad.`first_flag`,
+			  ad.`create_date`,
+			  ad.`create_by`,
+			  ad.`update_date`,
+			  ad.`update_by`,
+			  ad.`remarks`,
+			  ad.`drug_code`,
+			  ad.`drug_ln`,
+			  IFNULL(COUNT(adc.id),0) AS `comment_count`
+			FROM
+			  `sys_air_drug`  ad
+			 LEFT JOIN 
+			 `sys_air_drug_comment`  adc
+			 ON 
+			 adc.`drug_id`=ad.`id`
+			 <if test="categoryId !=null" >
+				 INNER JOIN `sys_air_drug_relation_category` drc #类别关系表
+				 ON
+				  drc.`drug_id`=ad.`id`
+				 INNER JOIN `sys_air_drug_category` dc #类别表 
+				 ON
+				 dc.`id`=drc.`category_id`
+			</if>
+		 <trim prefix=" where " suffixOverrides=" and " >
+			 <if test="searchParam !=null" >
+					(
+					ad.name LIKE #{searchParam,jdbcType=VARCHAR}
+					OR
+					ad.memo LIKE #{searchParam,jdbcType=VARCHAR}
+					OR
+					ad.remarks LIKE #{searchParam,jdbcType=VARCHAR}
+					OR
+					ad.drug_code LIKE #{searchParam,jdbcType=VARCHAR}
+					OR
+					ad.drug_ln LIKE #{searchParam,jdbcType=VARCHAR}
+					)
+					and
+			</if>
+			<if test="categoryId !=null" >
+				dc.`id`=#{categoryId,jdbcType=VARCHAR}
+				and
+			</if>
+	    		ad.del_flag=0 
+		</trim>
+		
+
+ 		 GROUP BY ad.`id`
+ 		 ORDER BY 
+ 		 <if test="searchParam !=null" >
+ 		 			ad.name LIKE #{searchParam,jdbcType=VARCHAR} DESC,
+					ad.drug_ln LIKE #{searchParam,jdbcType=VARCHAR} DESC,
+					ad.memo LIKE #{searchParam,jdbcType=VARCHAR}  DESC,
+					ad.remarks LIKE #{searchParam,jdbcType=VARCHAR} DESC,
+					ad.drug_code LIKE #{searchParam,jdbcType=VARCHAR} DESC,
+					
+ 		 </if>
+ 		  ad.first_flag = "1" DESC , ad.update_date   DESC
+		<trim prefix=" limit " >
+			<if test="pageModel != null">
+			  #{pageModel.start}, #{pageModel.end}
+			</if>
+		</trim>
+	</select>
+	<!-- 通过drudIds们找到药品列表 -->
+	<select id="getlistByDrudIds"  resultType="hashmap" parameterType="java.util.List">
+	SELECT ad.*,COUNT(id) type_count, SUM(pay_price) type_total_price   FROM  sys_air_drug ad
+		<if test="list != null">
+			INNER JOIN 
+			 ( 
+			<trim suffixOverrides="UNION ALL" >
+				<foreach collection="list"  item="id">
+					SELECT #{id,jdbcType=VARCHAR}  ids
+					UNION ALL
+				</foreach>
+			</trim>
+			 ) du 
+			
+			 ON
+			ad.id=du.ids
+		</if>
+		GROUP BY  
+		ad.id
+	</select>
+	
+</mapper>

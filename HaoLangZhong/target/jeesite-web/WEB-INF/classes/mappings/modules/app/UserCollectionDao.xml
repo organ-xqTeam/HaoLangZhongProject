@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.app.dao.UserCollectionDao">
+	
+	<select id="queryDoctorList" resultType="hashmap" parameterType="com.jeesite.modules.app.entity.UserCollection">
+		select 
+			u.id as 'id',
+			u.icon as 'icon',
+			d.name as 'name',
+			d.cost as 'cost',
+			(select GROUP_CONCAT(content) from sys_doctor_label where del_flag='0' and type='3' and id in (select labelid from sys_doctor_label_item where doctorid=u.id and del_flag='0')) as 'label',
+			(select count(*) from sys_consultation_order where doctorid=u.id and orderstate='8' and del_flag='0') as 'consultation_times',
+			(select sum(total) from sys_doctor_gift_order where doctorid=u.id and del_flag='0' and orderstate='2') as 'gifts'
+		from 
+			sys_user_info u
+		left join 
+			sys_doctor_info d on u.id = d.doctorid
+		WHERE
+			u.id in ( SELECT collectionid FROM sys_user_collection WHERE userid = #{userid} and type='6' and del_flag='0' )
+		and 
+			u.del_flag = '0'
+		and
+			d.del_flag = '0'
+		limit #{pageModel.start}, #{pageModel.end}
+	</select>
+	
+	<select id="queryDoctorCount" resultType="java.lang.Integer" parameterType="com.jeesite.modules.app.entity.UserCollection">
+		select 
+			count(*)
+		from 
+			sys_user_info u
+		left join 
+			sys_doctor_info d on u.id = d.doctorid
+		WHERE
+			u.id in ( SELECT collectionid FROM sys_user_collection WHERE userid = #{userid} and type='6' and del_flag='0' )
+		and 
+			u.del_flag = '0'
+		and
+			d.del_flag = '0'
+	</select>
+	
+	<select id="queryArticleList" resultType="hashmap" parameterType="com.jeesite.modules.app.entity.UserCollection">
+		select 
+			*
+		from 
+			sys_article_info 
+		WHERE
+			id in ( SELECT collectionid FROM sys_user_collection WHERE userid = #{userid} and type=#{type} and del_flag='0' )
+		and 
+			del_flag = '0'
+		limit #{pageModel.start}, #{pageModel.end}
+	</select>
+	
+	<select id="queryArticleCount" resultType="java.lang.Integer" parameterType="com.jeesite.modules.app.entity.UserCollection">
+		select 
+			count(*)
+		from 
+			sys_article_info 
+		WHERE
+			id in ( SELECT collectionid FROM sys_user_collection WHERE userid = #{userid} and type=#{type} and del_flag='0' )
+		and 
+			del_flag = '0'
+	</select>
+	
+	<insert id="saveUserCollection" parameterType="hashmap"> 
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">
+			select replace(uuid(),'-','') from dual		
+		</selectKey>
+		insert into sys_user_collection (
+			id,
+			userid,
+			collectionid,
+			type,
+			create_date, 
+			del_flag
+		)
+		values (
+			#{id,jdbcType=VARCHAR},
+			#{userid,jdbcType=VARCHAR},
+			#{collectionid,jdbcType=VARCHAR},
+			#{type,jdbcType=VARCHAR},
+			#{create_date,jdbcType=VARCHAR},
+			#{del_flag,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<update id="cancelCollection">
+		update 
+			sys_user_collection
+	    set
+	    	del_flag = '1'
+		where 
+			userid=#{userid}
+		and 
+			collectionid=#{collectionid}
+	</update>
+	
+</mapper>
