@@ -209,6 +209,10 @@
 			     .then((res) => {
 			    	 console.log(res)
 			    	 var addressMap=res.data.addressMap;
+			    	 if(addressMap==null||addressMap.real_name==null){
+			    		 alert("请先填写地址,");
+			    		 window.location.href="editAddress.html";
+			    	 }
 			    	 $(".topWrap").append(`
 			    			  <img src="static/images/gouwuche-weizhi.png" class="img100"/>
 			    			  <div class="rightWrap">
