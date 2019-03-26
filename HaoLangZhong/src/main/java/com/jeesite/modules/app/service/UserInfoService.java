@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.alibaba.fastjson.JSONObject;
 import com.jeesite.modules.app.dao.UserInfoDao;
 import com.jeesite.modules.app.utils.DateUtil;
 
@@ -112,7 +114,17 @@ public class UserInfoService {
 			picMap.put("introducevideo", requestMap.get("introducevideo").toString());
 			userInfoDao.updateDoctorPic(picMap);
 		}
-		
+	}
+	
+	/**
+	 * 获取医生个人信息
+	 * */
+	@Transactional(readOnly=false)
+	public JSONObject findDoctorInfo(String id) {
+		JSONObject result = new JSONObject();
+		result.put("doctorInfo", userInfoDao.findDoctorInfo(id));
+		result.put("doctorPic", userInfoDao.findDoctorPic(id));
+		return result;
 	}
 	
 }

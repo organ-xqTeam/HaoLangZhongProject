@@ -39,7 +39,7 @@ public class DoctorGiftOrderController extends BaseController {
 		try {
 			TokenTools.checkToken(requestMap.get("token").toString(), redis);
 			doctorGiftOrderService.sendGift(requestMap);
-			return Result.success(true);
+			return Result.success(requestMap);
 		}
 		catch (RedisCheckException e2) {
 			logger.error(e2.getMessage(), e2);

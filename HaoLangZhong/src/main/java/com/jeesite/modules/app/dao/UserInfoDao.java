@@ -14,6 +14,10 @@ public interface UserInfoDao {
 	
 	Map<String, Object> findUserInfo(String id);
 	
+	Map<String, Object> findDoctorInfo(String id);
+	
+	List<Map<String, Object>> findDoctorPic(String id);
+	
 	int saveDoctorInfo(Map<String, Object> params);
 	
 	int saveDoctorPic(Map<String, Object> params);

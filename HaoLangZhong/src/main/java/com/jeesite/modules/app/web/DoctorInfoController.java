@@ -162,5 +162,51 @@ public class DoctorInfoController extends BaseController {
 			return Result.error(CodeMsg.PARAMETER_ISNULL);
 		}
 	}
+	
+	/**
+	 * 查询医生钱包明细列表
+	 * */
+	@ResponseBody
+	@RequestMapping(value = "/queryIncomeList")
+	public Result queryIncomeList(@RequestBody DoctorInfo requestParams) {
+		try {
+			TokenTools.checkToken(requestParams.getToken(), redis);
+			PageModel pageModel = new PageModel(requestParams.getPageNum(), requestParams.getPageSize());
+			requestParams.setPageModel(pageModel);
+			List<Map<String, Object>> resultList = doctorInfoService.queryIncomeList(requestParams);
+			JSONObject result = new JSONObject();
+			result.put("items", resultList);
+			result.put("count", doctorInfoService.queryIncomeCount(requestParams));
+			return Result.success(result);
+		}
+		catch (RedisCheckException e2) {
+			logger.error(e2.getMessage(), e2);
+			return Result.error(CodeMsg.TOKEN_INVALID);
+		}
+		catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return Result.error(CodeMsg.PARAMETER_ISNULL);
+		}
+	}
+	
+	/**
+	 * 查询医生钱包余额
+	 * */
+	@ResponseBody
+	@RequestMapping(value = "/queryIncomeSum")
+	public Result queryIncomeSum(@RequestBody DoctorInfo requestParams) {
+		try {			
+			TokenTools.checkToken(requestParams.getToken(), redis);
+			return Result.success(doctorInfoService.queryIncomeSum(requestParams));
+		}
+		catch (RedisCheckException e2) {
+			logger.error(e2.getMessage(), e2);
+			return Result.error(CodeMsg.TOKEN_INVALID);
+		}
+		catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return Result.error(CodeMsg.PARAMETER_ISNULL);
+		}
+	}
 
 }

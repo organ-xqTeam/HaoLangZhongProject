@@ -24,6 +24,8 @@ public class DoctorGiftOrderService {
 	 * */
 	@Transactional(readOnly=false)
 	public int sendGift(Map<String, Object> requestParams) {
+		requestParams.put("orderstate", "1");
+		requestParams.put("paytype", "4");
 		requestParams.put("create_date", DateUtil.getSysTime1());
 		requestParams.put("del_flag", "0");
 		return doctorGiftOrderDao.sendGift(requestParams);

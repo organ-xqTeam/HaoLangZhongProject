@@ -107,4 +107,28 @@ public class DoctorInfoService {
 		return doctorInfoDao.findOrderCount(id);
 	}
 	
+	/**
+	 * 查询医生钱包明细列表
+	 * */
+	@Transactional(readOnly=false)
+	public List<Map<String, Object>> queryIncomeList(DoctorInfo requestParams) {
+		return doctorInfoDao.queryIncomeList(requestParams);
+	}
+	
+	/**
+	 * 查询医生钱包明细列表-count
+	 * */
+	@Transactional(readOnly=false)
+	public int queryIncomeCount(DoctorInfo requestParams) {
+		return doctorInfoDao.queryIncomeCount(requestParams);
+	}
+	
+	/**
+	 * 查询医生钱包余额
+	 * */
+	@Transactional(readOnly=false)
+	public double queryIncomeSum(DoctorInfo requestParams) {
+		return doctorInfoDao.queryIncomeSum(requestParams);
+	}
+	
 }

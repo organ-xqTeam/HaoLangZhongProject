@@ -10,6 +10,10 @@ public class DoctorInfo extends BaseEntity {
 	
 	private String id;
 	
+	private String hot;
+	
+	private String recommend;
+	
 	public List<String> getLabels() {
 		return labels;
 	}
@@ -32,6 +36,22 @@ public class DoctorInfo extends BaseEntity {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getHot() {
+		return hot;
+	}
+
+	public void setHot(String hot) {
+		this.hot = hot;
+	}
+
+	public String getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(String recommend) {
+		this.recommend = recommend;
 	}
 	
 }

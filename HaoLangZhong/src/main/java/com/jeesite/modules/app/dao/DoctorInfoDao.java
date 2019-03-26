@@ -39,4 +39,10 @@ public interface DoctorInfoDao {
 	
 	int findOrderCount(@Param("id") String id);
 	
+	List<Map<String, Object>> queryIncomeList(DoctorInfo params);
+	
+	int queryIncomeCount(DoctorInfo params);
+	
+	double queryIncomeSum(DoctorInfo params);
+	
 }

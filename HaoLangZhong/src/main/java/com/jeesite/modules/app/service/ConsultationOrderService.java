@@ -59,6 +59,8 @@ public class ConsultationOrderService {
 		order.put("num", OrderCodeFactory.getOrderCode(1L));
 		order.put("doctorid", requestModel.get("doctorid"));
 		order.put("consultationid", requestModel.get("id"));
+		order.put("orderstate", "1");
+		order.put("paytype", "4");
 		order.put("amount", requestModel.get("amount"));
 		order.put("create_by", requestModel.get("create_by"));
 		order.put("create_date", time);

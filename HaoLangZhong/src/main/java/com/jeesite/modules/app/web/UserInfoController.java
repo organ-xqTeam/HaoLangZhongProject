@@ -4,6 +4,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -79,6 +80,26 @@ public class UserInfoController extends BaseController {
 			TokenTools.checkToken(requestMap.get("token").toString(), redis);
 			userInfoService.saveDoctorInfo(requestMap);
 			return Result.success(true);			
+		}
+		catch (RedisCheckException e2) {
+			logger.error(e2.getMessage(), e2);
+			return Result.error(CodeMsg.TOKEN_INVALID);
+		}
+		catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return Result.error(CodeMsg.PARAMETER_ISNULL);
+		}
+	}
+	
+	/**
+	 * 获取医生的个人信息
+	 * */
+	@ResponseBody
+	@RequestMapping(value = "/getDoctorInfo/{id}/{token}")
+	public Result getDoctorInfo(@PathVariable String id, @PathVariable String token) {
+		try {
+			TokenTools.checkToken(token, redis);
+			return Result.success(userInfoService.findDoctorInfo(id));			
 		}
 		catch (RedisCheckException e2) {
 			logger.error(e2.getMessage(), e2);
