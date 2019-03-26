@@ -44,6 +44,9 @@ public class BasketService extends CrudService<BasketDao, Basket> {
 			 if(countL==0) {
 				 //通过userid插入一条购物车数据
 				 basketDao.insertBasketByUserId(parmMap);
+			 }else{
+				//如果不等于0 插入购物商品关系表
+				 basketDao.insertBasketDrugByUserIdAndDrudId(parmMap); 
 			 }
 			 
 		 }else {

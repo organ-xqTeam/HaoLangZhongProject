@@ -40,6 +40,13 @@ public class AddressService extends CrudService<AddressDao,Address> {
 				//将此用户下的地址isDefault全更新成0
 				addressDao.updateIsDefaultByUserId(parmMap);
 			}
+			Address address =new Address();
+			address.setUserId((String)parmMap.get("userId"));
+			Long addressCount= addressDao.findCount(address);
+			if(addressCount.intValue()==0) {
+				//如果此用户没有地址自动设成默认地址
+				parmMap.put("isDefault", "1");
+			}
 			addressDao.insertAddress(parmMap);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
