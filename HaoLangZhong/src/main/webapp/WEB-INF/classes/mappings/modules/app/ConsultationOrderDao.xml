@@ -23,8 +23,8 @@
 			#{num,jdbcType=VARCHAR},
 			#{doctorid,jdbcType=VARCHAR},
 			#{consultationid,jdbcType=INTEGER}, 
-			#{orderstate,jdbcType=VARCHAR},
-			#{paytype,jdbcType=VARCHAR},
+			'1',
+			'4',
 			#{amount,jdbcType=VARCHAR},
 			#{create_by,jdbcType=VARCHAR},
 			#{create_date,jdbcType=INTEGER}, 
@@ -36,6 +36,7 @@
 		update sys_consultation_order
 		<set>
 			<if test="orderstate != null">orderstate=#{orderstate},</if>
+			<if test="paytype != null">paytype=#{paytype},</if>
 			<if test="update_by != null">update_by=#{update_by},</if>
 			<if test="update_date != null">update_date=#{update_date}</if>
 	    </set>
