@@ -194,7 +194,7 @@
     </div>
     <div class="content_main">  
       <div class="user_content">
-        <div class="user_content_list">
+        <!-- <div class="user_content_list">
             <img src="static/images/head.png" class="touxiang"/>
             <div style="width:21em;">
               <div class="item_flex">
@@ -207,7 +207,7 @@
               <div >主要服务或者行医案例主要服务或者行医案例主要服务或者行医案例主要服务或者行医案例</div>
               <div class="foot_text">2018-11-22 22:10</div>
             </div>
-        </div>
+        </div> -->
       </div> 
     </div>     
 <script src="static/js/swiper.min.js"></script>
@@ -226,21 +226,21 @@ var swiper = new Swiper('.swiper-container', {
       var cookieStr=document.cookie.split(";")
       let userid=cookieStr[0].split("=")[1]
       let token=cookieStr[1].split("=")[1]
-      $.ajax({
-            type: "get",
-            // url: Global.api+"doctorInfo/findOneByDoctorid/0f2067603f1111e99752bcaec5595fa3/52af75fcf37249a997df6385d8344597",
-            url:Global.api+"doctorInfo/findOneByDoctorid/"+docid+"/"+token,
-            dataType:"json",
-            success: function (res) {
-              console.log(res)
-              let data=res.data.doctorInfo
-              $(".item_left span").text(data.name)
-              $(".introduce").text(data.introduce)
-            },
-            error: function (e) {
-              console.log(e)
-            }
-      })
+      // $.ajax({
+      //       type: "get",
+      //       // url: Global.api+"doctorInfo/findOneByDoctorid/0f2067603f1111e99752bcaec5595fa3/52af75fcf37249a997df6385d8344597",
+      //       url:Global.api+"doctorInfo/findOneByDoctorid/"+docid+"/"+token,
+      //       dataType:"json",
+      //       success: function (res) {
+      //         console.log(res)
+      //         let data=res.data.doctorInfo
+      //         $(".item_left span").text(data.name)
+      //         $(".introduce").text(data.introduce)
+      //       },
+      //       error: function (e) {
+      //         console.log(e)
+      //       }
+      // })
 
       let postdata=JSON.stringify({
           pageNum:"1",

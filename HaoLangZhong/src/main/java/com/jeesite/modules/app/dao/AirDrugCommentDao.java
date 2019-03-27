@@ -21,5 +21,7 @@ public interface AirDrugCommentDao extends CrudDao<AirDrugComment> {
 	List<Map> findAirDrugCommentListByGrugIdAndUserId(Map<String, Object> airDrugCommentParmMap);
 	/**通过 GrugId和UserId获取每个星级的数量 star_grade 星级 ,count数量*/
 	List<Map> findAirDrugCommentStarCountByGrugIdAndUserId(Map<String, Object> airDrugCommentParmMap);
+	/**通过订单id集体评价药品**/
+	void insertComment(Map parmMap);
 
 }

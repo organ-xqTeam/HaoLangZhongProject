@@ -190,24 +190,34 @@
  })
 </script>
 <script>
+var userId="";
+var token="";
+var addressId="";
+var orderId="";
 var pageObj={
     initEvent(){
-      $(".content_button").click(function(){
+	  token=Global.getCookie("token");
+	  userId=Global.getCookie("userid");
+	  orderId=Global.getParameter("orderId");
+	  console.log("userId:"+userId)
+	  console.log("token:"+token)
+	  console.log("orderId:"+orderId)
+      $(".content_buttonssssss").click(function(){
             var docid=window.location.href.split("?")[1].split("docid=")[1]
             var cookieStr=document.cookie.split(";")
             let userid=cookieStr[0].split("=")[1]
             let token=cookieStr[1].split("=")[1]
             //获取星星个数
-            var startnum=$(".stars1").length
-            console.log(startnum)
+            var startnum=$(".stars1").length;
+            console.log(startnum);
             let postdata=JSON.stringify({
                 userid:userid,
                 doctorid:docid,
                 content:$(".text").val(),
                 token:token,
                 start:startnum
-            })
-            console.log(postdata)
+            });
+            console.log(postdata);
            $.ajax({
                 type:"post", 
                 url:Global.api+"doctorComplaint/saveDoctorComplaint",
@@ -227,8 +237,27 @@ var pageObj={
       })  
     },
     submit(){
-    	alert("评价成功");
-    	window.location.href="airPharmacy.html";
+    	//获得星星书
+    	var startnum=$(".stars1").length
+    	//内容
+    	var content=$(".text").val()+"";
+    	let postdata=JSON.stringify({
+			 "token":token,
+			 "userId":userId,
+			 "orderId":orderId,
+			 "content":content,
+			 "startnum":startnum
+	      })
+    	Global.ajaxRequest(Global.api+"/basketController/evaluateOrder",postdata)
+	     .then((res) => {
+	    	 console.log(res)
+	    	 var code=res.data.code;
+	    	 if(code=="0"){
+	    	    alert("评价成功");
+	    	    window.location.href="airPharmacy.html";
+	    	 }
+	     })
+
     }
  }
  $(function(){

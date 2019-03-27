@@ -40,6 +40,25 @@
 		AND del_flag=0
 		GROUP BY star_grade
 	</select>
+	<!-- 通过订单id集体评价药品 -->
+	<insert id="insertComment" parameterType="hashmap">
+		INSERT INTO `sys_air_drug_comment` 
+		(
+		  `content`,
+		  `star_grade`,
+		  `user_id`,
+		  `create_date`,
+		  `drug_id`
+		) 
+		VALUES
+		  (
+		    #{content,jdbcType=VARCHAR},
+		    #{startnum,jdbcType=VARCHAR},
+		    #{userId,jdbcType=VARCHAR},
+		    NOW(),
+		    #{drugId,jdbcType=VARCHAR}
+		  ) 	
+	</insert>
 	
 	
 </mapper>
