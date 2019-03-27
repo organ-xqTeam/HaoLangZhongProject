@@ -51,9 +51,11 @@ public class ConsultationOrderService {
 				pic.put("del_flag", "0");
 				picList.add(pic);
 			}
+			if (picArray.size() > 0) {
+				consultationDao.saveConsultationPic(picList);
+				requestModel.put("pics", picList);
+			}
 		}
-		consultationDao.saveConsultationPic(picList);
-		requestModel.put("pics", picList);
 		// 处理咨询订单
 		Map<String, Object> order = new HashMap<String, Object>();
 		order.put("num", OrderCodeFactory.getOrderCode(1L));
