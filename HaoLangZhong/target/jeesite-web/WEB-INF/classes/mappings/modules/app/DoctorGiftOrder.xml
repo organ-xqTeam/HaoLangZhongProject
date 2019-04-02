@@ -33,6 +33,7 @@
 	<update id="updateGiftOrder" parameterType="hashmap">
 		update sys_doctor_gift_order
 		<set>
+			<if test="paytype != null">paytype=#{paytype},</if>
 			<if test="orderstate != null">orderstate=#{orderstate},</if>
 			<if test="update_by != null">update_by=#{update_by},</if>
 			<if test="update_date != null">update_date=#{update_date}</if>

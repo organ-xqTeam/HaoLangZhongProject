@@ -9,7 +9,7 @@
 			d.name as 'name',
 			d.cost as 'cost',
 			(select GROUP_CONCAT(content) from sys_doctor_label where del_flag='0' and type='3' and id in (select labelid from sys_doctor_label_item where doctorid=u.id and del_flag='0')) as 'label',
-			(select count(*) from sys_consultation_order where doctorid=u.id and orderstate='8' and del_flag='0') as 'consultation_times',
+			(select count(*) from sys_consultation_order where doctorid=u.id and orderstate='7' and del_flag='0') as 'consultation_times',
 			(select sum(total) from sys_doctor_gift_order where doctorid=u.id and del_flag='0' and orderstate='2') as 'gifts'
 		from 
 			sys_user_info u
@@ -92,7 +92,7 @@
 			d.name as 'name',
 			d.cost as 'cost',
 			(select GROUP_CONCAT(content) from sys_doctor_label where del_flag='0' and type='3' and id in (select labelid from sys_doctor_label_item where doctorid=u.id and del_flag='0')) as 'label',
-			(select count(*) from sys_consultation_order where doctorid=u.id and orderstate='8' and del_flag='0') as 'consultation_times',
+			(select count(*) from sys_consultation_order where doctorid=u.id and orderstate='7' and del_flag='0') as 'consultation_times',
 			(select sum(total) from sys_doctor_gift_order where doctorid=u.id and del_flag='0' and orderstate='2') as 'gifts'
 		from 
 			sys_user_info u
@@ -102,6 +102,12 @@
 			u.del_flag = '0'
 		and 
 			d.del_flag = '0'
+		<if test="hot != null ">
+	  		order by consultation_times ${hot}
+	  	</if>
+	  	<if test="recommend != null ">
+	  		order by gifts ${recommend}
+	  	</if>
 		limit #{pageModel.start}, #{pageModel.end}
 	</select>
 	
@@ -125,7 +131,7 @@
 			d.name as 'name',
 			d.cost as 'cost',
 			(select GROUP_CONCAT(content) from sys_doctor_label where del_flag='0' and type='3' and id in (select labelid from sys_doctor_label_item where doctorid=u.id and del_flag='0')) as 'label',
-			(select count(*) from sys_consultation_order where doctorid=u.id and orderstate='8' and del_flag='0') as 'consultation_times',
+			(select count(*) from sys_consultation_order where doctorid=u.id and orderstate='7' and del_flag='0') as 'consultation_times',
 			(select sum(total) from sys_doctor_gift_order where doctorid=u.id and del_flag='0' and orderstate='2') as 'gifts',
 			(select count(*) from sys_doctor_comment where doctorid=u.id and del_flag='0') as 'comment_times',
 			d.introduce as 'introduce',
@@ -220,6 +226,112 @@
 			o.del_flag = '0'
 		and 
 			c.del_flag = '0'
+	</select>
+	
+	<select id="queryIncomeList" resultType="hashmap" parameterType="com.jeesite.modules.app.entity.DoctorInfo">
+		select 
+			u.nike_name as 'uname',
+			DATE_FORMAT(go.update_date,"%Y-%m-%d %T") as 'time',
+			go.amount as 'amount',
+			'锦旗' as 'from'
+		from 
+			sys_doctor_gift_order go 
+		left join 
+			sys_user_info u on u.id = go.userid
+		where 
+			go.del_flag = '0'
+		and
+			go.orderstate = '2'
+		and
+			go.doctorid=#{id}
+			
+		union all
+			
+		select 
+			u.nike_name as 'uname',
+			DATE_FORMAT(o.update_date,"%Y-%m-%d %T") as 'time',
+			o.amount as 'amount',
+			'问诊' as 'from'
+		from 
+			sys_consultation_order o
+		left join 
+			sys_user_info u on u.id = o.create_by
+		where 
+			o.del_flag = '0'
+		and
+			o.orderstate = '7'
+		and 
+			o.doctorid=#{id}
+			
+		limit #{pageModel.start}, #{pageModel.end}
+	</select>
+	
+	<select id="queryIncomeCount" resultType="java.lang.Integer" parameterType="com.jeesite.modules.app.entity.DoctorInfo">
+		select 
+			sum(C)
+		from (
+			select 
+				count(*) C
+			from 
+				sys_doctor_gift_order go 
+			left join 
+				sys_user_info u on u.id = go.userid
+			where 
+				go.del_flag = '0'
+			and
+				go.orderstate = '2'
+			and
+				go.doctorid=#{id}
+				
+				union all
+				
+			select 
+				count(*) C
+			from 
+				sys_consultation_order o
+			left join 
+				sys_user_info u on u.id = o.create_by
+			where 
+				o.del_flag = '0'
+			and
+				o.orderstate = '7'
+			and 
+				o.doctorid=#{id}
+		) T
+	</select>
+	
+	<select id="queryIncomeSum" resultType="java.lang.Double" parameterType="com.jeesite.modules.app.entity.DoctorInfo">
+		select 
+			sum(S)
+		from (
+			select 
+				sum(go.amount) S
+			from 
+				sys_doctor_gift_order go 
+			left join 
+				sys_user_info u on u.id = go.userid
+			where 
+				go.del_flag = '0'
+			and
+				go.orderstate = '2'
+			and
+				go.doctorid=#{id}
+				
+				union all
+				
+			select 
+				sum(o.amount) S
+			from 
+				sys_consultation_order o
+			left join 
+				sys_user_info u on u.id = o.create_by
+			where 
+				o.del_flag = '0'
+			and
+				o.orderstate = '7'
+			and 
+				o.doctorid=#{id}
+		) T
 	</select>
 	
 	<select id="findOrderCount" resultType="java.lang.Integer">

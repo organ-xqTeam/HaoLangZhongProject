@@ -45,9 +45,12 @@
 		from 
 			sys_article_info 
 		WHERE
-			id in ( SELECT collectionid FROM sys_user_collection WHERE userid = #{userid} and type=#{type} and del_flag='0' )
-		and 
 			del_flag = '0'
+	  		and id in ( SELECT collectionid FROM sys_user_collection WHERE userid = #{userid} 
+	  		<if test="type != null ">
+	  			and type=#{type}
+	  		</if>
+	  		and del_flag='0' )
 		limit #{pageModel.start}, #{pageModel.end}
 	</select>
 	
@@ -57,9 +60,12 @@
 		from 
 			sys_article_info 
 		WHERE
-			id in ( SELECT collectionid FROM sys_user_collection WHERE userid = #{userid} and type=#{type} and del_flag='0' )
-		and 
 			del_flag = '0'
+	  		and id in ( SELECT collectionid FROM sys_user_collection WHERE userid = #{userid} 
+	  		<if test="type != null ">
+	  			and type=#{type}
+	  		</if>
+	  		and del_flag='0' )
 	</select>
 	
 	<insert id="saveUserCollection" parameterType="hashmap"> 
