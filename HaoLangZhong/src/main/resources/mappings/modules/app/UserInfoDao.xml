@@ -35,6 +35,27 @@
 		select * from sys_doctor_pic where doctorid=#{id}
 	</select>
 	
+	<select id="findDoctorLabel" resultType="hashmap">
+		select 
+			*
+		from 
+			sys_doctor_label
+		where 
+			id in 
+			(
+				select 
+					labelid
+				from 
+					sys_doctor_label_item 
+				where 
+					doctorid = #{id}
+				and 
+					del_flag = '0'
+			)
+		and 
+			del_flag = '0'
+	</select>
+	
 	<update id="saveUserInfo" parameterType="hashmap">
 		update sys_user_info
 	    <set>

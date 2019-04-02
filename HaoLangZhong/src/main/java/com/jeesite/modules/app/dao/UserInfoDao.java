@@ -16,9 +16,12 @@ public interface UserInfoDao extends CrudDao<UserInfo> {
 	int saveUserInfo(Map<String, Object> params);
 	
 	Map<String, Object> findUserInfo(String id);
+	
 	Map<String, Object> findDoctorInfo(String id);
 	
 	List<Map<String, Object>> findDoctorPic(String id);
+	
+	List<Map<String, Object>> findDoctorLabel(String id);
 	
 	int saveDoctorInfo(Map<String, Object> params);
 	

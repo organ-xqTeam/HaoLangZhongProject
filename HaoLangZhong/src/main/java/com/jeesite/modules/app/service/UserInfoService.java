@@ -132,6 +132,7 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
 		JSONObject result = new JSONObject();
 		result.put("doctorInfo", userInfoDao.findDoctorInfo(id));
 		result.put("doctorPic", userInfoDao.findDoctorPic(id));
+		result.put("doctorLabel", userInfoDao.findDoctorLabel(id));
 		return result;
 	}
 	
