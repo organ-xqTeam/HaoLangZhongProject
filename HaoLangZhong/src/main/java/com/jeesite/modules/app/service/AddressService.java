@@ -87,7 +87,12 @@ public class AddressService extends CrudService<AddressDao,Address> {
 	/**得到此用户的默认收货地址*/
 	public Map showAddressDefaultByUserId(Map parmMap) {
 		// TODO Auto-generated method stub
-		return addressDao.showAddressDefaultByUserId(parmMap);
+		Map<String, Object> map= addressDao.showAddressDefaultByUserId(parmMap);
+		if(map==null) {
+			//如果没人地址为空就找到用户的一个地址
+			map=addressDao.showAddressByUserIdLimitOne(parmMap);
+		}
+		return  map;
 	}
 	public List<Map> showPitchProduct(Map parmMap) {
 		// TODO Auto-generated method stub

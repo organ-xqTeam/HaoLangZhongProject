@@ -8,7 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.jeesite.common.service.CrudService;
+import com.jeesite.modules.app.dao.BasketDao;
 import com.jeesite.modules.app.dao.UserInfoDao;
+import com.jeesite.modules.app.entity.Basket;
+import com.jeesite.modules.app.entity.UserInfo;
 import com.jeesite.modules.app.utils.DateUtil;
 
 /**
@@ -19,7 +24,7 @@ import com.jeesite.modules.app.utils.DateUtil;
 @Service
 @Transactional(readOnly=true)
 @SuppressWarnings("unchecked")
-public class UserInfoService {
+public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
 	
 	@Autowired
 	private UserInfoDao userInfoDao;

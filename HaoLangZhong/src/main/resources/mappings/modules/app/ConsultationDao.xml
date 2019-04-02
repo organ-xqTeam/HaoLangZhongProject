@@ -13,7 +13,11 @@
 			therapy,
 			content,
 			create_by, 
-			create_date, 
+			create_date,
+			<if test="userId !=null">
+				user_id,
+			</if> 
+			 
 			del_flag
 		)
 		values (
@@ -24,6 +28,9 @@
 			#{content,jdbcType=VARCHAR},
 			#{create_by,jdbcType=INTEGER}, 
 			#{create_date,jdbcType=VARCHAR},
+			<if test="userId !=null">
+			#{userId,jdbcType=VARCHAR},
+			</if> 
 			#{del_flag,jdbcType=VARCHAR}
 		)
 	</insert>
@@ -52,7 +59,7 @@
 	
 	<select id="findConsultationById" resultType="hashmap">
 		select 
-			c.id as 'id',
+			c.id as 'id',c.user_id,
 			o.id as 'orderid',
 			u.icon as 'user_icon',
 			u.nike_name as 'user_nickname',

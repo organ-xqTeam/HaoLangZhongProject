@@ -84,4 +84,18 @@
 	  	where id=#{id}
 	</update>
 	
+	<select id="getConsultationOrderByOrderId" parameterType="hashmap" resultType="hashmap">
+		select * from sys_consultation_order  where consultationid=#{orderId,jdbcType=VARCHAR}
+	</select>
+	<update id="updateOrderPay" parameterType="hashmap">
+	 update sys_consultation_order
+		<set>
+			<if test="orderstate != null">orderstate=#{orderstate},</if>
+			<if test="update_by != null">update_by=#{update_by},</if>
+			<if test="update_date != null">update_date=#{update_date},</if>
+			<if test="paytype != null">paytype=#{paytype},</if>
+	    </set>
+	  	where id=#{orderId,jdbcType=VARCHAR}
+	</update>
+	
 </mapper>

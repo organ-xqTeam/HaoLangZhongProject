@@ -37,7 +37,7 @@ public class DoctorComplaintController extends BaseController {
 	@RequestMapping(value = "/saveDoctorComplaint")
 	public Result saveDoctorComplaint(@RequestBody Map<String, Object> requestMap) {
 		try {
-			TokenTools.checkToken(requestMap.get("token").toString(), redis);
+			/*TokenTools.checkToken(requestMap.get("token").toString(), redis);*/
 			doctorComplaintService.saveDoctorComplaint(requestMap);
 			return Result.success(true);
 		}

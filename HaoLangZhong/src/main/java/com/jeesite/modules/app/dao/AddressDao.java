@@ -33,5 +33,7 @@ public interface AddressDao extends CrudDao<Address> {
 	Map showAddressByPrimary(Map parmMap);
 	/**得到此用户的默认收货地址*/
 	Map showAddressDefaultByUserId(Map parmMap);
+	/**如果没人地址为空就找到用户的一个地址*/
+	Map<String, Object> showAddressByUserIdLimitOne(Map parmMap);
 	
 }

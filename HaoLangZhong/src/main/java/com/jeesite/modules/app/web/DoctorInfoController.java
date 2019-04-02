@@ -40,6 +40,8 @@ public class DoctorInfoController extends BaseController {
 	
 	/**
 	 * 用户端根据医生标签检索医生列表
+	 * /doctorInfo/queryListByLabel
+	 *
 	 * */
 	@ResponseBody
 	@RequestMapping(value = "/queryListByLabel")
@@ -88,7 +90,7 @@ public class DoctorInfoController extends BaseController {
 	@RequestMapping(value = "/findOneByDoctorid/{doctorid}/{token}")
 	public Result findOneByDoctorid(@PathVariable String doctorid, @PathVariable String token) {
 		try {			
-			TokenTools.checkToken(token, redis);
+			/*TokenTools.checkToken(token, redis);*/
 			return Result.success(doctorInfoService.findOneByDoctorid(doctorid));
 		}
 		catch (RedisCheckException e2) {

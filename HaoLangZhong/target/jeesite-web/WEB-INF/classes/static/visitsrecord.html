@@ -25,6 +25,7 @@
     }
     .main_list img{
       width: .5rem;
+      height:.6rem;
       border-radius: 50%;
     }
     .main_right{
@@ -54,8 +55,8 @@
 var pageObj={
 	  initData(){
       var cookieStr=document.cookie.split(";")
-      let userid=cookieStr[0].split("=")[1]
-      let token=cookieStr[1].split("=")[1]
+      let userid=Global.getCookie("userid");
+      let token=Global.getCookie("token");
       let postdata=JSON.stringify({
             userid:userid,
             pageNum:"1",
@@ -76,12 +77,12 @@ var pageObj={
               let data=res.data.items
               data.forEach(function(item){
                   $(".main").append(`
-                      <div class="main_list">
-                        <img src="static/images/head.png"/>
+                      <div class="main_list" onclick="pageObj.goDetailsConsultation('${item.id}')">
+                        <img src="${Global.picUrl+item.icon}"/>
                         <div class="list_right">
                           <div class="main_right">
                             <h3>${item.doctorname}</h3>
-                            <span>2018-1-25</span>
+                            <span>${Global.formatTimestamp(item.time)}</span>
                           </div>
                           <span>${item.content}</span>
                         </div>
@@ -93,6 +94,10 @@ var pageObj={
               console.log(e)
             }
       })
+    },
+    goDetailsConsultation(id){
+    	  window.location.href="detailsConsultation.html?id="+id;
+    	
     },
     init(){
       pageObj.initData()

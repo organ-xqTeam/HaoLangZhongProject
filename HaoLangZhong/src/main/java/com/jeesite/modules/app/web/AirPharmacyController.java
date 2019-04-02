@@ -263,7 +263,7 @@ public class AirPharmacyController extends BaseController  implements BeanFactor
 					}
 				}
 			} else {
-				return Result.error(CodeMsg.UPLOAD_FAIL1);
+				/*return Result.error(CodeMsg.UPLOAD_FAIL1);*/
 			}
 			
 			
@@ -288,8 +288,8 @@ public class AirPharmacyController extends BaseController  implements BeanFactor
 					}
 					j++;
 				}//插入数据
-				airPrescriptionService.insertAirPrescription(airPrescription);
 			}
+			airPrescriptionService.insertAirPrescription(airPrescription);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			return Result.error(CodeMsg.UPLOAD_FAIL2);

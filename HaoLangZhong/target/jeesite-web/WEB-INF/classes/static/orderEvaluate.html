@@ -254,6 +254,7 @@ var pageObj={
 	    	 var code=res.data.code;
 	    	 if(code=="0"){
 	    	    alert("评价成功");
+	    	    history.replaceState(null, null, "airPharmacy.html");
 	    	    window.location.href="airPharmacy.html";
 	    	 }
 	     })

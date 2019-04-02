@@ -62,8 +62,6 @@
   var addressId="";
   var pageObj={
 		initData(){
-				
-			
 			    token=Global.getCookie("token");
 			    userId=Global.getCookie("userid");
 				console.log("userId:"+userId)
@@ -152,8 +150,8 @@
 			    	//this.submit();	
 				    var cookieStr=document.cookie.split(";")
 					console.log(cookieStr);
-				    var token=cookieStr[0].split("=")[1]
-				    var userId=cookieStr[1].split("=")[1]
+				    var token=Global.getCookie("token");
+				    var userId=Global.getCookie("userid");
 				    var addressId=Global.getParameter("id");
 			    	var realName=$("#realName").val();
 		            var phone= $("#phone").val();
