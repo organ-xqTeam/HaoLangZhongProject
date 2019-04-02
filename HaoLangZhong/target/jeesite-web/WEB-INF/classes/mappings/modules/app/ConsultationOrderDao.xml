@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jeesite.modules.app.dao.ConsultationOrderDao">
@@ -85,4 +86,106 @@
 	  	where id=#{id}
 	</update>
 	
+=======
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.app.dao.ConsultationOrderDao">
+	
+	<insert id="saveConsultationOrder" parameterType="hashmap"> 
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">
+			select replace(uuid(),'-','') from dual		
+		</selectKey>
+		insert into sys_consultation_order (
+			id,
+			num,
+			doctorid,
+			consultationid, 
+			orderstate, 
+			paytype,
+			amount,
+			create_by,
+			create_date,
+			del_flag
+		)
+		values (
+			#{id,jdbcType=VARCHAR},
+			#{num,jdbcType=VARCHAR},
+			#{doctorid,jdbcType=VARCHAR},
+			#{consultationid,jdbcType=INTEGER}, 
+			#{orderstate,jdbcType=VARCHAR},
+			#{paytype,jdbcType=VARCHAR},
+			#{amount,jdbcType=VARCHAR},
+			#{create_by,jdbcType=VARCHAR},
+			#{create_date,jdbcType=INTEGER}, 
+			#{del_flag,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<update id="updateConsultationOrder" parameterType="hashmap">
+		update sys_consultation_order
+		<set>
+			<if test="orderstate != null">orderstate=#{orderstate},</if>
+			<if test="update_by != null">update_by=#{update_by},</if>
+			<if test="update_date != null">update_date=#{update_date}</if>
+	    </set>
+	  	where id=#{id}
+	</update>
+	
+	<select id="queryList" resultType="hashmap" parameterType="com.jeesite.modules.app.entity.Consultation">
+  		select 
+			c.id as 'id',
+			d.name as 'doctorname',
+			u.icon as 'icon',
+			co.create_date as 'time',
+			c.content as 'content'
+		from 
+			sys_consultation c 
+		left join sys_consultation_order co on c.id = co.consultationid
+		left join sys_doctor_info d on d.doctorid = co.doctorid
+		left join sys_user_info u on u.id = d.doctorid
+		where
+			c.del_flag = '0'
+		and
+			co.create_by = #{userid}
+		limit #{pageModel.start}, #{pageModel.end}
+  	</select>
+  	
+  	<select id="queryCount" resultType="java.lang.Integer" parameterType="com.jeesite.modules.app.entity.Consultation">
+		select 
+			count(*)
+		from 
+			sys_consultation c 
+		left join sys_consultation_order co on c.id = co.consultationid
+		left join sys_doctor_info d on d.doctorid = co.doctorid
+		left join sys_user_info u on u.id = d.doctorid
+		where
+			c.del_flag = '0'
+		and
+			co.create_by = #{userid}
+	</select>
+	
+	<update id="reply" parameterType="hashmap">
+		update sys_consultation
+		<set>
+			<if test="reply != null">reply=#{reply},</if>
+			<if test="replytime != null">replytime=#{replytime}</if>
+	    </set>
+	  	where id=#{id}
+	</update>
+	
+	<select id="getConsultationOrderByOrderId" parameterType="hashmap" resultType="hashmap">
+		select * from sys_consultation_order  where consultationid=#{orderId,jdbcType=VARCHAR}
+	</select>
+	<update id="updateOrderPay" parameterType="hashmap">
+	 update sys_consultation_order
+		<set>
+			<if test="orderstate != null">orderstate=#{orderstate},</if>
+			<if test="update_by != null">update_by=#{update_by},</if>
+			<if test="update_date != null">update_date=#{update_date},</if>
+			<if test="paytype != null">paytype=#{paytype},</if>
+	    </set>
+	  	where id=#{orderId,jdbcType=VARCHAR}
+	</update>
+	
+>>>>>>> branch 'master' of https://github.com/organ-xqTeam/HaoLangZhongProject.git
 </mapper>

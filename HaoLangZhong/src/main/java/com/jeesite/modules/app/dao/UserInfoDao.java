@@ -5,15 +5,17 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.jeesite.common.dao.CrudDao;
 import com.jeesite.common.mybatis.annotation.MyBatisDao;
+import com.jeesite.modules.app.entity.AirDrug;
+import com.jeesite.modules.app.entity.UserInfo;
 
 @MyBatisDao
-public interface UserInfoDao {
+public interface UserInfoDao extends CrudDao<UserInfo> {
 
 	int saveUserInfo(Map<String, Object> params);
 	
 	Map<String, Object> findUserInfo(String id);
-	
 	Map<String, Object> findDoctorInfo(String id);
 	
 	List<Map<String, Object>> findDoctorPic(String id);

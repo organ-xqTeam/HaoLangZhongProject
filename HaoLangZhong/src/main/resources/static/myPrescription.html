@@ -124,13 +124,13 @@
 			    	 airPrescriptionList.forEach(function(item,index){
 			    		 var pics="";
 			    		 if(item.pic1!=null){
-			    			 pics+="<img src='"+item.pic1+"' class='img200'/>";
+			    			 pics+="<img src='"+Global.picUrl+item.pic1+"' class='img200'/>";
 			    		 }
 			    		 if(item.pic2!=null){
-			    			 pics+="<img src='"+item.pic2+"' class='img200'/>";
+			    			 pics+="<img src='"+Global.picUrl+item.pic2+"' class='img200'/>";
 			    		 }
 			    		 if(item.pic3!=null){
-			    			 pics+="<img src='"+item.pic3+"' class='img200'/>";
+			    			 pics+="<img src='"+Global.picUrl+item.pic3+"' class='img200'/>";
 			    		 }
 				    	 $(".peifangList").append(`
 				    			  <div class="peifang_head">

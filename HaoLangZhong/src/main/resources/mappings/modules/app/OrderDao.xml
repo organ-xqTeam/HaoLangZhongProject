@@ -210,5 +210,31 @@
 	WHERE `id` = #{orderId,jdbcType=VARCHAR}
 	
 	</update>
+	<update id="buySuccessOrder" parameterType="hashmap">
+	UPDATE 
+	 `sys_order` 
+	SET
+	  `order_status` = "1"
+	
+	WHERE `id` = #{orderId,jdbcType=VARCHAR}
+	
+	</update>
+	<update id="changeOrderStatusByOrderId" parameterType="hashmap">
+	UPDATE 
+	 `sys_order` 
+	SET
+	  `order_status` = #{orderStatus,jdbcType=VARCHAR}
+	
+	WHERE `id` = #{orderId,jdbcType=VARCHAR}
+	
+	</update>
+	
+	<select id="getDrugIdByOrderId" parameterType="hashmap" resultType="java.lang.Integer" >
+	  SELECT 
+	  sod.`grud_id` as grudId
+	  FROM `sys_order` so INNER JOIN  `sys_order_detail` sod ON sod.`order_id`=so.`id`
+	  WHERE so.id=#{orderId,jdbcType=VARCHAR}
+	  group by 	grudId
+	</select>
 	
 </mapper>

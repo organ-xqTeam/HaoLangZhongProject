@@ -1,11 +1,14 @@
 package com.jeesite.modules.app.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import com.jeesite.modules.app.dao.ConsultationDao;
 import com.jeesite.modules.app.dao.ConsultationOrderDao;
@@ -19,7 +22,7 @@ import com.jeesite.modules.app.utils.OrderCodeFactory;
  * @version 2019-02-28
  */
 @Service
-@Transactional(readOnly=true)
+@Transactional(propagation = Propagation.REQUIRED ,isolation = Isolation.DEFAULT,rollbackFor=Exception.class)
 @SuppressWarnings("unchecked")
 public class ConsultationOrderService {
 	
@@ -36,6 +39,12 @@ public class ConsultationOrderService {
 		String time = DateUtil.getSysTime1();
 		requestModel.put("create_date", time);
 		requestModel.put("del_flag", "0");
+		Object create_dateObj= requestModel.get("create_by");
+		String userId=null;
+		if(create_dateObj!=null) {
+			userId=(String) create_dateObj;
+			requestModel.put("userId", userId);
+		}
 		consultationDao.saveConsultation(requestModel);
 		// 处理咨询图片
 		List<String> picArray = null;
@@ -111,6 +120,27 @@ public class ConsultationOrderService {
 		orderMap.put("id", requestModel.get("orderid").toString());
 		orderMap.put("orderstate", "7");
 		consultationOrderDao.updateConsultationOrder(orderMap);
+	}
+	/**通过主键查找咨询订单*/
+	public Map<String, Object> getConsultationOrderByOrderId(Map<String, Object> requestMap) {
+		// TODO Auto-generated method stub
+		return consultationOrderDao.getConsultationOrderByOrderId(requestMap);
+	}
+
+	/**更新成已支付状态*/
+	public void updateOrderPay(Map<String, Object> requestMap) {
+		// TODO Auto-generated method stub
+		/**
+		 * <if test="orderstate != null">orderstate=#{orderstate},</if>
+			<if test="update_by != null">update_by=#{update_by},</if>
+			<if test="update_date != null">update_date=#{update_date}</if>
+		 * 
+		 */
+		requestMap.put("orderstate", "2");
+		requestMap.put("update_date", new Date());
+		//先默认微信支付
+		requestMap.put("paytype", "1");
+		 consultationOrderDao.updateOrderPay(requestMap);
 	}
 	
 }

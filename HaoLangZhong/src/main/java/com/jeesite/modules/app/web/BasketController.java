@@ -20,6 +20,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.jeesite.modules.app.entity.Order;
 import com.jeesite.modules.app.entity.OrderDetail;
 import com.jeesite.modules.app.service.AddressService;
+import com.jeesite.modules.app.service.AirDrugCommentSercvie;
 import com.jeesite.modules.app.service.BasketService;
 import com.jeesite.modules.app.service.OrderDetailService;
 import com.jeesite.modules.app.service.OrderService;
@@ -630,6 +631,91 @@ public class BasketController {
 			return Result.error(CodeMsg.PARAMETER_ISNULL);
 		}
 	}
+	/**订单支付页成功的假接口
+	 * 	** token    token     随便    post
+	 *  userId     用户id   123
+	 *  orderId    订单id
+	 * /js/f/sys/basketController/buySuccessOrder 
+	 * */
+	@ResponseBody
+	@RequestMapping(value = "/buySuccessOrder",method = RequestMethod.POST)
+	public Result buySuccessOrder(HttpServletRequest request,@RequestBody Map<String, Object> requestParams) {
+		try {
+			String token=(String) requestParams.get("token");
+			String userId=(String)requestParams.get("userId");
+			String orderId=(String)requestParams.get("orderId");
+			Map parmMap =new HashMap<>();
+			parmMap.put("userId", userId);
+			parmMap.put("orderId", orderId);
+			/**订单支付页成功假*/
+			orderService.buySuccessOrder(parmMap);
+			return Result.success(CodeMsg.SUCCESS);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Result.error(CodeMsg.PARAMETER_ISNULL);
+		}
+	}
+	/**确认收货接口
+	 * 	** token    token     随便    post
+	 *  userId     用户id   123
+	 *  orderId    订单id
+	 * /js/f/sys/basketController/buyConfirm 
+	 * */
+	@ResponseBody
+	@RequestMapping(value = "/buyConfirm",method = RequestMethod.POST)
+	public Result buyConfirm(HttpServletRequest request,@RequestBody Map<String, Object> requestParams) {
+		try {
+			String token=(String) requestParams.get("token");
+			String userId=(String)requestParams.get("userId");
+			String orderId=(String)requestParams.get("orderId");
+			Map parmMap =new HashMap<>();
+			parmMap.put("userId", userId);
+			parmMap.put("orderId", orderId);
+			parmMap.put("orderStatus", "3");
+			/**通过id修改订单状态*/
+			orderService.changeOrderStatusByOrderId(parmMap);
+			return Result.success(CodeMsg.SUCCESS);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Result.error(CodeMsg.PARAMETER_ISNULL);
+		}
+	}
+	@Autowired
+	private AirDrugCommentSercvie airDrugCommentSercvie;
+	
+	//订单商品评价
+	@ResponseBody
+	@RequestMapping(value = "/evaluateOrder",method = RequestMethod.POST)
+	public Result evaluateOrder(HttpServletRequest request,@RequestBody Map<String, Object> requestParams) {
+		 /*"token":token,
+		 "userId":userId,
+		 "orderId":orderId,
+		 "content":content,
+		 "startnum":startnum*/
+		try {
+			String token=(String) requestParams.get("token");
+			String userId=(String)requestParams.get("userId");
+			String orderId=(String)requestParams.get("orderId");
+			String content=(String)requestParams.get("content");
+			String startnum=((Integer)requestParams.get("startnum")).toString();
+			Map parmMap =new HashMap<>();
+			parmMap.put("userId", userId);
+			parmMap.put("orderId", orderId);
+			parmMap.put("content", content);
+			parmMap.put("startnum", startnum);
+			/**通过订单id集体评价药品*/
+			airDrugCommentSercvie.insertCommentByOrderId(parmMap);
+			return Result.success(CodeMsg.SUCCESS);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Result.error(CodeMsg.PARAMETER_ISNULL);
+		}
+		
+	}
+	
 	
 	
 

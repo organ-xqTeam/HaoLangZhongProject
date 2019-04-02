@@ -25,5 +25,11 @@ public interface OrderDao extends CrudDao<Order> {
 	List<Map> findOrderInfoByOrderStatusAndUserId(Map parmMap);
 	/**软删除订单*/
 	void updateDelFlagOrderByOrderId(Map parmMap);
+	/**订单支付页成功假*/
+	void buySuccessOrder(Map parmMap);
+	/**通过id修改订单状态*/
+	void changeOrderStatusByOrderId(Map parmMap);
+	/**通过订单id获取此订单下的所有药品id**/
+	List getDrugIdByOrderId(Map parmMap);
 	
 }

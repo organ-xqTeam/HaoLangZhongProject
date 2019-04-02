@@ -259,4 +259,16 @@
 			limit 1
 		</if>
 	</select>
+	<!-- 得到此用户的默认收货地址 -->
+	<select id="showAddressByUserIdLimitOne"  parameterType="hashmap" resultType="hashmap">
+			SELECT 
+			  * 
+			FROM
+			`sys_address` 
+			WHERE 
+			del_flag="0"
+			and
+			user_id=#{userId,jdbcType=VARCHAR}
+			limit 1
+	</select>
 </mapper>

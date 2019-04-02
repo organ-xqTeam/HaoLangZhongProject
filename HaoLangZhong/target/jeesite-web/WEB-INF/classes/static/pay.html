@@ -172,6 +172,7 @@
 		    	 var code=res.data.code;
 		    	 if(code=="0"){
 		    		 alert("订单提交成功");
+		    		 history.replaceState(null, null, "airPharmacy.html");
 		    		 window.location.href="myorder.html";
 		    	 }
 		     })

@@ -62,6 +62,10 @@
       margin-top: .12rem;
       padding-right: .2rem;
    }
+   .contentList>img{
+   	 width: 1rem;
+   	 height:1rem;
+   }
    .list_right{
      margin-left: .15rem;
    }
@@ -143,7 +147,6 @@
   var userId="";
   var token="";
   var orderId="";
-  var orderId="";
   var pageObj={
 		initData(){
 			    
@@ -159,15 +162,43 @@
 			 init(){
 			   pageObj.initData()
 			 },
+			 //点击确认收货的操作
+			 confirm(){
+				 let postdata=JSON.stringify({
+					 "token":token,
+					 "userId":userId,
+					 "orderId":orderId
+			      })
+				 Global.ajaxRequest(Global.api+"/basketController/buyConfirm",postdata)
+			     .then((res) => {
+			    	 var code=res.data.code;
+			    	 if(code=="0"){
+			    		 alert("确认收货成功");
+			    		 window.location.href="myorder.html";
+			    	 }
+			     })
+			 },
 			 //点击付款的操作
 			 buyPay(){
-				  window.location.href="pay.html?orderId="+orderId;
+				 let postdata=JSON.stringify({
+					 "token":token,
+					 "userId":userId,
+					 "orderId":orderId
+			      })
+				 Global.ajaxRequest(Global.api+"/basketController/buySuccessOrder",postdata)
+			     .then((res) => {
+			    	 var code=res.data.code;
+			    	 if(code=="0"){
+			    		 alert("付款成功");
+			    		 window.location.href="myorder.html";
+			    	 }
+			     })
 			 },
 			 goOrderEvaluate(){
 				 window.location.href="orderEvaluate.html?orderId="+orderId;
 				 
 			 },
-			 goOrderEvaluate(){
+			 goOrderDel(){
 				 let postdata=JSON.stringify({
 					 "token":token,
 					 "userId":userId,
@@ -270,8 +301,8 @@
 			    			`)	
 			    	$(`.content_button`).append(`
 			    			${ order.orderStatus=='0'? '<span  onclick="pageObj.buyPay()" >去付款</span>' : '' } 
-			    			${ order.orderStatus=='1'|| order.orderStatus=='2'? '<span>确认收货</span>' : '' } 
-			    			${ order.orderStatus=='4'? '<span onclick="pageObj.goOrderEvaluate()">删除订单</span>' : '' } 
+			    			${ order.orderStatus=='1'|| order.orderStatus=='2'? '<span onclick="pageObj.confirm()">确认收货</span>' : '' } 
+			    			${ order.orderStatus=='4'? '<span onclick="pageObj.goOrderDel()">删除订单</span>' : '' } 
 			    			${ order.orderStatus=='3'? '<span onclick="pageObj.goOrderEvaluate()">去评价</span>' : '' } 
 			    			
 			    			`)		

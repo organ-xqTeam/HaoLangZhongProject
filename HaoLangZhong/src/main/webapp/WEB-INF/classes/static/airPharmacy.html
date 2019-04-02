@@ -160,6 +160,11 @@
   <script type="text/javascript">
   var userId="";
   var token="";
+  
+  function closeWindow(){
+	  window.location.href="about:blank";
+	  window.close();
+  }
   var pageObj={
 		initData(){
 				var cookieStr=document.cookie.split(";")

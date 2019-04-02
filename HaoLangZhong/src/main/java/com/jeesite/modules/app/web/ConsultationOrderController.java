@@ -36,6 +36,7 @@ public class ConsultationOrderController extends BaseController {
 	private StringRedisTemplate redis;
 	
 	/**
+	 * "hlz/sys/consultationOrder/saveOrder
 	 * 保存用户咨询订单
 	 * */
 	@ResponseBody
@@ -85,7 +86,7 @@ public class ConsultationOrderController extends BaseController {
 	@RequestMapping(value = "/queryList")
 	public Result queryList(@RequestBody Consultation requestParams) {
 		try {
-			TokenTools.checkToken(requestParams.getToken(), redis);
+			/*TokenTools.checkToken(requestParams.getToken(), redis);*/
 			PageModel pageModel = new PageModel(requestParams.getPageNum(), requestParams.getPageSize());
 			requestParams.setPageModel(pageModel);
 			List<Map<String, Object>> resultList = consultationOrderService.queryList(requestParams);
@@ -113,6 +114,52 @@ public class ConsultationOrderController extends BaseController {
 		try {
 			TokenTools.checkToken(requestMap.get("token").toString(), redis);
 			consultationOrderService.reply(requestMap);
+			return Result.success(true);			
+		}
+		catch (RedisCheckException e2) {
+			logger.error(e2.getMessage(), e2);
+			return Result.error(CodeMsg.TOKEN_INVALID);
+		}
+		catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return Result.error(CodeMsg.PARAMETER_ISNULL);
+		}
+	}
+	
+	/**
+	 * 通过主键查找咨询订单的操作
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getConsultationOrderByOrderId")
+	public Result getConsultationOrderByOrderId(@RequestBody Map<String, Object> requestMap) {
+		try {
+			//TokenTools.checkToken(requestMap.get("token").toString(), redis);
+			/**通过主键查找咨询订单*/
+			Map<String, Object> consultationOrderMap=  consultationOrderService.getConsultationOrderByOrderId(requestMap);
+			Map<String, Object> items = new HashMap<String, Object>();
+			items = consultationOrderMap;
+			return Result.success(items);			
+		}
+		catch (RedisCheckException e2) {
+			logger.error(e2.getMessage(), e2);
+			return Result.error(CodeMsg.TOKEN_INVALID);
+		}
+		catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return Result.error(CodeMsg.PARAMETER_ISNULL);
+		}
+	}
+	/**
+	 * 支付订单的操作
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/payOrder")
+	public Result payOrder(@RequestBody Map<String, Object> requestMap) {
+		try {
+			//TokenTools.checkToken(requestMap.get("token").toString(), redis);
+			/**更新成已支付状态*/
+			consultationOrderService.updateOrderPay(requestMap);
+			
 			return Result.success(true);			
 		}
 		catch (RedisCheckException e2) {

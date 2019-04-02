@@ -62,6 +62,7 @@
       margin-top: .12rem;
       padding-right: .2rem;
    }
+<<<<<<< HEAD
    .list_right{
      margin-left: .15rem;
    }
@@ -272,6 +273,249 @@
 			    			${ order.orderStatus=='0'? '<span  onclick="pageObj.buyPay()" >去付款</span>' : '' } 
 			    			${ order.orderStatus=='1'|| order.orderStatus=='2'? '<span>确认收货</span>' : '' } 
 			    			${ order.orderStatus=='4'? '<span onclick="pageObj.goOrderEvaluate()">删除订单</span>' : '' } 
+=======
+   .contentList>img{
+   	 width: 1rem;
+   	 height:1rem;
+   }
+   .list_right{
+     margin-left: .15rem;
+   }
+   .list_foot{
+     margin-top: .2rem;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+   }
+   .list_foot :first-child{
+     color: #e2834b;
+   }  
+   .line{
+     width: 100;
+     height: .8em;
+     background: #cccccc47;
+     margin-top: 0rem;
+   }
+   .mingxi li{
+     color: #222222;
+     padding: .12rem;
+     border-bottom: 0.01rem solid #ccc;
+   }
+   .mingxi li{
+     display: flex;
+     justify-content: space-between;
+     align-content: center;
+   }
+   .mingxi .block{
+     display: block;
+   }
+   .flex_item{
+     display: flex;
+     justify-content:space-between;
+     align-items: center;
+   }   
+   .middle{
+     vertical-align: middle;
+   }
+   .mingxi_foot{
+     text-align: right;
+     width: 100%;
+   }  
+   .title{
+     color: #ccc !important;
+     font-size: .08rem;
+   }
+   .shifu{
+     font-size: .2rem;
+   }
+   .money{
+     font-size: .2rem;
+     color: #e2834b;
+   }
+   .dingdan li{
+     color: #222222;
+     padding: .12rem;
+     border-bottom: 0.01rem solid #ccc;
+     display: flex;
+     align-content: center;
+   }
+   .dingdan li :first-child{
+      margin-right: .2rem;
+   }
+   .content_button{
+     text-align: right;
+     margin-top: .2rem;
+     padding: .2rem;
+   }
+   .content_button span{
+     background: #e2834b;
+     color: #FFF;
+     padding:.05rem .1rem;
+     font-size: .18rem;
+     border-radius:.06rem;
+   }
+  </style>
+  <script type="text/javascript">
+  var userId="";
+  var token="";
+  var orderId="";
+  var pageObj={
+		initData(){
+			    
+				var cookieStr=document.cookie.split(";")
+				console.log(cookieStr);
+			    token=Global.getCookie("token");
+			    userId=Global.getCookie("userid");
+				console.log("userId:"+userId)
+				console.log("token:"+token)
+				orderId=Global.getParameter("orderId");
+			    pageObj.getOrderDetail();
+			 },
+			 init(){
+			   pageObj.initData()
+			 },
+			 //点击确认收货的操作
+			 confirm(){
+				 let postdata=JSON.stringify({
+					 "token":token,
+					 "userId":userId,
+					 "orderId":orderId
+			      })
+				 Global.ajaxRequest(Global.api+"/basketController/buyConfirm",postdata)
+			     .then((res) => {
+			    	 var code=res.data.code;
+			    	 if(code=="0"){
+			    		 alert("确认收货成功");
+			    		 window.location.href="myorder.html";
+			    	 }
+			     })
+			 },
+			 //点击付款的操作
+			 buyPay(){
+				 let postdata=JSON.stringify({
+					 "token":token,
+					 "userId":userId,
+					 "orderId":orderId
+			      })
+				 Global.ajaxRequest(Global.api+"/basketController/buySuccessOrder",postdata)
+			     .then((res) => {
+			    	 var code=res.data.code;
+			    	 if(code=="0"){
+			    		 alert("付款成功");
+			    		 window.location.href="myorder.html";
+			    	 }
+			     })
+			 },
+			 goOrderEvaluate(){
+				 window.location.href="orderEvaluate.html?orderId="+orderId;
+				 
+			 },
+			 goOrderDel(){
+				 let postdata=JSON.stringify({
+					 "token":token,
+					 "userId":userId,
+					 "orderId":orderId
+			      })
+				 Global.ajaxRequest(Global.api+"/basketController/delFlagOrder",postdata)
+			     .then((res) => {
+			    	 var code=res.data.code;
+			    	 if(code=="0"){
+			    		 alert("删除订单成功");
+			    		 window.location.href="myorder.html";
+			    	 }
+					 
+			    	 
+			     })
+				 
+			 },
+			 //通过不用的状态展示订单
+			 getOrderDetail(){
+				 $(".content_main").empty();
+				 let postdata=JSON.stringify({
+					 "token":token,
+					 "userId":userId,
+					 "orderId":orderId
+			      })
+			     Global.ajaxRequest(Global.api+"/basketController/orderDetailsInfo",postdata)
+			     .then((res) => {
+			    	console.log(res);
+			    	var orderDetailList=res.data.orderDetailList
+			    	var order=res.data.order;
+			    	orderId=order.id
+			    	$(".rightWrap").append(`
+			    			<div class="flexWrap">
+			    		      <h3>收货人:${order.deliveryName}</h3>
+			    		      <span>${order.deliveryPhone}</span>
+			    		    </div>
+			    		    <div class="backWrap">
+			    		      <img src="static/images/gouwuche-fanhui(small).png" class="img100"/>
+			    		    </div>
+			    		    <div class="addressWrap">
+			    		     	  收货地址:${order.deliveryAddress}
+			    		    </div>
+			    			`);
+			    	orderDetailList.forEach(function(item){
+				    	$(".shopContent").append(`
+				    		 <div class="contentList">
+				    		     <img src="${Global.picUrl+item.airDrug.pic1}" class="img200"/>
+				    		     <div class="list_right">
+				    		       <div class="list_top">
+				    		        ${item.productName}
+				    		       </div>
+				    		       <div class="list_foot">
+				    		         <span>￥ ${parseFloat(item.onlyPrice/100).toFixed(2)}</span>
+				    		         <span>x${item.buyCount}</span>
+				    		       </div>
+				    		     </div>
+				    		  </div>
+				    			`)
+			    	})
+			    	$(".block").append(`
+			    		  <div class="flex_item">
+			    	        <span>商品总额</span>
+			    	        <span>￥${parseFloat(order.totalPrice/100).toFixed(2)}</span>
+			    	      </div>
+			    	      <div class="flex_item">
+			    	        <span>红包</span>
+			    	        <div>
+			    	          <span class="middle">￥${parseFloat(order.discountPrice/100).toFixed(2)}</span>
+			    	          
+			    	        </div>
+			    	      </div>			    			
+			    			`)
+			    	$(".mingxi_foot").append(`
+			    			<span class="shifu">实付:</span>
+			    	        <span class="money">￥${parseFloat(order.reallyPrice/100).toFixed(2)}</span>
+			    			`)
+			    	$(".dingdan").append(`
+			    		 <ul>
+			    		    <li class="title">
+			    		      <span>订单信息</span>
+			    		    </li>
+			    		    <li>
+			    		      <span>订单编号:</span>
+			    		      <span>${order.orderNo}</span>
+			    		    </li>
+			    		    <li>
+			    		      <span>创建时间:</span>
+			    		      <span>${order.createDate}</span>
+			    		    </li>
+			    		    <li>
+			    		      <span>支付方式:</span>
+			    		      <span>
+			    		      ${ order.payChannel=='null'? '不明' : '' } 
+			    		      ${ order.payChannel=='0'? '微信支付' : '' } 
+			    		      ${ order.payChannel=='1'? '支付宝' : '' } 
+			    		      ${ order.payChannel=='2'? '银联' : '' } 
+			    		      </span>
+			    		    </li>
+			    		  </ul>			    			
+			    			`)	
+			    	$(`.content_button`).append(`
+			    			${ order.orderStatus=='0'? '<span  onclick="pageObj.buyPay()" >去付款</span>' : '' } 
+			    			${ order.orderStatus=='1'|| order.orderStatus=='2'? '<span onclick="pageObj.confirm()">确认收货</span>' : '' } 
+			    			${ order.orderStatus=='4'? '<span onclick="pageObj.goOrderDel()">删除订单</span>' : '' } 
+>>>>>>> branch 'master' of https://github.com/organ-xqTeam/HaoLangZhongProject.git
 			    			${ order.orderStatus=='3'? '<span onclick="pageObj.goOrderEvaluate()">去评价</span>' : '' } 
 			    			
 			    			`)		

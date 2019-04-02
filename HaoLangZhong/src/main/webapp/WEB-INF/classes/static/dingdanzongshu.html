@@ -237,11 +237,13 @@ var swiper = new Swiper('.swiper-container', {
       let token=cookieStr[1].split("=")[1]
       $.ajax({
             type: "get",
-            url:Global.api+"doctorInfo/findOrderCount/"+docid+"/"+token,
+            // url:Global.api+"doctorInfo/findOrderCount/"+docid+"/"+token,
+            url:"http://120.92.10.2:81/hlz/f/sys/doctorInfo/findOrderCount/"+docid+"/"+token,
             dataType:"json",
             // contentType:"application/json",
             success: function (res) {
               console.log(res)
+              $(".color").text(res.data)
             },
             error: function (e) {
               console.log(e)

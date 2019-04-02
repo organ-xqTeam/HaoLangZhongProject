@@ -46,5 +46,15 @@ public class OrderService  extends CrudService<OrderDao,Order> {
 		// TODO Auto-generated method stub
 		orderDao.updateDelFlagOrderByOrderId(parmMap);
 	}
+	/**订单支付页成功假*/
+	public void buySuccessOrder(Map parmMap) {
+		// TODO Auto-generated method stub
+		orderDao.buySuccessOrder(parmMap);
+	}
+	/**通过id修改订单状态*/
+	public void changeOrderStatusByOrderId(Map parmMap) {
+		// TODO Auto-generated method stub
+		orderDao.changeOrderStatusByOrderId(parmMap);
+	}
 
 }

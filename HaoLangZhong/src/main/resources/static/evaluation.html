@@ -242,7 +242,7 @@ var pageObj={
             console.log(postdata)
            $.ajax({
                 type:"post", 
-                url:Global.api+"doctorComplaint/saveDoctorComplaint",
+                url:Global.api+"doctorComment/saveDoctorComment",
                 data:postdata,
                 dataType:"json",
                 contentType:"application/json",
@@ -250,6 +250,7 @@ var pageObj={
                     console.log(e)
                     if(e.msg=="成功"){
                       alert("提交成功")
+                      window.history.go(-1);
                     }
                 },
                 error:function(){

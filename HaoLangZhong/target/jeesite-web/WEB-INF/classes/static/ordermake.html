@@ -62,6 +62,7 @@
       margin-top: .12rem;
       padding-right: .2rem;
    }
+<<<<<<< HEAD
    .list_right{
      margin-left: .15rem;
    }
@@ -374,4 +375,328 @@
 <script>
 </script>
 </body>
+=======
+   .contentList img {
+   	width: 1rem;
+   	height: 1rem;
+   }
+   .list_right{
+     margin-left: .15rem;
+   }
+   .list_foot{
+     margin-top: .2rem;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+   }
+   .list_foot :first-child{
+     color: #e2834b;
+   }  
+   .line{
+     width: 100;
+     height: .8em;
+     background: #cccccc47;
+     margin-top: 0rem;
+   }
+   .mingxi li{
+     color: #222222;
+     padding: .12rem;
+     border-bottom: 0.01rem solid #ccc;
+   }
+   .mingxi li{
+     display: flex;
+     justify-content: space-between;
+     align-content: center;
+   }
+   .mingxi .block{
+     display: block;
+   }
+   .flex_item{
+     display: flex;
+     justify-content:space-between;
+     align-items: center;
+   }   
+   .middle{
+     vertical-align: middle;
+   }
+   .mingxi_foot{
+     text-align: right;
+     width: 100%;
+   }  
+   .title{
+     color: #ccc !important;
+     font-size: .08rem;
+   }
+   .shifu{
+     font-size: .2rem;
+   }
+   .money{
+     font-size: .2rem;
+     color: #e2834b;
+   }
+   .dingdan li{
+     color: #222222;
+     padding: .12rem;
+     border-bottom: 0.01rem solid #ccc;
+     display: flex;
+     align-content: center;
+   }
+   .dingdan li :first-child{
+      margin-right: .2rem;
+   }
+   .content_button{
+     display: flex;
+     justify-content:flex-end;
+     align-items: center;
+   }
+   .button_box{
+     display: flex;
+     justify-content:space-between;
+     align-items: center;
+   }
+   .content_button .box_submit{
+     background: #e2834b;
+     color: #FFF;
+     padding:.12rem .1rem;
+     font-size: .12rem;
+   }
+   .box_text{
+     margin-right: .2rem;
+   }
+   .color{
+     color: #e2834b;
+   }
+  </style>
+<script type="text/javascript">
+  var userId="";
+  var token="";
+  var addressId="";
+  var drudIds="";
+  //-----------------
+  var buyPrice="";//支付总价格
+  var discountArithmeticPrice="";//折扣价格
+  var productTotalPrice="";//商品没打折时候的总价格
+  var pageObj={
+		initData(){
+				var cookieStr=document.cookie.split(";")
+				console.log(cookieStr);
+			    token=Global.getCookie("token");
+			    userId=Global.getCookie("userid");
+				console.log("userId:"+userId)
+				console.log("token:"+token)
+				addressId=Global.getParameter("addressId");
+			    drudIds=Global.getParameter("drudIds");
+			    pageObj.getPrepareOrder();
+			 },
+			 init(){
+			   pageObj.initData()
+			 },
+			 gopay(){
+				 /**
+
+	 * 	** token    token     随便    post
+	 *  userId     用户id   123
+	 *  drudIds 提交订单的 drudIds药品Id们  用,号分割 重复的重复显示  1,2,3,1
+	 *  
+	 *  prescriptionIds 提交订单的 选中的要查询的药方Id们用,号分割 重复的重复显示 1,1,1,2,2,3,4 (暂时不用)
+	 *  addressId   地址id  非必填
+	 *  buyPrice    付款总价格
+	 *  discountArithmeticPrice   折扣价格
+	 *  productTotalPrice    商品没打折时候的总价格		 
+				 **/
+				 window.location.href="pay.html?drudIds="+drudIds+"&buyPrice="+buyPrice+"&discountArithmeticPrice="+discountArithmeticPrice+"&productTotalPrice="+productTotalPrice+"&addressId="+addressId; 
+			 },
+			 //跳转地址选择页面
+			 goAddressChoose(){
+				 window.location.href="addressChoose.html?drudIds="+drudIds;
+			 },
+			 //展示将要准备买的订单
+			 getPrepareOrder(orderStatus){
+				 if(addressId=="null"){
+					 addressId=null;
+				 }
+				 console.log(drudIds)
+				 let postdata=JSON.stringify({
+					 "token":token,
+					 "userId":userId,
+					 addressId:addressId,
+					 drudIds:drudIds
+			      })
+
+			     Global.ajaxRequest(Global.api+"/basketController/showPrepareOrder",postdata)
+			     .then((res) => {
+			    	 console.log(res)
+			    	 var addressMap=res.data.addressMap;
+			    	 if(addressMap==null||addressMap.real_name==null){
+			    		 alert("请先填写地址,");
+			    		 window.location.href="editAddress.html";
+			    	 }
+			    	 $(".topWrap").append(`
+			    			  <img src="static/images/gouwuche-weizhi.png" class="img100"/>
+			    			  <div class="rightWrap">
+			    			    <div class="flexWrap">
+			    			      <h3>收货人:${addressMap.real_name}</h3>
+			    			      <span>${addressMap.phone}</span>
+			    			    </div>
+			    			    <div class="backWrap">
+			    			      <img src="static/images/gouwuche-fanhui(small).png" class="img100"/>
+			    			    </div>
+			    			    <div class="addressWrap">
+			    			       	${addressMap.province} ${addressMap.city} ${addressMap.area} ${addressMap.street}
+			    			    </div>
+			    			  </div>			    			 
+			    			 `)
+			    	var productMapList=res.data.productMapList;
+			       var returnData=res.data; 
+			       buyPrice= returnData.buyPrice;
+			       discountArithmeticPrice= returnData.discountArithmeticPrice;
+			       productTotalPrice=returnData.productTotalPrice;
+			       productMapList.forEach(function(item){
+				    	 $(".shopContent").append(`
+				    		<div class="contentList">
+				    		     <img src="${Global.picUrl+item.pic1}" class="img200"/>
+				    		     <div class="list_right">
+				    		       <div class="list_top">
+				    		         	${item.name}
+				    		       </div>
+				    		       <div class="list_foot">
+				    		         <span>￥${parseFloat(item.pay_price/100).toFixed(2)}</span>
+				    		         <span>x${item.type_count}</span>
+				    		       </div>
+				    		     </div>
+				    		  </div>			    			 
+				    			 `)
+			    		 
+			    	 })
+			       $(".block").append(`
+			    		  <div class="flex_item">
+			    	        <span>商品总额</span>
+			    	        <span>￥${parseFloat(returnData.productTotalPrice/100).toFixed(2)}</span>
+			    	      </div>
+			    	      <div class="flex_item">
+			    	        <span>红包</span>
+			    	        <div>
+			    	          <span class="color">￥${parseFloat(returnData.discountArithmeticPrice/100).toFixed(2)}</span>
+			    	        </div>
+			    	      </div>			    		   
+			    		   `)	 
+			    	$(".money").text("￥"+parseFloat(returnData.buyPrice/100).toFixed(2)) ;
+			       $(".box_text").append(`
+			    		      <span>合计：</span>
+			    		      <span class="color">￥${parseFloat(returnData.buyPrice/100).toFixed(2)}</span>			    		   
+			    		   `)
+			      });
+				
+			 }
+		  }
+		  $(function(){
+			  	/* document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7";
+			  	document.cookie="userid=123"; */
+			    pageObj.init();
+			  	
+			})
+			  
+  </script>  
+</head>
+<body>
+<div class="topWrap" onclick="pageObj.goAddressChoose()">
+<!--   
+<img src="static/images/gouwuche-weizhi.png" class="img100"/>
+  <div class="rightWrap">
+    <div class="flexWrap">
+      <h3>收货人:郭大白</h3>
+      <span>18888888888</span>
+    </div>
+    <div class="backWrap">
+      <img src="static/images/gouwuche-fanhui(small).png" class="img100"/>
+    </div>
+    <div class="addressWrap">
+       收货地址:辽宁省沈阳市铁西区云峰北街34-15巴塞罗那11棟
+    </div>
+  </div>
+-->
+</div>
+<div class="shopWrap">
+  <img src="static/images/gouwuche-dianpu.png" class="img100"/>
+  <span>空中药方</span>
+</div>
+<div class="shopContent">
+  <!-- 
+  <div class="contentList">
+     <img src="static/images/head.png" class="img200"/>
+     <div class="list_right">
+       <div class="list_top">
+         桑葚5g*10袋-精选攀枝花 提高免疫力提高免疫力提高免疫力
+       </div>
+       <div class="list_foot">
+         <span>￥200</span>
+         <span>x1</span>
+       </div>
+     </div>
+  </div>
+  <div class="contentList">
+    <img src="static/images/head.png" class="img200"/>
+    <div class="list_right">
+      <div class="list_top">
+        桑葚5g*10袋-精选攀枝花 提高免疫力提高免疫力提高免疫力
+      </div>
+      <div class="list_foot">
+        <span>￥200</span>
+        <span>x1</span>
+      </div>
+    </div>
+  </div> 
+  -->
+</div>
+<div class="line"></div>
+<div class="mingxi">
+  <ul>
+    <li class="title">
+      <span>费用明细</span>
+    </li>
+    <li>
+      <span>品种名称</span>
+      <span>中药</span>
+    </li>
+   <li class="block">
+     <!--  <div class="flex_item">
+        <span>商品总额</span>
+        <span>￥200</span>
+      </div>
+      <div class="flex_item">
+        <span>红包</span>
+        <div>
+          <span class="color">￥5</span>
+
+        </div>
+      </div> -->
+    </li>
+    <li>
+      <div class="mingxi_foot">
+        <span class="shifu">实付:</span>
+        <span class="money">￥200</span>
+      </div>
+    </li>
+  </ul>
+</div>
+<div class="line"></div>
+
+<div class="content_button">
+  <div class="button_box">
+    <div class="box_text">
+<!--       <span>合计：</span>
+      <span class="color">￥395</span> -->
+    </div>
+    <span class="box_submit" onclick="pageObj.gopay()">提交订单</span>
+  </div> 
+</div>
+<script>
+</script>
+</body>
+
+
+
+
+  
+>>>>>>> branch 'master' of https://github.com/organ-xqTeam/HaoLangZhongProject.git
 </html>

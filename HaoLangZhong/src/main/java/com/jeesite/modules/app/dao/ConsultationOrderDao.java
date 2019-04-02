@@ -32,5 +32,18 @@ public interface ConsultationOrderDao {
 	 * 医生回复订单
 	 * */
 	int reply(Map<String, Object> params);
+	/**
+	 * 通过主键查找咨询订单
+	 * @param requestMap
+	 * @return
+	 */
+	Map<String, Object> getConsultationOrderByOrderId(Map<String, Object> requestMap);
+
+	/**
+	 * 更新成已支付状态
+	 * @param requestMap
+	 * @return
+	 */
+	void updateOrderPay(Map<String, Object> requestMap);
 	
 }
