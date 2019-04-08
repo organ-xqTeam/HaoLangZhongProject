@@ -131,6 +131,7 @@
   }
   .touxiang{
     width: 2.5em;
+    height: 2.5em;
     border-radius: 50%;
   }
   .user_content{
@@ -188,10 +189,10 @@
   </style>
 </head>
 <body>
-    <div class="nav">
+<!--     <div class="nav">
         <img src="static/images/fanhui.png" class="back img200"/>
         <span class="title">我的评价</span>
-    </div>
+    </div> -->
     <div class="content_main">  
       <div class="user_content">
         <!-- <div class="user_content_list">
@@ -222,10 +223,12 @@ var swiper = new Swiper('.swiper-container', {
 <script>
    var pageObj={
     initData(){
-      var docid=window.location.href.split("?")[1].split("docid=")[1]
       var cookieStr=document.cookie.split(";")
-      let userid=cookieStr[0].split("=")[1]
-      let token=cookieStr[1].split("=")[1]
+
+      var userid=Global.getCookie("userid");
+      var token=Global.getCookie("token");
+      var userid=Global.getParameter("userid");
+      var docid=Global.getParameter("docid");
       // $.ajax({
       //       type: "get",
       //       // url: Global.api+"doctorInfo/findOneByDoctorid/0f2067603f1111e99752bcaec5595fa3/52af75fcf37249a997df6385d8344597",
@@ -293,8 +296,8 @@ var swiper = new Swiper('.swiper-container', {
        $(".goanswer").click(function(){
           console.log("555")
           console.log(Global.api)
-          var docid=window.location.href.split("?")[1].split("docid=")[1]
-          window.location.href="http://localhost:8980/js/static/answerRecord.html?docid="+docid
+      	  var docid=Global.getParameter("docid");
+          window.location.href="answerRecord.html?docid="+docid
        })
     },
     init(){

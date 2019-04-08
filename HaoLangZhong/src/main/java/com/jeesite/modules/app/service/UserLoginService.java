@@ -1,14 +1,19 @@
 package com.jeesite.modules.app.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSONObject;
+import com.jeesite.modules.app.dao.DoctorPicDao;
 import com.jeesite.modules.app.dao.UserLoginDao;
+import com.jeesite.modules.app.entity.DoctorInfo;
+import com.jeesite.modules.app.entity.DoctorPic;
 import com.jeesite.modules.app.entity.User;
+import com.jeesite.modules.app.entity.UserInfo;
 import com.jeesite.modules.app.utils.DateUtil;
 import com.jeesite.modules.app.utils.MD5Utils;
 import com.jeesite.modules.app.utils.TokenProccessor;
@@ -30,9 +35,12 @@ public class UserLoginService {
 
 	@Autowired
 	private UserLoginDao userLoginDao;
-	
+	@Autowired
+	private  UserInfoService  userInfoService;
 	@Autowired
     private StringRedisTemplate stringRedisTemplate;
+	@Autowired
+	private DoctorPicDao  doctorPicDao;
 	
 	/**
 	 * 用户登录
@@ -58,7 +66,37 @@ public class UserLoginService {
 		user.put("token", TokenProccessor.makeToken());
 		stringRedisTemplate.opsForValue().set(user.get("token").toString(), user.toString());
 		result = new JSONObject(user);
-		return result;
+		
+		//判断是否为医生
+		UserInfo userInfo =new UserInfo();
+		userInfo.setId((String)user.get("id"));
+		userInfo=userInfoService.get(userInfo);
+		String type= userInfo.getType();
+		if(type.equals("2")) {
+			String isauthentication = userInfo.getIsauthentication();
+			Map<String, Object> docMap = new  HashMap<>();
+			docMap.put("doctorid",userInfo.getId());
+			Map<String, Object> map= userLoginDao.getDoctorBydoctorid(docMap);
+			if(map!=null&&map.containsKey("id")&&!isauthentication.trim().equals("0")) {
+				result.put("isauth", true);
+				return result;
+			}
+			if(isauthentication!=null&&!isauthentication.trim().equals("0")) {
+				result.put("isauth", false);
+				return result;
+			}
+			result.put("doctorInfo", map);
+			//查找医生图片
+			DoctorPic doctorPic =new DoctorPic();
+			doctorPic.setDoctorid((String)user.get("id"));
+			List<DoctorPic>  doctorPicList=doctorPicDao.findList(doctorPic);
+			if(doctorPicList!=null&&doctorPicList.size()>0) {
+				result.put("doctorPic", doctorPicList.get(0));
+			}
+		}
+		
+		
+   		return result;
 	}
 	
 	/**

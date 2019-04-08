@@ -41,7 +41,7 @@ public class UserCollectionController extends BaseController {
 	@RequestMapping(value = "/queryDoctorList")
 	public Result queryDoctorList(@RequestBody UserCollection requestParams) {
 		try {
-			TokenTools.checkToken(requestParams.getToken(), redis);
+			/*TokenTools.checkToken(requestParams.getToken(), redis);*/
 			PageModel pageModel = new PageModel(requestParams.getPageNum(), requestParams.getPageSize());
 			requestParams.setPageModel(pageModel);
 			List<Map<String, Object>> resultList = userCollectionService.queryDoctorList(requestParams);
@@ -67,7 +67,7 @@ public class UserCollectionController extends BaseController {
 	@RequestMapping(value = "/queryArticleList")
 	public Result queryArticleList(@RequestBody UserCollection requestParams) {
 		try {
-			TokenTools.checkToken(requestParams.getToken(), redis);
+			/*TokenTools.checkToken(requestParams.getToken(), redis);*/
 			PageModel pageModel = new PageModel(requestParams.getPageNum(), requestParams.getPageSize());
 			requestParams.setPageModel(pageModel);
 			List<Map<String, Object>> resultList = userCollectionService.queryArticleList(requestParams);
@@ -93,7 +93,7 @@ public class UserCollectionController extends BaseController {
 	@RequestMapping(value = "/saveUserCollection")
 	public Result saveUserCollection(@RequestBody Map<String, Object> requestParams) {
 		try {
-			TokenTools.checkToken(requestParams.get("token").toString(), redis);
+			/*TokenTools.checkToken(requestParams.get("token").toString(), redis);*/
 			requestParams.put("create_date", DateUtil.getSysTime1());
 			requestParams.put("del_flag", "0");
 			userCollectionService.saveUserCollection(requestParams);
@@ -116,7 +116,7 @@ public class UserCollectionController extends BaseController {
 	@RequestMapping(value = "/cancelCollection/{userid}/{collectionid}/{token}")
 	public Result cancelCollection(@PathVariable String userid, @PathVariable String collectionid, @PathVariable String token) {
 		try {
-			TokenTools.checkToken(token, redis);
+			/*TokenTools.checkToken(token, redis);*/
 			userCollectionService.cancelCollection(userid, collectionid);
 			return Result.success(true);
 		}

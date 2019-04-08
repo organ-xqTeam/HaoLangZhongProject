@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.jeesite.common.web.BaseController;
+import com.jeesite.modules.app.dao.CutDao;
+import com.jeesite.modules.app.entity.Cut;
 import com.jeesite.modules.app.entity.DoctorInfo;
 import com.jeesite.modules.app.service.DoctorInfoService;
 import com.jeesite.modules.app.utils.CodeMsg;
@@ -172,10 +174,24 @@ public class DoctorInfoController extends BaseController {
 	@RequestMapping(value = "/queryIncomeList")
 	public Result queryIncomeList(@RequestBody DoctorInfo requestParams) {
 		try {
-			TokenTools.checkToken(requestParams.getToken(), redis);
+			/*TokenTools.checkToken(requestParams.getToken(), redis);*/
 			PageModel pageModel = new PageModel(requestParams.getPageNum(), requestParams.getPageSize());
 			requestParams.setPageModel(pageModel);
 			List<Map<String, Object>> resultList = doctorInfoService.queryIncomeList(requestParams);
+			Cut cut =new Cut();
+			List<Cut> cutList= cutDao.findList(cut);
+			double doucut=0;
+			if(cutList!=null&&cutList.size()>0) {
+				String cutStr= cutList.get(0).getCut();
+				if(cutStr!=null) {
+					doucut= new Double(cutStr) ;
+				}	
+			}
+			for (int i = 0; i < resultList.size(); i++) {
+				Double amount= new Double(resultList.get(i).get("amount").toString()) ;
+				amount=doucut*amount;
+				resultList.get(i).put("amount", amount);
+			}
 			JSONObject result = new JSONObject();
 			result.put("items", resultList);
 			result.put("count", doctorInfoService.queryIncomeCount(requestParams));
@@ -190,6 +206,8 @@ public class DoctorInfoController extends BaseController {
 			return Result.error(CodeMsg.PARAMETER_ISNULL);
 		}
 	}
+	@Autowired
+	private CutDao cutDao;
 	
 	/**
 	 * 查询医生钱包余额
@@ -198,8 +216,18 @@ public class DoctorInfoController extends BaseController {
 	@RequestMapping(value = "/queryIncomeSum")
 	public Result queryIncomeSum(@RequestBody DoctorInfo requestParams) {
 		try {			
-			TokenTools.checkToken(requestParams.getToken(), redis);
-			return Result.success(doctorInfoService.queryIncomeSum(requestParams));
+			/*TokenTools.checkToken(requestParams.getToken(), redis);*/
+			Double incomeSum = doctorInfoService.queryIncomeSum(requestParams);
+			Cut cut =new Cut();
+			List<Cut> cutList= cutDao.findList(cut);
+			if(cutList!=null&&cutList.size()>0) {
+				String cutObj= cutList.get(0).getCut();
+				if(cutObj!=null) {
+					double doucut= new Double(cutObj) ;
+					incomeSum=incomeSum*doucut;
+				}
+			}
+			return Result.success(incomeSum);
 		}
 		catch (RedisCheckException e2) {
 			logger.error(e2.getMessage(), e2);

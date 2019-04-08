@@ -20,6 +20,8 @@ public class CodeMsg {
 	public static CodeMsg PRICE_FAIL = new CodeMsg(500110,"支队金额有误");	
 	public static CodeMsg TOKEN_INVALID = new CodeMsg(400,"用户未登录");
 	public static CodeMsg NOT_EXIST =  new CodeMsg(401,"用户不存在");
+	public static CodeMsg ISAUTH_FALSE =  new CodeMsg(407,"用户未进行审核,跳转");
+	public static CodeMsg ISAUTH_TRUE =  new CodeMsg(408,"审核中");
 	public static CodeMsg WRONG_PASS =  new CodeMsg(402,"密码错误");
 	public static CodeMsg NOT_LOGIN = new CodeMsg(403,"用户未登录");
 	public static CodeMsg PASS_CHECK = new CodeMsg(404,"确认密码不正确");

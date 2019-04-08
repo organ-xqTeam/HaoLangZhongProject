@@ -21,12 +21,20 @@
       align-items: center;
       justify-content: space-between;
       border-bottom: 0.01rem solid #ccc;
-      padding-bottom: .1rem;
+      padding: .1rem 0;
+    }
+    .wrap_img{
+      width: .5rem;
+      height: .5rem;
+      overflow: hidden;
+      border-radius: 50%;
+      /* border: 1px solid red; */
     }
     .main_list img{
-      width: .5rem;
-      height:.6rem;
-      border-radius: 50%;
+      /* width: .5rem; */
+      /* height:.5rem; */
+      /* border-radius: 50%; */
+      width: 100%;
     }
     .main_right{
       display: flex;
@@ -41,7 +49,9 @@
 <body>
 <div class="main">
   <!-- <div class="main_list">
-    <img src="static/images/head.png"/>
+  	<div class="wrap_img">
+    	<img src="static/images/head.png"/>
+    </div>
     <div class="list_right">
       <div class="main_right">
         <h3>官方客服</h3>
@@ -60,7 +70,7 @@ var pageObj={
       let postdata=JSON.stringify({
             userid:userid,
             pageNum:"1",
-            pageSize:"10",
+            pageSize:"100",
             token:token
       })
       console.log("dabai")
@@ -78,7 +88,9 @@ var pageObj={
               data.forEach(function(item){
                   $(".main").append(`
                       <div class="main_list" onclick="pageObj.goDetailsConsultation('${item.id}')">
-                        <img src="${Global.picUrl+item.icon}"/>
+                		<div class="wrap_img">
+                        	<img src="${Global.picUrl+item.icon}" style="height:100%;width:100%"/>
+                        </div>
                         <div class="list_right">
                           <div class="main_right">
                             <h3>${item.doctorname}</h3>

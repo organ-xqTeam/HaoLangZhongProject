@@ -36,7 +36,7 @@ public class UserFeedbackController extends BaseController {
 	@RequestMapping(value = "/saveFeedback")
 	public Result saveFeedback(@RequestBody Map<String, Object> requestParams) {
 		try {
-			TokenTools.checkToken(requestParams.get("token").toString(), redis);
+			/*TokenTools.checkToken(requestParams.get("token").toString(), redis);*/
 			requestParams.put("create_date", DateUtil.getSysTime1());
 			requestParams.put("del_flag", "0");
 			userFeedbackService.saveFeedback(requestParams);

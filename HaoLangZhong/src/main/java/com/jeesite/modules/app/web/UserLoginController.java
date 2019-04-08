@@ -42,6 +42,18 @@ public class UserLoginController extends BaseController {
 	public Result login(@RequestBody User user) throws Exception {
 		try {
 			JSONObject result = userLoginService.login(user);
+			Object isauth= result.get("isauth");
+			
+			if(isauth!=null) {
+				Boolean isauthFlag=(Boolean) isauth;
+				if(isauthFlag==false) {
+					//需跳转审核页面
+					return Result.error(CodeMsg.ISAUTH_FALSE);
+				}else {
+					//审核中
+					return Result.error(CodeMsg.ISAUTH_TRUE);
+				}
+			}
 			return Result.success(result);
 		}
 		catch (NotExistException e1) {

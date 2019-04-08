@@ -1,6 +1,16 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
+encoding//src/main/resources/config/beetl.properties=UTF-8
 encoding//src/main/resources/config/ueditor.json=UTF-8
+encoding//src/main/resources/views/modules/app/orderForm.html=UTF-8
+encoding//src/main/resources/views/modules/app/orderList.html=UTF-8
+encoding//src/main/resources/views/modules/demo/demoDataGridEditGrid.html=UTF-8
+encoding//src/main/resources/views/modules/demo/demoDataGridGroupGrid.html=UTF-8
+encoding//src/main/resources/views/modules/demo/demoFormEditForm.html=UTF-8
+encoding//src/main/resources/views/modules/demo/demoFormLayoutForm.html=UTF-8
+encoding//src/main/resources/views/modules/demo/demoFormTableForm.html=UTF-8
+encoding//src/main/resources/views/modules/test/testDataForm.html=UTF-8
+encoding//src/main/resources/views/modules/test/testDataList.html=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8

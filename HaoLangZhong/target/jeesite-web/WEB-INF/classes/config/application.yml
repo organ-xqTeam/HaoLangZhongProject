@@ -40,7 +40,7 @@ jdbc:
   #url: jdbc:mysql://192.168.1.15:3306/haolangzhong?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
   username: root
   #password: root
-  password: xq@2018
+  password: 4b6f1a6df813406f0f46b76c24d8c425
   testSql: SELECT 1
 
 #  # Oracle 数据库配置

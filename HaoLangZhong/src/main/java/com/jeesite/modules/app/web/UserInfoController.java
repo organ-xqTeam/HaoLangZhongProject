@@ -51,6 +51,7 @@ public class UserInfoController extends BaseController {
 	
 	/**
 	 * 医生提交验证
+	 * userInfo/validate
 	 * */
 	@ResponseBody
 	@RequestMapping(value = "/validate")

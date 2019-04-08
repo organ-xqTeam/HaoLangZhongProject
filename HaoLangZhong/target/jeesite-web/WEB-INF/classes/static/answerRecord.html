@@ -39,7 +39,7 @@
 </head>
 <body>
 <div class="main">
-  <div class="main_list">
+  <!-- <div class="main_list">
     <img src="static/images/head.png"/>
     <div class="list_right">
       <div class="main_right">
@@ -48,7 +48,7 @@
       </div>
       <span>这个病有点棘手，我先给你开个药方</span>
     </div>
-  </div>
+  </div> -->
 </div>
 <script>
 var pageObj={
@@ -95,7 +95,7 @@ var pageObj={
        $(".main").delegate(".main_list","click",function(){
           console.log($(this).data("id"))
           let id=$(this).data("id")
-          window.location.href= window.location.href="http://localhost:8980/js/static/consulting.html?id="+id
+          window.location.href= window.location.href="consulting.html?id="+id
        })
     },
     init(){

@@ -58,20 +58,38 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
 		String time = DateUtil.getSysTime1();
 		Map<String, Object> doctorInfo = new HashMap<String, Object>();
 		Map<String, Object> doctorPic = new HashMap<String, Object>();
-		doctorInfo.put("doctorid", requestMap.get("id").toString());
 		doctorInfo.put("name", requestMap.get("name").toString());
+		
+		//通过手机查找
+		String telephone = requestMap.get("telephone").toString();
+		UserInfo userInfo=new UserInfo();
+		userInfo.setMobile(telephone);
+		List<UserInfo> userInfoList= userInfoDao.findList(userInfo);
+		String doctorid="";
+		if(userInfoList!=null&&userInfoList.size()>0) {
+			doctorid=userInfoList.get(0).getId();
+		}
+		doctorInfo.put("doctorid", doctorid);
 		doctorInfo.put("telephone", requestMap.get("telephone").toString());
 		doctorInfo.put("idcard", requestMap.get("idcard").toString());
 		doctorInfo.put("adress", requestMap.get("adress").toString());
 		doctorInfo.put("create_date", time);
 		doctorInfo.put("del_flag", "0");
 		userInfoDao.saveDoctorInfo(doctorInfo);
-		doctorPic.put("doctorid", requestMap.get("id").toString());
-		doctorPic.put("certificate1", requestMap.get("certificate1").toString());
-		doctorPic.put("certificate2", requestMap.get("certificate2").toString());
-		doctorPic.put("certificate3", requestMap.get("certificate3").toString());
+		/*doctorPic.put("doctorid", requestMap.get("id").toString());*/
+		if(requestMap.get("certificate1")!=null) {
+			doctorPic.put("certificate1", requestMap.get("certificate1").toString());
+		}
+		if(requestMap.get("certificate2")!=null) {
+			doctorPic.put("certificate2", requestMap.get("certificate2").toString());
+		}
+		if(requestMap.get("certificate3")!=null) {
+			doctorPic.put("certificate3", requestMap.get("certificate3").toString());
+		}
+		
 		doctorPic.put("create_date", time);
 		doctorPic.put("del_flag", "0");
+		doctorPic.put("doctorid", doctorid);
 		userInfoDao.saveDoctorPic(doctorPic);
 		return 1;
 	}
@@ -116,10 +134,18 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
 						requestMap.containsKey("introducevideo")) {
 			Map<String, Object> picMap = new HashMap<String, Object>();
 			picMap.put("doctorid", requestMap.get("doctorid").toString());
-			picMap.put("introducepic1", requestMap.get("introducepic1").toString());
-			picMap.put("introducepic2", requestMap.get("introducepic2").toString());
-			picMap.put("introducepic3", requestMap.get("introducepic3").toString());
-			picMap.put("introducevideo", requestMap.get("introducevideo").toString());
+			if(requestMap.get("introducepic1")!=null) {
+				picMap.put("introducepic1", requestMap.get("introducepic1").toString());
+			}
+			if(requestMap.get("introducepic2")!=null) {
+				picMap.put("introducepic2", requestMap.get("introducepic2").toString());
+			}
+			if(requestMap.get("introducepic3")!=null) {
+				picMap.put("introducepic3", requestMap.get("introducepic3").toString());
+			}
+			if(requestMap.get("introducevideo")!=null) {
+				picMap.put("introducevideo", requestMap.get("introducevideo").toString());
+			}
 			userInfoDao.updateDoctorPic(picMap);
 		}
 	}

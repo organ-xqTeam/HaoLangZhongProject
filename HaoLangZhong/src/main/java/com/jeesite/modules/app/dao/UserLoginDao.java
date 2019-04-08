@@ -14,5 +14,7 @@ public interface UserLoginDao {
 	Map<String, Object> getUserInfo(User u);
 	
 	int updateUser(Map<String, Object> params);
+
+	Map<String, Object> getDoctorBydoctorid(Map<String, Object> docMap);
 	
 }

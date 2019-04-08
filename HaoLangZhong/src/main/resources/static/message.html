@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+  <meta charset="UTF-8">
+  <title>消息</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <script type="text/javascript">
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+  </script>
+  <link rel="stylesheet" href="static/css/common.css">
+  <link rel="stylesheet" href="static/css/user.css">
+  <link rel="stylesheet" href="static/css/swiper.min.css">
+  <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/js/mianG.js"></script>
+  <style>
+    .nav{
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      display: flex;
+      height: .4rem;
+      border-bottom: .01rem solid #cccccc47;
+    }
+    .back{
+      position: absolute;
+      left: .1rem;
+      top: 0.1rem;
+    }
+    .img100{
+      width: .1rem;
+    }
+    .img200{
+      height: auto !important;
+      width: .2rem;
+    }
+    .title{
+      font-size: .17rem;
+    }
+
+
+    .line{
+     border-bottom:0.07rem solid #eee6e1;
+     margin-top: .2rem;
+    }
+    .line2{
+     border-bottom:0.07rem solid #eee6e1;
+    }
+    .color{
+      color: #aa7563;
+    }
+    .height{
+      height: 0.4rem;
+    }
+    .list{
+      line-height: .3rem;
+    }
+    .list div{
+      color: #ccc;
+    }
+    .list span{
+      background: #eee6e1;
+      padding: 0rem 0.17rem;
+      display: inline-block;
+      margin-right: .1rem;
+    }
+    .swiper-container {
+        width: 100%;
+    }
+    .img_swiper{
+      padding: .2rem;
+    }
+    .swiper_title{
+      margin-left: -.2rem;
+      margin-top: -.1rem;
+      margin-bottom: .1rem;
+    }
+    /*上传图片*/
+    .addpicWrap{
+      position: absolute;
+    top: 1rem;
+    }
+.addpicWrap .addpicBtn{
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  background: url(static/images/wode-tianjia.png) center center no-repeat;
+  background-size: 70%;
+}
+.addpicWrap .addedPic{
+  display: flex;
+  flex-wrap: wrap;
+}
+.addpicWrap .addedPic .picWrap{
+  position: relative;
+  /* padding: 16.6666%; */
+  padding: calc(16.6666% - 0.05rem);
+  margin: 0.05rem;
+}
+.addpicWrap .addedPic .picWrap>img{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.addpicWrap .delPic{
+  display: inline-block;
+  width: 0.2rem;
+  height: 0.2rem;
+  background: url(static/images/移除@2x.png) center center no-repeat;
+  background-size: 100%;
+  position: absolute;
+  top: 0.06rem;
+  right: 0.06rem;
+}
+.textarea{
+    width: 100%;
+    height: 1.4rem;
+    border: 0.01rem solid #fbf7f4;
+    background-color: #fbf7f4;
+}
+.introduce{
+  position: relative;
+}
+.introduce .title{
+  margin: .13rem 0;
+}
+.border{
+  border: 0.01rem solid #852f14;
+  margin-left: 0.05rem;
+}
+.logo {
+  text-align: center;
+  padding: .5rem 0;
+}
+.logo img{
+  width: 1.1rem;
+}
+.check{
+  background:url(static/images/wode-xieyi.png) center center no-repeat;
+  background-size:100%;
+  display: inline-block;
+  width: .2rem;
+  height: .2rem;
+}
+.flex_item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.item_flex{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 2.4rem;
+}
+.img100{
+  width: .5rem;
+  border-radius: 50%;
+}
+.contentList{
+  padding: .2rem;
+}
+.contentList .time{
+  align-self: flex-start;
+  color: #ccc;
+  font-size: .12rem;
+}
+.color{
+  color: #ccc;
+  margin-top: .07rem;
+}
+.wrap_img{
+      width: .5rem;
+      height: .5rem;
+      overflow: hidden;
+      border-radius: 50%;
+      /* border: 1px solid red; */
+}
+.main_list img {
+      /* width: .5rem; */
+      /* height:.5rem; */
+      /* border-radius: 50%; */
+      width: 100%;
+ }
+  </style>
+</head>
+<body>
+<!-- <div class="nav">
+  <img src="static/images/fanhui.png" class="back img200"/>
+  <span class="title">消息</span>
+</div> -->
+<div class="contentList">
+  <!-- <div class="flex_item">
+    <div class="item_flex">
+    <div class="wrap_img">
+      <img src="static/images/head.png" class="img100"/>
+    </div>  
+      <div style="width:1.8rem;">
+        <h3>官方通知</h3>
+        <div>最新活动通知，欢迎抢购！</div>
+      </div>
+    </div>
+    <span class="time">2019-01-08</span>
+  </div> -->
+</div>
+<script>
+var userId="";
+var token="";
+var pageObj={
+	initData(){
+
+		    token=Global.getCookie("token");
+		    userId=Global.getCookie("userid")
+			console.log("userId:"+userId)
+			console.log("token:"+token)
+			let postdata =null;
+			postdata=JSON.stringify({
+				 "token":token,
+				 "userid":userId
+		     })
+			Global.ajaxRequest(Global.api+"/message/getMessageList",postdata)
+		     .then((res) => {
+		    	 console.log(res);
+		    	 var messageList=res.data
+		    	 messageList.forEach(function(item){
+		    		 
+			    	 $(".contentList").append(`
+			    			  <div class="flex_item" onclick="pageObj.gotodetail('${item.id}')" >
+			    			    <div class="item_flex">
+				    			    <div class="wrap_img">
+				    			      <img  src="${Global.picUrl+item.pic}" class="img100"/>
+				    			    </div>  
+			    			      <div style="width:1.8rem;" >
+			    			        <h3>${item.author}</h3>
+			    			        <div>${item.title}</div>
+			    			      </div>
+			    			    </div>
+			    			    <span class="time">${item.createDate.substring(0,10)}</span>
+			    			  </div>
+			    			 `)
+		    		 
+		    	 })
+		    	 /**
+		    	 
+    "data": [
+        {
+            "isNewRecord": false,
+            "id": "1",
+            "createBy": "创建人",
+            "createDate": "2019-04-02 15:00",
+            "updateBy": "更新人",
+            "title": "恭喜app测试成功",
+            "content": " 市中医医院新院建设工程作为我市重大的基础性和公益性建设项目，也是重大的民生工程，关系着四百万人民的福祉。今日，小编来到位于钦州市蓬莱北大道66号的市中医医院新址，感受新医院的变化。呈现在眼前的门诊大楼宽敞明亮，院内环境优美，中医氛围浓厚，工作人员正有条不紊地为搬迁做着最后的准备。\r\n\r\n\r\n\r\n\r\n市中医医院始建于1960年，是我市唯一一家集医疗、预防、保健、教学、科研于一体的国家三级甲等中医医院。原位于二马路78号的市中医医院旧址仅设有435张床位，医院的硬件条件远远无法满足群众的就医需求。\r\n\r\n\r\n为进一步提升医疗服务保障能力，该院实施了市中医医院新建工程。经过多年的紧张施工，新院即将开始接诊，成为集医、教、研、保健为一体的现代化中医医院。\r\n\r\n据介绍，市中医医院新院项目规划用地88.65亩,总建筑面积112600㎡，现已建成综合楼（主楼）1栋,建筑面积50500㎡，高21层，门急诊综合楼（北楼）1栋,建筑面积15100㎡，高11层，地下室34900㎡。其中，主楼、北楼1―5层为门诊、医技、急诊科室，主楼6―19层及北楼6—11层为住院病区、手术室和ICU病房。病区内全部采用中心吸氧、中央空调、寻呼系统，并配有电视、饮水机、微波炉等生活设施。床位918张，24小时开诊。\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n“同旧医院相比，新医院的硬件条件有了大幅提升，可以说是质的飞跃。群众来这里就医，会感觉更加舒心。”该院相关负责人表示，目前该院正依托完善的基础设施和先进的医疗设备，全面强化医院科学管理，深化内涵建设，不断改进和提升医疗服务质量。",
+            "pic": "fb49eb5f52df11e9b780fa163e609e63",
+            "author": "系统管理员"
+        }
+        ]
+		    	 **/
+		    	 
+		    })
+		   
+		 },
+		 init(){
+		   pageObj.initData()
+		 },
+		 //提交订单
+		 gotodetail(id){
+			 window.location.href="detailsMessage.html?id="+id;
+		 },
+	  }
+	  $(function(){
+		  	/* document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7";
+		  	document.cookie="userid=123"; */
+		    pageObj.init();
+		})
+		  
+</script>
+</body>
+</html>

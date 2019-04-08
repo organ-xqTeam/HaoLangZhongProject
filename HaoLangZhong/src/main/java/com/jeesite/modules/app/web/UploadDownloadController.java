@@ -1,5 +1,13 @@
 package com.jeesite.modules.app.web;
 
+import java.awt.Graphics;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.HeadlessException;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -18,6 +26,8 @@ import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.ImageIcon;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -82,11 +92,46 @@ public class UploadDownloadController extends BaseController {
 			response.setDateHeader("expries", -1);
 			response.setHeader("Cache-Control", "no-cache");
 			response.setHeader("Pragma", "no-cache");
-			BufferedImage buffImg = ImageIO.read(new FileInputStream(downloadPath));
-			ImageIO.write(buffImg, "jpg", response.getOutputStream());
+			/*BufferedImage buffImg = ImageIO.read(new FileInputStream(downloadPath));*/
+
+			Image src = Toolkit.getDefaultToolkit().getImage(downloadPath);
+			BufferedImage image = this.toBufferedImage(src);
+			ImageIO.write(image, "jpg", response.getOutputStream());
 		}
 
 	}
+	public BufferedImage toBufferedImage(Image image) {
+		if (image instanceof BufferedImage) {
+			return (BufferedImage) image;
+		}
+		// This code ensures that all the pixels in the image are loaded
+		image = new ImageIcon(image).getImage();
+		BufferedImage bimage = null;
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		try {
+			int transparency = Transparency.OPAQUE;
+			GraphicsDevice gs = ge.getDefaultScreenDevice();
+			GraphicsConfiguration gc = gs.getDefaultConfiguration();
+			bimage = gc.createCompatibleImage(image.getWidth(null), image.getHeight(null), transparency);
+		} catch (HeadlessException e) {
+			// The system does not have a screen
+		}
+		if (bimage == null) {
+			// Create a buffered image using the default color model
+			int type = BufferedImage.TYPE_INT_RGB;
+			bimage = new BufferedImage(image.getWidth(null), image.getHeight(null), type);
+		}
+		// Copy image to buffered image
+		Graphics g = bimage.createGraphics();
+		// Paint the image onto the buffered image
+		g.drawImage(image, 0, 0, null);
+		g.dispose();
+		return bimage;
+	}
+
+	
+	
+	
 	/**
 	 * 文件的转发显示
 	 * js/f/sys/fileInfo/viewPic/{filename:.+}

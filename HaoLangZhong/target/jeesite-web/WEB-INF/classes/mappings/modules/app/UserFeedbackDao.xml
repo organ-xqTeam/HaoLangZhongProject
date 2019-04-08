@@ -10,7 +10,9 @@
 			id,
 			userid,
 			content,
-			pics,
+			<if test="pics!=null">
+				pics,
+			</if>
 			create_date, 
 			del_flag
 		)
@@ -18,7 +20,9 @@
 			#{id,jdbcType=VARCHAR},
 			#{userid,jdbcType=VARCHAR},
 			#{content,jdbcType=VARCHAR},
-			#{pics,jdbcType=VARCHAR},
+			<if test="pics!=null">
+				#{pics,jdbcType=VARCHAR},
+			</if>
 			#{create_date,jdbcType=VARCHAR},
 			#{del_flag,jdbcType=VARCHAR}
 		)

@@ -52,7 +52,7 @@
  <div class="main_title">
     <div class="flex_item">
       <h3>春季来临吃这几种食物利于保养</h3>
-      <img src="static/images/zaixianwenzhen-shoucang.png" class="img100"/>
+      <img src="static/images/zaixianwenzhen-shoucang.png" onclick="pageObj.collect()" class="img100"/>
     </div>
     <div class="datacontent">
       主要服务或者行医案例主要案例主要主要服务或者行医案例主要案例主要主要服务或者行医案例主要案例主要主要服务或者行医案例主要案例主要
@@ -72,6 +72,10 @@
  </div>
 </div>
 <script>
+var userId="";
+var token="";
+var addressId="";
+var drudIds="";
  var pageObj={
     initData(){
       let url=window.location.href.split("?")[1]
@@ -86,8 +90,9 @@
               let data=res.data.articleInfo
               $(".flex_item h3").text(data.title)
               $(".datacontent").text(data.content)
-              $(".datadate").text(data.create_date)
+              $(".datadate").text(Global.formatTimestamp(data.create_date))
               $(".dataintroduce").text(data.introduce)
+              $(".box").html(`<img src='${Global.picUrl+data.pic}' style="width:100%;height:100%">`);
             },
             error: function (e) {
               console.log(e)
@@ -96,6 +101,34 @@
     },
     init(){
       pageObj.initData()
+    },
+    collect(){
+    	/**{
+	"userid":"197fb180439d11e9a903bcaec5595fa3",		//*必填 用户id
+	"collectionid":"3a07e6903f1a11e99752bcaec5595fa3",	//*必填 收藏id
+	"type":"6",									//*必填 收藏类型
+	"token":"5d7a7ea4814543f3923fbafd434f514c"			//*必填 用户token
+		}*/
+	    token=Global.getCookie("token");
+	    userId=Global.getCookie("userid");
+		console.log("userId:"+userId)
+		console.log("token:"+token)
+		var collectionid=Global.getParameter("id");;
+		postdata=JSON.stringify({
+			 "token":token,
+			 "userid":userId,
+			 "collectionid":collectionid,
+			 "type":"3"
+		 })
+    	Global.ajaxRequest(Global.api+"/userCollection/saveUserCollection",postdata)
+	     .then((res) => {
+	    	 console.log(res);
+	    	 var data =res.data;
+	    	 if(data.collectionid!=null){
+	    		 alert("收藏成功");
+	    	 }
+	    	 
+	     })
     }
  } 
  $(function(){

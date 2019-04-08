@@ -2,7 +2,7 @@
 <html lang="en">
 <head >
   <meta charset="UTF-8">
-  <title>意见反馈</title>
+  <title>用户反馈</title>
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <script type="text/javascript">
     document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
@@ -23,9 +23,8 @@
      outline: none;
      padding: .6em;
      height: 9em;
-     border: 0.01rem solid #ccc;
    }
-.addpicWrap .addpicBtn{
+   .addpicWrap .addpicBtn{
   display: inline-block;
   width: 0.6rem;
   height: 0.6rem;
@@ -61,6 +60,7 @@
 }
 .content_top{
   padding: .5em;
+  border-bottom: .01rem solid #cccccc47;
 }
 /* 星评 */
 .starsWrap{
@@ -127,127 +127,109 @@
 .upImgtext{
   line-height: .4rem;
 }
-.nav{
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  width: 100%;
-  display: flex;
-  height: .4rem;
-}
-.back{
-  position: absolute;
-  left: .1rem;
-  top: 0.07rem;
-}
-.img200{
-  height: auto !important;
-  width: .2rem;
-}
-.duanluo{
-  padding: .12rem;
-}
-/* confirm模态框 */
-.msgWrap{
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-}
-.msgWrap .msgMask{
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-.msgWrap .msg{
-  width: 2.33rem;
-  min-height: 1.26rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: .2rem
-}
-.msgWrap .msg .msgText{
-  font-size: 0.16rem;
-  color: rgba(61, 61, 61, 1);
-  font-weight: 550;
-}
-.msgWrap .msg .msgCtrl{
-  margin-bottom: 0.2rem;
-}
-.msgWrap .msg .msgCtrl .closeMsg,
-.msgWrap .msg .msgCtrl .gotoCallback{
-  display: inline-block;
-  width: 0.71rem;
-  height: 0.34rem;
-  border-radius: 0.05rem;
-  line-height: 0.34rem;
-  text-align: center;
-  font-size: 0.14rem;
-  margin: 0 0.1rem;
-}
-.msgWrap .msg .msgCtrl .gotoCallback{
-  background-color: rgba(230, 230, 230, 1);
-  color: rgba(61, 61, 61, 1);
-}
-.msgWrap .msg .msgCtrl .closeMsg{
-  background-color: rgba(126, 31, 1, 1);
-  color: #fff;
-}
-.cancel{
-    border: 0.01rem solid #ccc;
-    padding: 0.06rem .2rem;
-    border-radius: .05rem;
-}
-.content_list{
-  margin-top: -0.5rem;
-}
+    .nav{
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      display: flex;
+      height: .4rem;
+      border-bottom: .01rem solid #cccccc47;
+    }
+    .back{
+      position: absolute;
+      left: .1rem;
+      top: 0.1rem;
+    }
+    .img100{
+      width: .1rem;
+    }
+    .img200{
+      height: auto !important;
+      width: .2rem;
+    }
+    .title{
+      font-size: .16rem;
+    }
 </style>
 </head>
 <body>
-<div class="nav">
-  <img src="static/images/fanhui.png" class="back img200"/>
-  <span>意见反馈</span>
-</div>
+<!-- <div class="nav">
+    <img src="static/images/fanhui.png" class="back img200"/>
+    <span class="title">用户反馈</span>
+</div> -->
 <div class="content_main">
-   <p class="duanluo">
-     我们知道我们业务还不成熟，还有许多需要改进的地方，所以我们需要您的吐槽来帮助我们发现问题，您的意见是我们前进的动力~
-   </p>
+   <div class="line"></div>
    <div class="content_top">
-     <textarea class="text" placeholder="请输入您的意见"></textarea>
+     <textarea class="text" placeholder="请输入您的意见和反馈"></textarea>
+     <div class="addpicWrap">
+      <div style="padding-left:0.05rem;">
+        <a class="addpicBtn"></a>
+      </div>
+      <div class="addedPic">
+        <!-- <div class="picWrap" style="display:none;">
+          <img src="../static/images/timg.jpg" alt="图片">
+          <span class="delPic"></span>
+          <input type="file" style="display: none;">
+        </div> -->
+      </div>
+    </div>
+    </div>
     <div class="content_button">
-      <div class="submit">发送</div>
+      <div onclick="pageObj.submitFeed()">提交</div>
     </div>
 </div>
 <script>
-   $(".submit").click(function(){
-      let $msgDiv = $(`
-            <div class="msgWrap">
-                <div class="msgMask"></div>
-                <div class="msg">
-                    <span class="msgText">您的意见我们已经收</span>
-                    <span class="msgText">到非常感谢!</span>
-                    <p class="msgCtrl">
-                      <span class="closeMsg">确定</span>
-                    </p>
-                </div>
-            </div>
-      `);
-      $("body").append($msgDiv);
-      $(" .msgWrap .cancel").click(function(){
-         $msgDiv.remove()
-      })
-   })
+var userId="";
+var token="";
+var pageObj={
+	initData(){
+
+		    token=Global.getCookie("token");
+		    userId=Global.getCookie("userid")
+			console.log("userId:"+userId)
+			console.log("token:"+token)
+			
+			drudIds=Global.getParameter("drudIds");
+			addressId=Global.getParameter("addressId");
+			buyPrice=Global.getParameter("buyPrice");
+			
+		   
+		 },
+		 init(){
+		   pageObj.initData()
+		 },
+		 //提交订单
+		 submitFeed(){
+			 let postdata =null;
+			 var content=$(".text").val();
+			 if(content==null||content==''){
+				 alert("请输入反馈内容");
+				 return;
+			 }
+			 console.log(content);
+			 postdata=JSON.stringify({
+				 "token":token,
+				 "userid":userId,
+				 "content":content
+		     })
+			Global.ajaxRequest(Global.api+"/userFeedback/saveFeedback",postdata)
+		     .then((res) => {
+		    	 console.log(res);
+		    	 var data=res.data;
+		    	 if(data.id!=null){
+		    		 alert("反馈成功");
+		    		 window.history.go(-1);
+		    	 }
+		    })
+		 },
+	  }
+	  $(function(){
+		  	/* document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7";
+		  	document.cookie="userid=123"; */
+		    pageObj.init();
+		})
+		  
 </script>
 </body>
 </html>

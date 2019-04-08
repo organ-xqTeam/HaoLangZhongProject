@@ -55,6 +55,7 @@
   }
   .img300{
     width: .55rem;
+    height:.55rem;
     border-radius: 50%;
     margin-right: .18rem;
   }
@@ -65,12 +66,12 @@
   </style>
 </head>
 <body>
-  <div class="nav">
-    <!-- <img src="static/images/shouye-sousuo.png" class="back img200"/> -->
+<!--   <div class="nav">
+    <img src="static/images/shouye-sousuo.png" class="back img200"/>
     <span>订单</span>
-  </div>
+  </div> -->
   <div class="content">
-    <div class="content_list">
+<!-- <div class="content_list">
        <div class="list_top">
          <div>订单时间：2019-02-04 13：22</div>
          <div class="button">接单</div>
@@ -82,7 +83,7 @@
             <span>头部 病症 针灸</span>
           </div>
        </div>
-    </div>
+    </div> -->
   </div>
   <script>
       var pageObj={
@@ -109,11 +110,11 @@
                       $(".content").append(`
                               <div class="content_list" data-id=${item.id}>
                                 <div class="list_top">
-                                  <div>${item.time}</div>
-                                  <div class="button">接单</div>
+                                  <div>${Global.formatTimestamp(item.time)}</div>
+                                 
                                 </div>
                                 <div class="list_content">
-                                    <img src=${item.icon} class="img300"/>
+                                    <img src="${Global.picUrl+item.icon}" class="img300"/>
                                     <div>
                                       <div class="title">${item.nickname}</div>
                                       <span>${item.content}</span>
@@ -132,7 +133,7 @@
            $(".content").delegate(".content_list","click",function(){
               console.log($(this).data("id"))
               let id=$(this).data("id")
-              window.location.href= window.location.href="http://localhost:8980/js/static/detailsOrder.html?id="+id
+              window.location.href= window.location.href="detailsConsultation.html?id="+id
            })
         },
         init(){

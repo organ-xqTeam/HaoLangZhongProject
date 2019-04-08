@@ -59,5 +59,8 @@
 	  		and mobile = #{mobile}
 	  	</if>
 	</update>
+	<select id="getDoctorBydoctorid" resultType="hashmap" parameterType="hashmap">
+		select * from sys_doctor_info where doctorid=#{doctorid,jdbcType=VARCHAR} limit 1
+	</select>
 	
 </mapper>

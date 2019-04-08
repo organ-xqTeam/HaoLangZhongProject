@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="static/css/user.css">
   <link rel="stylesheet" href="static/css/swiper.min.css">
   <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
-  <script src="static/js/Global.js"></script>
+  <script src="static/js/mianG.js"></script>
   <style>
    .main{
      padding: .15rem;
@@ -50,12 +50,12 @@
   </style>
 </head>
 <body>
-<div class="nav">
+<!-- <div class="nav">
     <img src="static/images/fanhui.png" class="back img200"/>
     <span class="title">明细</span>
-</div>
+</div> -->
 <div class="main">
- <div class="main_item">
+ <!-- <div class="main_item">
     <div>
       <h3>张三</h3>
       <span>2019-02-01 11:52:15</span>
@@ -63,10 +63,61 @@
     <div>
       +5
     </div>
- </div>
+ </div> -->
 </div>
 <script>
 
+var userId="";
+var token="";
+//咨询的订单的id
+var orderId="";
+var consultationid="";
+var pageObj={
+		initData(){
+				////drugId="+drugId+"&drugCount="+drugCount; 直接购买商品
+			    //orderId="+orderId  //订单购买
+			    token=Global.getCookie("token");
+			    userId=Global.getCookie("userid");
+			    let postdata =null;
+				postdata=JSON.stringify({
+						 "id":userId,
+						 "token":token,
+						 "pageNum":"1",
+					     "pageSize":"100"
+				 })
+				 
+				Global.ajaxRequest(Global.api+"/doctorInfo/queryIncomeList",postdata)
+			    .then((res) => {
+			    	console.log(res);
+			    	var item= res.data.items;
+			    	item.forEach(function(item){
+			    		$(".main").append(`
+			    				<div class="main_item">
+				    			    <div>
+				    			      <h3>${item.uname}(${item.from})</h3>
+				    			      <span>${item.time}</span>
+				    			    </div>
+				    			    <div>
+				    			    ${ parseFloat(item.amount)>=0? '+' : '-' } 
+				    			    ${item.amount}
+				    			    </div>
+			    			 	</div>
+			    				`)
+			    		
+			    	})
+			    })
+				 
+			 },
+			 init(){
+			   pageObj.initData()
+			 },
+		 }
+		  $(function(){
+			  	/* document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7";
+			  	document.cookie="userid=123"; */
+			    pageObj.init();
+			})
+			  
 </script>
 </body>
 </html>
