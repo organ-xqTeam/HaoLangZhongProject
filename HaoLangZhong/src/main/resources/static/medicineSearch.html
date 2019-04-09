@@ -48,6 +48,9 @@
     padding-bottom: .1rem;
     margin-top: .1rem;
    }
+   .tab_list {
+	margin-bottom: 0.1rem;
+   }
    .nav_tab div:hover{
      border-bottom:0.01rem solid #eb6003;
      color: #eb6003;
@@ -78,7 +81,7 @@
    }
    .contentList{
       display: flex;
-      justify-content: space-between;
+      justify-content: left;
       margin-top: .12rem;
       padding-right: .2rem;
       border-bottom: 0.01rem solid #f6f6f6;
@@ -98,16 +101,15 @@
      color: #e2834b;
    }  
    .img300{
-     width: .2rem;
+     width: .14rem;
+     margin-right: 0.02rem;
    }
    .fire{
-     background: #eb6003;
      display: flex;
      align-items: center;
      color: #fff;
      width: 1rem;
      border-radius: .2rem;
-     padding: 0 .05rem;
      font-size: .05rem;
    }
    .fire_wrap{
@@ -135,7 +137,6 @@
      top: .4rem;
      left: 0;
      width: 100%;
-     height: 1.5rem;
      background: #fff;
    }
    .flex_item{
@@ -148,12 +149,16 @@
       border: 0.01rem solid #222;
       width: 1rem;
       text-align: center;
-      padding: 0.01rem;
+      padding: 0.04rem;
       border-radius: 0.05rem;
+      flex: 1;
    }
    .flex_item span:hover{
      color: #e2834b;
      border-color: #e2834b;
+   }
+   .flex_item span:nth-child(2) {
+   	margin: 0 0.1rem;
    }
 
 
@@ -171,7 +176,7 @@
       justify-content: space-between;
       align-items: center;
       box-sizing: border-box;
-      padding:.06rem .12rem;
+      padding:.1rem .12rem;
     }
     .img_input{
       display: flex;
@@ -363,13 +368,19 @@ var searchParam=null;
                             </div>
                             <div class="fire_wrap">
                               <div class="fire">
-                                <img src="static/images/yaofang-huo.png" class="img300"/>
-                                <span>好评率98%</span>
+                                <img src="static/images/星星@2x.png" class="img300"/>
+                                <img src="static/images/星星@2x.png" class="img300"/>
+                                <img src="static/images/星星@2x.png" class="img300"/>
+                                <img src="static/images/星星@2x.png" class="img300"/>
+                                <img src="static/images/星星@2x.png" class="img300"/>
+                                
                               </div>
                             </div>
                             <div class="list_foot">
                               <span>￥ ${parseFloat(item.pay_price/100).toFixed(2)}</span>
-                              
+                              <div class="car">
+                                <img src="static/images/yaofang-gouwuche.png" style="width:100%; padding: .045rem;"/>
+                              </div>
                             </div>
                           </div>
                         </div>
