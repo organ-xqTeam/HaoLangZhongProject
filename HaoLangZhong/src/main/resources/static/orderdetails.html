@@ -10,7 +10,9 @@
   <link rel="stylesheet" href="static/css/common.css">
   <link rel="stylesheet" href="static/css/user.css">
   <link rel="stylesheet" href="static/css/swiper.min.css">
+  <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
   <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/bootstrap/js/bootstrap.min.js"></script>
   <script src="static/js/mianG.js"></script>
   <style>
   	body {
@@ -307,7 +309,7 @@
 			    		  </ul>			    			
 			    			`)	
 			    	$(`.content_button`).append(`
-			    			${ order.orderStatus=='0'? '<span  onclick="pageObj.buyPay()" >去付款</span>' : '' } 
+			    			${ order.orderStatus=='0'? '<span  onclick="pageObj.buyPay()" data-toggle="modal" data-target=".bs-example-modal-sm">去付款</span>' : '' } 
 			    			${ order.orderStatus=='1'|| order.orderStatus=='2'? '<span onclick="pageObj.confirm()">确认收货</span>' : '' } 
 			    			${ order.orderStatus=='4'? '<span onclick="pageObj.goOrderDel()">删除订单</span>' : '' } 
 			    			${ order.orderStatus=='3'? '<span onclick="pageObj.goOrderEvaluate()">去评价</span>' : '' } 
@@ -479,6 +481,19 @@
 </div>
 <div class="content_button">
    <!-- <span>确认收货</span> -->
+</div>
+
+
+
+
+<!-- Small modal -->
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      付款成功
+    </div>
+  </div>
 </div>
 <script>
 
