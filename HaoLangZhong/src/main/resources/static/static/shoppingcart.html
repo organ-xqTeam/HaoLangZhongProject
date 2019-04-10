@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+  <meta charset="UTF-8">
+  <title>购物车</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <script type="text/javascript">
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+  </script>
+  <link rel="stylesheet" href="static/css/common.css">
+  <link rel="stylesheet" href="static/css/user.css">
+  <link rel="stylesheet" href="static/css/swiper.min.css">
+  <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/js/mianG.js"></script>
+  <style>
+  .list_main{
+  	padding-top:0.05rem;
+  	background: #F6F6F6;
+  }
+  .img200{
+     width: 1rem;
+   }         
+       /*列表*/
+   .content_main{
+     padding: 0 .12rem;
+   }
+   .contentList{
+      display: flex;
+      justify-content: space-between;
+      margin-top: .12rem;
+      border-bottom: 0.01rem solid #ccc;
+      padding-bottom: .1rem;
+   }
+   .list_right{
+     margin-left: .15rem;
+     width: 2.2rem;
+   }
+   .list_foot{
+     margin-top: .2rem;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+   }
+   .list_foot :first-child{
+     color: #e2834b;
+   }  
+   .img300{
+     width: .2rem;
+   }
+   .fire{
+     background: #eb6003;
+     display: flex;
+     align-items: center;
+     color: #fff;
+     width: 1rem;
+     border-radius: .2rem;
+     padding: 0 .05rem;
+     font-size: .05rem;
+   }
+   .fire_wrap{
+     margin-top: .1rem;
+   }
+   .buy_number{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .1rem;
+    }
+    .buy_number span{
+      display: inline-block;
+      border: 0.01rem solid #ccc;
+      width: .2rem;
+      text-align: center;
+    }
+    .chooseBox{
+      display: flex;
+      align-items: center;
+    }
+    .mCheck{
+     display: inline-block;
+     width: .2rem;
+     height: .2rem;
+     border-radius: 50%;
+     border:0.01rem solid #ccc;
+     margin-right: .12rem;
+   }
+   .chooseAll{
+     display: inline-block;
+     width: .2rem;
+     height: .2rem;
+     border-radius: 50%;
+     border:0.01rem solid #ccc;
+     margin-right: .12rem;
+   }
+   .active{
+     border-color:transparent;
+     background: url(static/images/check.png) no-repeat center center;
+     background-size: 100%;
+   }
+   .foot{
+    /* position: absolute; */
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+   }
+   .foot_flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: .5rem;
+    /* padding: .15rem; */
+    padding-left: .2rem;
+   }
+   .foot_left{
+    display: flex;
+    align-items: center;
+   }
+   .foot_right div{
+      display: inline-block;
+   }
+   .foot_right{
+     font-size: .16rem;
+   }
+   .color{
+     color: #eb6003;
+   }
+   .close{
+    background: #eb6003;
+    color: #fff;
+    display: inline-block;
+    width: .8rem;
+    height: .45rem;
+    text-align: center;
+    /* vertical-align: middle; */
+    line-height: 0.45rem;
+    margin-left: .2rem;
+   }
+
+
+
+  /* confirm模态框 */
+.msgWrap{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.msgWrap .msgMask{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.msgWrap .msg{
+  width: 2.33rem;
+  min-height: 1.26rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.msgWrap .msg .msgText{
+  margin-top: 0.29rem;
+  font-size: 0.16rem;
+  color: rgba(61, 61, 61, 1);
+  font-weight: 550;
+}
+.msgWrap .msg .msgCtrl{
+  margin-bottom: 0.2rem;
+}
+.msgWrap .msg .msgCtrl .closeMsg,
+.msgWrap .msg .msgCtrl .gotoCallback{
+  display: inline-block;
+  width: 0.71rem;
+  height: 0.34rem;
+  border-radius: 0.05rem;
+  line-height: 0.34rem;
+  text-align: center;
+  font-size: 0.14rem;
+  margin: 0 0.1rem;
+}
+.msgWrap .msg .msgCtrl .gotoCallback{
+  background-color: rgba(230, 230, 230, 1);
+  color: rgba(61, 61, 61, 1);
+}
+.msgWrap .msg .msgCtrl .closeMsg{
+  background-color: rgba(126, 31, 1, 1);
+  color: #fff;
+}
+.cancel{
+    border: 0.01rem solid #ccc;
+    padding: 0.06rem .2rem;
+    border-radius: .05rem;
+}
+.poster-box {
+    position: relative;
+	width: 1rem;
+	height: 1rem;
+}
+.poster-box .img200 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: 1rem;
+}
+.topbar {
+	display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 0.18rem;
+    padding: .1rem;
+    border-bottom: 1px solid #e5e5e5;
+}
+.gf-icon-2 {
+	width: .24rem;
+}
+
+  </style>
+  <script type="text/javascript">
+  var userId="";
+  var token="";
+  var addressId="";
+  var drudIds="";
+  var pageObj={
+		initData(){
+				var cookieStr=document.cookie.split(";")
+				console.log(cookieStr);
+			    token=Global.getCookie("token");
+			    userId=Global.getCookie("userid");
+				console.log("userId:"+userId)
+				console.log("token:"+token)
+				addressId=Global.getParameter("id");
+				if(addressId=="null"){
+					addressId=null;
+				}
+			    pageObj.getOrderByState();
+			 },
+			 init(){
+			   pageObj.initData()
+			 },
+			 //计算选中商品总价
+			 checkPriceCalculate(){
+				drudIds="";
+				console.log($(".mCheck").length)
+				var $payTypeCheckList= $("input[value='yinhangka']:checked");
+				var priceTotle=0;
+				console.log($payTypeCheckList.length)
+				for(var i=0;i<$payTypeCheckList.length;i++){
+					var  $listMain= $($payTypeCheckList[i]).parents(".list_main")
+					console.log($listMain.attr("price"));
+					var price=parseInt($listMain.attr("price"));
+					var count=parseInt($listMain.find(".num").text());
+					var onlyPriceTotle=price*count;
+					priceTotle+=onlyPriceTotle;
+					var drudId= $listMain.attr("drudId");
+					for(var j=0;j<count;j++){
+						//获得要购买的商品id集合
+						drudIds+=drudId+",";
+					}
+				}
+				
+				//放入到合计中
+				$(".color").text(parseFloat(priceTotle/100).toFixed(2));
+				
+				
+				
+			 },
+			 ordermake(){
+				 if(drudIds==""||drudIds==null){
+					 alert("请选择商品");
+				 }else{
+				 	window.location.href="ordermake.html?drudIds="+drudIds+"&addressId="+addressId;
+					 
+				 }
+			 },
+			 //通过不用的状态展示订单
+			 getOrderByState(orderStatus){
+				 
+				 let postdata=JSON.stringify({
+					 "token":token,
+					 "userId":userId
+			      })
+			      /**
+			      {
+    "data": {
+        "basketInfoList": [
+            {
+                "pay_price": "100",
+                "pic1": "http://192.168.1.30:8980/js/f/sys/fileInfo/viewPic/1552015081276_12.jpg",
+                "name": "药名13werew",
+                "drug_count": 7,
+                "id": 1,
+                "grug_total_price": 700
+            },
+            {
+                "pay_price": "200",
+                "pic1": "http://192.168.1.30:8980/js/f/sys/fileInfo/viewPic/1552015081276_12.jpg",
+                "name": "药名2",
+                "drug_count": 2,
+                "id": 2,
+                "grug_total_price": 400
+            },
+            {
+                "pay_price": "300",
+                "pic1": "http://192.168.1.30:8980/js/f/sys/fileInfo/viewPic/1552015081276_12.jpg",
+                "name": "药名3",
+                "drug_count": 3,
+                "id": 3,
+                "grug_total_price": 900
+            }
+        ]
+    },
+    "code": 0,
+    "msg": "成功"
+}
+			      **/
+			     Global.ajaxRequest(Global.api+"/basketController/showUserBasket",postdata)
+			     .then((res) => {
+			    	 console.log(res)
+			    	 var basketInfoList=res.data.basketInfoList;
+			    	 basketInfoList.forEach(function(item,index){
+			    		 $(".list_content_main").append(`
+			    				 <div id="list_main_${index}" price="${item.pay_price}" drudId="${item.id}" class="list_main">
+			    				    <div class="content_main">
+			    				        <div class="contentList">
+			    				          <div class="chooseBox">
+			    				            <div class="checkBox">
+			    				              <span class="mCheck"></span>
+			    				              <input type="checkbox" hidden="hidden" name="payType" value="yinhangka"/>
+			    				            </div> 
+			    				            <div class="poster-box">			    				            
+				    				            <img src="${Global.picUrl+item.pic1}" class="img200"/>
+			    				            </div>
+			    				          
+			    				            </div>
+			    				          <div class="list_right">
+			    				            <div class="list_top">
+			    				              	${item.name}
+			    				            </div>
+			    				            <div class="list_foot">
+			    				              <span>￥ ${parseFloat(item.pay_price/100).toFixed(2)}</span>
+			    				              <div class="buy_number">
+			    				                  <span class="reduce">-</span>
+			    				                  <span class="num">${item.drug_count}</span>
+			    				                  <span class="add" >+</span>
+			    				              </div>
+			    				            </div>
+			    				        </div>
+			    				    </div>
+			    				 	</div>
+			    				 </div>			    				 
+			    				 `)
+			    	 })
+			      });
+				
+			 }
+		  }
+		  $(function(){
+			  	/* document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7";
+			  	document.cookie="userid=123"; */
+			    pageObj.init();
+			})
+			  
+  </script>  
+</head>
+<body>
+
+<div class="topbar">
+	<img class="gf-icon-2" src="static/images/gouwuche-dianpu.png" />
+	空中药房
+</div>
+
+<div class="list_content_main">
+
+
+
+<!-- 
+ <div class="list_main">
+    <div class="content_main">
+        <div class="contentList">
+          <div class="chooseBox">
+            <div class="checkBox">
+              <span class="mCheck"></span>
+              <input type="radio" hidden="hidden" name="payType" value="yinhangka"/>
+            </div>
+            	<div class="poster-box">            	
+		            <img src="static/images/head.png" class="img200"/>
+            	</div>
+          </div>
+          <div class="list_right">
+            <div class="list_top">
+              桑葚5g*10袋-精选攀枝花 提高免疫力提高免疫力提高免疫力
+            </div>
+            <div class="list_foot">
+              <span>￥200</span>
+              <div class="buy_number">
+                  <span class="reduce">-</span>
+                  <span class="num">1</span>
+                  <span class="add">+</span>
+              </div>
+            </div>
+        </div>
+    </div>
+ </div>
+ </div>
+ <div class="list_main">
+    <div class="content_main">
+        <div class="contentList">
+          <div class="chooseBox">
+            <div class="checkBox">
+              <span class="mCheck"></span>
+              <input type="radio" hidden="hidden" name="payType" value="yinhangka"/>
+            </div>  
+            <img src="static/images/head.png" class="img200"/>
+          </div>
+          <div class="list_right">
+            <div class="list_top">
+              桑葚5g*10袋-精选攀枝花 提高免疫力提高免疫力提高免疫力
+            </div>
+            <div class="list_foot">
+              <span>￥200</span>
+              <div class="buy_number">
+                  <span class="reduce">-</span>
+                  <span class="num">1</span>
+                  <span class="add">+</span>
+              </div>
+            </div>
+        </div>
+    </div>
+ </div>
+ </div> 
+  -->
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ </div>
+ <div class="foot">
+    <div class="foot_flex">
+       <div class="foot_left">
+          <span class="chooseAll"></span>
+          <input type="checkbox" hidden="hidden" name="payType" value="123"/>
+          <span>全选</span>
+        </div>
+       <div class="foot_right">
+           <div>
+             <span>合计:</span>
+             <span class="color">￥0</span>
+           </div>
+           <div>
+             <span class="close"onclick="pageObj.ordermake()">结算</span>
+           </div>
+       </div>
+    </div>
+ </div>
+</body>
+<script>
+ $(document).on("click",".mCheck",function(){
+	var checkedFlag= $(this).siblings("input")[0].checked;
+	if(checkedFlag==true){
+		$(this).removeClass("active")
+		$(this).siblings("input").prop("checked",false)
+	}else{
+		$(this).addClass("active")
+	    $(this).siblings("input").prop("checked",true)
+	}
+    console.log($("input[name='payType']:checked").length)
+    pageObj.checkPriceCalculate();
+ })
+ 
+ $(document).on("click",".chooseAll",function(){
+      if($(this).hasClass("active")){
+        $(this).removeClass("active")
+        $(".mCheck").removeClass("active")
+    	$("input[name='payType']").prop("checked",false);
+      }else{
+        $(this).removeClass("active")
+        $(this).addClass("active")
+        $(".mCheck").removeClass("active")
+        $(".mCheck").addClass("active")
+        $("input[name='payType']").prop("checked",true);
+      }
+      pageObj.checkPriceCalculate();
+ })
+ 
+ $(document).on("click",".add",function(){
+    var num =Number($(this).siblings(".num").text())
+    num++
+    $(this).siblings(".num").text(num) 
+    pageObj.checkPriceCalculate()
+    
+ })
+ $(document).on("click",".reduce",function(){
+   var num =Number($(this).siblings(".num").text())
+   var that=this;
+    num--
+    if(num==0){
+        let $msgDiv = $(`
+              <div class="msgWrap">
+                  <div class="msgMask"></div>
+                  <div class="msg">
+                      <p class="msgText">确定要删除订单吗</p>
+                      <p class="msgCtrl">
+                        <span class="cancel">取消</span>  
+                        <span class="closeMsg">确定</span>
+                      </p>
+                  </div>
+              </div>
+        `);
+        $("body").append($msgDiv);
+        $(document).on("click"," .msgWrap .cancel",function(){
+          $msgDiv.remove()
+        })
+        $(document).on("click",".closeMsg",function(){
+          console.log("dosomething")
+          var drugId= $(that).parents(".list_main").attr("drudId");
+          let postdata=JSON.stringify({
+        	  		 "drugId":drugId,
+					 "userId":userId
+			 		})
+          Global.ajaxRequest(Global.api+"/basketController/delFlagDrugBasketByDrugId",postdata)
+		     .then((res) => {
+		    	 console.log(res);
+		    	 var code=res.data.code;
+		    	 if(code=="0"){
+		    		 alert("删除成功");
+		    	 }
+		     })
+          $(that).parents(".list_main").remove();
+          
+          //反馈操作
+          $msgDiv.remove()
+          pageObj.checkPriceCalculate();
+        })
+    }else{
+      $(this).siblings(".num").text(num)
+    }
+    pageObj.checkPriceCalculate();
+ })
+</script>
+</html>

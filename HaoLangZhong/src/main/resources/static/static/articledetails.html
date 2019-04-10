@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+  <meta charset="UTF-8">
+  <title>综合服务文章详情</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <script type="text/javascript">
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+  </script>
+  <link rel="stylesheet" href="static/css/common.css">
+  <link rel="stylesheet" href="static/css/user.css">
+  <link rel="stylesheet" href="static/css/swiper.min.css">
+  <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/js/mianG.js"></script>
+  <style>
+    .main_title{
+      padding: .2rem;
+    }
+    .main_title :nth-child(2){
+      margin: .08rem 0;
+    }
+    .main_title :nth-child(3){
+      color: #ccc;
+      text-align:right;
+    }
+   .line{
+     width: 100;
+     height: .8em;
+     background: #cccccc47;
+   }
+   .img100{
+     width: .2rem;
+   }
+   .flex_item{
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+   }
+   .main_content{
+     padding: .2rem;
+   }
+   .box{
+     width: 100%;
+     height: 2rem;
+     background: #cccccc47;
+     margin-top: .1rem;
+   }
+  </style>
+</head>
+<body>
+<div class="main">
+ <div class="main_title">
+    <div class="flex_item">
+      <h3>春季来临吃这几种食物利于保养</h3>
+      <img src="static/images/zaixianwenzhen-shoucang.png" onclick="pageObj.collect()" class="img100"/>
+    </div>
+    <div class="datacontent">
+      主要服务或者行医案例主要案例主要主要服务或者行医案例主要案例主要主要服务或者行医案例主要案例主要主要服务或者行医案例主要案例主要
+    </div>
+    <div class="datadate">
+      2019-1-29
+    </div>
+ </div>
+ <div class="line"></div>
+ <div class="main_content">
+    <div class="content_list">
+      <div class="dataintroduce">
+        主要服务或者行医案例主要案例主要主要服务或者行医案例主要案例主要主要服务或者行医案例主要案例主要主要服务或者行医案例主要案例主要
+      </div>
+      <div class="box"></div>
+    </div>  
+ </div>
+</div>
+<script>
+var userId="";
+var token="";
+var addressId="";
+var drudIds="";
+ var pageObj={
+    initData(){
+      let url=window.location.href.split("?")[1]
+      console.log("url")
+      let id=url.split("id=")[1]
+      $.ajax({
+            type: "get",
+            url: Global.api+"articleInfo/findOneById/"+id,
+            dataType:"json",
+            success: function (res) {
+              console.log(res)
+              let data=res.data.articleInfo
+              $(".flex_item h3").text(data.title)
+              $(".datacontent").text(data.content)
+              $(".datadate").text(Global.formatTimestamp(data.create_date))
+              $(".dataintroduce").text(data.introduce)
+              $(".box").html(`<img src='${Global.picUrl+data.pic}' style="width:100%;height:100%">`);
+            },
+            error: function (e) {
+              console.log(e)
+            }
+      })
+    },
+    init(){
+      pageObj.initData()
+    },
+    collect(){
+    	/**{
+	"userid":"197fb180439d11e9a903bcaec5595fa3",		//*必填 用户id
+	"collectionid":"3a07e6903f1a11e99752bcaec5595fa3",	//*必填 收藏id
+	"type":"6",									//*必填 收藏类型
+	"token":"5d7a7ea4814543f3923fbafd434f514c"			//*必填 用户token
+		}*/
+	    token=Global.getCookie("token");
+	    userId=Global.getCookie("userid");
+		console.log("userId:"+userId)
+		console.log("token:"+token)
+		var collectionid=Global.getParameter("id");;
+		postdata=JSON.stringify({
+			 "token":token,
+			 "userid":userId,
+			 "collectionid":collectionid,
+			 "type":"3"
+		 })
+    	Global.ajaxRequest(Global.api+"/userCollection/saveUserCollection",postdata)
+	     .then((res) => {
+	    	 console.log(res);
+	    	 var data =res.data;
+	    	 if(data.collectionid!=null){
+	    		 alert("收藏成功");
+	    	 }
+	    	 
+	     })
+    }
+ } 
+ $(function(){
+    pageObj.init()
+ })
+</script>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+  <meta charset="UTF-8">
+  <title>用户反馈</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <script type="text/javascript">
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+  </script>
+  <link rel="stylesheet" href="static/css/common.css">
+  <link rel="stylesheet" href="static/css/user.css">
+  <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/js/mianG.js"></script>
+  <style>
+   .line{
+     width: 100;
+     height: .8em;
+     background: #cccccc47;
+   }
+   .text{
+     width:100%;
+     border: none;
+     outline: none;
+     padding: .6em;
+     height: 9em;
+   }
+   .addpicWrap .addpicBtn{
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  background: url(static/images/add.png) center center no-repeat;
+  background-size: 100%;
+}
+.addpicWrap .addedPic{
+  display: flex;
+  flex-wrap: wrap;
+}
+.addpicWrap .addedPic .picWrap{
+  position: relative;
+  /* padding: 16.6666%; */
+  padding: calc(16.6666% - 0.05rem);
+  margin: 0.05rem;
+}
+.addpicWrap .addedPic .picWrap>img{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.addpicWrap .delPic{
+  display: inline-block;
+  width: 0.2rem;
+  height: 0.2rem;
+  background: url(static/images/移除@2x.png) center center no-repeat;
+  background-size: 100%;
+  position: absolute;
+  top: 0.06rem;
+  right: 0.06rem;
+}
+.content_top{
+  padding: .5em;
+  border-bottom: .01rem solid #cccccc47;
+}
+/* 星评 */
+.starsWrap{
+    height: 0.25rem;
+    width: 1.3rem;
+}
+.stars{
+  width: 100%;
+  height: 100%;
+  justify-content: space-around;
+}
+.stars>li{
+  font-size: 0;
+  height: 100%;
+  width: 1rem;
+}
+.stars>li.stars1{
+  background: url(static/images/星星@2x.png) center center no-repeat;
+  background-size: 100% 100%;
+}
+.stars>li.stars0{
+  background: url(static/images/星星\ 拷贝@2x.png) center center no-repeat;
+  background-size: 100% 100%;
+}
+.content_center{
+  padding: .6em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.img100{
+  width: 3.5em;
+}
+.content_foot{
+  padding: .8em;
+}
+.foot_title{
+  line-height: 2.5em;
+  border-bottom: 0.01em solid #ccc;
+}
+.foot_flex{
+  display: flex;
+  justify-content: space-around;
+  margin-top: .8em;
+}
+.flex_foot{
+  display: flex;
+  flex-direction: column;
+}
+.flex_foot :last-child{
+  color:#eb6003;
+}
+.content_button{
+  width: 86%;
+  margin: .5rem auto;
+}
+.content_button div{
+    background: #7e1f03;
+    color: #fff;
+    text-align: center;
+    padding: .1rem 0;
+    border-radius: .08rem;
+}
+.upImgtext{
+  line-height: .4rem;
+}
+    .nav{
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      display: flex;
+      height: .4rem;
+      border-bottom: .01rem solid #cccccc47;
+    }
+    .back{
+      position: absolute;
+      left: .1rem;
+      top: 0.1rem;
+    }
+    .img100{
+      width: .1rem;
+    }
+    .img200{
+      height: auto !important;
+      width: .2rem;
+    }
+    .title{
+      font-size: .16rem;
+    }
+</style>
+</head>
+<body>
+<!-- <div class="nav">
+    <img src="static/images/fanhui.png" class="back img200"/>
+    <span class="title">用户反馈</span>
+</div> -->
+<div class="content_main">
+   <div class="line"></div>
+   <div class="content_top">
+     <textarea class="text" placeholder="请输入您的意见和反馈"></textarea>
+     <div class="addpicWrap">
+      <div style="padding-left:0.05rem;">
+        <a class="addpicBtn"></a>
+      </div>
+      <div class="addedPic">
+        <!-- <div class="picWrap" style="display:none;">
+          <img src="../static/images/timg.jpg" alt="图片">
+          <span class="delPic"></span>
+          <input type="file" style="display: none;">
+        </div> -->
+      </div>
+    </div>
+    </div>
+    <div class="content_button">
+      <div onclick="pageObj.submitFeed()">提交</div>
+    </div>
+</div>
+<script>
+var userId="";
+var token="";
+var pageObj={
+	initData(){
+
+		    token=Global.getCookie("token");
+		    userId=Global.getCookie("userid")
+			console.log("userId:"+userId)
+			console.log("token:"+token)
+			
+			drudIds=Global.getParameter("drudIds");
+			addressId=Global.getParameter("addressId");
+			buyPrice=Global.getParameter("buyPrice");
+			
+		   
+		 },
+		 init(){
+		   pageObj.initData()
+		 },
+		 //提交订单
+		 submitFeed(){
+			 let postdata =null;
+			 var content=$(".text").val();
+			 if(content==null||content==''){
+				 alert("请输入反馈内容");
+				 return;
+			 }
+			 console.log(content);
+			 postdata=JSON.stringify({
+				 "token":token,
+				 "userid":userId,
+				 "content":content
+		     })
+	
+			
+		 				 
+		 
+			Global.ajaxRequest(Global.api+"/userFeedback/saveFeedback",postdata)
+		     .then((res) => {
+		    	 console.log(res);
+		    	 var data=res.data;
+		    	 if(data.id!=null){
+		    		 alert("反馈成功");
+		    		 //window.history.go(-1);
+		    	 }
+		    })
+		 },
+	  }
+	  $(function(){
+		  	/* document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7";
+		  	document.cookie="userid=123"; */
+		    pageObj.init();
+		})
+		  
+</script>
+</body>
+</html>

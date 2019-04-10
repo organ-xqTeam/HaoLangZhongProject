@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+  <meta charset="UTF-8">
+  <title>问诊记录</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <script type="text/javascript">
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+  </script>
+  <link rel="stylesheet" href="static/css/common.css">
+  <link rel="stylesheet" href="static/css/user.css">
+  <link rel="stylesheet" href="static/css/swiper.min.css">
+  <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/js/mianG.js"></script>
+  <style>
+  	body {
+  		font-size: 0.18rem;
+  	}
+    .main{
+       padding: .15rem;  
+    }
+    .main_list{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: .1rem;
+    border-bottom: 0.01rem solid rgba(0,0,0,0.05);
+    }
+    .main_list img{
+      width: .5rem;
+      border-radius: 50%;
+    }
+    .main_right{
+      display: flex;
+      justify-content: space-between;
+    margin-bottom: .1rem;
+    }
+    .list_right{
+    flex: 1;
+    margin-left: .1rem;
+    }
+    .list_right span {
+    	color: rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+<div class="main">
+  <!-- <div class="main_list">
+    <img src="static/images/head.png"/>
+    <div class="list_right">
+      <div class="main_right">
+        <h3>官方客服</h3>
+        <span>2018-1-25</span>
+      </div>
+      <span>这个病有点棘手，我先给你开个药方</span>
+    </div>
+  </div> -->
+  
+  
+</div>
+<script>
+var pageObj={
+	  initData(){
+      var docid=window.location.href.split("?")[1].split("docid=")[1]
+      let postdata=JSON.stringify({
+            id:docid,
+            pageNum:"1",
+            pageSize:"2"
+      })
+      console.log("dabai")
+      console.log(postdata)
+      console.log(Global)
+      $.ajax({
+            type: "post",
+            url:Global.api+"doctorInfo/queryConsultationList",
+            contentType: 'application/json',
+            dataType:"json",
+            data:postdata,
+            success: function (res) {
+              console.log(res)
+              let data=res.data.items
+              data.forEach(function(item){
+                  $(".main").append(`
+                      <div class="main_list" data-id=${item.id}>
+                        <img src="static/images/head.png"/>
+                        <div class="list_right">
+                          <div class="main_right">
+                            <h3>${item.nickname}</h3>
+                            <span>2018-1-25</span>
+                          </div>
+                          <span>${item.content}</span>
+                        </div>
+                      </div>
+                  `)
+              })
+            },
+            error: function (e) {
+              console.log(e)
+            }
+      })
+    },
+    initEvent(){
+       $(".main").delegate(".main_list","click",function(){
+          console.log($(this).data("id"))
+          let id=$(this).data("id")
+          window.location.href= window.location.href="consulting.html?id="+id
+       })
+    },
+    init(){
+      pageObj.initData()
+      pageObj.initEvent()
+    }
+ } 
+ $(function(){
+    pageObj.init()
+ })
+</script>
+</body>
+</html>

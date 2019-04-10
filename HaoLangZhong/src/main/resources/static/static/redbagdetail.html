@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+  <meta charset="UTF-8">
+  <title>明细</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <script type="text/javascript">
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+  </script>
+  <link rel="stylesheet" href="static/css/common.css">
+  <link rel="stylesheet" href="static/css/user.css">
+  <link rel="stylesheet" href="static/css/swiper.min.css">
+  <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/js/mianG.js"></script>
+  <style>
+   .main{
+     padding: .15rem;
+   }
+   .main_item{
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     border-bottom: 0.01rem solid #ccc;
+     height: .8rem;
+   }
+  </style>
+</head>
+  <script type="text/javascript">
+  var userId="";
+  var token="";
+  var discountId="";
+  var pageObj={
+		initData(){
+				var cookieStr=document.cookie.split(";")
+				console.log(cookieStr);
+			    token=Global.getCookie("token");
+			    userId=Global.getCookie("userid");
+				console.log("userId:"+userId)
+				console.log("token:"+token)
+			    discountId=Global.getParameter("discountId");
+			    console.log(discountId)
+			    pageObj.getRedBigDetail();
+			 },
+			 init(){
+			   pageObj.initData()
+			 },
+			getRedBigDetail(){
+				 let postdata=JSON.stringify({
+					 "token":token,
+					 "userId":userId,
+					 "discountId":discountId
+			      })
+				 Global.ajaxRequest(Global.api+"/discountController/showDiscountDetail",postdata)
+			     .then((res) => {
+			    	console.log(res);
+			    	var discountDetailList=res.data.discountDetailList
+			    	discountDetailList.forEach(function(item){
+				    	$(".main").append(`
+				    		<div class="main_item">
+				    		    <div>
+				    		      <h3>${item.remarks}</h3>
+				    		      <span>${item.createDate}</span>
+				    		    </div>
+				    		    <div>
+				    			${ item.detailState=='0'? '+' : '' } ${ item.detailState=='1'? '-' : '' }   
+				    			${parseFloat(item.detailPrice/100).toFixed(2)}
+				    		    </div>
+				    		 </div>			    			
+				    			`)
+			    	})
+			    	/**{
+					    "data": {
+					        "discountDetailList": [
+					            {
+					                "isNewRecord": false,
+					                "id": "4",
+					                "remarks": "邀请用户成功",
+					                "createDate": "2019-03-18 04:20",
+					                "updateBy": "更新人",
+					                "createBy": "创建人",
+					                "discountId": 4,
+					                "detailPrice": 500,
+					                "detailState": "0",
+					                "delFlag": "0"
+					            }
+					            
+					        ]
+					    },
+					    "code": 0,
+					    "msg": "成功"
+					}
+			    	**/
+			     })
+			 }
+		  }
+		  $(function(){
+			  	/* document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7";
+			  	document.cookie="userid=123"; */
+			    pageObj.init();
+			})
+			  
+  </script> 
+<body>
+<div class="main">
+ <div class="main_item">
+<!--    
+	<div>
+      <h3>分享</h3>
+      <span>2019-02-01 11:52:15</span>
+    </div>
+    <div>
+      +5
+    </div> 
+-->
+ </div>
+</div>
+<script>
+
+</script>
+</body>
+</html>

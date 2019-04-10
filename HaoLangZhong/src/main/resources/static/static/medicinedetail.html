@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+  <meta charset="UTF-8">
+  <title>空中药房（商品详情）</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <script type="text/javascript">
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+  </script>
+  <link rel="stylesheet" href="static/css/common.css">
+  <link rel="stylesheet" href="static/css/user.css">
+  <link rel="stylesheet" href="static/css/swiper.min.css">
+  <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+  <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/bootstrap/js/bootstrap.min.js"></script>
+  
+  <script src="static/js/mianG.js"></script>
+  <style>
+  	body {
+  		padding-bottom: 1rem;
+  	}
+    .line{
+     width: 100;
+     height: .1rem;
+     background: #cccccc47;
+    }
+    .content_detail{
+      padding: .1rem;
+    }
+    .detail_top :first-child{
+      color: #eb6003;
+    }
+    .detail_top :nth-child(2){
+      color: #ccc;
+      font-size: .08rem;
+    }
+    .detail_center p{
+      line-height: .3rem;
+    }
+    .detail_foot{
+      /* display: flex; */
+      /* justify-content: space-between; */
+      color: #ccc;
+    }
+    .buy_number{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .1rem;
+    }
+    .buy_number :nth-child(2) span{
+      display: inline-block;
+      border: 0.01rem solid #ccc;
+      width: .2rem;
+      text-align: center;
+    }
+    .content_tab{
+    font-size: 1.1em;
+    line-height: 3.2em;
+   }
+   .content_tab span{
+    display: inline-block;
+    width: 49%;
+    text-align: center;
+   }
+   .choose{
+    color: #7b2001;
+    border-bottom: 0.15em solid #7b2001;
+   }
+   .goods_detail{
+     margin-top: .1rem;
+     padding: 0 .15rem;
+   }
+   .goods_detail :nth-child(2){
+      color: #8f523f;
+   }
+   .user_content{
+    padding: 0 .8em; 
+    display: none;
+  }
+  .user_content_list{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 0.03em solid #f6f6f6;
+    padding-bottom: 1em;
+    margin: 1em 0;
+  }
+  .touxiang{
+    width: 2.5em;
+    border-radius: 50%;
+  }
+  .foot_text{
+    color:#ccc;
+    font-size: .13rem;
+    margin-top: .08rem;
+  }
+  .tubiao{
+    width: 0.2rem;
+  }
+  .item_flex{
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+   }
+   .item_flex>span{
+     color: #eb6003;
+   }
+   .suggest .title{
+     text-align: center;
+     margin-top: .2rem;
+   }
+   .img100{
+     width: 100%；
+   }
+   .suggest .center{
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: .2rem;
+     flex-wrap: wrap;
+   }
+   .center .left,.center .right{
+     width: 46%;
+     padding: .06rem;
+   }
+   .center_center{
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+   }
+   .money{
+     color:#eb6003;
+   }
+   .center_foot{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+   }
+   .car{
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     padding-left: .3rem;
+   }
+   .car img{
+     width: .25rem;
+   }
+   .button span{
+    background: #e5752b;
+    color: #fff;
+    padding: .15rem .15rem;
+    width: 1rem;
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+   }
+   .pay{
+     background: #8b2204 !important;
+     margin-left: -.05rem;
+   }
+   .footContent{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    width: 100%;
+   }
+   .modal.in .modal-dialog {
+   }
+   .modal-content {
+   }
+   .alert-wrap {
+position:absolute;
+top: 2.5rem;
+left: 50%;
+transform: translate(-50%, 0);
+	
+   }
+  </style>
+</head>
+<body>
+<div class="drug_pic">
+  <!-- <img src="static/images/head.png"/> -->
+</div>
+<div class="content_detail">
+ <div class="detail_top">
+    <span>￥200</span>
+    <!-- <span>市场价￥238</span> -->
+ </div>
+ <div class="detail_center">
+   <P>桑椹5g*10袋-精选攀枝花盐边桑椹 补肾 乌发 提高免疫力</P>
+ </div>
+ <div class="detail_foot">
+    库存：<span>1749</span>
+    <!-- <span>销量：44盒</span>
+    <span>商品生产商</span> -->
+ </div>
+</div>
+<div class="line"></div>
+<div class="buy_number">
+  <span>购买数量</span>
+  <div>
+    <span id="drug_count_reduce" onclick="pageObj.drugCounReduce()">-</span>
+    <span id="drug_count">1</span>
+    <span id="drug_count_add" onclick="pageObj.drugCountAdd()">+</span>
+  </div>
+</div>
+<div class="line"></div>
+<div class="content_tab">
+  <span class="person choose" data-tab="p">商品详情</span>
+  <span class="user" data-tab="u">商品评价</span>
+</div>
+<div class="goods_detail">
+  <div class="drug_detail">
+    <!-- <img src="static/images/head.png"/> -->
+  </div>
+  <div class="memo">桑葚</div>
+  <!-- <div>
+    巴拉巴拉巴拉巴巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉
+  </div> -->
+</div>
+<div class="user_content">
+  <!-- <div class="user_content_list">
+      
+      <div style="width:21em;">
+        <div class="item_flex">
+          <h3>用户一</h3>
+          <div>
+            <img src="static/images/wode-wodeshoucang.png" class="tubiao"/>
+            <img src="static/images/wode-wodeshoucang.png" class="tubiao"/>
+          </div>
+        </div>
+        <div>主要服务或者行医案例主要服务或者行医案例主要服务或者行医案例主要服务或者行医案例</div>
+        <div class="foot_text">2018-11-22 22:10</div>
+      </div>
+  </div> -->
+</div>
+<div class="line"></div>
+<div class="suggest">
+  <div class="title">
+    <span>推荐商品</span>
+  </div>
+  <div class="center">
+    <!-- <div class="left">
+      <div class="center_top">
+        <img src="static/images/head.png" class="img100"/>
+      </div>
+      <div class="center_center">采枸 宁夏枸杞原浆 50度嘿嘿嘿</div>
+      <div class="center_foot">
+        <div>
+          <span class="money">￥200</span>
+          <span>￥238</span>
+        </div>
+        <span>销量546</span>
+      </div>
+    </div> -->
+    <!-- <div class="right">
+      <div class="center_top">
+        <img src="static/images/head.png" class="img100"/>
+      </div>
+      <div class="center_center">采枸 宁夏枸杞原浆 50度嘿嘿嘿</div>
+      <div class="center_foot">
+        <div>
+          <span class="money">￥200</span>
+          <span>￥238</span>
+        </div>
+        <span>销量546</span>
+      </div>
+    </div> -->
+  </div>
+</div>
+<div class="footContent">
+  <div class="car" onclick="pageObj.goShopcart()">
+    <img src="static/images/yaofang-gouwuche(black).png"/>
+    <span>购物车</span>
+  </div>
+  <div class="button">
+    <span  class="addshop" data-toggle="modal" data-target=".bs-example-modal-sm">加入购物车</span>
+    <span class="pay" onclick="pageObj.buyDrug()">立即购买</span>
+  </div>
+</div>
+<script>
+ $(".content_tab").delegate("span","click",function(){
+    $(this).css("color","#7b2001").siblings().css("color","")
+    $(this).addClass("choose").siblings().removeClass("choose")
+    console.log($(this).data("tab"))
+    if($(this).data("tab")=="p"){
+       console.log("11")
+       $(".goods_detail").show()
+       $(".user_content").hide()
+    }else{
+       console.log("22")
+       $(".goods_detail").hide()
+       $(".user_content").show()
+    } 
+ })
+ 
+ var pageObj={
+    initData(){
+      var drugid=Global.getParameter("drugid");
+      console.log(drugid)
+      var cookieStr=document.cookie.split(";")
+	  let token=Global.getCookie("token");
+	  let userid=Global.getCookie("userid");
+      let postdata=JSON.stringify({
+        token:token,
+        userId:userid,
+        drugId:drugid,  
+        pageNum:"1",	 
+        pageSize:"3"	 
+      })
+      console.log(postdata)
+      // var postdata=JSON.stringify({
+      //         "token":"123",
+      //         "userId":"123",
+      //         "drugId":drugid,
+      //         "pageNum":"1",
+      //         "pageSize":"2"
+      // })
+      $.ajax({
+            type: "post",
+		  	    url: Global.api+"airPharmacy/airDrugDetail",
+			      contentType: 'application/json',
+            data:postdata,
+            success: function (res) {
+              console.log(res)
+              var data=res.data
+              $(".drug_pic").append(`<img src="${Global.picUrl+data.airDrugOne.pic1}"/>`)
+              $(".drug_detail").append(`<img src="${Global.picUrl+data.airDrugOne.pic1}"/>`)
+              $(".detail_center p").text(data.airDrugOne.name)
+              $(".memo").text(data.airDrugOne.memo)
+              $(".detail_top :first-child").text("￥"+parseFloat(data.airDrugOne.pay_price/100).toFixed(2))
+              $(".detail_foot :first-child").text(data.airDrugOne.drug_count)
+              data.commendDrugMapList.forEach(function(item){
+                  $(".center").append(`
+                          <div class="left" onclick="pageObj.goMedicinedetail(${item.id})">
+                            <div class="center_top">
+                              <img src="${Global.picUrl+item.pic1}" class="img100"/>
+                            </div>
+                            <div class="center_center">${item.name}</div>
+                            <div class="center_foot">
+                              <div>
+                                <span class="money">¥:${parseFloat(item.pay_price/100).toFixed(2)}</span>
+                              </div>
+                            </div>
+                          </div>
+                  `)
+              })
+              data.airDrugCommentList.forEach(function(item,index){
+                  $(".user_content").append(`
+                        <div class="user_content_list">
+                            <div style="width:21em;">
+                              <div class="item_flex">
+                                <h3>${item.nike_name}</h3>
+                                <div class="starNum" data-id=${index}>
+                                </div>
+                              </div>
+                              <div>${item.content}</div>
+                              <div class="foot_text">${Global.formatTimestamp(item.create_date)}</div>
+                            </div>
+                        </div>
+                  `)
+                  if(item.star_grade>0){
+                     for( var i=0;i<item.star_grade;i++){
+                        $(`.starNum[data-id=${index}]`).append(`
+                           <img src="static/images/wode-wodeshoucang.png" class="tubiao"/>
+                        `)
+                     }
+                  }  
+              })
+            },
+            error: function (e) {
+              console.log(e)
+            }
+      })
+    },
+    //商品点击减少按钮
+    drugCounReduce(){
+    	var drugCount = parseInt( $("#drug_count").text());
+    	if(drugCount>1){
+    		drugCount--;
+    		$("#drug_count").text(drugCount);
+    	}
+    	
+    },
+    //点击推荐商品跳转
+    goMedicinedetail(drugid){
+    	 window.location.href="medicinedetail.html?drugid="+drugid;	
+    },
+    //商品点击增加按钮
+    drugCountAdd(){
+    	//库存
+    	var kucunCount=parseInt($(".detail_foot :first-child").text());
+    	var drugCount = parseInt( $("#drug_count").text());
+    	if(kucunCount>drugCount){
+    		drugCount++;
+    	}
+    	$("#drug_count").text(drugCount);
+    },
+    //加入购物车的操作
+    addshop(){
+    	let drugId=Global.getParameter("drugid");
+  	  	let token=Global.getCookie("token");
+	 	let userid=Global.getCookie("userid");
+    	let postdata=JSON.stringify({
+			 "token":token,
+			 "userId":userid,
+			 "drugId":drugId,
+    		 "drugCount":$("#drug_count").text()
+	      })
+	     console.log(postdata); 
+    	 Global.ajaxRequest(Global.api+"/basketController/addDrugBasket",postdata)
+	     .then((res) => {
+	    	 if(res.data.code=="0"){
+	    		alert("加入购物车成功");
+	    	 }
+	     })
+    },
+    //跳转道购物车
+	 goShopcart(){
+		window.location.href="shoppingcart.html";
+	 },
+    //点击立即购买跳转页面
+    buyDrug(){
+    	var drudIds="";
+    	let drugId=Global.getParameter("drugid");
+    	let drugCount= $("#drug_count").text();
+    	let drugCountInt=parseInt(drugCount);
+    	for(var i=0;i<drugCountInt;i++){
+    		drudIds+=drugId+","
+    	}
+    	window.location.href="ordermake.html?drudIds="+drudIds;
+    },
+    init(){
+      pageObj.initData()
+    }
+ } 
+ $(function(){
+	 /* document.cookie="userid=123";
+	 document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7"; */
+    pageObj.init()
+ })
+
+</script>
+
+
+
+
+
+<!-- alert 弹窗 -->
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+	    <div class="container alert-wrap">
+	      	加入购物车成功
+	    </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

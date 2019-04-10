@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+  <meta charset="UTF-8">
+  <title>解表中药搜索页</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <script type="text/javascript">
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+  </script>
+  <link rel="stylesheet" href="static/css/common.css">
+  <link rel="stylesheet" href="static/css/user.css">
+  <link rel="stylesheet" href="static/css/swiper.min.css">
+  <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/js/mianG.js"></script>
+  <style>
+   /* .nav_tab{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: .6rem;
+    width: 3.2rem;
+    flex-wrap: nowrap;
+    padding-left: 8.4rem;
+    overflow-x: scroll;
+   }
+   .nav_tab div{
+    width: .8rem;
+    text-align: center;
+    white-space: nowrap;
+    padding: 0 .2rem;
+    padding-bottom: .12rem;
+   } */
+    .nav_tab{
+      flex-wrap: nowrap;
+      overflow: auto;
+      white-space: nowrap;
+      vertical-align: middle;
+      height: .5rem;
+      flex: 1;
+      margin-right: .14rem;
+   }
+   .nav_tab div{
+    display: inline-block;
+    width: .8rem;
+    text-align: center;
+    white-space: nowrap;
+    margin: 0 .2rem;
+    padding-bottom: .1rem;
+    margin-top: .1rem;
+   }
+   .tab_list {
+	margin-bottom: 0.1rem;
+   }
+   .nav_tab div:hover{
+     border-bottom:0.01rem solid #eb6003;
+     color: #eb6003;
+   }
+   .line{
+     width: 100;
+     height: .15em;
+     background: #cccccc47;
+     margin-top: -0.1rem;
+   }
+   .img{
+     width: .2rem;
+   }
+   .img200{
+     width:  1rem;
+     height: 1rem;
+   } 
+   .nav{
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding-right: .2rem;
+   }
+
+   /*列表*/
+   .content_main{
+     padding: 0 .12rem;
+   }
+   .contentList{
+      display: flex;
+      justify-content: left;
+      margin-top: .12rem;
+      padding-right: .2rem;
+      border-bottom: 0.01rem solid #f6f6f6;
+      padding-bottom: .1rem;
+   }
+   .list_right{
+     margin-left: .15rem;
+     width: 2.2rem;
+   }
+   .list_foot{
+     margin-top: .15rem;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+   }
+   .list_foot :first-child{
+     color: #e2834b;
+   }  
+   .img300{
+     width: .14rem;
+     margin-right: 0.02rem;
+   }
+   .fire{
+     display: flex;
+     align-items: center;
+     color: #fff;
+     width: 1rem;
+     border-radius: .2rem;
+     font-size: .05rem;
+   }
+   .fire_wrap{
+     margin-top: .1rem;
+   }
+   .car{
+    background: #e2834b;
+    text-align: center;
+    vertical-align: middle;
+    color: #fff;
+    border-radius: 50%;
+    width: .35rem;
+    height: .35rem;
+   }
+   .msg{
+     position: absolute;
+     left: 0;
+     top:0;
+     right: 0;
+     bottom: 0;
+     display: none;
+   }
+   .msg_wrap{
+     position: absolute;
+     top: .4rem;
+     left: 0;
+     width: 100%;
+     background: #fff;
+   }
+   .flex_item{
+     display: flex;
+     justify-content: space-around;
+     align-items: center;
+     margin: 0.05rem;
+   }
+   .flex_item span{
+      border: 0.01rem solid #222;
+      width: 1rem;
+      text-align: center;
+      padding: 0.04rem;
+      border-radius: 0.05rem;
+      flex: 1;
+   }
+   .flex_item span:hover{
+     color: #e2834b;
+     border-color: #e2834b;
+   }
+   .flex_item span:nth-child(2) {
+   	margin: 0 0.1rem;
+   }
+
+
+
+   /*tou*/
+    .img_box{
+      background: rgba(0,0,0,0.6);
+      border-radius: 50%;
+      width: .3rem;
+      height: .3rem;
+      padding: .05rem;
+    }
+    .top{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+      padding:.1rem .12rem;
+    }
+    .img_input{
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border-radius: .2rem;
+      padding: .06rem 0.08rem;
+      width: 2.5rem;
+    }
+    .img_input input{
+      outline: none;
+      border: none;
+      padding-left: .2rem;
+    }
+    .top{
+      background: #f3f3f3;
+    }
+    .img500{
+      width: .25rem;;
+    }
+  </style>
+</head>
+<body>
+<div class="top">
+    <div class="img_wrap" onclick="pageObj.goback()">
+      <img src="static/images/fanhui.png" class="img500"/>
+    </div>
+    <div class="img_input">
+      <img src="static/images/yaofang-sousuo.png" class="img300"/>
+      <input id="search_grud" placeholder="请输入关键字"/>
+    </div>
+    <div onclick="pageObj.search()">
+      搜索
+    </div>
+</div>
+<div class="nav">
+  <div class="nav_tab">
+    <div data-id="1">解表中成药</div>
+    <div data-id="2">清热中成药</div>
+    <div data-id="3">温理中成药</div>
+    <div data-id="4">理气中成药</div>
+    <div data-id="5">里血中成药</div>
+    <div data-id="6">补益中成药</div>
+    <div data-id="7">安神中成药</div>
+    <div data-id="12">收涩中成药</div>
+    <div data-id="13">消导中成药</div>
+    <div data-id="9">祛湿中成药</div>
+    <div data-id="15">外用中成药</div>
+    <div data-id="11">开窍中成药</div>
+    <div data-id="14">泻下中成药</div>
+    <div data-id="8">祛痰止咳中成药</div>
+    <div data-id="10">祛风止痉中成药</div>
+   </div>
+   <div class="tab_list">
+     <img src="static/images/yaofang-fenlei.png" class="img"/>
+   </div>
+</div>
+<div class="line"></div>
+<div class="content_main">
+<!-- <div class="contentList">
+    <img src="static/images/head.png" class="img200"/>
+    <div class="list_right">
+      <div class="list_top">
+        桑葚5g*10袋-精选攀枝花 提高免疫力提高免疫力提高免疫力
+      </div>
+      <div class="fire_wrap">
+        <div class="fire">
+          <img src="static/images/yaofang-huo.png" class="img300"/>
+           <span>好评率98%</span>
+        </div>
+      </div>
+      <div class="list_foot">
+        <span>￥200</span>
+        <div class="car">
+          <img src="static/images/yaofang-gouwuche.png" style="width:100%; padding: .045rem;"/>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>
+<div class="msg">
+   <div class="msg_wrap">   
+      <div class="flex_item">
+        <span data-id="1">解表中成药</span>
+        <span data-id="2">清热中成药</span>
+        <span data-id="3">温里中成药</span>
+      </div>
+      <div class="flex_item">
+        <span data-id="4">理气中成药</span>
+        <span data-id="5">里血中成药</span>
+        <span data-id="6">补益中成药</span>
+      </div>
+      <div class="flex_item">
+        <span data-id="7">安神中成药</span>
+        <span data-id="12">收涩中成药</span>
+        <span data-id="13">消导中成药</span>
+      </div>
+      <div class="flex_item">
+        <span data-id="9">祛湿中成药</span>
+        <span data-id="15">外用中成药</span>
+        <span data-id="11">开窍中成药</span>
+      </div>
+      <div class="flex_item">
+        <span data-id="14">泻下中成药</span>
+        <span data-id="8">去痰止咳中成药</span>
+        <span data-id="10">祛风止痉中成药</span>
+      </div>
+   </div>  
+</div>
+<script>
+ $(".tab_list").click(function(){
+    $(".msg").show()
+ })
+ $(".msg").delegate("span","click",function(){
+    $(".msg").hide()
+ })
+</script>
+<script>
+var searchParam=null;
+ var pageObj={
+    initData(mid){
+      let categoryId=mid
+      if(categoryId==undefined){
+        categoryId=Global.getParameter("categoryId");
+      }else{
+        categoryId=categoryId
+      } 
+      console.log(categoryId)
+      
+      
+      var cookieStr=document.cookie.split(";")
+      let userid=cookieStr[0].split("=")[1]
+      let token=cookieStr[1].split("=")[1]
+      let postdata=null;
+	   var storage=window.localStorage;
+	   if(searchParam==null){
+	      searchParam=Global.getParameter("searchParam");
+	   } 
+      if(searchParam==null){
+	      searchParam= storage.searchParam;
+      }
+      
+      if(searchParam!=null&&searchParam!=""&&searchParam!="null"){
+    	  postdata=JSON.stringify({
+    	        token:token,
+    	        userId:userid,
+    	        searchParam:searchParam,  
+    	        pageNum:"1",	 
+    	        pageSize:"100"	 
+    	      })
+    	 window.localStorage.searchParam=null;
+    	 searchParam=null;
+      }else{
+    	  postdata=JSON.stringify({
+  	        token:token,
+  	        userId:userid,
+  	        categoryId:categoryId,  
+  	        pageNum:"1",	 
+  	        pageSize:"100"	 
+  	      })
+      }
+      
+      // let postdata=JSON.stringify({
+      //   token:"123",
+      //   userId:"123",
+      //   categoryId:id,  
+      //   pageNum:"1",	 
+      //   pageSize:"3"	 
+      // })
+      console.log(postdata)
+      $(".content_main").empty()
+      $.ajax({
+            type: "post",
+		  	    url: Global.api+"/airPharmacy/airDrugSearch",
+			      contentType: 'application/json',
+            data:postdata,
+            success: function (res) {
+              console.log(res)
+              let data=res.data.airDrugSearchMapList
+              console.log(data)
+              data.forEach(item => {
+                  // $(".content_main").empty()
+                  $(".content_main").append(`
+                        <div class="contentList" onclick="pageObj.goMedicinedetail(${item.id})">
+                          <img src="${Global.picUrl+item.pic1}" class="img200"/>
+                          <div class="list_right">
+                            <div class="list_top">
+                              ${item.name}
+                            </div>
+                            <div class="fire_wrap">
+                              <div class="fire">
+                                <img src="static/images/星星@2x.png" class="img300"/>
+                                <img src="static/images/星星@2x.png" class="img300"/>
+                                <img src="static/images/星星@2x.png" class="img300"/>
+                                <img src="static/images/星星@2x.png" class="img300"/>
+                                <img src="static/images/星星@2x.png" class="img300"/>
+                                
+                              </div>
+                            </div>
+                            <div class="list_foot">
+                              <span>￥ ${parseFloat(item.pay_price/100).toFixed(2)}</span>
+                              <div class="car">
+                                <img src="static/images/yaofang-gouwuche.png" style="width:100%; padding: .045rem;"/>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                  `)                      
+              });
+            },
+            error: function (e) {
+              console.log(e)
+            }
+      })
+    },
+    initEvent(){
+      $(".nav_tab").delegate("div","click",function(){
+          console.log($(this).data("id"))
+          let id=$(this).data("id").toString();
+          $("#search_grud").val("");
+          pageObj.initData(id)
+      })
+      $(".flex_item").delegate("span","click",function(){
+          console.log($(this).data("id"))
+          let id=$(this).data("id").toString()
+          $("#search_grud").val("");
+          pageObj.initData(id)
+      })
+    },
+    goMedicinedetail(drugid){
+    	 window.location.href="medicinedetail.html?drugid="+drugid;	
+    },
+    init(){
+      pageObj.initData();
+      pageObj.initEvent();
+    },
+    //点击搜索按钮
+    search(){
+    	searchParam=$("#search_grud").val();
+    	pageObj.initData();
+    	searchParam=null;
+    },
+    goback(){
+    	window.history.go(-1);
+    },
+ } 
+ $(function(){
+    pageObj.init()
+ })
+</script>
+</body>
+</html>
