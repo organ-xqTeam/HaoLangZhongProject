@@ -182,6 +182,9 @@ public class UploadDownloadController extends BaseController {
 							fileName = new Date().getTime() + "_" + new Random().nextInt(1000) + "." + prefix;// 新的文件名
 							fileAbbreviations = new Date().getTime() + "_" + new Random().nextInt(1000) + "." + prefix;// 新的文件名
 							targetFile = new File(returnUrl, fileName);
+							if(!targetFile.exists()) {
+								targetFile.mkdirs();
+							}
 							try {
 								BufferedImage image = ImageIO.read(files[i].getInputStream());
 								if (image != null) {// 如果image=null 表示上传的不是图片格式

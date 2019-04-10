@@ -97,7 +97,7 @@
 			<if test="update_date != null">update_date=#{update_date},</if>
 			<if test="paytype != null">paytype=#{paytype},</if>
 	    </set>
-	  	where id=#{orderId,jdbcType=VARCHAR}
+	  	where consultationid=#{orderId,jdbcType=VARCHAR}
 	</update>
 	
 </mapper>
