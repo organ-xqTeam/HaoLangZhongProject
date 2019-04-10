@@ -15,7 +15,6 @@
   <style>
   .list_main{
   	padding-top:0.05rem;
-  	background: #F6F6F6;
   }
   .img200{
      width: 1rem;
@@ -200,30 +199,6 @@
     padding: 0.06rem .2rem;
     border-radius: .05rem;
 }
-.poster-box {
-    position: relative;
-	width: 1rem;
-	height: 1rem;
-}
-.poster-box .img200 {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: auto;
-    height: 1rem;
-}
-.topbar {
-	display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    font-size: 0.18rem;
-    padding: .1rem;
-    border-bottom: 1px solid #e5e5e5;
-}
-.gf-icon-2 {
-	width: .24rem;
-}
 
   </style>
   <script type="text/javascript">
@@ -337,12 +312,9 @@
 			    				            <div class="checkBox">
 			    				              <span class="mCheck"></span>
 			    				              <input type="checkbox" hidden="hidden" name="payType" value="yinhangka"/>
-			    				            </div> 
-			    				            <div class="poster-box">			    				            
-				    				            <img src="${Global.picUrl+item.pic1}" class="img200"/>
-			    				            </div>
-			    				          
-			    				            </div>
+			    				            </div>  
+			    				            <img src="${Global.picUrl+item.pic1}" class="img200"/>
+			    				          </div>
 			    				          <div class="list_right">
 			    				            <div class="list_top">
 			    				              	${item.name}
@@ -374,28 +346,16 @@
   </script>  
 </head>
 <body>
-
-<div class="topbar">
-	<img class="gf-icon-2" src="static/images/gouwuche-dianpu.png" />
-	空中药房
-</div>
-
 <div class="list_content_main">
-
-
-
-<!-- 
- <div class="list_main">
+ <!-- <div class="list_main">
     <div class="content_main">
         <div class="contentList">
           <div class="chooseBox">
             <div class="checkBox">
               <span class="mCheck"></span>
               <input type="radio" hidden="hidden" name="payType" value="yinhangka"/>
-            </div>
-            	<div class="poster-box">            	
-		            <img src="static/images/head.png" class="img200"/>
-            	</div>
+            </div>  
+            <img src="static/images/head.png" class="img200"/>
           </div>
           <div class="list_right">
             <div class="list_top">
@@ -438,27 +398,7 @@
         </div>
     </div>
  </div>
- </div> 
-  -->
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+ </div> -->
  </div>
  <div class="foot">
     <div class="foot_flex">

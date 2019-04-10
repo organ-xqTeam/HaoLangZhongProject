@@ -24,11 +24,8 @@
      padding: .2rem;
    }
    .guodabai_ul li{
-     line-height: .38rem;
-    border-bottom: .01rem solid rgba(0,0,0,0.05);
-   }
-   .guodabai_ul li:last-child {
-   	border: none;
+     line-height: .5rem;
+     border-bottom: .01rem solid #ccc;
    }
    .guodabai_span{
      display: inline-block;
@@ -40,13 +37,9 @@
      border: none;
      outline: none;
      font-size: .15rem;
-    color: rgba(0,0,0,0.5);
-    width: 2.2rem;
    }
    .guodabai_address{
-    display: flex;
-    padding: .2rem;
-    justify-content: space-between;
+     padding: .2rem;
    }
    .guodabai_color{
      color: #d85f10;
@@ -61,23 +54,7 @@
       text-align: center;
       padding: .1rem 0;
       border-radius: .08rem;
-  }
-  .gf-choose {
-    width: 0.18rem;
-    height: 0.18rem;
-    border: .01rem solid #eee;
-    display: inline-block;
-    border-radius: 50%;
-  }
-  .gf-choose-active {
-    width: 0.18rem;
-    height: 0.18rem;
-    border: .01rem solid #eee;
-    display: inline-block;
-    border-radius: 50%;
-    background-image: url(./static/images/check.png);
-    background-size: contain;
-  }
+  }  
   </style>
 <script type="text/javascript">
   var userId="";
@@ -251,14 +228,7 @@
 </div>
 <div class="guodabai_line"></div>
 <div class="guodabai_address">
-   <span>设为默认地址</span>  
-   <span>   
-	   <label for="isDefault">
-	   		<span class="gf-choose"></span>
-	   		<span class="gf-choose-active" style="display:none"></span>
-	   </label>
-	   <input id="isDefault" type="checkbox" style="display:none">
-   </span>
+   <span>设为默认地址 <input id="isDefault" type="checkbox" ></span> 
 </div>
 <div class="guodabai_line"></div>
 <div class="guodabai_address">
@@ -272,19 +242,6 @@
 </form>  
 
 <script>
-$('#isDefault').on('click', function (e) {
-	console.log($(e.currentTarget).is(':checked'))
-	if($(e.currentTarget).is(':checked')) {
-		$('.gf-choose').css('display','none');
-		$('.gf-choose-active').css('display','inline-block');
-	} else {
-		$('.gf-choose').css('display','inline-block');
-		$('.gf-choose-active').css('display','none');
-	}
-})
-
-
-
 </script>
 </body>
 </html>

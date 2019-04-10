@@ -13,9 +13,6 @@
   <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
   <script src="static/js/mianG.js"></script>
   <style>
-  	body {
-  		font-size: .18rem;
-  	}
    .nav_tab{
      display: flex;
      justify-content: space-around;
@@ -28,6 +25,10 @@
     text-align: center;
     padding-bottom: 0.15rem;
    }
+   .nav_tab div:hover{
+     border-bottom:0.01rem solid #eb6003;
+     color: #eb6003;
+   }
    .line{
      width: 100;
      height: .8em;
@@ -38,11 +39,10 @@
      width: .9rem;
    }
    .content_main{
-
+     padding: .2rem;
    }
    .content_list{
      line-height: .4rem;
-     padding: 0 .2rem;
    }
    .list_top{
      display: flex;
@@ -79,15 +79,7 @@
     border-radius: .05rem;
    }
    .list_center{
-     padding: .1rem 0;
-     height: 1rem;
-   }
-   .list_center .img100 {
-   	height: 1rem;
-   }
-   .gf-active {
-    border-bottom: 0.01rem solid #eb6003;
-    color: #eb6003;
+     margin-top: .1rem;
    }
   </style>
   <script type="text/javascript">
@@ -136,7 +128,6 @@
     			        	 imgs += `<img src="${Global.picUrl+pics[i]}" class="img100"/>`
     			         }
 			    		 $(".content_main").append(`
-			    				 <div class="line"></div>
 			    				   <div class="content_list" onclick="pageObj.goOrderdetails(${item.id})">
 			    			      <div class="list_top">
 			    			         <div>
@@ -184,17 +175,15 @@
 			})
 			  
   </script>
-    
 </head>
 <body>
 <div class="nav_tab">
-   <div class="gf-active" onclick="pageObj.getOrderByState()">全部</div>
+   <div onclick="pageObj.getOrderByState()">全部</div>
    <div onclick="pageObj.getOrderByState('1,2')">待收货</div>
    <div onclick="pageObj.getOrderByState('0')">待付款</div>
    <div onclick="pageObj.getOrderByState('3')">待评价</div>
 </div>
-
-
+<div class="line"></div>
 <div class="content_main">
 
    <div class="content_list">
@@ -227,12 +216,8 @@
    </div>
    
 </div>
-  <script>
-	$('.nav_tab div').on('click',function () {
-		console.log($(this))
-		$('.nav_tab div').removeClass('gf-active');
-		$(this).addClass('gf-active')
-	})
-  </script>
+<script>
+
+</script>
 </body>
 </html>

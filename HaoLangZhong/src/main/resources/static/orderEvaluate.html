@@ -12,9 +12,6 @@
   <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
   <script src="static/js/mianG.js"></script>
   <style>
-  	body {
-  		font-size: .18rem;
-  	}
    .line{
      width: 100;
      height: .8em;
@@ -67,7 +64,7 @@
 /* 星评 */
 .starsWrap{
     height: 0.25rem;
-
+    width: 1.3rem;
 }
 .stars{
   width: 100%;
@@ -76,9 +73,8 @@
 }
 .stars>li{
   font-size: 0;
-  height: .2rem;
-  width: .2rem;
-  margin-left: .05rem;
+  height: 100%;
+  width: 1rem;
 }
 .stars>li.stars1{
   background: url(static/images/星星@2x.png) center center no-repeat;
@@ -89,7 +85,7 @@
   background-size: 100% 100%;
 }
 .content_center{
-  padding: .1rem;
+  padding: .6em;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -149,7 +145,7 @@
     </div>
     <div class="line"></div>
     <div class="content_center">
-      <span style="white-space: nowrap;">评分</span>
+      <span>评分</span>
       <div class="starsWrap">
         <ul class="flexCenter stars">
           <li class="stars0"></li>

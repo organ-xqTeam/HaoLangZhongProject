@@ -10,15 +10,9 @@
   <link rel="stylesheet" href="static/css/common.css">
   <link rel="stylesheet" href="static/css/user.css">
   <link rel="stylesheet" href="static/css/swiper.min.css">
-  <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
   <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
-  <script src="static/bootstrap/js/bootstrap.min.js"></script>
-  
   <script src="static/js/mianG.js"></script>
   <style>
-  	body {
-  		padding-bottom: 1rem;
-  	}
     .line{
      width: 100;
      height: .1rem;
@@ -153,32 +147,16 @@
     width: 1rem;
     display: inline-block;
     text-align: center;
-    white-space: nowrap;
    }
    .pay{
      background: #8b2204 !important;
      margin-left: -.05rem;
    }
    .footContent{
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #fff;
-    width: 100%;
-   }
-   .modal.in .modal-dialog {
-   }
-   .modal-content {
-   }
-   .alert-wrap {
-position:absolute;
-top: 2.5rem;
-left: 50%;
-transform: translate(-50%, 0);
-	
+     /* padding: .2rem; */
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
    }
   </style>
 </head>
@@ -279,7 +257,7 @@ transform: translate(-50%, 0);
     <span>购物车</span>
   </div>
   <div class="button">
-    <span  class="addshop" data-toggle="modal" data-target=".bs-example-modal-sm">加入购物车</span>
+    <span  class="addshop" onclick="pageObj.addshop()" >加入购物车</span>
     <span class="pay" onclick="pageObj.buyDrug()">立即购买</span>
   </div>
 </div>
@@ -416,7 +394,7 @@ transform: translate(-50%, 0);
     	 Global.ajaxRequest(Global.api+"/basketController/addDrugBasket",postdata)
 	     .then((res) => {
 	    	 if(res.data.code=="0"){
-	    		alert("加入购物车成功");
+	    		alert("加入购物车成功");	 
 	    	 }
 	     })
     },
@@ -446,34 +424,5 @@ transform: translate(-50%, 0);
  })
 
 </script>
-
-
-
-
-
-<!-- alert 弹窗 -->
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-	    <div class="container alert-wrap">
-	      	加入购物车成功
-	    </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </body>
 </html>

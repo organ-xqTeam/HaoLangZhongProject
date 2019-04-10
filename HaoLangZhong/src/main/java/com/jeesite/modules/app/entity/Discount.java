@@ -4,7 +4,6 @@
 package com.jeesite.modules.app.entity;
 
 import org.hibernate.validator.constraints.Length;
-
 import com.jeesite.common.entity.DataEntity;
 import com.jeesite.common.mybatis.annotation.Column;
 import com.jeesite.common.mybatis.annotation.JoinTable;

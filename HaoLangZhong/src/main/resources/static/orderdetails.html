@@ -10,14 +10,9 @@
   <link rel="stylesheet" href="static/css/common.css">
   <link rel="stylesheet" href="static/css/user.css">
   <link rel="stylesheet" href="static/css/swiper.min.css">
-  <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
   <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
-  <script src="static/bootstrap/js/bootstrap.min.js"></script>
   <script src="static/js/mianG.js"></script>
   <style>
-  	body {
-		background: #fff;
-  	}
    .img100{
      width: .2rem;
    } 
@@ -26,10 +21,7 @@
      display: flex;
      justify-content: space-between;
      align-items: flex-start;
-     background: #fff;
-   }
-   .gf-border-bottom {
-   	border-bottom: .1rem solid rgba(0,0,0,0.05);
+     background: #f6f6f6;
    }
    .flexWrap{
      display: flex;
@@ -45,13 +37,13 @@
      padding-right: .3rem
    }
    .rightWrap{
-     margin-left: .1rem;
-     flex: 1;
+     margin-left: .2rem;
    }
    .shopWrap{
     display: flex;
     align-items: center;
-    border-bottom: 0.01rem solid rgba(0,0,0,0.05);
+    border-top: 0.01rem solid #ccc;
+    border-bottom: 0.01rem solid #ccc;
     background: #FFF;
     font-size: .15rem;
     padding: .15rem;
@@ -61,25 +53,24 @@
    } 
    .shopContent{
      background: #FFF;
-     padding: .12rem 0;
+     padding: .12rem;
    }
    .contentList{
       background: #f6f6f6;
       display: flex;
       justify-content: space-between;
       margin-top: .12rem;
-      padding: .1rem .2rem;
+      padding-right: .2rem;
    }
    .contentList>img{
    	 width: 1rem;
    	 height:1rem;
    }
    .list_right{
-     margin-left: .1rem;
-     flex: 1;
+     margin-left: .15rem;
    }
    .list_foot{
-     margin-top: .5rem;
+     margin-top: .2rem;
      display: flex;
      align-items: center;
      justify-content: space-between;
@@ -96,7 +87,7 @@
    .mingxi li{
      color: #222222;
      padding: .12rem;
-     border-bottom: 0.01rem solid rgba(0,0,0,0.05);
+     border-bottom: 0.01rem solid #ccc;
    }
    .mingxi li{
      display: flex;
@@ -132,7 +123,7 @@
    .dingdan li{
      color: #222222;
      padding: .12rem;
-     border-bottom: 0.01rem solid rgba(0,0,0,0.05);
+     border-bottom: 0.01rem solid #ccc;
      display: flex;
      align-content: center;
    }
@@ -309,7 +300,7 @@
 			    		  </ul>			    			
 			    			`)	
 			    	$(`.content_button`).append(`
-			    			${ order.orderStatus=='0'? '<span  onclick="pageObj.buyPay()" data-toggle="modal" data-target=".bs-example-modal-sm">去付款</span>' : '' } 
+			    			${ order.orderStatus=='0'? '<span  onclick="pageObj.buyPay()" >去付款</span>' : '' } 
 			    			${ order.orderStatus=='1'|| order.orderStatus=='2'? '<span onclick="pageObj.confirm()">确认收货</span>' : '' } 
 			    			${ order.orderStatus=='4'? '<span onclick="pageObj.goOrderDel()">删除订单</span>' : '' } 
 			    			${ order.orderStatus=='3'? '<span onclick="pageObj.goOrderEvaluate()">去评价</span>' : '' } 
@@ -395,7 +386,6 @@
     </div>  -->
   </div>
 </div>
-<img class="gf-border-bottom" src="./static/images/30e82a997bc6934325bba6e2c1cfd14.png" />
 <div class="shopWrap">
   <img src="static/images/gouwuche-dianpu.png" class="img100"/>
   <span>空中药方</span>
@@ -481,19 +471,6 @@
 </div>
 <div class="content_button">
    <!-- <span>确认收货</span> -->
-</div>
-
-
-
-
-<!-- Small modal -->
-
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      付款成功
-    </div>
-  </div>
 </div>
 <script>
 
