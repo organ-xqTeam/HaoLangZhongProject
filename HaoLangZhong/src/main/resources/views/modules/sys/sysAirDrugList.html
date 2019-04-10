@@ -1,0 +1,142 @@
+<% layout('/layouts/default.html', {title: '药品管理', libs: ['dataGrid']}){ %>
+<div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa fa-list-alt"></i> ${text('sys_air_drug管理')}
+			</div>
+			<div class="box-tools pull-right">
+				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
+				<% if(hasPermi('sys:sysAirDrug:edit')){ %>
+					<a href="${ctx}/sys/sysAirDrug/form" class="btn btn-default btnTool" title="${text('新增sys_air_drug')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
+				<% } %>
+			</div>
+		</div>
+		<div class="box-body">
+			<#form:form id="searchForm" model="${sysAirDrug}" action="${ctx}/sys/sysAirDrug/listData" method="post" class="form-inline hide"
+					data-page-no="${parameter.pageNo}" data-page-size="${parameter.pageSize}" data-order-by="${parameter.orderBy}">
+				<div class="form-group">
+					<label class="control-label">${text('药品名称')}：</label>
+					<div class="control-inline">
+						<#form:input path="name" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('创建日期')}：</label>
+					<div class="control-inline">
+						<!-- <#form:input path="createDate" class="form-control width-120"/> -->
+						<#form:input path="createDate" dataFormat="datetime"  class="form-control" onclick="WdatePicker({isShowClear:false,readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('备注详情')}：</label>
+					<div class="control-inline">
+						<#form:input path="memo" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('购买价格')}：</label>
+					<div class="control-inline">
+						<#form:input path="payPrice" maxlength="10" class="form-control width-120"/>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label">${text('是否删除 ')}：</label>
+					<div class="control-inline">
+						<!-- <#form:input path="delFlag" maxlength="1" class="form-control width-120"/> -->
+						<#form:select path="delFlag"  class="form-control required" blankOption="true" blankOptionLabel="请选择"  dictType="sys_del"/>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label">${text('创建人')}：</label>
+					<div class="control-inline">
+						<#form:input path="createBy" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('是否优先显示在推荐中 0')}：</label>
+					<div class="control-inline">
+						<!-- <#form:input path="firstFlag" maxlength="255" class="form-control width-120"/> -->
+						<#form:select path="firstFlag"  class="form-control required" blankOption="true" blankOptionLabel="请选择" dictType="sys_del"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('更新时间')}：</label>
+					<div class="control-inline">
+						<!-- <#form:input path="updateDate" class="form-control width-120"/> -->
+						<#form:input path="updateDate" dataFormat="datetime"  class="form-control" onclick="WdatePicker({isShowClear:false,readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('更新人')}：</label>
+					<div class="control-inline">
+						<#form:input path="updateBy" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('备注')}：</label>
+					<div class="control-inline">
+						<#form:input path="remarks" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('审批编号')}：</label>
+					<div class="control-inline">
+						<#form:input path="drugCode" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('适应症')}：</label>
+					<div class="control-inline">
+						<#form:input path="drugLn" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">${text('查询')}</button>
+					<button type="reset" class="btn btn-default btn-sm">${text('重置')}</button>
+				</div>
+			</#form:form>
+			<table id="dataGrid"></table>
+			<div id="dataGridPage"></div>
+		</div>
+	</div>
+</div>
+<% } %>
+<script>
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		{header:'${text("药品名称")}', name:'name', index:'a.name', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="${ctx}/sys/sysAirDrug/form?id='+row.id+'" class="btnList" data-title="${text("编辑sys_air_drug")}">'+(val||row.id)+'</a>';
+		}},
+		{header:'${text("创建日期")}', name:'createDate', index:'a.create_date', width:150, align:"center"},
+		{header:'${text("备注详情")}', name:'memo', index:'a.memo', width:150, align:"left"},
+		{header:'${text("购买价格")}', name:'payPrice', index:'a.pay_price', width:150, align:"left"},
+
+		{header:'${text("是否删除 0")}', name:'delFlag', index:'a.del_flag', width:150, align:"left"},
+		{header:'${text("与sys_air_drug_comment关联的id")}', name:'drugInventoryId', index:'a.drug_inventory_id', width:150, align:"center"},
+		{header:'${text("创建人")}', name:'createBy', index:'a.create_by', width:150, align:"left"},
+		{header:'${text("是否优先显示在推荐中 0")}', name:'firstFlag', index:'a.first_flag', width:150, align:"left"},
+		{header:'${text("更新时间")}', name:'updateDate', index:'a.update_date', width:150, align:"center"},
+		{header:'${text("更新人")}', name:'updateBy', index:'a.update_by', width:150, align:"left"},
+		{header:'${text("备注")}', name:'remarks', index:'a.remarks', width:150, align:"left"},
+		{header:'${text("审批编号")}', name:'drugCode', index:'a.drug_code', width:150, align:"left"},
+		{header:'${text("适应症")}', name:'drugLn', index:'a.drug_ln', width:150, align:"left"},
+		{header:'${text("操作")}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
+			var actions = [];
+			<% if(hasPermi('sys:sysAirDrug:edit')){ %>
+				actions.push('<a href="${ctx}/sys/sysAirDrug/form?id='+row.id+'" class="btnList" title="${text("编辑sys_air_drug")}"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="${ctx}/sys/sysAirDrug/delete?id='+row.id+'" class="btnList" title="${text("删除sys_air_drug")}" data-confirm="${text("确认要删除该sys_air_drug吗？")}"><i class="fa fa-trash-o"></i></a>&nbsp;');
+			<% } %>
+			return actions.join('');
+		}}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+</script>

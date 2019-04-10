@@ -92,7 +92,7 @@ var pageObj={
 			    .then((res) => {
 			    	console.log(res);
 			    	var data =res.data;
-			    	$(".dabai").html(`￥${data}`)
+			    	$(".dabai").html(`￥${data.toFixed(2)}`)
 			    	
 			    })
 				 

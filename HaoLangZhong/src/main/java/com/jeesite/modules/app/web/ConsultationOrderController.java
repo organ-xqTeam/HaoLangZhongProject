@@ -46,6 +46,22 @@ public class ConsultationOrderController extends BaseController {
 			TokenTools.checkToken(requestMap.get("token").toString(), redis);
 			Map<String, Object> items = new HashMap<String, Object>();
 			items = consultationOrderService.saveConsultationOrder(requestMap);
+			Map<String, Object> requestModel= new HashMap<>();
+			
+			
+			//默认已经支付并接单
+			/*{
+				"id":"539d31f73b2711e9a5e3bcaec5595fa3",		//*必填 订单id
+				"orderstate":"3",								//*必填 订单状态
+				"paytype":"1"									//*必填 支付方式
+			"token":"9fe32383047040abaa9b855c39d99c9b"		//*必填 用户token
+			}*/
+			/*System.out.println(items.get("id"));
+			requestModel.put("id", items.get("id"));
+			requestModel.put("orderstate", "2");
+			//支付成功已接单
+			requestModel.put("paytype", "4");
+			consultationOrderService.updateConsultationOrder(requestModel);*/
 			return Result.success(items);
 		}
 		catch (RedisCheckException e2) {

@@ -1,0 +1,256 @@
+<% layout('/layouts/default.html', {title: 'sys_air_drug管理', libs: ['validate','fileupload']}){ %>
+
+<div class="main-content">
+	<div class="box box-main">
+		<div class="box-header with-border">
+			<div class="box-title">
+				<i class="fa fa-list-alt"></i> ${text(sysAirDrug.isNewRecord ? '新增sys_air_drug' : '编辑sys_air_drug')}
+			</div>
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			</div>
+		</div>
+		<#form:form id="inputForm" model="${sysAirDrug}" action="${ctx}/sys/sysAirDrug/save" method="post" class="form-horizontal">
+			<div class="box-body">
+				<div class="form-unit">${text('基本信息')}</div>
+				<#form:hidden path="id"/>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('药品名称')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="name" maxlength="255" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+							
+								<span class="required hide">*</span> ${text('创建日期')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="createDate" dataFormat="datetime"  class="form-control" onclick="WdatePicker({isShowClear:false,readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('备注详情')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:textarea path="memo" rows="4" maxlength="255" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('购买价格')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8 input-group " >
+								<#form:input path="payPrice" maxlength="10" type="text" class="form-control" aria-label="Amount (to the nearest dollar)"/>
+								<span class="input-group-addon">分</span>
+							</div>						
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('图片1')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="pic1" maxlength="255" class="form-control"/>
+								
+    							 <input type="file" name="file" data-name="pic1" id = "input_file" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" onchange="imgPreview(this)" > 
+								<!-- <#form:fileupload id="upload2" bizKey="${sysAirDrug.pic1}" bizType="user_upload2" uploadType="image" class="required" readonly="false"/> -->
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('图片2')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="pic2" maxlength="255" class="form-control"/>
+								 <input type="file" name="file" data-name="pic2" id = "input_file" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" onchange="imgPreview(this)" > 
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('图片3')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="pic3" maxlength="255" class="form-control"/>
+								 <input type="file" name="file" data-name="pic3" id = "input_file" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" onchange="imgPreview(this)" > 
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('是否删除 ')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<!-- <#form:input path="delFlag" maxlength="1" class="form-control"/> -->
+								<#form:select path="delFlag"  class="form-control required"  dictType="sys_del"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<!-- <div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('与sys_air_drug_comment关联的id')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="drugInventoryId" maxlength="20" class="form-control digits"/>
+							</div>
+						</div>
+					</div> -->
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('创建人')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="createBy" maxlength="64" class="form-control"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('是否为推荐药品 ')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<!-- <#form:input path="firstFlag" maxlength="255" class="form-control"/> -->
+								<#form:select path="firstFlag"  class="form-control required"  dictType="sys_del"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('更新时间')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="updateDate" dataFormat="datetime" class="form-control" onclick="WdatePicker({isShowClear:false,readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('更新人')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="updateBy" maxlength="64" class="form-control"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-sm-2" title="">
+								<span class="required hide">*</span> ${text('简介')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-10">
+								<#form:textarea path="remarks" rows="4" maxlength="64" class="form-control"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('审批编号')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="drugCode" maxlength="64" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('适应症')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="drugLn" maxlength="64" class="form-control"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer">
+				<div class="row">
+					<div class="col-sm-offset-2 col-sm-10">
+						<% if (hasPermi('sys:sysAirDrug:edit')){ %>
+							<button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> ${text('保 存')}</button>&nbsp;
+						<% } %>
+						<button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> ${text('关 闭')}</button>
+					</div>
+				</div>
+			</div>
+		</#form:form>
+	</div>
+</div>
+<% } %>
+
+<script src="${ctxPath}/static/static/js/mianG.js"></script>
+<script>
+$("#inputForm").validate({
+	submitHandler: function(form){
+		js.ajaxSubmitForm($(form), function(data){
+			js.showMessage(data.message);
+			if(data.result == Global.TRUE){
+				js.closeCurrentTabPage(function(contentWindow){
+					contentWindow.page();
+				});
+			}
+		}, "json");
+    }
+});
+
+function imgPreview(changeDom){
+	var names= $(changeDom).data("name");
+	var formData = new FormData(); 
+	formData.append('file', $(changeDom)[0].files[0]);  //添加图片信息的参数
+	formData.append('sizeid',123);  //添加其他参数
+	console.log($(changeDom)[0].files[0]);
+	console.log(formData);
+	$.ajax({
+	    url: Global.api+"fileInfo/upload",
+	    type: 'POST',
+	    cache: false, //上传文件不需要缓存
+	    data: formData,
+	    processData: false, // 告诉jQuery不要去处理发送的数据
+	    contentType: false, // 告诉jQuery不要去设置Content-Type请求头
+	    success: function (data) {
+	    	console.log("上传成功");
+	        console.log(data);
+	        var picid=data.data[0].id;
+	        console.log(picid);
+	        $("[name='"+names+"']").val(picid);
+	    },
+	    error: function (data) {
+	        tipTopShow("上传失败");
+	    }
+	})  
+	
+}
+
+$(function(){
+	
+	/* var createDate=js.parseDate('${sysAirDrug.createDate,"yyyy-MM-dd hh:mm:ss"}');
+	var createDate=js.formatDate(createDate, "yyyy-MM-dd HH:mm:ss");
+	$("[name='createDate']").val(createDate);
+	var updateDate=js.parseDate('${sysAirDrug.updateDate,"yyyy-MM-dd hh:mm:ss"}');
+	var updateDate=js.formatDate(updateDate, "yyyy-MM-dd HH:mm:ss");
+	$("[name='updateDate']").val(updateDate); */
+})
+</script>

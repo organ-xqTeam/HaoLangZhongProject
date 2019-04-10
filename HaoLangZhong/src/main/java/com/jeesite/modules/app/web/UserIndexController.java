@@ -18,6 +18,7 @@ import com.jeesite.modules.app.entity.UserCollection;
 import com.jeesite.modules.app.service.AirDrugService;
 import com.jeesite.modules.app.service.UserIndexService;
 import com.jeesite.modules.app.utils.CodeMsg;
+import com.jeesite.modules.app.utils.GetLocationBaiduMap;
 import com.jeesite.modules.app.utils.PageModel;
 import com.jeesite.modules.app.utils.Result;
 import com.jeesite.modules.app.utils.TokenTools;
@@ -64,7 +65,25 @@ public class UserIndexController extends BaseController {
 			return Result.error(CodeMsg.PARAMETER_ISNULL);
 		}
 	}
-	
+	/**
+	 * 通过经纬度查询城市名
+	 * */
+	@ResponseBody
+	@RequestMapping(value = "/getCity")
+	public Result getCity(@RequestBody Map<String, Object> requestParams) {
+		try {
+			String  latitude=(String) requestParams.get("latitude");
+			String  longitude=(String) requestParams.get("longitude");
+			JSONObject result = new JSONObject();	
+			String city=GetLocationBaiduMap.getCity(latitude, longitude);
+			result.put("city", city);
+			return Result.success(result);			
+		}
+		catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return Result.error(CodeMsg.PARAMETER_ISNULL);
+		}
+	}
 	
 
 }
