@@ -264,7 +264,7 @@ var swiper = new Swiper('.swiper-container', {
               data.forEach(function(item,index){
                    $(".user_content").append(`
                       <div class="user_content_list">
-                          <img src="static/images/head.png" class="touxiang"/>
+                          <img src="${Global.picUrl+item.icon}" class="touxiang"/>
                           <div style="width:21em;">
                             <div class="item_flex">
                               <h3>${item.name}</h3>

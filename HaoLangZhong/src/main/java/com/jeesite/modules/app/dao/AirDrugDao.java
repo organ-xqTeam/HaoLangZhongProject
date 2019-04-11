@@ -26,7 +26,7 @@ public interface AirDrugDao extends CrudDao<AirDrug> {
 	/**通过药品id获取此药品的类别显示出相关推荐的药品  drugId*/
 	List<Map> findCommendAirDrugListBydrugId(Map<String, Object> commendDrugParmMap);
 	/**搜索中医药模糊搜索和选择类别之后分页*/
-	List<Map> findAirDrugSearch(Map<String, Object> airDrugSearchParmMap);
+	List<Map<String,String>> findAirDrugSearch(Map<String, Object> airDrugSearchParmMap);
 	/**通过drudIds们找到药品列表*/
 	List<Map> getlistByDrudIds(List drudIdsList);
 	

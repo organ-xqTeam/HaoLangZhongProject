@@ -13,7 +13,7 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 /**
  * sys_air_drugEntity
  * @author 范耘诚
- * @version 2019-04-09
+ * @version 2019-04-10
  */
 @Table(name="sys_air_drug", alias="a", columns={
 		@Column(name="id", attrName="id", label="主键", isPK=true),

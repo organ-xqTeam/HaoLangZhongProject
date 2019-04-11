@@ -13,6 +13,9 @@
   <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
   <script src="static/js/mianG.js"></script>
   <style>
+  	body {
+  		font-size: 0.18rem;
+  	}
     .nav{
       justify-content: center;
       align-items: center;
@@ -48,9 +51,10 @@
       align-items: center;
       height: .45rem;
       border-bottom: .01rem solid #cccccc47;
+    padding: 0.03rem 0;
     }
     .content{
-      padding: .12rem;
+      padding: 0 .12rem;
     }
     .line{
      border-bottom:0.07rem solid #eee6e1;
@@ -63,7 +67,7 @@
       color: #aa7563;
     }
     .height{
-      height: 0.4rem;
+
     }
     .list{
       line-height: .3rem;
@@ -169,18 +173,17 @@
 <div class="logo">
   <img src="static/images/logo.png"/>
 </div>
-<div class="content">
   <div class="line2"></div>
-  <div class="flex_item height">
+<div class="content">
+  <div id="about-ous" class="flex_item height">
       <div class="item_flex">
         <a class="check"></a>
-        <span>用户协议</span>
+        <span style="margin-left: 0.1rem">用户协议</span>
       </div>
       <div class="item_flex">
-        <img src="static/images/wode-gengduo.png" class="img100"/>
+        <img src="static/images/wode-gengduo.png" class="img200"/>
       </div>
   </div>
-  <div class="line2"></div>
 </div>  
 <script src="static/js/swiper.min.js"></script>
 <script>
@@ -206,6 +209,10 @@
  })
  $(".jineng").click(function(){
     window.location.href="http://localhost:8980/js/static/myJineng.html"
+ })
+ $('#about-ous').click(function () {
+	 console.log(123)
+    window.location.href="aboutOus.html"
  })
 </script>
 </body>

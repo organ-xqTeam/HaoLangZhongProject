@@ -40,7 +40,7 @@ public class AirDrugService extends CrudService<AirDrugDao, AirDrug> {
 		return airDrugDao.findCommendAirDrugListBydrugId(commendDrugParmMap);
 	}
 	/**搜索中医药模糊搜索和选择类别之后分页**/
-	public List<Map> findAirDrugSearch(Map<String, Object> airDrugSearchParmMap) {
+	public List<Map<String,String>> findAirDrugSearch(Map<String, Object> airDrugSearchParmMap) {
 		// TODO Auto-generated method stub
 		return airDrugDao.findAirDrugSearch(airDrugSearchParmMap);
 	}

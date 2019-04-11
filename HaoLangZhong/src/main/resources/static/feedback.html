@@ -9,9 +9,14 @@
   </script>
   <link rel="stylesheet" href="static/css/common.css">
   <link rel="stylesheet" href="static/css/user.css">
+  <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
   <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/bootstrap/js/bootstrap.min.js"></script>
   <script src="static/js/mianG.js"></script>
   <style>
+  	body {
+  		font-size: 0.18rem;
+  	}
    .line{
      width: 100;
      height: .8em;
@@ -28,7 +33,7 @@
   display: inline-block;
   width: 0.6rem;
   height: 0.6rem;
-  background: url(static/images/add.png) center center no-repeat;
+  background: url(static/images/8bf9e4cb3c66c2ab9f10284992b1120.png) center center no-repeat;
   background-size: 100%;
 }
 .addpicWrap .addedPic{
@@ -151,6 +156,14 @@
     .title{
       font-size: .16rem;
     }
+    .gf-alert {
+    position: absolute;
+    top: 2.5rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+    padding: 0.2rem;
+    white-space: nowrap;
+    }
 </style>
 </head>
 <body>
@@ -176,7 +189,7 @@
     </div>
     </div>
     <div class="content_button">
-      <div onclick="pageObj.submitFeed()">提交</div>
+      <div onclick="pageObj.submitFeed()" data-toggle="modal" data-target=".bs-example-modal-sm">提交</div>
     </div>
 </div>
 <script>
@@ -204,7 +217,8 @@ var pageObj={
 			 let postdata =null;
 			 var content=$(".text").val();
 			 if(content==null||content==''){
-				 alert("请输入反馈内容");
+				 //alert("请输入反馈内容");
+				 $('.gf-alert').text('请输入反馈内容')
 				 return;
 			 }
 			 console.log(content);
@@ -218,7 +232,8 @@ var pageObj={
 		    	 console.log(res);
 		    	 var data=res.data;
 		    	 if(data.id!=null){
-		    		 alert("反馈成功");
+		    		 //alert("反馈成功");
+		    		 $('.gf-alert').text('反馈成功')
 		    		 window.history.go(-1);
 		    	 }
 		    })
@@ -231,5 +246,15 @@ var pageObj={
 		})
 		  
 </script>
+<!-- Small modal -->
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content gf-alert">
+    	
+		反馈成功
+		请输入反馈内容
+    </div>
+  </div>
+</div>
 </body>
 </html>

@@ -10,7 +10,9 @@
   <link rel="stylesheet" href="static/css/common.css">
   <link rel="stylesheet" href="static/css/user.css">
   <link rel="stylesheet" href="static/css/swiper.min.css">
+  <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
   <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/bootstrap/js/bootstrap.min.js"></script>
   <script src="static/js/mianG.js"></script>
   <style>
    .line{
@@ -49,6 +51,7 @@
    .flex_item{
      display: flex;
      justify-content: space-between;
+     height: .4rem;
    }
    .flex_option{
      display: flex;
@@ -77,6 +80,13 @@
       padding: .1rem 0;
       border-radius: .08rem;
   }   
+  .gf-alert {
+    position: absolute;
+    left: 50%;
+    top: 3rem;
+    transform: translate(-50%, 0);
+    padding: .2rem;
+  }
   </style>
   <script type="text/javascript">
 	 /**
@@ -171,7 +181,8 @@
 		    	 console.log(res);
 		    	 var code=res.data.code;
 		    	 if(code=="0"){
-		    		 alert("订单提交成功");
+            //  alert("订单提交成功");
+            // $('.gf-alert').text('订单提交成功')
 		    		 history.replaceState(null, null, "airPharmacy.html");
 		    		 window.location.href="myorder.html";
 		    	 }
@@ -213,7 +224,7 @@
     <div class="flex_item">
       <img src="static/images/zhifubaozhifu.png" class="img100"/>
       <div>
-        <h3>微信支付</h3>
+        <h3>支付宝支付</h3>
         <span>推荐安装6.0版本以上用户使用</span>
       </div>
     </div>
@@ -226,7 +237,7 @@
     <div class="flex_item">
       <img src="static/images/yinhangkazhifu.png" class="img100"/>
       <div>
-        <h3>微信支付</h3>
+        <h3>余额支付</h3>
         <span>推荐安装6.0版本以上用户使用</span>
       </div>
     </div>
@@ -237,7 +248,18 @@
   </div>
 </div>
 <div class="content_button">
-  <div onclick="pageObj.buyorder()">支付</div>
+  <div onclick="pageObj.buyorder()" data-toggle="modal" data-target=".bs-example-modal-sm">支付</div>
+</div>
+
+
+<!-- Small modal -->
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content gf-alert">
+      订单提交成功
+    </div>
+  </div>
 </div>
 <script>
  $(".mCheck").click(function(){
@@ -247,6 +269,7 @@
     $(this).siblings("input").prop("checked",true)
     console.log($("input[name='payType']:checked").val())
  })
+
 </script>
 </body>
 </html>

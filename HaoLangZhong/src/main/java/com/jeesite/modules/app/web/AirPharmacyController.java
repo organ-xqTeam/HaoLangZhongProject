@@ -516,8 +516,13 @@ public class AirPharmacyController extends BaseController  implements BeanFactor
 			/**
 			 *搜索中医药模糊搜索和选择类别之后分页
 			 */
-			List<Map> airDrugSearchMapList= airDrugService.findAirDrugSearch(airDrugSearchParmMap);
+			List<Map<String,String>> airDrugSearchMapList= airDrugService.findAirDrugSearch(airDrugSearchParmMap);
 			JSONObject result = new JSONObject();
+		/*	for (Map map : airDrugSearchMapList) {
+				
+				
+			}
+			System.out.println();*/
 			result.put("airDrugSearchMapList", airDrugSearchMapList);
 			return Result.success(result);
 		} catch (Exception e) {

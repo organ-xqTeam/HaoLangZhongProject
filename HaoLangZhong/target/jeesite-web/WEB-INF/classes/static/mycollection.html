@@ -25,7 +25,7 @@
   }
   .top_center span{
     display: inline-block;
-    background: #cccccc47;
+
     padding: .1rem .25rem;
   }
   .top_center span:hover{
@@ -65,16 +65,14 @@
   padding: .05rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  border-bottom: .01rem solid #ccc; 
   font-size: .09rem;
   height: 0.4rem;
 }
 .item{
-  /* align-self: flex-end; */
+  align-self: flex-end;
   color: #ccc;
   display: inline-block;
-  margin-top: .4rem;
+  margin-top: .1rem;
 }
 .title{
   text-align: right;
@@ -144,12 +142,56 @@
 .content_list{
   margin-top: -0.5rem;
 }
+
+
+.gf-conatiner {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: .01rem solid rgba(0,0,0,0.05);
+}
+.gf-conatiner span {
+	padding: .1rem;
+}
+.gf-active {
+	color: #EB6003;
+}
+.main_list {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.gf-right {
+	flex: 1;
+	margin-left: .1rem;
+    display: flex;
+    flex: 1;
+    margin-left: .1rem;
+    flex-direction: column;
+}
+.gf-right h4 {
+    text-align: left;
+}
 </style>
 </head>
 <body>
+
+	<div class="gf-conatiner top_center">
+		<span>全部</span>
+		<span data-type="1">活动</span>
+		<span data-type="2">培训</span>
+		<span data-type="3">视频</span>
+		<span data-type="4">论坛</span>
+		<span data-type="5">水滴筹</span>
+	</div>
+
+
+
+
+
+
+
   <div class="main">
     <div class="main_top">  
-      <div class="top_top">
+      <!-- <div class="top_top">
         <h3>分类</h3>
       </div>
       <div class="top_center">
@@ -160,23 +202,34 @@
       </div>
       <div class="top_center_two">
           <span data-type="5">水滴筹</span>
-      </div>
+      </div> -->
+      
       <!-- <div class="content_button">
           <div>确定</div>
       </div> -->
     </div>
     <div class="content_list">  
-      <!-- <div class="main_list">
+    
+    
+    
+      <!--<div class="main_list">
         <div class="main_center">
           <img src="static/images/head.png" class="img100"/>
-          <div>
+          <div class="gf-right">
             <h4 class="title">标题</h4>
             <span class="item">2019-1-29</span>
           </div>
         </div>
       </div> -->
+      
+      
+      
+      
     </div>
   </div>
+  
+  
+  
 </body>
 <script>
   $(".main").delegate(".main_list","click",function(){
@@ -226,7 +279,7 @@
   var pageObj={
     initData(type){
       //先清空dom
-      $(".content_list").empty()
+//      $(".content_list").empty()
       var cookieStr=document.cookie.split(";")
       let userid=cookieStr[0].split("=")[1]
       let token=cookieStr[1].split("=")[1]
@@ -256,8 +309,9 @@
                         <div class="main_list" data-id=${item.id}>
                           <div class="main_center">
                             <img src=${item.pic} class="img100"/>
-                            <div>
+                            <div class="gf-right">
                               <h4 class="title">${item.title}</h4>
+                              <span class="item">  </span>
                             </div>
                           </div>
                         </div>
