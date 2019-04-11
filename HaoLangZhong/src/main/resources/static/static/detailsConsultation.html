@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+  <meta charset="UTF-8">
+  <title>咨询详情</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <script type="text/javascript">
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+  </script>
+  <link rel="stylesheet" href="static/css/common.css">
+  <link rel="stylesheet" href="static/css/user.css">
+  <link rel="stylesheet" href="static/css/swiper.min.css">
+  <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/js/mianG.js"></script>
+  <style>
+    .main{
+       padding: .15rem;  
+    }
+    .main_list{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      /* border-bottom: 0.01rem solid #ccc; */
+      padding-bottom: .1rem;
+    }
+    .main_list img{
+      width: .5rem;
+      border-radius: 50%;
+    }
+    .main_right{
+      display: flex;
+      justify-content: space-between;
+    }
+    .list_right{
+      /* background: red; */
+      width: 2.8rem;
+    }
+    .title{
+     line-height: .3rem;
+    }
+    h4{
+     line-height: .3rem;
+    }
+    .bodylist{
+       padding: 0 .2rem;
+    }
+    .bodylist span{
+       /* padding: 0 .2rem; */
+       display: inline-block;
+       border: 0.01rem solid #cccccc47;
+       width: .5rem;
+       text-align: center;
+    }
+    .therapyslist{
+      padding: 0 .2rem;
+    }
+    .therapyslist span{
+      display: inline-block;
+      border: 0.01rem solid #cccccc47;
+      width: .5rem;
+      text-align: center;
+    }
+    .miaosulist{
+      padding: 0 .29rem; 
+    }
+    .line{
+      width: 100%;
+      border-bottom: 0.01rem solid #ccc;
+      height: .15rem;
+    }
+
+
+  .nav{
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    display: flex;
+    height: .4rem;
+    border-bottom: 0.01rem solid #cccccc47;
+    font-size: .18rem;
+  }
+  .back{
+    position: absolute;
+    left: .1rem;
+    top: 0.07rem;
+  }
+  .img200{
+    height: auto !important;
+    width: .25rem;
+  }
+  .pic{
+    margin-top: .15rem;
+  }
+  .imgWrap{
+    width:30%;
+    display: inline-block;
+  }
+  .dataPic{
+     text-align: center;
+  }
+  .enheng{
+    align-self: flex-start;
+  }
+  .line2{
+    border-bottom: 0.08rem solid #cccccc47;
+    /* margin-bottom: .2rem; */
+    margin: .2rem 0;
+
+  }
+  .submitBox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    bottom: 0rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    /* bottom: .15rem; */
+    background: #fff;
+    padding-bottom: .15rem;
+    padding: 0 .15rem;
+    box-sizing: border-box;
+    padding-bottom: .15rem;
+  }
+  .submitInput{
+    width: 70%;
+  }
+  .submitInput input{
+    border: 0.01rem solid #cccccc47;
+    background: #f6f6f6;
+    /* color: black; */
+    padding: .05rem 0rem;
+    padding-left: .15rem;
+    width: 100%;
+    height: .38rem;
+  }
+  .submit{
+    background: #7e1f02;
+    color: #fff;
+    padding: .1rem .3rem;
+    border-radius: .05rem;
+  }
+  .main_list img{
+  	width:0.5rem;
+  	height:0.5rem;
+  }
+  .main {
+    padding-bottom: .6rem;
+
+  }
+  .wrap_img{
+      width: .5rem;
+      height: .5rem;
+      overflow: hidden;
+      border-radius: 50%;
+      /* border: 1px solid red; */
+    }  
+  </style>
+
+ <script type="text/javascript">
+
+  var userId="";
+  var token="";
+  //咨询的订单的id
+  var id="";
+  var pageObj={
+		initData(){
+				////drugId="+drugId+"&drugCount="+drugCount; 直接购买商品
+			    //orderId="+orderId  //订单购买
+			    token=Global.getCookie("token");
+			    userId=Global.getCookie("userid");
+			    id=Global.getParameter("id");
+			    let postdata =null;
+				postdata=JSON.stringify({
+						 "token":token,
+						 "userId":userId,
+						 "id":id
+				 })
+				 
+				Global.ajaxRequest(Global.api+"/consultation//findConsultationById/"+id,null)
+			    .then((res) => {
+			    	console.log(res);
+			    	//讨论的list
+			    	var consultationDiscussList=res.data.consultationDiscussList;
+			    	//治疗类别
+			    	var therapys =res.data.therapys;
+			    	//讨论的主体问题
+			    	var consultation=res.data.consultation;
+			    	//什么部分的问题(头,手)
+			    	var bodys=res.data.body;
+			    	//图片
+			    	var pics=res.data.pics;
+			    	
+			    	//用户信息
+			    	var userInfo=res.data.userInfo;
+			    	console.log(userInfo);
+					if(userInfo!=null&&userInfo!=undefined){
+						$(".main_list").append(`
+								<div class="wrap_img">
+				    				<img src="${Global.picUrl+userInfo.icon}"/>
+				    			</div>
+						        <div class="list_right">
+						          <div class="main_right">
+						            <h4 class="title">${userInfo.nikeName}</h4>
+						          </div>
+						          <span class="time">${consultation.consultation_time}</span>
+						        </div>
+				    			`)
+					}
+			    	
+
+			    	//身体部位
+			    	bodys.forEach(function(item){
+				    	$(".bodylist").append(`
+				    		      <span>${item.content}</span>
+				    			`)
+			    		 
+			    	 })
+			    	//接受疗法
+			    	therapys.forEach(function(item){
+			    		$(".therapyslist").append(`
+			    				<span>${item.content}</span>
+			    				`)
+			    	})
+			    	//症状描述
+			    	$(".miaosulist").html(`${consultation.content}`)
+			    	pics.forEach(function(item){
+			    		$(".dataPic").append(`      
+			    				<div class="imgWrap">
+			    		         <img src="${Global.picUrl+item.pic}" class="imgPic"/>
+			    			    </div>`);
+			    	})
+			    	consultationDiscussList.forEach(function(item){
+			    		var icon=item.userInfo.icon;
+			    		 
+			    		$(".main_info").append(`
+			    			<div class="main_list">
+			    				<img src="${Global.picUrl+item.userInfo.icon}" class="enheng"/>
+			    			      <div class="list_right">
+			    			        <div class="main_right">
+			    						<h4 class="title">${item.userInfo.nikeName}</h4>
+			    			        </div>
+			    			        <span class="time">${item.createDate}</span>
+			    			        <p>${item.content}</p>
+			    			      </div>
+			    			  </div>				    				
+			    				`)
+			    	})			    	
+					
+			    })
+				 
+			 },
+			 sendInfo(){
+				var inputval=$(".submitInput input").val();
+				if(inputval==null||inputval==""||inputval=="null"){
+					alert("请输入问题");
+					return;
+				}
+				let postdata =null;
+				postdata=JSON.stringify({
+						 "token":token,
+						 "userId":userId,
+						 "inputval":inputval,
+						 "orderId":id
+				 })
+				 //sendInfo
+				 Global.ajaxRequest(Global.api+"/consultation/sendInfo",postdata)
+			    .then((res) => {
+			    	console.log(res);
+			    	if(res.data==true){
+			    		alert("发送成功");
+			    		location.reload();
+			    	}
+			    })
+			 },
+			 init(){
+			   pageObj.initData()
+			 },
+		  }
+		  $(function(){
+			  	/* document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7";
+			  	document.cookie="userid=123"; */
+			    pageObj.init();
+			})
+			  
+  </script>   
+</head>
+<body>
+<div class="main">
+  <div class="main_list">
+    <!-- <img src="static/images/head.png"/>
+    <div class="list_right">
+      <div class="main_right">
+        <h4 class="title">官方客服</h4>
+      </div>
+      <span class="time">2018-1-25</span>
+    </div> -->
+  </div>
+  <div class="body">
+     <h4>身体部位</h4>
+     <div class="bodylist">
+      <!-- <span>头</span>
+      <span>手</span> -->
+     </div>
+  </div>
+  <div class="therapys">
+    <h4>接受疗法</h4>
+    <div class="therapyslist">
+     <!-- <span>头</span>
+     <span>手</span> -->
+    </div>
+  </div>
+  <div class="miaosu">
+   <h4>症状描述</h4>
+   <div class="miaosulist">
+      <!-- 我有病我有病我有病我有病我有病我有病我有病我有病我有病我有病我有病我有病我有病我有病我有病我有病 -->
+   </div>
+  </div>
+  <div class="pic">
+    <div class="dataPic">
+      <!-- <div class="imgWrap">
+         <img src="static/images/head.png" class="imgPic"/>
+      </div>
+      <div class="imgWrap">
+          <img src="static/images/head.png" class="imgPic"/>
+      </div>
+      <div class="imgWrap">
+          <img src="static/images/head.png" class="imgPic"/>
+      </div> -->
+    </div>
+  </div>
+  <div class="line2"></div>
+  <div class="main_info" >
+	  <!-- <div class="main_list">
+	      <img src="static/images/head.png" class="enheng"/>
+	      <div class="list_right">
+	        <div class="main_right">
+	          <h4 class="title">李教授</h4>
+	        </div>
+	        <span class="time">2018-1-25</span>
+	        <p>复医生回复医生回复医生回复医生回复医生回复医生回复医生回复医生回复医生回复医生回复医生回复医生回复医生回复</p>
+	      </div>
+	  </div> -->
+  </div>
+</div>
+<div class="foot">
+  <div class="submitBox">
+    <div class="submitInput">
+       <input type="text" placeholder="请输入"/>
+    </div>
+    <div class="submit" onclick="pageObj.sendInfo()">
+      发送
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
