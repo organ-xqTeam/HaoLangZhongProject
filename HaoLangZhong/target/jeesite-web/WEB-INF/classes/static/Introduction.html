@@ -293,7 +293,8 @@ var swiper = new Swiper('.swiper-container', {
       $(".user_content").hide();
     }else{
       $(".person_content").hide(); 
-      $(".user_content").show()
+      $(".user_content").show();
+      
     } 
  })
  $(".pingjia").click(function(){
@@ -353,7 +354,7 @@ let token=Global.getCookie("token");
               $(".person_content").html(`
                       <span>${data.introduce}</span>
                       <div class="pic">
-                      <img src="${Global.picUrl+data.introducevideo}" style="width:100%;height:100%">
+                      <img src="${Global.picUrl+data.introducepic1}" style="width:100%;height:100%">
                       </div>
                       <div class="certificate">o&nbsp;&nbsp;相关证书</div>
                       <div class="swiper-container swiper-container-horizontal swiper-container-android">

@@ -45,6 +45,7 @@ public class UserLoginController extends BaseController {
 			Object isauth= result.get("isauth");
 			
 			if(isauth!=null) {
+				
 				Boolean isauthFlag=(Boolean) isauth;
 				if(isauthFlag==false) {
 					//需跳转审核页面

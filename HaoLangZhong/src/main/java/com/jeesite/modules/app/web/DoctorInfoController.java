@@ -43,7 +43,7 @@ public class DoctorInfoController extends BaseController {
 	/**
 	 * 用户端根据医生标签检索医生列表
 	 * /doctorInfo/queryListByLabel
-	 *
+	 *就用这个
 	 * */
 	@ResponseBody
 	@RequestMapping(value = "/queryListByLabel")
@@ -66,17 +66,41 @@ public class DoctorInfoController extends BaseController {
 	
 	/**
 	 * 用户端多条件查询医生列表
+	 * doctorInfo/queryList
 	 * */
 	@ResponseBody
 	@RequestMapping(value = "/queryList")
 	public Result queryList(@RequestBody DoctorInfo requestParams) {
 		try {
+			System.out.println(requestParams);
 			PageModel pageModel = new PageModel(requestParams.getPageNum(), requestParams.getPageSize());
 			requestParams.setPageModel(pageModel);
 			List<Map<String, Object>> resultList = doctorInfoService.queryList(requestParams);
 			JSONObject result = new JSONObject();
 			result.put("items", resultList);
 			result.put("count", doctorInfoService.queryCount(requestParams));
+			return Result.success(result);
+		}
+		catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return Result.error(CodeMsg.PARAMETER_ISNULL);
+		}
+	}
+	/**
+	 * 用户端多条件查询本院医生
+	 * */
+	@ResponseBody
+	@RequestMapping(value = "/queryListOwn")
+	public Result queryListOwn(@RequestBody DoctorInfo requestParams) {
+		try {
+			System.out.println(requestParams);
+			requestParams.setOwnFlag("1");
+			PageModel pageModel = new PageModel(requestParams.getPageNum(), requestParams.getPageSize());
+			requestParams.setPageModel(pageModel);
+			List<Map<String, Object>> resultList = doctorInfoService.queryOwedList(requestParams);
+			JSONObject result = new JSONObject();
+			result.put("items", resultList);
+			result.put("count", doctorInfoService.queryOwedCount(requestParams));
 			return Result.success(result);
 		}
 		catch (Exception e) {

@@ -7,7 +7,7 @@
 		inner join 
 		sys_user_share sus
 		on sus.user_id=sui.id
-		 where sus.share_code=#{shareCode,jdbcType=VARCHAR} and sui.del_flag="0"   limit 1
+		where sus.share_code=#{shareCode,jdbcType=VARCHAR} and sui.del_flag="0"   limit 1
 	</select>
 	
 	<update id="updateIsInviteByMobile"  parameterType="hashmap">
@@ -123,6 +123,10 @@
 			<if test="technical != null">technical=#{technical},</if>
 			<if test="classify != null">classify=#{classify},</if>
 			<if test="introduce != null">introduce=#{introduce}</if>
+			<if test="doctorid != null">doctorid=#{doctorid}</if>
+			<if test="cityid != null">cityid=#{cityid}</if>
+			<if test="comeFlag != null">come_flag=#{comeFlag}</if>
+			<if test="comeCost != null">come_cost=#{comeCost}</if>
 	    </set>
 		where doctorid=#{doctorid}
 	</update>
@@ -132,7 +136,8 @@
 	</update>
 	
 	<insert id="saveDoctorLable" parameterType="java.util.List"> 
-		insert into sys_doctor_label_item (
+		insert into sys_doctor_label_item 
+		(
 			id,
 			doctorid,
 			labelid,

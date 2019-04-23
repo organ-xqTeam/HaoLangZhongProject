@@ -4,17 +4,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.catalina.core.ApplicationContext;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jeesite.modules.app.dao.UserInfoDao;
 import com.jeesite.modules.app.utils.DateUtil;
 
 import com.jeesite.common.service.CrudService;
+import com.jeesite.modules.Application;
 import com.jeesite.modules.app.dao.BasketDao;
+import com.jeesite.modules.app.dao.DoctorLabelDao;
 import com.jeesite.modules.app.dao.UserInfoDao;
 import com.jeesite.modules.app.entity.Basket;
 import com.jeesite.modules.app.entity.UserInfo;
@@ -28,11 +39,14 @@ import com.jeesite.modules.app.utils.DateUtil;
 @Service
 @Transactional(readOnly=true)
 @SuppressWarnings("unchecked")
-public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
+
+public class UserInfoService extends CrudService<UserInfoDao, UserInfo>  {
 
 	
 	@Autowired
 	private UserInfoDao userInfoDao;
+	@Autowired
+	private DoctorLabelDao doctorLabelDao;
 	
 	@Autowired
     	private StringRedisTemplate stringRedisTemplate;
@@ -111,6 +125,9 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
 			doctorMap.put("classify", requestMap.get("classify").toString());
 			doctorMap.put("introduce", requestMap.get("introduce").toString());
 			doctorMap.put("doctorid", requestMap.get("doctorid").toString());
+			doctorMap.put("cityid", requestMap.get("cityid").toString());
+			doctorMap.put("comeFlag", requestMap.get("comeFlag").toString());
+			doctorMap.put("comeCost", requestMap.get("comeCost").toString());
 			userInfoDao.updateDoctorInfo(doctorMap);
 		}
 		if (requestMap.containsKey("lable") && requestMap.get("lable") instanceof List) {
@@ -148,6 +165,23 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
 			}
 			userInfoDao.updateDoctorPic(picMap);
 		}
+		
+		
+		if(requestMap.containsKey("diseaseLable") && requestMap.get("diseaseLable") instanceof List) {
+			List<String> diseaseLable = new ArrayList<String>();
+			diseaseLable = (List<String>) requestMap.get("diseaseLable");
+			List<Map<String, Object>> itemList = new ArrayList<Map<String, Object>>();
+			for(String str : diseaseLable) {
+				Map<String, Object> item = new HashMap<String, Object>();
+				item.put("labelid", str);
+				item.put("doctorid", requestMap.get("doctorid").toString());
+				item.put("create_date", DateUtil.getSysTime1());
+				item.put("del_flag", "0");
+				itemList.add(item);
+			}
+			userInfoDao.deleteDoctorLable(requestMap.get("doctorid").toString());
+			userInfoDao.saveDoctorLable(itemList);
+		}
 	}
 	
 	/**
@@ -159,7 +193,11 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
 		result.put("doctorInfo", userInfoDao.findDoctorInfo(id));
 		result.put("doctorPic", userInfoDao.findDoctorPic(id));
 		result.put("doctorLabel", userInfoDao.findDoctorLabel(id));
+		//获取标签
+		/*result.put("diseaseLabel", doctorLabelDao.queryList("4"));*/
+		
 		return result;
 	}
 	
+
 }

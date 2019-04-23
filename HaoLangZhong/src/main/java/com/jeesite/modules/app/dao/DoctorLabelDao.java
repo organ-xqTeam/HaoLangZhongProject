@@ -14,4 +14,6 @@ public interface DoctorLabelDao {
 	
 	List<Map<String, Object>> queryListByIds(@Param("ids") List<String> ids);
 	
+	void insert (Map<String, Object> map);
+	
 }

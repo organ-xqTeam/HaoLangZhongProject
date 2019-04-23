@@ -19,7 +19,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('手机号')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="mobile" maxlength="64" class="form-control"/>
+								<#form:input path="mobile" maxlength="64" class="form-control" readonly="true" disable="true"/>
 							</div>
 						</div>
 					</div>
@@ -28,7 +28,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('密码')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="password" maxlength="64" class="form-control"/>
+								<#form:input path="password" maxlength="64" class="form-control" readonly="true" disable="true"/>
 								
 							</div>
 						</div>
@@ -40,7 +40,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('头像')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="icon" maxlength="64" class="form-control"/>
+								<p><img src="http://120.92.10.2/hlz/f/sys/fileInfo/showPic/${sysUserInfo.icon!}" class="img-responsive" width="100" height="100"></p>
 							</div>
 						</div>
 					</div>
@@ -49,7 +49,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('注册时间')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="regtime" maxlength="64" class="form-control"/>
+								<#form:input path="regtime" maxlength="64" class="form-control" readonly="true" disable="true"/>
 							</div>
 						</div>
 					</div>
@@ -60,7 +60,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('最后登录时间')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="lastlogin" maxlength="64" class="form-control"/>
+								<#form:input path="lastlogin" maxlength="64" class="form-control" readonly="true" disable="true"/>
 							</div>
 						</div>
 					</div>
@@ -69,7 +69,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('是否被锁定')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="islock" maxlength="64" class="form-control"/>
+								<#form:input path="islock" maxlength="64" class="form-control" readonly="true" disabled="true"/>
 							</div>
 						</div>
 					</div>
@@ -80,7 +80,9 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('是否完成认证')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="isauthentication" maxlength="64" class="form-control"/>
+								<% var isauthenticationList=[{"value":"0",name:"完成认证"},{"value":"1","name":"未认证"},{"value":"2","name":"未通过"}]; %>
+								 <#form:select disabled="true"  value="${sysUserInfo.isauthentication!1}" items="${isauthenticationList}" 
+								itemLabel="name" itemValue="value" class="form-control required"  /> 
 							</div>
 						</div>
 					</div>
@@ -89,7 +91,9 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('类型')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="type" maxlength="64" class="form-control"/>
+								<% var typeList=[{"value":"1",name:"普通用户"},{"value":"2","name":"医生"}]; %>
+								<#form:select disabled="true"  value="${sysUserInfo.type!1}" items="${typeList}" 
+								itemLabel="name" itemValue="value" class="form-control required"  /> 
 							</div>
 						</div>
 					</div>
@@ -100,7 +104,7 @@
 							<label class="control-label col-sm-2" title="">
 								<span class="required hide">*</span> ${text('remarks')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-10">
-								<#form:textarea path="remarks" rows="4" maxlength="64" class="form-control"/>
+								<#form:textarea path="remarks" rows="4" maxlength="64" class="form-control" readonly="true" disable="true"/>
 							</div>
 						</div>
 					</div>
@@ -111,7 +115,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('del_flag')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="delFlag" maxlength="1" class="form-control"/>
+								<#form:input path="delFlag" maxlength="1" class="form-control" readonly="true" disable="true"/>
 							</div>
 						</div>
 					</div>
@@ -120,18 +124,85 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('昵称')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="nikeName" maxlength="64" class="form-control"/>
+								<#form:input path="nikeName" maxlength="64" class="form-control" readonly="true" disable="true"/>
 							</div>
 						</div>
 					</div>
 				</div>
+				<!-- 新加入的 -->
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('证书1')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<p><img src="http://120.92.10.2/hlz/f/sys/fileInfo/showPic/${sysDoctorPic.certificate1!}" class="img-responsive" width="300" height="300"></p>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('证书2')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<p><img src="http://120.92.10.2/hlz/f/sys/fileInfo/showPic/${sysDoctorPic.certificate2!}" class="img-responsive" width="300" height="300"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('证书3')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<p><img src="http://120.92.10.2/hlz/f/sys/fileInfo/showPic/${sysDoctorPic.certificate3!}" class="img-responsive" width="300" height="300"></p>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('服务介绍1')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<p><img src="http://120.92.10.2/hlz/f/sys/fileInfo/showPic/${sysDoctorPic.introducepic1!}" class="img-responsive" width="300" height="300"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('服务介绍2')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<p><img src="http://120.92.10.2/hlz/f/sys/fileInfo/showPic/${sysDoctorPic.certificate2!}" class="img-responsive" width="300" height="300"></p>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('服务介绍3')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<p><img src="http://120.92.10.2/hlz/f/sys/fileInfo/showPic/${sysDoctorPic.introducepic3!}" class="img-responsive" width="300" height="300"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 新加入的末 -->
+				<#form:input path="isauthentication" id="isauthentication"  type="hidden" maxlength="64" class="form-control"/>
+				<input name="pass" type="hidden" maxlength="64" class="form-control"/>
+				
 			</div>
 			<div class="box-footer">
 				<div class="row">
 					<div class="col-sm-offset-2 col-sm-10">
 						<% if (hasPermi('sys:sysUserInfo:edit')){ %>
-							<button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> ${text('保 存')}</button>&nbsp;
+							<!-- <button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> ${text('保 存')}</button>&nbsp; -->
 						<% } %>
+						<button type="button" class="btn btn-sm btn-primary" id="btnPass" onclick="pageObj.doctorPass()"><i class="fa fa-check"></i> ${text('通过验证')}</button>
+						<button type="button" class="btn btn-sm btn-default" id="btnUnPass" onclick="pageObj.doctorUnPass()"><i class="fa fa-reply-all"></i> ${text('取消通过')}</button>
 						<button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> ${text('关 闭')}</button>
 					</div>
 				</div>
@@ -140,10 +211,45 @@
 	</div>
 </div>
 <% } %>
+<script src="${ctxPath}/static/static/js/mianG.js"></script>
 <script>
+ var pageObj={
+			doctorUnPass(){
+				alert("2222");
+				$("[name='pass']").val("1");
+				//认证
+				$("#isauthentication").val("2");
+				js.ajaxSubmitForm($("#inputForm"), function(data){
+					js.showMessage(data.message);
+					if(data.result == Global.TRUE){
+						js.closeCurrentTabPage(function(contentWindow){
+							contentWindow.page();
+						});
+					}
+				}, "json");
+			},
+			doctorPass(){
+				alert("1111");
+				$("[name='pass']").val("1");
+				//认证
+				$("#isauthentication").val("0");
+				js.ajaxSubmitForm($("#inputForm"), function(data){
+					js.showMessage(data.message);
+					if(data.result == Global.TRUE){
+						js.closeCurrentTabPage(function(contentWindow){
+							contentWindow.page();
+						});
+					}
+				}, "json");
+			}
+			
+	}
 $(function(){ 
-	alert(${text(isNewRecord)});
-	}); 
+	//alert(${text(isNewRecord)});
+
+}); 
+
+
 $("#inputForm").validate({
 	submitHandler: function(form){
 		js.ajaxSubmitForm($(form), function(data){

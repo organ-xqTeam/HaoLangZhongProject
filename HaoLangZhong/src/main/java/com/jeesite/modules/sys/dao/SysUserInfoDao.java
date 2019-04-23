@@ -5,7 +5,10 @@ package com.jeesite.modules.sys.dao;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import com.jeesite.common.dao.CrudDao;
 import com.jeesite.common.mybatis.annotation.MyBatisDao;
+import com.jeesite.modules.sys.entity.SysAirDrug;
 import com.jeesite.modules.sys.entity.SysUserInfo;
 
 /**
@@ -14,7 +17,7 @@ import com.jeesite.modules.sys.entity.SysUserInfo;
  * @version 2019-03-12
  */
 @MyBatisDao
-public interface SysUserInfoDao {
+public interface SysUserInfoDao extends CrudDao<SysUserInfo> {
 	
 	List<SysUserInfo> queryList(SysUserInfo u);
 	

@@ -465,7 +465,6 @@ public class BasketController {
 				//userId
 				String userIds=userId;
 				String deliveryName=(String) addressMap.get("real_name");
-				
 				String deliveryPhone=(String) addressMap.get("phone");
 				String deliveryAddress=(String) addressMap.get("province")+(String) addressMap.get("area")+(String) addressMap.get("street");
 				Map<String, Object> orderParmMap=new HashMap<>();
@@ -494,7 +493,7 @@ public class BasketController {
 					//订单编号
 					String orderCodeDetail=orderNo;
 					//商品id
-					String grudIdDetail=String.valueOf(((Long) productMapList.get(i).get("id")));
+					String grudIdDetail=String.valueOf((productMapList.get(i).get("id")));
 					//商品名称
 					String productNameDetail=(String) productMapList.get(i).get("name");
 					//单个价格

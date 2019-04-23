@@ -8,28 +8,46 @@
 		</selectKey>
 		insert into sys_consultation (
 			id,
-			num,
-			body,
-			therapy,
+			<if test="num !=null">
+				num,
+			</if>
+			<if test="body !=null">
+				body,
+			</if>
+			<if test="therapy !=null">
+				therapy,
+			</if>
 			content,
 			create_by, 
 			create_date,
 			<if test="userId !=null">
 				user_id,
 			</if> 
-			 
+			 <if test="disease !=null">
+				disease,
+			</if> 
 			del_flag
+			
 		)
 		values (
 			#{id,jdbcType=VARCHAR},
-			#{num,jdbcType=VARCHAR},
-			#{body,jdbcType=VARCHAR},
-			#{therapy,jdbcType=VARCHAR},
+			<if test="num !=null">
+				#{num,jdbcType=VARCHAR},
+			</if>	
+			<if test="body !=null">
+				#{body,jdbcType=VARCHAR},
+			</if>
+			<if test="therapy !=null">
+				#{therapy,jdbcType=VARCHAR},
+			</if>
 			#{content,jdbcType=VARCHAR},
 			#{create_by,jdbcType=INTEGER}, 
 			#{create_date,jdbcType=VARCHAR},
 			<if test="userId !=null">
-			#{userId,jdbcType=VARCHAR},
+				#{userId,jdbcType=VARCHAR},
+			</if> 
+			<if test="disease !=null">
+				#{disease,jdbcType=VARCHAR},
 			</if> 
 			#{del_flag,jdbcType=VARCHAR}
 		)
@@ -59,7 +77,7 @@
 	
 	<select id="findConsultationById" resultType="hashmap">
 		select 
-			c.id as 'id',c.user_id,
+			c.id as 'id',c.user_id,c.disease,
 			o.id as 'orderid',
 			u.icon as 'user_icon',
 			u.nike_name as 'user_nickname',

@@ -14,6 +14,10 @@ public class DoctorInfo extends BaseEntity {
 	
 	private String recommend;
 	
+	private String cityid;
+	
+	private String ownFlag;
+	
 	public List<String> getLabels() {
 		return labels;
 	}
@@ -24,6 +28,15 @@ public class DoctorInfo extends BaseEntity {
 	
 	public int getCount() {
 		return count;
+	}
+	
+
+	public String getCityid() {
+		return cityid;
+	}
+
+	public void setCityid(String cityid) {
+		this.cityid = cityid;
 	}
 
 	public void setCount(int count) {
@@ -53,5 +66,14 @@ public class DoctorInfo extends BaseEntity {
 	public void setRecommend(String recommend) {
 		this.recommend = recommend;
 	}
+
+	public String getOwnFlag() {
+		return ownFlag;
+	}
+
+	public void setOwnFlag(String ownFlag) {
+		this.ownFlag = ownFlag;
+	}
+	
 	
 }

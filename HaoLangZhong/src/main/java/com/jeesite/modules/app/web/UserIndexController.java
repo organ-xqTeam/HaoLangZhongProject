@@ -53,7 +53,6 @@ public class UserIndexController extends BaseController {
 			airDrug.setLimit("1");
 			//热销优先显示
 			List<Map> airDrugFirstList=  airDrugService.getAirDrugFirstList(airDrug);
-			
 			result.put("doctor", userIndexService.queryDoctorList());
 			result.put("banner", userIndexService.queryBannerList());
 			result.put("airDrug", airDrugFirstList);
@@ -78,8 +77,7 @@ public class UserIndexController extends BaseController {
 			String city=GetLocationBaiduMap.getCity(latitude, longitude);
 			result.put("city", city);
 			return Result.success(result);			
-		}
-		catch (Exception e) {
+		}catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			return Result.error(CodeMsg.PARAMETER_ISNULL);
 		}

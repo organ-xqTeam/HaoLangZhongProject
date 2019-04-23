@@ -130,5 +130,20 @@ public class DoctorInfoService {
 	public double queryIncomeSum(DoctorInfo requestParams) {
 		return doctorInfoDao.queryIncomeSum(requestParams);
 	}
+	/**
+	 * 用户端多条件查询本院医生
+	 * @param requestParams
+	 * @return
+	 */
+
+	public List<Map<String, Object>> queryOwedList(DoctorInfo requestParams) {
+		// TODO Auto-generated method stub
+		return doctorInfoDao.queryOwedList(requestParams);
+	}
+
+	public Object queryOwedCount(DoctorInfo requestParams) {
+		// TODO Auto-generated method stub
+		return doctorInfoDao.queryOwedCount(requestParams);
+	}
 	
 }

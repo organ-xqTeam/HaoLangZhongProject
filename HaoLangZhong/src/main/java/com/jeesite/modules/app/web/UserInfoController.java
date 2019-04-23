@@ -99,7 +99,7 @@ public class UserInfoController extends BaseController {
 	@RequestMapping(value = "/getDoctorInfo/{id}/{token}")
 	public Result getDoctorInfo(@PathVariable String id, @PathVariable String token) {
 		try {
-			TokenTools.checkToken(token, redis);
+			/*TokenTools.checkToken(token, redis);*/
 			return Result.success(userInfoService.findDoctorInfo(id));			
 		}
 		catch (RedisCheckException e2) {

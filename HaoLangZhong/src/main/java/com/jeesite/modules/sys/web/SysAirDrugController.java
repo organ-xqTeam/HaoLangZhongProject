@@ -4,7 +4,9 @@
 package com.jeesite.modules.sys.web;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.jeesite.common.config.Global;
 import com.jeesite.common.entity.Page;
 import com.jeesite.common.web.BaseController;
+import com.jeesite.modules.app.dao.DoctorLabelDao;
 import com.jeesite.modules.app.entity.AirDrugCategory;
 import com.jeesite.modules.app.entity.AirDrugComment;
 import com.jeesite.modules.app.entity.AirDrugInventory;
@@ -30,6 +33,7 @@ import com.jeesite.modules.app.service.AirDrugCategoryService;
 import com.jeesite.modules.app.service.AirDrugCommentSercvie;
 import com.jeesite.modules.app.service.AirDrugInventoryService;
 import com.jeesite.modules.app.service.AirDrugRelationCategoryService;
+import com.jeesite.modules.app.service.AirDrugService;
 import com.jeesite.modules.sys.entity.SysAirDrug;
 import com.jeesite.modules.sys.service.SysAirDrugService;
 
@@ -52,6 +56,8 @@ public class SysAirDrugController extends BaseController {
 	private AirDrugCategoryService   airDrugCategoryService;
 	@Autowired
 	private AirDrugRelationCategoryService  airDrugRelationCategoryService;
+	@Autowired
+	private DoctorLabelDao doctorLabelDao;
 	/**
 	 * 获取数据
 	 */
@@ -84,10 +90,11 @@ public class SysAirDrugController extends BaseController {
 
 	/**
 	 * 查看编辑表单
-	 */
+	 */ 
 	@RequiresPermissions("sys:sysAirDrug:view")
 	@RequestMapping(value = "form")
 	public String form(SysAirDrug sysAirDrug, Model model,HttpServletRequest request) {
+		sysAirDrug=sysAirDrugService.get(sysAirDrug);
 		model.addAttribute("sysAirDrug", sysAirDrug);
 		model.addAttribute("contextPath",request.getContextPath());
 		AirDrugCategory airDrugCategory =new AirDrugCategory();
@@ -96,7 +103,7 @@ public class SysAirDrugController extends BaseController {
 		
 		if(sysAirDrug.getDrugInventoryId()!=null) {
 			AirDrugInventory drugInventory =new AirDrugInventory();
-			drugInventory.setId(sysAirDrug.getDrugInventoryId().toString() );
+			drugInventory.setId(sysAirDrug.getDrugInventoryId().toString());
 			drugInventory=airDrugInventoryService.get(drugInventory);
 			model.addAttribute("drugCount",drugInventory.getDrugCount());
 		}
@@ -114,7 +121,9 @@ public class SysAirDrugController extends BaseController {
 	}
 
 	/**
-	 * 保存sys_air_drug
+	 *
+	 *  保存sys_air_drug
+	 * 
 	 */
 	@RequiresPermissions("sys:sysAirDrug:edit")
 	@PostMapping(value = "save")
@@ -130,13 +139,12 @@ public class SysAirDrugController extends BaseController {
 			System.out.println(airDrugInventory);
 			System.out.println(airDrugInventory.getId());
 			sysAirDrug.setDrugInventoryId(Long.valueOf(airDrugInventory.getId()));
-			
 			sysAirDrugService.save(sysAirDrug);
 			System.out.println(sysAirDrug.getId());
 			String drugId=sysAirDrug.getId();
 			//关系表
 			AirDrugRelationCategory airDrugRelationCategory =new AirDrugRelationCategory();
-			airDrugRelationCategory.setCategoryId( Long.valueOf(categoryId));
+			airDrugRelationCategory.setCategoryId(Long.valueOf(categoryId));
 			airDrugRelationCategory.setDrugId(Long.valueOf(drugId));
 			airDrugRelationCategory.setCreateDate(new Date());
 			airDrugRelationCategoryService.insert(airDrugRelationCategory);

@@ -1,8 +1,8 @@
  let Global=(function(){
-  var api="http://localhost:8980/js/f/sys/"
-  var projectApi="http://localhost:8980/js/"      
-  //var api="http://120.92.10.2:81/hlz/f/sys/"
-  //var projectApi="http://120.92.10.2:81/hlz/"
+  //var api="http://localhost:8980/js/f/sys/"
+  //var projectApi="http://localhost:8980/js/"      
+  var api="http://120.92.10.2:81/hlz/f/sys/"
+  var projectApi="http://120.92.10.2:81/hlz/"
   var picUrl="http://120.92.10.2/hlz/f/sys/fileInfo/showPic/"   
   //得到get 参数	   
    var getParameter=function(name){

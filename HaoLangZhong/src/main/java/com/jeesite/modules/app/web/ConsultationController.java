@@ -55,10 +55,13 @@ public class ConsultationController extends BaseController {
 			Map<String, Object> consultation = consultationService.findConsultationById(id);
 			String body = consultation.get("body").toString();
 			String therapy = consultation.get("therapy").toString();
+			String disease = consultation.get("disease").toString();
 			String [] bodys = body.split(",");
 			String [] therapys = therapy.split(",");
 			List<String> therapyArr = new ArrayList<String>();
 			List<String> bodyArr = new ArrayList<String>();
+			List<String> diseaseArr=new ArrayList<String>();
+			diseaseArr.add(disease);
 			for(String s : bodys) {
 				bodyArr.add(s);
 			}
@@ -69,10 +72,10 @@ public class ConsultationController extends BaseController {
 			resultJson.put("pics", consultationService.findConsultationPic(consultation.get("id").toString()));
 			resultJson.put("body", doctorLabelService.queryListByIds(bodyArr));
 			resultJson.put("therapys", doctorLabelService.queryListByIds(therapyArr));
-			
+			resultJson.put("disease", doctorLabelService.queryListByIds(diseaseArr));
 			ConsultationDiscuss consultationDiscuss =new ConsultationDiscuss();
 			consultationDiscuss.setConsultationId(id);
-			resultJson.put("consultationDiscussList", consultationDiscussService.findList(consultationDiscuss));
+			/*resultJson.put("consultationDiscussList", consultationDiscussService.findList(consultationDiscuss));*/
 			
 			Object userIdObj=  consultation.get("user_id");
 			String userId=null;

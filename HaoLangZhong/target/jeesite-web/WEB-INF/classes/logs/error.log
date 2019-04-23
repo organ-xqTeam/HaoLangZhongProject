@@ -1,8 +1,7 @@
-2019-04-04 18:53:04.963 ERROR 18916 [nio-8980-exec-2] [c.j.m.app.web.UserFeedbackController   ] - null
+2019-04-22 18:13:57.317 ERROR 14776 [nio-8980-exec-6] [o.a.c.c.C.[.[.[/js].[dispatcherServlet]] - Servlet.service() for servlet [dispatcherServlet] in context with path [/js] threw exception [Handler dispatch failed; nested exception is java.lang.NoSuchMethodError: com.jeesite.modules.app.entity.AreaInfo.setChild(Ljava/util/List;)V] with root cause
 
-com.jeesite.modules.app.utils.exception.RedisCheckException: null
-	at com.jeesite.modules.app.utils.TokenTools.checkToken(TokenTools.java:65)
-	at com.jeesite.modules.app.web.UserFeedbackController.saveFeedback(UserFeedbackController.java:39)
+java.lang.NoSuchMethodError: com.jeesite.modules.app.entity.AreaInfo.setChild(Ljava/util/List;)V
+	at com.jeesite.modules.app.web.AreaInfoController.getGradeArea(AreaInfoController.java:87)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -16,8 +15,8 @@ com.jeesite.modules.app.utils.exception.RedisCheckException: null
 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:991)
 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:925)
 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:974)
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:877)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:661)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:866)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:635)
 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:851)
 	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
@@ -38,7 +37,7 @@ com.jeesite.modules.app.utils.exception.RedisCheckException: null
 	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
 	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:387)
 	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
-	at com.jeesite.common.shiro.web.m.doFilterInternal(xy:188)
+	at com.jeesite.common.shiro.web.k.doFilterInternal(fz:18)
 	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
@@ -63,11 +62,10 @@ com.jeesite.modules.app.utils.exception.RedisCheckException: null
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
 
-2019-04-04 18:53:16.389 ERROR 18916 [nio-8980-exec-4] [c.j.m.app.web.UserFeedbackController   ] - null
+2019-04-22 18:13:57.589 ERROR 14776 [nio-8980-exec-6] [error/500                              ] - com.jeesite.modules.app.entity.AreaInfo.setChild(Ljava/util/List;)V
 
-com.jeesite.modules.app.utils.exception.RedisCheckException: null
-	at com.jeesite.modules.app.utils.TokenTools.checkToken(TokenTools.java:65)
-	at com.jeesite.modules.app.web.UserFeedbackController.saveFeedback(UserFeedbackController.java:39)
+java.lang.NoSuchMethodError: com.jeesite.modules.app.entity.AreaInfo.setChild(Ljava/util/List;)V
+	at com.jeesite.modules.app.web.AreaInfoController.getGradeArea(AreaInfoController.java:87)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -81,8 +79,8 @@ com.jeesite.modules.app.utils.exception.RedisCheckException: null
 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:991)
 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:925)
 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:974)
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:877)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:661)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:866)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:635)
 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:851)
 	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
@@ -103,7 +101,7 @@ com.jeesite.modules.app.utils.exception.RedisCheckException: null
 	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
 	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:387)
 	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
-	at com.jeesite.common.shiro.web.m.doFilterInternal(xy:188)
+	at com.jeesite.common.shiro.web.k.doFilterInternal(fz:18)
 	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)

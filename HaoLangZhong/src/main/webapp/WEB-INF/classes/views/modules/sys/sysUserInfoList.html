@@ -77,6 +77,7 @@
 // 初始化DataGrid对象
 $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
+	url:"aaa",
 	columnModel: [
 		{header:'${text("真实姓名")}', name:'name', index:'name', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
 			var val_ = '用户未填写';
@@ -107,6 +108,8 @@ $('#dataGrid').dataGrid({
 			case '0':
 				val_ = '已认证';
 			 	break;
+			case '2':
+				val_ = '未通过';
 			default:
 			 	break
 			}
@@ -116,7 +119,7 @@ $('#dataGrid').dataGrid({
 			var actions = [];
 			<% if(hasPermi('sys:sysUserInfo:edit')){ %>
 				actions.push('<a href="${ctx}/sys/sysUserInfo/edit?id='+row.id+'" class="btnList" title="${text("编辑医生信息")}"><i class="glyphicon glyphicon-search"></i></a>&nbsp;');
-				actions.push('<a href="${ctx}/sys/sysUserInfo/delete?id='+row.id+'" class="btnList" title="${text("删除医生信息")}" data-confirm="${text("确认要删除该医生信息吗？")}"><i class="fa fa-trash-o"></i></a>&nbsp;');
+				//actions.push('<a href="${ctx}/sys/sysUserInfo/delete?id='+row.id+'" class="btnList" title="${text("删除医生信息")}" data-confirm="${text("确认要删除该医生信息吗？")}"><i class="fa fa-trash-o"></i></a>&nbsp;');
 			<% } %>
 			return actions.join('');
 		}}

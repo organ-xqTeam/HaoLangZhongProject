@@ -19,6 +19,7 @@ public class DoctorLabelService {
 	@Autowired
 	private DoctorLabelDao doctorLabelDao;
 	
+
 	/**
 	 * 获取医生标签列表（不分页）
 	 * */

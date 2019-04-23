@@ -2,7 +2,7 @@ package com.jeesite.modules.sys.entity;
 
 import com.jeesite.modules.app.utils.PageModel;
 
-public class BaseEntity {
+public class BaseEntity  {
 
 	private String    orderBy;
 	private PageModel pageModel;

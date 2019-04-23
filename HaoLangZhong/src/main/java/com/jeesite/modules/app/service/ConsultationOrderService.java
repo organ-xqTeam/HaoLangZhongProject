@@ -140,7 +140,7 @@ public class ConsultationOrderService {
 		requestMap.put("update_date", new Date());
 		//先默认微信支付
 		requestMap.put("paytype", "1");
-		 consultationOrderDao.updateOrderPay(requestMap);
+		consultationOrderDao.updateOrderPay(requestMap);
 	}
 	
 }

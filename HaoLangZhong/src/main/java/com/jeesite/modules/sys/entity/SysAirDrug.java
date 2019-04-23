@@ -13,7 +13,7 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 /**
  * sys_air_drugEntity
  * @author 范耘诚
- * @version 2019-04-10
+ * @version 2019-04-18
  */
 @Table(name="sys_air_drug", alias="a", columns={
 		@Column(name="id", attrName="id", label="主键", isPK=true),
@@ -33,6 +33,20 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 		@Column(name="remarks", attrName="remarks", label="备注", queryType=QueryType.LIKE),
 		@Column(name="drug_code", attrName="drugCode", label="审批编号"),
 		@Column(name="drug_ln", attrName="drugLn", label="适应症"),
+		@Column(name="component", attrName="component", label="成分"),
+		@Column(name="character", attrName="character", label="性状"),
+		@Column(name="indications", attrName="indications", label="主治"),
+		@Column(name="spec", attrName="spec", label="规格"),
+		@Column(name="consumption", attrName="consumption", label="用量"),
+		@Column(name="effect", attrName="effect", label="不良反应"),
+		@Column(name="taboo", attrName="taboo", label="禁忌"),
+		@Column(name="careful", attrName="careful", label="注意事项"),
+		@Column(name="toxicology", attrName="toxicology", label="药理毒理"),
+		@Column(name="store", attrName="store", label="储藏"),
+		@Column(name="packaging", attrName="packaging", label="包装"),
+		@Column(name="validtime", attrName="validtime", label="有效时间"),
+		@Column(name="standard", attrName="standard", label="执行标准"),
+		@Column(name="approval", attrName="approval", label="审批文号"),
 	}, orderBy="a.update_date DESC"
 )
 public class SysAirDrug extends DataEntity<SysAirDrug> {
@@ -49,6 +63,20 @@ public class SysAirDrug extends DataEntity<SysAirDrug> {
 	private String firstFlag;		// 是否优先显示在推荐中 0:不优先显示,1优先显示
 	private String drugCode;		// 审批编号
 	private String drugLn;		// 适应症
+	private String component;		// 成分
+	private String character;		// 性状
+	private String indications;		// 主治
+	private String spec;		// 规格
+	private String consumption;		// 用量
+	private String effect;		// 不良反应
+	private String taboo;		// 禁忌
+	private String careful;		// 注意事项
+	private String toxicology;		// 药理毒理
+	private String store;		// 储藏
+	private String packaging;		// 包装
+	private String validtime;		// 有效时间
+	private String standard;		// 执行标准
+	private String approval;		// 审批文号
 	
 	public SysAirDrug() {
 		this(null);
@@ -154,6 +182,132 @@ public class SysAirDrug extends DataEntity<SysAirDrug> {
 
 	public void setDrugLn(String drugLn) {
 		this.drugLn = drugLn;
+	}
+	
+	@Length(min=0, max=64, message="成分长度不能超过 64 个字符")
+	public String getComponent() {
+		return component;
+	}
+
+	public void setComponent(String component) {
+		this.component = component;
+	}
+	
+	@Length(min=0, max=64, message="性状长度不能超过 64 个字符")
+	public String getCharacter() {
+		return character;
+	}
+
+	public void setCharacter(String character) {
+		this.character = character;
+	}
+	
+	@Length(min=0, max=64, message="主治长度不能超过 64 个字符")
+	public String getIndications() {
+		return indications;
+	}
+
+	public void setIndications(String indications) {
+		this.indications = indications;
+	}
+	
+	@Length(min=0, max=64, message="规格长度不能超过 64 个字符")
+	public String getSpec() {
+		return spec;
+	}
+
+	public void setSpec(String spec) {
+		this.spec = spec;
+	}
+	
+	@Length(min=0, max=64, message="用量长度不能超过 64 个字符")
+	public String getConsumption() {
+		return consumption;
+	}
+
+	public void setConsumption(String consumption) {
+		this.consumption = consumption;
+	}
+	
+	@Length(min=0, max=64, message="不良反应长度不能超过 64 个字符")
+	public String getEffect() {
+		return effect;
+	}
+
+	public void setEffect(String effect) {
+		this.effect = effect;
+	}
+	
+	@Length(min=0, max=64, message="禁忌长度不能超过 64 个字符")
+	public String getTaboo() {
+		return taboo;
+	}
+
+	public void setTaboo(String taboo) {
+		this.taboo = taboo;
+	}
+	
+	@Length(min=0, max=64, message="注意事项长度不能超过 64 个字符")
+	public String getCareful() {
+		return careful;
+	}
+
+	public void setCareful(String careful) {
+		this.careful = careful;
+	}
+	
+	@Length(min=0, max=64, message="药理毒理长度不能超过 64 个字符")
+	public String getToxicology() {
+		return toxicology;
+	}
+
+	public void setToxicology(String toxicology) {
+		this.toxicology = toxicology;
+	}
+	
+	@Length(min=0, max=64, message="储藏长度不能超过 64 个字符")
+	public String getStore() {
+		return store;
+	}
+
+	public void setStore(String store) {
+		this.store = store;
+	}
+	
+	@Length(min=0, max=64, message="包装长度不能超过 64 个字符")
+	public String getPackaging() {
+		return packaging;
+	}
+
+	public void setPackaging(String packaging) {
+		this.packaging = packaging;
+	}
+	
+	@Length(min=0, max=64, message="有效时间长度不能超过 64 个字符")
+	public String getValidtime() {
+		return validtime;
+	}
+
+	public void setValidtime(String validtime) {
+		this.validtime = validtime;
+	}
+	
+	@Length(min=0, max=64, message="执行标准长度不能超过 64 个字符")
+	public String getStandard() {
+		return standard;
+	}
+
+	public void setStandard(String standard) {
+		this.standard = standard;
+	}
+	
+	@Length(min=0, max=255, message="审批文号长度不能超过 255 个字符")
+	public String getApproval() {
+		return approval;
+	}
+
+	public void setApproval(String approval) {
+		this.approval = approval;
 	}
 	
 }

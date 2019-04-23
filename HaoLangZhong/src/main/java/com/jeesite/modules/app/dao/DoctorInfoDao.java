@@ -44,5 +44,9 @@ public interface DoctorInfoDao {
 	int queryIncomeCount(DoctorInfo params);
 	
 	double queryIncomeSum(DoctorInfo params);
+
+	List<Map<String, Object>> queryOwedList(DoctorInfo requestParams);
+
+	Object queryOwedCount(DoctorInfo requestParams);
 	
 }

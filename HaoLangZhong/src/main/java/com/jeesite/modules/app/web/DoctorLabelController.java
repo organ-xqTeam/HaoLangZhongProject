@@ -37,5 +37,16 @@ public class DoctorLabelController extends BaseController {
 			return Result.error(CodeMsg.PARAMETER_ISNULL);
 		}
 	}
+	@ResponseBody
+	@RequestMapping(value = "/queryDiseaseList")
+	public Result queryDiseaseList() {
+		try {
+			return Result.success(doctorLabelService.queryList("4"));			
+		}
+		catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return Result.error(CodeMsg.PARAMETER_ISNULL);
+		}
+	}
 
 }

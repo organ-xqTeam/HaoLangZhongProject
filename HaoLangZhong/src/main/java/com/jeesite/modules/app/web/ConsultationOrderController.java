@@ -43,7 +43,7 @@ public class ConsultationOrderController extends BaseController {
 	@RequestMapping(value = "/saveOrder")
 	public Result saveOrder(@RequestBody Map<String, Object> requestMap) {
 		try {
-			TokenTools.checkToken(requestMap.get("token").toString(), redis);
+			/*TokenTools.checkToken(requestMap.get("token").toString(), redis);*/
 			Map<String, Object> items = new HashMap<String, Object>();
 			items = consultationOrderService.saveConsultationOrder(requestMap);
 			Map<String, Object> requestModel= new HashMap<>();

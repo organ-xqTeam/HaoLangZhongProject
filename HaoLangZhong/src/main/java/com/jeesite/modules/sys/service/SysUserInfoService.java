@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.jeesite.common.entity.Page;
+import com.jeesite.common.service.CrudService;
 import com.jeesite.modules.sys.dao.SysUserInfoDao;
 import com.jeesite.modules.sys.entity.SysUserInfo;
+
+
 
 /**
  * sys_user_infoService
@@ -16,8 +19,8 @@ import com.jeesite.modules.sys.entity.SysUserInfo;
  * @version 2019-03-12
  */
 @Service
-@Transactional(readOnly=true)
-public class SysUserInfoService {
+@Transactional(readOnly=false)
+public class SysUserInfoService   extends CrudService<SysUserInfoDao,SysUserInfo>{
 	
 	@Autowired
 	private SysUserInfoDao sysUserInfoDao;
@@ -30,11 +33,11 @@ public class SysUserInfoService {
 //	@Override
 	public SysUserInfo get(SysUserInfo sysUserInfo) {
 //		return super.get(sysUserInfo);
-		return null;
+		return sysUserInfoDao.get(sysUserInfo);
 	}
 	
 	/**
-	 * 查询分页数据
+	 * 查询医生用户的分页数据
 	 * @param sysUserInfo 查询条件
 	 * @param sysUserInfo.page 分页对象
 	 * @return
@@ -43,6 +46,17 @@ public class SysUserInfoService {
 		page.setList(sysUserInfoDao.queryList(sysUserInfo));
 		page.setCount(sysUserInfoDao.queryCount(sysUserInfo));
 	}
+	/**
+	  * 查询普通用户的分页
+	 * @param sysUserInfo 查询条件
+	 * @param sysUserInfo.page 分页对象
+	 * @return
+	 */
+	public void findCommonPage(SysUserInfo sysUserInfo, Page<SysUserInfo> page) {
+		page.setList(sysUserInfoDao.findList(sysUserInfo));
+		page.setCount(sysUserInfoDao.findCount(sysUserInfo));
+	}
+
 	
 	/**
 	 * 保存数据（插入或更新）

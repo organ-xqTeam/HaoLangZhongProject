@@ -19,4 +19,19 @@
 			del_flag = '0'
 	</select>
 	
+	<insert id="insert" >
+		INSERT INTO `sys_doctor_label` 
+		(
+		  `id`,
+		  `type`,
+		  `content`
+		 
+		) 
+	VALUES
+	  (
+	    #{id},
+	    #{type},
+	    #{content}
+	  ) 
+	</insert>
 </mapper>
