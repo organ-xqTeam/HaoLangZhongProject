@@ -4,6 +4,7 @@ E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\web\OrderController.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\Application.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\entity\DiscountDetail.java
+E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\entity\PublicDiscuss.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\web\MessageController.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\dao\DoctorCommentDao.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\web\AirAdPicController.java
@@ -33,10 +34,12 @@ E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\service\UserShareService.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\entity\AirPrescription.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\sys\web\SysUserInfoController.java
+E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\dao\PublicPicDao.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\entity\UserShare.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\dao\DoctorInfoDao.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\sys\web\SysAirDrugController.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\entity\Cut.java
+E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\dao\PublicDao.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\entity\Order.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\service\MessageService.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\utils\exception\CodeCheckException.java
@@ -57,6 +60,7 @@ E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\dao\DoctorLabelDao.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\service\UserLoginService.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\web\UserCollectionController.java
+E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\entity\PublicPic.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\test\entity\TestDataChild.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\dao\AirDrugDao.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\service\UserFeedbackService.java
@@ -101,8 +105,10 @@ E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\dao\ConsultationDiscussDao.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\web\ConsultationOrderController.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\sys\entity\SysUserInfo.java
+E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\service\PublicService.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\service\AirDrugService.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\dao\HomePageDao.java
+E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\dao\PublicDiscussDao.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\dao\OrderDao.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\service\OrderDetailService.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\entity\Consultation.java
@@ -115,6 +121,7 @@ E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\utils\PictureJudgment.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\entity\AirDrugCategory.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\service\DoctorGiftOrderService.java
+E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\web\PublicController.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\test\entity\TestTree.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\service\AirDrugCommentSercvie.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\service\FileInfoService.java
@@ -149,6 +156,7 @@ E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\utils\ChangeImageSize.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\dao\AirShopCartRelationDao.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\entity\HomePage.java
+E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\entity\Public.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\web\BasketController.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\service\DiscountService.java
 E:\gitlabHome\HaoLangZhongProject\HaoLangZhong\src\main\java\com\jeesite\modules\app\web\DoctorLabelController.java

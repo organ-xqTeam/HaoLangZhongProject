@@ -155,8 +155,7 @@ public class ConsultationOrderController extends BaseController {
 			Map<String, Object> items = new HashMap<String, Object>();
 			items = consultationOrderMap;
 			return Result.success(items);			
-		}
-		catch (RedisCheckException e2) {
+		}catch (RedisCheckException e2) {
 			logger.error(e2.getMessage(), e2);
 			return Result.error(CodeMsg.TOKEN_INVALID);
 		}
@@ -186,6 +185,29 @@ public class ConsultationOrderController extends BaseController {
 			logger.error(e.getMessage(), e);
 			return Result.error(CodeMsg.PARAMETER_ISNULL);
 		}
+	}
+	/**
+	 *结束订单的操作
+	 *hlz/sys/consultationOrder/endOrder
+	 *consultationid
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/endOrder")
+	public Result endOrder(@RequestBody Map<String, Object> requestMap) {
+		//结束订单的操作
+		try {
+			//TokenTools.checkToken(requestMap.get("token").toString(), redis);
+			consultationOrderService.updateEndOrder(requestMap);
+			return Result.success(true);	
+		}catch (RedisCheckException e2) {
+			logger.error(e2.getMessage(), e2);
+			return Result.error(CodeMsg.TOKEN_INVALID);
+		}
+		catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return Result.error(CodeMsg.PARAMETER_ISNULL);
+		}
+		
 	}
 	
 }

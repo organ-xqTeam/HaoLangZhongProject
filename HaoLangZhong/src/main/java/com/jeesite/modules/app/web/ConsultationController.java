@@ -56,22 +56,22 @@ public class ConsultationController extends BaseController {
 			String body = consultation.get("body").toString();
 			String therapy = consultation.get("therapy").toString();
 			String disease = consultation.get("disease").toString();
-			String [] bodys = body.split(",");
-			String [] therapys = therapy.split(",");
+			/*String [] bodys = body.split(",");
+			String [] therapys = therapy.split(",");*/
 			List<String> therapyArr = new ArrayList<String>();
 			List<String> bodyArr = new ArrayList<String>();
 			List<String> diseaseArr=new ArrayList<String>();
 			diseaseArr.add(disease);
-			for(String s : bodys) {
+			/*for(String s : bodys) {
 				bodyArr.add(s);
 			}
 			for(String s : therapys) {
 				therapyArr.add(s);
-			}
+			}*/
 			resultJson.put("consultation", consultation);
 			resultJson.put("pics", consultationService.findConsultationPic(consultation.get("id").toString()));
-			resultJson.put("body", doctorLabelService.queryListByIds(bodyArr));
-			resultJson.put("therapys", doctorLabelService.queryListByIds(therapyArr));
+			/*resultJson.put("body", doctorLabelService.queryListByIds(bodyArr));
+			resultJson.put("therapys", doctorLabelService.queryListByIds(therapyArr));*/
 			resultJson.put("disease", doctorLabelService.queryListByIds(diseaseArr));
 			ConsultationDiscuss consultationDiscuss =new ConsultationDiscuss();
 			consultationDiscuss.setConsultationId(id);
@@ -98,7 +98,7 @@ public class ConsultationController extends BaseController {
 						 "inputval",inputval
 	 */
 	/**
-	 * 支付订单的操作
+	 * 发送讨论信息的操作
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/sendInfo")
@@ -109,12 +109,17 @@ public class ConsultationController extends BaseController {
 			String userId=(String) requestMap.get("userId");
 			String inputval=(String) requestMap.get("inputval");
 			String orderId=(String) requestMap.get("orderId");
+			String discussState=null;
+			if(requestMap.get("discussState")!=null) {discussState=(String) requestMap.get("discussState");}
 			/*consultationOrderService.updateOrderPay(requestMap);*/
 			ConsultationDiscuss consultationDiscuss =new ConsultationDiscuss();
 			consultationDiscuss.setUserId(userId);
 			consultationDiscuss.setContent(inputval);
 			consultationDiscuss.setConsultationId(orderId);
 			consultationDiscuss.setCreateDate(new Date());
+			if(discussState!=null) {
+				consultationDiscuss.setDiscussState(discussState);
+			}
 			consultationDiscussService.insert(consultationDiscuss);
 			return Result.success(true);			
 		}

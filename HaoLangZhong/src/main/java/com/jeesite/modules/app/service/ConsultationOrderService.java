@@ -143,4 +143,13 @@ public class ConsultationOrderService {
 		consultationOrderDao.updateOrderPay(requestMap);
 	}
 	
+	/**结束咨询订单的操作*/
+	public void updateEndOrder(Map<String, Object> requestMap) {
+		// TODO Auto-generated method stub
+		requestMap.put("orderstate", "7");
+		requestMap.put("update_date", new Date());
+		requestMap.put("remarks", "订单已完成");
+		consultationOrderDao.updateOrderPay(requestMap);
+	}
+	
 }

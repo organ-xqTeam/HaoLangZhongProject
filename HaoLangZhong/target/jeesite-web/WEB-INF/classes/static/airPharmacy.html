@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head >
+
+<head>
   <meta charset="UTF-8">
   <title>空中药房</title>
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <script type="text/javascript">
     document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
   </script>
@@ -13,136 +15,159 @@
   <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
   <script src="static/js/mianG.js"></script>
   <style>
-    html, body {
-        position: relative;
-        height: 100%;
-    }
+    html,
     body {
-        /* background: #eee; */
-        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-        font-size: 14px;
-        color:#000;
-        margin: 0;
-        padding: 0;
+      position: relative;
+      height: 100%;
     }
+
+    body {
+      /* background: #eee; */
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #000;
+      margin: 0;
+      padding: 0;
+    }
+
     .swiper-container {
-        width: 100%;
-        height: 25%;
-        
+      width: 100%;
+      height: 25%;
+
     }
+
     .list_item a {
-		text-decoration:none;
-		out-line: none;
-		color: #000000 ;
-	}
-    .swiper-slide {
-        text-align: center;
-        font-size: 18px;
-        background: #fff;
-        
-        /* Center slide text vertically */
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        -webkit-justify-content: center;
-        justify-content: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        -webkit-align-items: center;
-        align-items: center;
+      text-decoration: none;
+      out-line: none;
+      color: #000000;
     }
-    .img100{
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+
+    .img100 {
       width: 0.3rem;
     }
-    .img200{
+
+    .img200 {
       height: 2rem !important;
     }
-    .img_box{
-      background: rgba(0,0,0,0.6);
+
+    .img_box {
+      background: rgba(0, 0, 0, 0.6);
       border-radius: 50%;
       width: .3rem;
       height: .3rem;
       padding: .05rem;
     }
-    .top{
+
+    .top {
       display: flex;
       justify-content: space-between;
       align-items: center;
       box-sizing: border-box;
       padding: .12rem;
     }
-    .img_input{
+
+    .img_input {
       display: flex;
       align-items: center;
       background: #fff;
       border-radius: .2rem;
       padding: .06rem 0.08rem;
     }
-    .img_input input{
+
+    .img_input input {
       outline: none;
       border: none;
       padding-left: .2rem;
     }
-    .img300{
+
+    .img300 {
       width: 0.2rem;
     }
-    .top{
-	    position: absolute;
-	    top: 0;
-	    left: 0;
-	    z-index: 2;
-	    width: 100%;
+
+    .top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      width: 100%;
     }
-    .main_content{
+
+    .main_content {
       position: relative;
     }
-    .color{
+
+    .color {
       color: #96756e;
       font-size: 0.16rem;
       margin: 0.12rem 0;
     }
-    .content_main{
+
+    .content_main {
       padding: .15rem;
     }
-    .flex_box{
+
+    .flex_box {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .box_item_left{
+
+    .box_item_left {
       flex: 1;
       border: 0.01rem solid #ccc;
       height: 1.2rem;
       border-bottom: none;
     }
-    .box_item_right{
+
+    .box_item_right {
       flex: 1;
       border: 0.01rem solid #ccc;
       height: 1.2rem;
       border-left: none;
       border-bottom: none;
     }
-    .box_item2_left{
+
+    .box_item2_left {
       flex: 1;
       border: 0.01rem solid #ccc;
       height: 1.2rem;
     }
-    .box_item2_center{
+
+    .box_item2_center {
       flex: 1;
       border: 0.01rem solid #ccc;
       height: 1.2rem;
       border-left: none;
-      border-right:none;
+      border-right: none;
     }
-    .box_item2_right{
+
+    .box_item2_right {
       flex: 1;
       border: 0.01rem solid #ccc;
       height: 1.2rem;
     }
-    .list_item{
+
+    .list_item {
       background: url(./static/images/yaofang-zhongchenggyao.png) center center no-repeat;
       color: #222222;
       background-size: 100%;
@@ -150,7 +175,8 @@
       padding: .12rem 0.2rem;
       text-align: center;
     }
-    .custom{
+
+    .custom {
       width: 100%;
       margin: .04rem 0;
       height: .32rem;
@@ -160,154 +186,274 @@
       background-size: 100% 100%;
       background-repeat: no-repeat;
     }
+
+
+
+
+    ._gf-item {
+      display: flex;
+      justify-content: flex-start;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding: .1rem 0;
+    }
+
+    ._gf-item .right {
+      margin-left: .1rem
+    }
+
+    ._gf-item .right h4 {
+      margin-bottom: .04rem;
+      color: #222;
+    }
+
+    ._gf-item .right img {
+      width: .15rem
+    }
+
+    ._gf-item .tag-wrapper {
+      overflow: hidden;
+      padding-top: 1px
+    }
+
+    ._gf-item .right .tag {
+      padding: .02rem .08rem;
+      border-radius: .5rem;
+      background: #EEEEEE;
+      color: rgba(0, 0, 0, 0.5);
+      font-size: .1rem;
+      white-space: nowrap;
+      margin-right: .05rem;
+      margin-bottom: .04rem;
+      display: inline-block
+    }
+
+    ._gf-item .right .title {
+      color: #3D3D3D;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 2.4rem;
+    }
+
+    ._gf-item .poster {
+      width: 1rem;
+    }
+
+    ._gf-item .poster img {
+      width: 100%;
+      height: auto;
+    }
+    ._gf-item a {
+      color: #222;
+    }
+
   </style>
   <script type="text/javascript">
-  var userId="";
-  var token="";
-  
-  function closeWindow(){
-	  window.location.href="about:blank";
-	  window.close();
-  }
-  var pageObj={
-		initData(){
-				var cookieStr=document.cookie.split(";")
-				console.log(cookieStr);
-			    token=Global.getCookie("token");
-			    userId=Global.getCookie("userid");
-				console.log("userId:"+userId)
-				console.log("token:"+token)
-			    pageObj.getshowAirPharmacy();
-			 },
-			 init(){
-			   pageObj.initData();
-			 },
-			 //触发搜索事件
-			 searchKeyDown:function(thisObj){
-				 console.log(window.event.keyCode);
-				 if(window.event.keyCode == "13") {
-					var storage=window.localStorage;
-					storage.searchParam=thisObj.value;
-					var jumpUrl ="medicineSearch.html";
-				 	window.location.href=jumpUrl;
-				 }
-			 },
-			 //跳转道购物车
-			 goShopcart(){
-				window.location.href="shoppingcart.html";
-			 },
-			 //跳转到按方抓药
-			 goCatchMedicine(){
-				 window.location.href="catchMedicine.html";
-			 },
-			 //通过不用的状态展示订单
-			 getshowAirPharmacy(){
-				 let postdata=JSON.stringify({
-					 "token":token,
-					 "userId":userId,
-			      })
-			     Global.ajaxRequest(Global.api+"/airPharmacy/index",postdata)
-			     .then((res) => {
-			    	 console.log(res);
-			    	 var airAdPicList=res.data.airAdPicList;
-			    	 airAdPicList.forEach(function(item){
-				    	 $(".swiper-wrapper").append(`
+    var userId = "";
+    var token = "";
+
+    function closeWindow() {
+      window.location.href = "about:blank";
+      window.close();
+    }
+    var pageObj = {
+      initData() {
+        var cookieStr = document.cookie.split(";")
+        console.log(cookieStr);
+        token = Global.getCookie("token");
+        userId = Global.getCookie("userid");
+        console.log("userId:" + userId)
+        console.log("token:" + token)
+        pageObj.getshowAirPharmacy();
+      },
+      init() {
+        pageObj.initData();
+      },
+      //触发搜索事件
+      searchKeyDown: function (thisObj) {
+        console.log(window.event.keyCode);
+        if (window.event.keyCode == "13") {
+          var storage = window.localStorage;
+          storage.searchParam = thisObj.value;
+          var jumpUrl = "medicineSearch.html";
+          window.location.href = jumpUrl;
+        }
+      },
+      //跳转道购物车
+      goShopcart() {
+        window.location.href = "shoppingcart.html";
+      },
+      //跳转到按方抓药
+      goCatchMedicine() {
+        window.location.href = "catchMedicine.html";
+      },
+      //通过不用的状态展示订单
+      getshowAirPharmacy() {
+        let postdata = JSON.stringify({
+          "token": token,
+          "userId": userId,
+        })
+        Global.ajaxRequest(Global.api + "/airPharmacy/index", postdata)
+          .then((res) => {
+            console.log(res);
+            var airAdPicList = res.data.airAdPicList;
+            airAdPicList.forEach(function (item) {
+              $(".swiper-wrapper").append(`
 						          <div class="swiper-slide">
 						            <img src="${Global.picUrl+item.pic_url}" class="img200"/>
 						          </div>	 
 				    			 `)
-			    	 })
-					var airDrugFirstList=res.data.airDrugFirstList;
-			    	$("#flex_box_1").append(`
-			    		       <div class="box_item_left">
-			    		    	  <a href="medicinedetail.html?drugId=${airDrugFirstList[0].id}">
-			    		    	  	<img src="${Global.picUrl+airDrugFirstList[0].pic1}" style="width:100%;height:100%!important"  class="img200"/>
-			    		    	  </a>
-			    		       </div>
-			    		       <div class="box_item_right">
-			    		       	<a href="medicinedetail.html?drugId=${airDrugFirstList[1].id}">
-			    		       		<img src="${Global.picUrl+airDrugFirstList[1].pic1}" style="width:100%;height:100%!important" class="img200"/>
-			    		       	</a>	
-			    		       </div>
-			    			 `);
-			    	$("#flex_box_2").append(`
-			    				<div class="box_item2_left">
-			    					<a href="medicinedetail.html?drugId=${airDrugFirstList[2].id}">
-			    						<img src="${Global.picUrl+airDrugFirstList[2].pic1}"  style="width:100%;height:100%!important" class="img200"/>
-			    		       		</a>
-			    			   </div>
-			    		       <div class="box_item2_center">
-				    		      	 <a href="medicinedetail.html?drugId=${airDrugFirstList[3].id}">
-				    		       		<img src="${Global.picUrl+airDrugFirstList[3].pic1}" style="width:100%;height:100%!important"  class="img200"/>
-				    		      	</a>
-			    		       </div>
-			    		       <div class="box_item2_right">
-				    		       	<a href="medicinedetail.html?drugId=${airDrugFirstList[4].id}">
-				    		       		<img src="${Global.picUrl+airDrugFirstList[4].pic1}" style="width:100%;height:100%!important" class="img200"/>
-				    		      	</a> 
-			    		      </div>
-			    			 `);
+            })
+            var airDrugFirstList = res.data.airDrugFirstList;
+            // $("#flex_box_1").append(`
+			    	// 	       <div class="box_item_left">
+			    	// 	    	  <a href="medicinedetail.html?drugId=${airDrugFirstList[0].id}">
+			    	// 	    	  	<img src="${Global.picUrl+airDrugFirstList[0].pic1}" style="width:100%;height:100%!important"  class="img200"/>
+			    	// 	    	  </a>
+			    	// 	       </div>
+			    	// 	       <div class="box_item_right">
+			    	// 	       	<a href="medicinedetail.html?drugId=${airDrugFirstList[1].id}">
+			    	// 	       		<img src="${Global.picUrl+airDrugFirstList[1].pic1}" style="width:100%;height:100%!important" class="img200"/>
+			    	// 	       	</a>	
+			    	// 	       </div>
+			    	// 		 `);
+            // $("#flex_box_2").append(`
+			    	// 			<div class="box_item2_left">
+			    	// 				<a href="medicinedetail.html?drugId=${airDrugFirstList[2].id}">
+			    	// 					<img src="${Global.picUrl+airDrugFirstList[2].pic1}"  style="width:100%;height:100%!important" class="img200"/>
+			    	// 	       		</a>
+			    	// 		   </div>
+			    	// 	       <div class="box_item2_center">
+				    // 		      	 <a href="medicinedetail.html?drugId=${airDrugFirstList[3].id}">
+				    // 		       		<img src="${Global.picUrl+airDrugFirstList[3].pic1}" style="width:100%;height:100%!important"  class="img200"/>
+				    // 		      	</a>
+			    	// 	       </div>
+			    	// 	       <div class="box_item2_right">
+				    // 		       	<a href="medicinedetail.html?drugId=${airDrugFirstList[4].id}">
+				    // 		       		<img src="${Global.picUrl+airDrugFirstList[4].pic1}" style="width:100%;height:100%!important" class="img200"/>
+				    // 		      	</a> 
+			    	// 	      </div>
+            //      `);
 
-			      });
-				
-			 }
-		  }
-		  $(function(){
-			  	/* document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7";
-			  	document.cookie="userid=123"; */
-			    pageObj.init();
-			   
-			})
-			  
-  </script>  
+            console.log(airDrugFirstList)
+            var gfStr = '';
+            for (var i = 0; i < airDrugFirstList.length; i++) {
+              gfStr += `
+              <a href="medicinedetail.html?drugId=${airDrugFirstList[i].id}">
+                  <div class="_gf-item">
+                    <div class="poster">
+                      <img src="${Global.picUrl + airDrugFirstList[i].pic1}" alt="">
+                    </div>
+                    <div class="right">
+                      <h4>${airDrugFirstList[i].name}</h4>
+                      <div>
+                        <img src="../static/static/images/wode-wodeshoucang.png" alt="">
+                        <img src="../static/static/images/wode-wodeshoucang.png" alt="">
+                        <img src="../static/static/images/wode-wodeshoucang.png" alt="">
+                      </div>
+                      <div class="tag-wrapper">`
+              var gfListStr = '';
+              var arr = '';
+              arr = airDrugFirstList[i].lname;
+              arr = arr.split(",");
+              for (var j = 0; j < arr.length; j++) {
+                gfListStr += `<span class="tag">${arr[j]}</span>`
+              }
+              gfStr += gfListStr + `</div><div class="title">${airDrugFirstList[i].remarks}</div></div></div></a>`
+            }
+            $('#_gf-wrapper').append(gfStr)
+          });
+
+      }
+    }
+    $(function () {
+      /* document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7";
+      document.cookie="userid=123"; */
+      pageObj.init();
+
+    })
+  </script>
 </head>
+
 <body>
-<div class="main_content">
-  <div class="top">
-    <div class="img_wrap">
-      <div class="img_box">
-        <img src="static/images/yaofang-shouye.png" class="img100"/>
+  <div class="main_content">
+    <div class="top">
+      <div class="img_wrap">
+        <div class="img_box">
+          <img src="static/images/yaofang-shouye.png" class="img100" />
+        </div>
+      </div>
+      <div class="img_input">
+        <img src="static/images/yaofang-sousuo.png" class="img300" />
+        <input placeholder="请输入关键字" onkeydown="pageObj.searchKeyDown(this)" />
+      </div>
+      <div class="img_box" onclick="pageObj.goShopcart()">
+        <img src="static/images/yaofang-gouwuche.png" class="img100" />
       </div>
     </div>
-    <div class="img_input">
-      <img src="static/images/yaofang-sousuo.png" class="img300"/>
-      <input placeholder="请输入关键字"  onkeydown="pageObj.searchKeyDown(this)"/>
-    </div>
-    <div class="img_box" onclick="pageObj.goShopcart()">
-      <img src="static/images/yaofang-gouwuche.png" class="img100"/>
-    </div>
-  </div>
-  <div class="swiper-container">
+    <div class="swiper-container">
       <div class="swiper-wrapper">
-          <!-- <div class="swiper-slide">
+        <!-- <div class="swiper-slide">
             <img src="static/images/head.png" class="img200"/>
           </div>
           -->
       </div>
+    </div>
   </div>
-</div>
-<div class="content_main">
-  <div>
-    <h4 class="color">按方抓药</h4>
-    <img onclick="pageObj.goCatchMedicine()" src="static/images/zhuayao.jpg" style="width:100%"/>
-  </div>
-  <div>
-    <h4 class="color">热销中药</h4>
-    <div id="flex_box_1" class="flex_box">
-       <!-- <div class="box_item_left">
+  <div class="content_main">
+    <div>
+      <h4 class="color">按方抓药</h4>
+      <img onclick="pageObj.goCatchMedicine()" src="static/images/zhuayao.jpg" style="width:100%" />
+    </div>
+    <div>
+      <h4 class="color">热销中药</h4>
+
+
+
+
+      <div id="_gf-wrapper">
+        <!-- <div class="_gf-item">
+          <div class="poster">
+            <img src="../static/static/images/head.png" alt="">
+          </div>
+          <div class="right">
+            <h4>黑枸杞</h4>
+            <div>
+              <img src="../static/static/images/wode-wodeshoucang.png" alt="">
+              <img src="../static/static/images/wode-wodeshoucang.png" alt="">
+              <img src="../static/static/images/wode-wodeshoucang.png" alt="">
+            </div>
+            <div class="tag-wrapper">
+              <span class="tag">黑枸杞</span>
+              <span class="tag">黑枸杞</span>
+            </div>
+            <div class="title">黑枸杞是黑枸杞是黑枸杞是黑枸杞是黑枸杞是黑枸杞是黑枸杞是黑枸杞是黑枸杞是黑枸杞是</div>
+          </div>
+        </div> -->
+      </div>
+
+
+
+
+      <div id="flex_box_1" class="flex_box">
+        <!-- <div class="box_item_left">
        </div>
        <div class="box_item_right">
        </div> -->
-    </div>
-    <div id="flex_box_2"  class="flex_box">
-<!--        <div class="box_item2_left">
+      </div>
+      <div id="flex_box_2" class="flex_box">
+        <!--        <div class="box_item2_left">
        </div>
        <div class="box_item2_center">
        </div>
        <div class="box_item2_right">
        </div> -->
-    </div>
-    <h4 class="color">中成药</h4>
+      </div>
+
+
+
+
+      <!-- <h4 class="color">中成药</h4>
     <div class="flex_box">
        <div class="list_item">
      	<a href="medicineSearch.html?categoryId=1">  
@@ -401,12 +547,14 @@
           	外用中成药
          </a> 
         </div>
-     </div>
+     </div> -->
+
+
+    </div>
   </div>
-</div>
-<script src="static/js/swiper.min.js"></script>
-<script>
-  var swiper = new Swiper('.swiper-container', {
+  <script src="static/js/swiper.min.js"></script>
+  <script>
+    var swiper = new Swiper('.swiper-container', {
       pagination: '.swiper-pagination',
       nextButton: '.swiper-button-next',
       prevButton: '.swiper-button-prev',
@@ -415,7 +563,8 @@
       centeredSlides: true,
       autoplay: 2500,
       autoplayDisableOnInteraction: false
-  });
-</script>
+    });
+  </script>
 </body>
+
 </html>
