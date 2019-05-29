@@ -23,7 +23,7 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 		@Column(name="name", attrName="name", label="名称", queryType=QueryType.LIKE),
 		@Column(name="arealevel", attrName="arealevel", label="层级标识", comment="层级标识： 1  省份， 2  市， 3  区县"),
 		@Column(name="parent_id", attrName="parentId", label="父节点"),
-	}, orderBy="a.id DESC"
+	}, orderBy=" a.name LIKE '%北京%'  ASC,a.name LIKE '%上海%'  ASC,a.name LIKE '%广州%'  ASC,a.name LIKE '%深圳%'  ASC,a.name LIKE '%沈阳%'  ASC"
 )
 public class AreaInfo extends DataEntity<AreaInfo> {
 	

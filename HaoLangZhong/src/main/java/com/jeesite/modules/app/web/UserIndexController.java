@@ -1,7 +1,12 @@
 package com.jeesite.modules.app.web;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -82,6 +87,30 @@ public class UserIndexController extends BaseController {
 			return Result.error(CodeMsg.PARAMETER_ISNULL);
 		}
 	}
+	/*
+	 * /sys/userIndex/video
+	 */
+	@RequestMapping("/video")
+	public @ResponseBody void video(String id, HttpServletResponse response)throws Exception{
+		File file = new File("D:/1.mp4");
+		FileInputStream in = new FileInputStream(file);
+		ServletOutputStream out = response.getOutputStream();
+		byte[] b = null;
+		while(in.available() >0) {
+			if(in.available()>10240) {
+				b = new byte[10240];
+			}else {
+				b = new byte[in.available()];
+			}
+			in.read(b, 0, b.length);
+			out.write(b, 0, b.length);
+		}
+		in.close();
+		out.flush();
+		out.close();
+	}
+
+
 	
 
 }

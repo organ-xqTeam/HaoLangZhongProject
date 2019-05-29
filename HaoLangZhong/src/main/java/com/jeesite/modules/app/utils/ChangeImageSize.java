@@ -19,9 +19,9 @@ public class ChangeImageSize {
 	 *            缩放比例
 	 * @param flag
 	 *            缩放选择:true 放大; false 缩小;
+	 * @throws IOException 
 	 */
-	public static void scale(String srcImageFile, String result, int scale, boolean flag) {
-		try {
+	public static void scale(String srcImageFile, String result, int scale, boolean flag) throws IOException {
 			BufferedImage src = ImageIO.read(new File(srcImageFile)); // 读入文件
 			int width = src.getWidth(); // 得到源图宽
 			int height = src.getHeight(); // 得到源图长
@@ -40,9 +40,6 @@ public class ChangeImageSize {
 			g.drawImage(image, 0, 0, null); // 绘制缩小后的图
 			g.dispose();
 			ImageIO.write(tag, "JPEG", new File(result));// 输出到文件流
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**

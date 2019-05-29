@@ -65,8 +65,8 @@ public class UploadDownloadController extends BaseController {
 
 	// 文件上传路径
 	@Value("${fileurl}")
-	public  String fileurl ;
 
+	public  String fileurl ;
 
 	
 
@@ -160,6 +160,10 @@ public class UploadDownloadController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/upload", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
 	public Result upload(@RequestParam("file") MultipartFile[] files) throws Exception {
+		logger.debug(files.toString());
+		int l=   files.length;
+		logger.debug(String.valueOf(l));
+		logger.debug("进入1");
 		JSONArray result = new JSONArray();
 		List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
 		String fileName = null;
@@ -167,8 +171,11 @@ public class UploadDownloadController extends BaseController {
 		String msg = "";
 		String returnUrl = fileurl;
 		try {
+			logger.debug("进入2");
 			if (files != null && files.length > 0) {
+				logger.debug("进入3");
 				for(int i = 0; i < files.length; i++) {
+					logger.debug("进入4");
 					int w = 0;
 					int h = 0;
 					fileName = files[i].getOriginalFilename();
@@ -186,23 +193,39 @@ public class UploadDownloadController extends BaseController {
 								targetFile.mkdirs();
 							}*/
 							try {
-								BufferedImage image = ImageIO.read(files[i].getInputStream());
-								if (image != null) {// 如果image=null 表示上传的不是图片格式
-									w = image.getWidth();// 获取图片宽度，单位px
-									h = image.getHeight();// 获取图片高度，单位px
-								}
-							} catch (IOException e) {
+								logger.debug("进入5");
+								/*BufferedImage image = ImageIO.read(files[i].getInputStream());*/
+								logger.debug("进入5(1)");
+								/*if (image != null) {// 如果image=null 表示上传的不是图片格式
+									logger.debug("进入5(2)");
+									w =1; //image.getWidth();// 获取图片宽度，单位px
+									logger.debug("进入5(3)");
+									h =2; //image.getHeight();// 获取图片高度，单位px
+									logger.debug("进入5(4)");
+								}*/
+							} catch (Exception e) {
 								e.printStackTrace();
+								logger.debug(e.getLocalizedMessage());
+								logger.debug("--------------------------------------------------");
+								logger.debug(e.getMessage());
 							}
 							try {
+								logger.debug("进入6");
 								files[i].transferTo(targetFile);
 								msg = returnUrl + fileName;
 								code = 0;
-								ChangeImageSize.scale(msg, returnUrl + fileAbbreviations, 2, false);
+								logger.debug("进入7");
+								//ChangeImageSize.scale(msg, returnUrl + fileAbbreviations, 2, false);
 							} catch (Exception e) {
+								System.out.println("进入错误页面");
+								logger.debug("进入错误页面--------------------------------------------------");
 								e.printStackTrace();
+								logger.debug(e.getLocalizedMessage());
+								logger.debug("--------------------------------------------------");
+								logger.debug(e.getMessage());
 							}
 						}
+						logger.debug("进入8");
 						Map<String, Object> map = new HashMap<String, Object>();
 						map.put("filename", oldName);
 						map.put("filepath", msg);
@@ -215,6 +238,7 @@ public class UploadDownloadController extends BaseController {
 						map.put("create_by", null);
 						items.add(map);
 					} else {
+						logger.debug("进入9");
 						byte[] bytes = files[i].getBytes();
 						String oldName = fileName;
 						fileName = new Date().getTime() + "_" + new Random().nextInt(1000) + "." + prefix;// 新的文件名
@@ -233,10 +257,13 @@ public class UploadDownloadController extends BaseController {
 					}
 				}
 			} else {
+				logger.debug("进入10");
 				return Result.error(CodeMsg.UPLOAD_FAIL1);
 			}
 			if (items != null && !items.isEmpty()) {
+				logger.debug("进入11");
 				for(Map<String, Object> map : items) {
+					logger.debug("进入12");
 					fileInfoService.save(map);
 					result.add(map);
 				}
@@ -245,6 +272,7 @@ public class UploadDownloadController extends BaseController {
 			logger.error(e.getMessage(), e);
 			return Result.error(CodeMsg.UPLOAD_FAIL2);
 		}
+		logger.debug("进入13");
 		return Result.success(result);
 	}
 	/**
