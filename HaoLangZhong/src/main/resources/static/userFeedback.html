@@ -31,9 +31,17 @@
   background: url(static/images/add.png) center center no-repeat;
   background-size: 100%;
 }
+.picWrap{
+	width:100%;
+	height:100%;
+}
 .addpicWrap .addedPic{
   display: flex;
   flex-wrap: wrap;
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  background-size: 100%;
 }
 .addpicWrap .addedPic .picWrap{
   position: relative;
@@ -164,14 +172,15 @@
      <textarea class="text" placeholder="请输入您的意见和反馈"></textarea>
      <div class="addpicWrap">
       <div style="padding-left:0.05rem;">
-        <a class="addpicBtn"></a>
+        <a class="addpicBtn" onclick="pageObj.choosePic()"></a>
       </div>
       <div class="addedPic">
-        <!-- <div class="picWrap" style="display:none;">
-          <img src="../static/images/timg.jpg" alt="图片">
-          <span class="delPic"></span>
-          <input type="file" style="display: none;">
-        </div> -->
+         <div class="picWrap" >
+          <!-- <img src="../static/static/images/logo.png"  alt="图片"> -->
+          <!-- <span class="delPic"></span>
+          <input type="file" style="display: none;"> -->
+        </div> 
+
       </div>
     </div>
     </div>
@@ -227,6 +236,10 @@ var pageObj={
 		    	 }
 		    })
 		 },
+		 choosePic(){
+			/*  alert("选择图片"); */
+			 test.take(500,500);
+		 }
 	  }
 	  $(function(){
 		  	/* document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7";
@@ -234,6 +247,16 @@ var pageObj={
 		    pageObj.init();
 		})
 		  
+		function getPicId(picId){
+			/* alert("进入显示图片的方法");
+			alert("id为:"+picId);
+			alert("Global.api为:"+Global.api); */
+			$(".addedPic").html(`
+					 <div class="picWrap" >
+			          <img src="${Global.picUrl}/${picId}"  alt="图片">
+			        </div> 
+					`)
+		}
 </script>
 </body>
 </html>

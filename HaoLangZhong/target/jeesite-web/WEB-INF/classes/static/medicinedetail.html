@@ -21,6 +21,7 @@
     body {
       padding-bottom: 1rem;
     }
+    
 
     .line {
       width: 100;
@@ -235,7 +236,7 @@
 
     .gf-item .gf-left {
       display: inline-block;
-      width: .6rem;
+      width: .7rem;
       text-align-last: justify;
     }
 
@@ -247,13 +248,42 @@
 
     .gf-item .gf-right {
       display: inline-block;
-      width: 2.8rem;
+      width: 2.5rem;
       vertical-align: text-top
+    }
+       .nav{
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      display: flex;
+      height: .4rem;
+      border-bottom: .01rem solid #cccccc47;
+    } 
+    .back{
+      position: absolute;
+      left: .1rem;
+      top: 0.1rem;
+    }
+   .img200{
+      height: auto !important;
+      width: .2rem;
+    }
+    .title{
+      font-size: .16rem;
     }
   </style>
 </head>
-
+<!-- <div class="topBar" style="border-bottom: 1px solid #222; height: 40px; box-sizing: border-box; position: fixed;top: 0;left:0;width: 100%;">
+<div class="back" style="position: absolute;left: 20px;top:50%;transform: translateY(-50%);" onclick="javascript:window.history.go(-1)">
+<img style="width: 20px; height: 20px;" src="../static/static/images/left.png" alt="">
+</div>
+</div> -->
 <body>
+<div class="nav">
+    <img src="static/images/fanhui.png" class="back img200" onclick="javascript:window.history.go(-1)"/>
+    <span class="title">商品详情</span>
+</div>
   <div class="drug_pic">
     <!-- <img src="static/images/head.png"/> -->
   </div>
@@ -361,7 +391,7 @@
       <span>购物车</span>
     </div>
     <div class="button">
-      <span class="addshop" data-toggle="modal" data-target=".bs-example-modal-sm">加入购物车</span>
+      <span class="addshop"  onclick="pageObj.addshop()" >加入购物车</span>
       <span class="pay" onclick="pageObj.buyDrug()">立即购买</span>
     </div>
   </div>
@@ -572,7 +602,7 @@
         Global.ajaxRequest(Global.api + "/basketController/addDrugBasket", postdata)
           .then((res) => {
             if (res.data.code == "0") {
-              alert("加入购物车成功");
+            	$('#myModal').modal('show');
             }
           })
       },
@@ -607,7 +637,7 @@
 
 
   <!-- alert 弹窗 -->
-  <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div id="myModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
     <div class="modal-dialog modal-sm" role="document">
       <div class="modal-content">
         <div class="container alert-wrap">

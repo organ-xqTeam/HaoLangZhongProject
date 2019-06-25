@@ -127,9 +127,34 @@
 .upImgtext{
   line-height: .4rem;
 }
+   .nav{
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      display: flex;
+      height: .4rem;
+      border-bottom: .01rem solid #cccccc47;
+    } 
+    .back{
+      position: absolute;
+      left: .1rem;
+      top: 0.1rem;
+    }
+   .img200{
+      height: auto !important;
+      width: .2rem;
+    }
+    .title{
+      font-size: .16rem;
+    }
 </style>
 </head>
 <body>
+ <div class="nav">
+    <img src="static/images/fanhui.png" class="back img200" onclick="javascript:window.history.go(-1)"/>
+    <span class="title">按方抓药</span>
+</div> 
 <div class="content_main">
    <div class="line"></div>
    <div class="content_top">
@@ -154,7 +179,9 @@
 </div>
 <script>
  $(".addpicBtn").click(function(){
-        let $div = $(`
+	 alert("选择图片"); 
+	 test.take(500,500);
+      let $div = $(`
           <div class="picWrap" style="display:none;">
             <img class="img100" src="" alt="图片">
             <span class="delPic"></span>
@@ -165,6 +192,22 @@
         let input = $div.find("input[type='file']")[0]
         input.click()   
  })
+ 		  
+function getPicId(picId){
+			 alert("进入显示图片的方法");
+			 alert("id为:"+picId);
+			alert("Global.api为:"+Global.api); 
+			 let $div = $(`
+			          <div class="picWrap" style="display:none;">
+			            <img class="img100" src="${Global.picUrl}/${picId}" alt="图片">
+			            <span class="delPic"></span>
+			            <input type="file" style="display: none;">
+			          </div>
+			        `)
+			        $(".addedPic").append($div)
+			        let input = $div.find("input[type='file']")[0]
+			       /*  input.click()    */
+}
  $(".stars li").click(function(){
       let index=$(".stars li").index($(this))
       console.log(index)

@@ -57,7 +57,7 @@ public class UserInfoController extends BaseController {
 	@RequestMapping(value = "/validate")
 	public Result validate(@RequestBody Map<String, Object> requestMap) {
 		try {
-			TokenTools.checkToken(requestMap.get("token").toString(), redis);
+			/*TokenTools.checkToken(requestMap.get("token").toString(), redis);*/
 			userInfoService.saveValidate(requestMap);
 			return Result.success(true);			
 		}

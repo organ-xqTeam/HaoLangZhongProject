@@ -5,7 +5,6 @@ package com.jeesite.modules.sys.web;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,13 +26,13 @@ import com.jeesite.common.config.Global;
 import com.jeesite.common.entity.Page;
 import com.jeesite.common.web.BaseController;
 import com.jeesite.modules.app.dao.DoctorLabelDao;
-import com.jeesite.modules.app.entity.DoctorPic;
 import com.jeesite.modules.app.utils.PageModel;
+import com.jeesite.modules.sys.entity.SysDoctorInfo;
 import com.jeesite.modules.sys.entity.SysDoctorPic;
 import com.jeesite.modules.sys.entity.SysUserInfo;
+import com.jeesite.modules.sys.service.SysDoctorInfoService;
 import com.jeesite.modules.sys.service.SysDoctorPicService;
 import com.jeesite.modules.sys.service.SysUserInfoService;
-import com.mysql.fabric.xmlrpc.base.Array;
 
 /**
  * sys_user_infoController
@@ -50,7 +49,9 @@ public class SysUserInfoController extends BaseController {
 	private  SysDoctorPicService sysDoctorPicService;
 	
 	@Autowired
-	DoctorLabelDao  doctorLabelDao;
+	private  DoctorLabelDao  doctorLabelDao;
+	@Autowired
+    private SysDoctorInfoService  sysDoctorInfoService;
 	
 	/**
 	 * 跳转普通注册信息列表
@@ -156,6 +157,13 @@ public class SysUserInfoController extends BaseController {
 		if(sysDoctorPicList!=null&&sysDoctorPicList.size()>0) {
 			model.addAttribute("sysDoctorPic", sysDoctorPicList.get(0));
 		}
+		//获取星级
+		SysDoctorInfo sysDoctorInfo =new SysDoctorInfo();
+		sysDoctorInfo.setDoctorid(id);
+		List<SysDoctorInfo> SysDoctorInfoList=sysDoctorInfoService.findList(sysDoctorInfo);
+		if(SysDoctorInfoList!=null&&SysDoctorInfoList.size()>0) {
+			model.addAttribute("starLv", SysDoctorInfoList.get(0).getStarLv());
+		}
 		
 		model.addAttribute("isNewRecord", false);
 		return "modules/sys/sysUserInfoForm";
@@ -184,7 +192,7 @@ public class SysUserInfoController extends BaseController {
 	@RequiresPermissions("sys:sysUserInfo:edit")
 	@PostMapping(value = "save")
 	@ResponseBody
-	public String save(@Validated SysUserInfo sysUserInfo,String pass) {
+	public String save(@Validated SysUserInfo sysUserInfo,String pass,String starLv) {
 		System.out.println(pass);
 		if(pass.equals("1")) {
 			//只修改通过与否
@@ -195,7 +203,12 @@ public class SysUserInfoController extends BaseController {
 			updateSysUserInfo.setUpdateDate(new Date());
 			//sysUserInfoService.save(updateSysUserInfo);
 			sysUserInfoService.update(updateSysUserInfo);
-			
+			//修改星级
+			SysDoctorInfo sysDoctorInfo =new SysDoctorInfo();
+			sysDoctorInfo.setDoctorid(sysUserInfo.getId());
+			sysDoctorInfo=sysDoctorInfoService.findList(sysDoctorInfo).get(0);
+			sysDoctorInfo.setStarLv(starLv);
+			sysDoctorInfoService.update(sysDoctorInfo);
 		}else {
 			
 			sysUserInfoService.save(sysUserInfo);

@@ -3,8 +3,10 @@ package com.jeesite.modules.app.web;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -66,8 +68,8 @@ public class BasketController {
 			//通过userId得到用户的购物车列表
 			Map userMap =new HashMap<>();
 			userMap.put("userId", userId);
-			JSONObject result = new JSONObject();
 			List<Map> basketInfoList=  basketService.getBasketByUserId(userMap);
+			JSONObject result = new JSONObject();
 			
 			result.put("basketInfoList", basketInfoList);
 			return Result.success(result);
@@ -385,6 +387,7 @@ public class BasketController {
 	 *  buyPrice    付款总价格
 	 *  discountArithmeticPrice   折扣价格
 	 *  productTotalPrice    商品没打折时候的总价格
+	 *  shoppingcart   是否是从购物车跳转的
 	 * 用户点击提交订单后所做的操作
 	 * /js/f/sys/basketController/submitOrder
 	 * 
@@ -398,6 +401,23 @@ public class BasketController {
 			String drudIds=(String)requestParams.get("drudIds");
 			String prescriptionIds=(String)requestParams.get("prescriptionIds");
 			String addressId=(String)requestParams.get("addressId");
+			String shoppingcart=(String)requestParams.get("shoppingcart");
+			//删除当前购物车所属药品id的操作
+			if(shoppingcart!=null&&shoppingcart.trim().equals("true")) {
+				String[] str=drudIds.split(",");
+		        Set<String> set = new HashSet();  
+		        //遍历数组并存入集合,如果元素已存在则不会重复存入  
+		        for (int i = 0; i < str.length; i++) {  
+		            set.add(str[i]);  
+		        }  
+		        for (String drudIdStr : set) {
+		        	Map<String, Object> parmMap= new HashMap<>();
+		        	parmMap.put("userId", userId);
+					parmMap.put("drugId", drudIdStr);
+		        	basketService.delFlagDrugBasketByDrugId(parmMap);
+				}
+			}
+			//删除结束
 			//传过来的折扣价
 			String discountArithmeticPrice=(String)requestParams.get("discountArithmeticPrice");
 			//商品没打折时候的总价格
@@ -524,7 +544,9 @@ public class BasketController {
 				
 				//调用支付接口
 				
-				return Result.success(CodeMsg.SUCCESS);
+				
+				
+				return Result.success(orderParmMap);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

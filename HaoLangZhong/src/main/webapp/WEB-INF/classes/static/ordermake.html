@@ -161,12 +161,34 @@
    .list_top{
      margin-top: .12rem;
    }
+     .nav{
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      display: flex;
+      height: .4rem;
+      border-bottom: .01rem solid #cccccc47;
+    } 
+    .back{
+      position: absolute;
+      left: .1rem;
+      top: 0.1rem;
+    }
+   .img201{
+      height: auto !important;
+      width: .2rem;
+    }
+    .title1{
+      font-size: .16rem;
+    }
   </style>
 <script type="text/javascript">
   var userId="";
   var token="";
   var addressId="";
   var drudIds="";
+  var shoppingcart="";
   //-----------------
   var buyPrice="";//支付总价格
   var discountArithmeticPrice="";//折扣价格
@@ -181,6 +203,7 @@
 				console.log("token:"+token)
 				addressId=Global.getParameter("addressId");
 			    drudIds=Global.getParameter("drudIds");
+			    shoppingcart=Global.getParameter("shoppingcart");
 			    pageObj.getPrepareOrder();
 			 },
 			 init(){
@@ -199,7 +222,13 @@
 	 *  discountArithmeticPrice   折扣价格
 	 *  productTotalPrice    商品没打折时候的总价格		 
 				 **/
-				 window.location.href="pay.html?drudIds="+drudIds+"&buyPrice="+buyPrice+"&discountArithmeticPrice="+discountArithmeticPrice+"&productTotalPrice="+productTotalPrice+"&addressId="+addressId; 
+				 //从购物车那边过来的
+				 if(shoppingcart=="true"){
+					 window.location.href="pay.html?drudIds="+drudIds+"&buyPrice="+buyPrice+"&discountArithmeticPrice="+discountArithmeticPrice+"&productTotalPrice="+productTotalPrice+"&addressId="+addressId+"&shoppingcart=true"; 
+
+				 }else{
+				 	window.location.href="pay.html?drudIds="+drudIds+"&buyPrice="+buyPrice+"&discountArithmeticPrice="+discountArithmeticPrice+"&productTotalPrice="+productTotalPrice+"&addressId="+addressId; 
+				 }
 			 },
 			 //跳转地址选择页面
 			 goAddressChoose(){
@@ -294,6 +323,10 @@
   </script>  
 </head>
 <body>
+<div class="nav">
+    <img src="static/images/fanhui.png" class="back img201" onclick="javascript:window.history.go(-1)"/>
+    <span class="title1">订单详情</span>
+</div>
 <div class="topWrap" onclick="pageObj.goAddressChoose()">
 <!--   
 <img src="static/images/gouwuche-weizhi.png" class="img100"/>

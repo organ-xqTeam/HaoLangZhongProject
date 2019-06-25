@@ -177,7 +177,7 @@
      <textarea class="text" placeholder="请输入您的意见和反馈"></textarea>
      <div class="addpicWrap">
       <div style="padding-left:0.05rem;">
-        <a class="addpicBtn"></a>
+        <a class="addpicBtn" onclick="pageObj.choosePic()"> ></a>
       </div>
       <div class="addedPic">
         <!-- <div class="picWrap" style="display:none;">
@@ -238,19 +238,28 @@ var pageObj={
 		    	 }
 		    })
 		 },
+		 
+		 choosePic(){
+			 //alert("选择图片");
+			 test.take(500,500);
+		 }
 	  }
 	  $(function(){
 		  	/* document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7";
 		  	document.cookie="userid=123"; */
 		    pageObj.init();
 		})
+		
+		function getPicId(picId){
+			alert("进入显示图片的方法");
+			alert("id为:"+picId);
+		}
 		  
 </script>
 <!-- Small modal -->
 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content gf-alert">
-    	
 		反馈成功
 		请输入反馈内容
     </div>

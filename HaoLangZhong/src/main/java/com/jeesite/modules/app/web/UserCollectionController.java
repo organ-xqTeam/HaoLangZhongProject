@@ -61,7 +61,8 @@ public class UserCollectionController extends BaseController {
 	}
 	
 	/**
-	 * 获取用户收藏的医生列表
+	 * 获取用户收藏得文章列表
+	 * sys/userCollection/queryArticleList
 	 * */
 	@ResponseBody
 	@RequestMapping(value = "/queryArticleList")

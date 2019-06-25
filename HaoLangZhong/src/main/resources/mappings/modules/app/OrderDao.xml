@@ -194,6 +194,8 @@
 		</trim>
 		GROUP BY 
 		id
+		ORDER BY
+		so.create_date desc
 		<trim prefix=" limit " >
 			<if test="pageModel != null">
 			  #{pageModel.start}, #{pageModel.end}

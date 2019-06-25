@@ -18,6 +18,7 @@ public class DoctorInfo extends BaseEntity {
 	
 	private String ownFlag;
 	
+	private String starLv;
 	public List<String> getLabels() {
 		return labels;
 	}
@@ -73,6 +74,14 @@ public class DoctorInfo extends BaseEntity {
 
 	public void setOwnFlag(String ownFlag) {
 		this.ownFlag = ownFlag;
+	}
+
+	public String getStarLv() {
+		return starLv;
+	}
+
+	public void setStarLv(String starLv) {
+		this.starLv = starLv;
 	}
 	
 	

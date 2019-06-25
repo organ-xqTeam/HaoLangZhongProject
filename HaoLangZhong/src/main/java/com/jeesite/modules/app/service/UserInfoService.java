@@ -85,9 +85,15 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo>  {
 			doctorid=userInfoList.get(0).getId();
 		}
 		doctorInfo.put("doctorid", doctorid);
-		doctorInfo.put("telephone", requestMap.get("telephone").toString());
-		doctorInfo.put("idcard", requestMap.get("idcard").toString());
-		doctorInfo.put("adress", requestMap.get("adress").toString());
+		if(requestMap.get("telephone")!=null) {
+			doctorInfo.put("telephone", requestMap.get("telephone").toString());
+		}
+		if(requestMap.get("idcard")!=null) {
+			doctorInfo.put("idcard", requestMap.get("idcard").toString());
+		}
+		if(requestMap.get("adress")!=null) {
+			doctorInfo.put("adress", requestMap.get("adress").toString());
+		}
 		doctorInfo.put("create_date", time);
 		doctorInfo.put("del_flag", "0");
 		userInfoDao.saveDoctorInfo(doctorInfo);
@@ -95,7 +101,7 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo>  {
 		if(requestMap.get("certificate1")!=null) {
 			doctorPic.put("certificate1", requestMap.get("certificate1").toString());
 		}
-		if(requestMap.get("certificate2")!=null) {
+		if(requestMap.get("saveDoctorPicsaveDoctorPic")!=null) {
 			doctorPic.put("certificate2", requestMap.get("certificate2").toString());
 		}
 		if(requestMap.get("certificate3")!=null) {
@@ -120,8 +126,39 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo>  {
 			userMap.put("id", requestMap.get("doctorid").toString());
 			userInfoDao.saveUserInfo(userMap);
 		}
-		if (requestMap.containsKey("technical") || requestMap.containsKey("classify") || requestMap.containsKey("introduce")) {
+		try {
 			Map<String, Object> doctorMap = new HashMap<String, Object>();
+			if(requestMap.containsKey("technical")) {
+				doctorMap.put("technical", requestMap.get("technical").toString());
+			}
+			if(requestMap.containsKey("classify")) {
+				doctorMap.put("classify", requestMap.get("classify").toString());
+			}
+			
+			if(requestMap.containsKey("introduce")) {
+				doctorMap.put("introduce", requestMap.get("introduce").toString());
+			}
+			if(requestMap.containsKey("doctorid")) {
+				doctorMap.put("doctorid", requestMap.get("doctorid").toString());
+			}else {
+				throw new RuntimeException("doctorid不能为空");
+			}
+			if(requestMap.containsKey("cityid")) {
+				doctorMap.put("cityid", requestMap.get("cityid").toString());
+			}
+			if(requestMap.containsKey("comeFlag")) {
+				doctorMap.put("comeFlag", requestMap.get("comeFlag").toString());
+			}
+			if(requestMap.containsKey("comeCost")) {
+				doctorMap.put("comeCost", requestMap.get("comeCost").toString());
+			}
+			userInfoDao.updateDoctorInfo(doctorMap);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new RuntimeException("更新用户信息失败");
+		}
+	/*	if (requestMap.containsKey("technical") || requestMap.containsKey("classify") || requestMap.containsKey("introduce")) {
 			doctorMap.put("technical", requestMap.get("technical").toString());
 			doctorMap.put("classify", requestMap.get("classify").toString());
 			doctorMap.put("introduce", requestMap.get("introduce").toString());
@@ -129,8 +166,8 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo>  {
 			doctorMap.put("cityid", requestMap.get("cityid").toString());
 			doctorMap.put("comeFlag", requestMap.get("comeFlag").toString());
 			doctorMap.put("comeCost", requestMap.get("comeCost").toString());
-			userInfoDao.updateDoctorInfo(doctorMap);
-		}
+			
+		}*/
 		if (requestMap.containsKey("lable") && requestMap.get("lable") instanceof List) {
 			List<String> lable = new ArrayList<String>();
 			lable = (List<String>) requestMap.get("lable");
@@ -143,8 +180,10 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo>  {
 				item.put("del_flag", "0");
 				itemList.add(item);
 			}
-			userInfoDao.deleteDoctorLable(requestMap.get("doctorid").toString());
-			userInfoDao.saveDoctorLable(itemList);
+			if(itemList.size()>0) {
+				userInfoDao.deleteDoctorLable(requestMap.get("doctorid").toString());
+				userInfoDao.saveDoctorLable(itemList);
+			}
 		}
 		if (requestMap.containsKey("introducepic1") ||
 				requestMap.containsKey("introducepic2") || 
@@ -199,6 +238,7 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo>  {
 		
 		return result;
 	}
+
 
 	
 

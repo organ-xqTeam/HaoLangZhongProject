@@ -224,7 +224,27 @@
 .gf-icon-2 {
 	width: .24rem;
 }
-
+     .nav{
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      display: flex;
+      height: .4rem;
+      border-bottom: .01rem solid #cccccc47;
+    } 
+    .back{
+      position: absolute;
+      left: .1rem;
+      top: 0.1rem;
+    }
+   .img201{
+      height: auto !important;
+      width: .2rem;
+    }
+    .title{
+      font-size: .16rem;
+    }
   </style>
   <script type="text/javascript">
   var userId="";
@@ -279,7 +299,7 @@
 				 if(drudIds==""||drudIds==null){
 					 alert("请选择商品");
 				 }else{
-				 	window.location.href="ordermake.html?drudIds="+drudIds+"&addressId="+addressId;
+				 	window.location.href="ordermake.html?drudIds="+drudIds+"&addressId="+addressId+"&shoppingcart=true";
 					 
 				 }
 			 },
@@ -374,7 +394,10 @@
   </script>  
 </head>
 <body>
-
+<div class="nav">
+    <img src="static/images/fanhui.png" class="back img201" onclick="javascript:window.history.go(-1)"/>
+    <span class="title">购物车</span>
+</div>
 <div class="topbar">
 	<img class="gf-icon-2" src="static/images/gouwuche-dianpu.png" />
 	空中药房

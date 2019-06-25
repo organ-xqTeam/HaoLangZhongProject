@@ -28,6 +28,7 @@
     }
     .main_list img{
       width: .5rem;
+      height: .5rem;
       border-radius: 50%;
     }
     .main_right{
@@ -83,7 +84,7 @@ var pageObj={
               data.forEach(function(item){
                   $(".main").append(`
                       <div class="main_list" data-id=${item.id}>
-                        <img src="static/images/head.png"/>
+                        <img src="${Global.picUrl+item.icon}"/>
                         <div class="list_right">
                           <div class="main_right">
                             <h3>${item.nickname}</h3>

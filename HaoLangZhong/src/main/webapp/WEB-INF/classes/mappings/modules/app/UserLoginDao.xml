@@ -9,7 +9,10 @@
 		insert into sys_user_info (
 			id,
 			mobile,
-			password,
+			<if test="password!=null">
+				password,
+			</if>
+			
 			regtime, 
 			islock,
 			isauthentication,
@@ -20,7 +23,9 @@
 		values (
 			#{id,jdbcType=VARCHAR},
 			#{mobile,jdbcType=VARCHAR},
-			#{password,jdbcType=VARCHAR},
+			<if test="password!=null">
+				#{password,jdbcType=VARCHAR},
+			</if>
 			#{regtime,jdbcType=INTEGER}, 
 			#{islock,jdbcType=VARCHAR},
 			#{isauthentication,jdbcType=VARCHAR},

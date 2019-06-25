@@ -91,6 +91,27 @@
     transform: translate(-50%, 0);
     padding: .2rem;
   }
+    .nav{
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      display: flex;
+      height: .4rem;
+      border-bottom: .01rem solid #cccccc47;
+    } 
+    .back{
+      position: absolute;
+      left: .1rem;
+      top: 0.1rem;
+    }
+   .img201{
+      height: auto !important;
+      width: .2rem;
+    }
+    .title{
+      font-size: .16rem;
+    }
   </style>
   <script type="text/javascript">
 	 /**
@@ -112,6 +133,7 @@
   var buyPrice="";
   var discountArithmeticPrice="";
   var productTotalPrice="";
+  var shoppingcart="";
   var pageObj={
 		initData(){
 				////drugId="+drugId+"&drugCount="+drugCount; 直接购买商品
@@ -126,6 +148,7 @@
 				drudIds=Global.getParameter("drudIds");
 				addressId=Global.getParameter("addressId");
 				buyPrice=Global.getParameter("buyPrice");
+				shoppingcart=Global.getParameter("shoppingcart");
 				discountArithmeticPrice=Global.getParameter("discountArithmeticPrice");
 				productTotalPrice=Global.getParameter("productTotalPrice");
 				
@@ -168,6 +191,7 @@
 					 "buyPrice":buyPrice,
 					 "discountArithmeticPrice":discountArithmeticPrice,
 					 "productTotalPrice":productTotalPrice,
+					 "shoppingcart":shoppingcart
 			      })
 			 }else{
 				 postdata=JSON.stringify({
@@ -177,18 +201,40 @@
 					 "buyPrice":buyPrice,
 					 "discountArithmeticPrice":discountArithmeticPrice,
 					 "productTotalPrice":productTotalPrice,
+					 "shoppingcart":shoppingcart
 			      })
 			 }					 
 			 
 			 Global.ajaxRequest(Global.api+"/basketController/submitOrder",postdata)
 		     .then((res) => {
 		    	 console.log(res);
-		    	 var code=res.data.code;
+		    	 var code=res.code;
 		    	 if(code=="0"){
-            //  alert("订单提交成功");
-            // $('.gf-alert').text('订单提交成功')
+		    		 var paytype= $("[name='payType']:checked").val();
+		    		 console.log(paytype)
+		    		 if(paytype=="weixin"){
+		    			 alert("跳转微信支付");
+		    			 var orderNo=res.data.orderNo
+		    			 var body="中药商品"
+		    			 var totalFee=res.data.reallyPrice;
+		    			 console.log("orderNo: "+orderNo)
+		    			 console.log("totalFee: "+totalFee);
+		    			 alert("调用安卓中的方法");
+		    			 pay.pay(totalFee,body,orderNo);
+		    		 }else if(paytype=="zhifubao"){
+		    			 alert("跳转支付宝支付");
+		    			 var orderNo=res.data.orderNo
+		    			 var body="中药商品"
+		    			 var totalFee=res.data.reallyPrice;
+		    			 console.log("orderNo: "+orderNo)
+		    			 console.log("totalFee: "+totalFee);
+		    			 alert("调用安卓中的方法");
+		    			 pay.pay(totalFee,body,orderNo);
+		    		 }else{
+		    			 alert("暂未开通");
+		    		 }
 		    		 history.replaceState(null, null, "airPharmacy.html");
-		    		 window.location.href="myorder.html";
+		    		 //window.location.href="myorder.html";
 		    	 }
 		     })
 			 },
@@ -202,6 +248,10 @@
   </script>  
 </head>
 <body>
+<div class="nav">
+    <img src="static/images/fanhui.png" class="back img201" onclick="javascript:window.history.go(-1)"/>
+    <span class="title">确认支付</span>
+</div>
 <div class="content_top">
 <!--   <span>支付金额</span>
   <span>￥200.00</span> -->

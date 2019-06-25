@@ -287,6 +287,11 @@
       goCatchMedicine() {
         window.location.href = "catchMedicine.html";
       },
+      goAppHome(){
+    	  //进入跳转主页的方法
+    	  alert("进入app主页 test.goHome()");
+    	  goHome.goHome();
+      },
       //通过不用的状态展示订单
       getshowAirPharmacy() {
         let postdata = JSON.stringify({
@@ -370,6 +375,18 @@
       /* document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7";
       document.cookie="userid=123"; */
       pageObj.init();
+       if (window.history && window.history.pushState) {
+          $(window).on('popstate', function () {
+                       window.history.pushState('forward', null, '#');
+                       window.history.forward(1);
+                       alert("回退时触发跳转安卓主页的操作方法back.back(),不好使");
+                       back.back();
+             });
+	  }
+
+	  window.history.pushState('forward', null, '#'); //在IE中必须得有这两行
+	  window.history.forward(1); 
+      
 
     })
   </script>
@@ -379,7 +396,7 @@
   <div class="main_content">
     <div class="top">
       <div class="img_wrap">
-        <div class="img_box">
+        <div class="img_box" onclick="pageObj.goAppHome()">
           <img src="static/images/yaofang-shouye.png" class="img100" />
         </div>
       </div>
@@ -564,6 +581,7 @@
       autoplay: 2500,
       autoplayDisableOnInteraction: false
     });
+
   </script>
 </body>
 

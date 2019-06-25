@@ -7,6 +7,7 @@
   <script type="text/javascript">
     document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
   </script>
+
   <link rel="stylesheet" href="static/css/common.css">
   <link rel="stylesheet" href="static/css/user.css">
   <link rel="stylesheet" href="static/css/swiper.min.css">
@@ -158,7 +159,7 @@
   }
   .foot_feet{
     position: fixed;
-    bottom: .04rem;
+    bottom: 0rem;
     width: 100%;
     background: #fff;
     z-index: 9999;
@@ -215,7 +216,7 @@
         </div>
         <div class="button">
             <span class="goanswer">问诊记录</span>
-            <span  class="goconsulting">资询</span>
+            <span  class="goconsulting"  onclick="zixunjump()">咨询</span>
         </div>
       </div>
       <div class="line"></div>
@@ -264,7 +265,7 @@
       <div class="foot_button tousu">
        <div class="flex_button">  
         <img src="static/images/zaixianwenzhen-tousu.png" class="tubiao"/>
-        <span>投诉</span>
+        <span>建议</span>
        </div>
       </div>
       <div class="foot_button">
@@ -355,14 +356,20 @@ let token=Global.getCookie("token");
                       <span>${data.introduce}</span>
                       <div class="pic">
                       <img src="${Global.picUrl+data.introducepic1}" style="width:100%;height:100%">
+                      </div>    		  
+            		  `)
+              /* $(".person_content").html(`
+                      <span>${data.introduce}</span>
+                      <div class="pic">
+                      <img src="${Global.picUrl+data.introducepic1}" style="width:100%;height:100%">
                       </div>
-                      <div class="certificate">o&nbsp;&nbsp;相关证书</div>
+                       <div class="certificate">o&nbsp;&nbsp;相关证书</div>
                       <div class="swiper-container swiper-container-horizontal swiper-container-android">
                           <div class="swiper-wrapper">
                           		${imgs}
                           </div>
                       </div>            		  
-            		  `)
+            		  `) */
 
             },
             error: function (e) {
@@ -424,17 +431,20 @@ let token=Global.getCookie("token");
           var docid=window.location.href.split("?")[1].split("docid=")[1]
           window.location.href="answerRecord.html?docid="+docid
        })
-      $(".goconsulting").click(function(){
-          console.log(docid);
-          console.log(cost);
-    	  test.hello(docid,cost); 
-       })
+      /* $(".goconsulting").click(function(){
+    	  alert("进入咨询接口");
+    	  alert("docid:"+docid);
+    	  alert("cost:"+cost);
+          test.ask(docid,cost);
+    	 
+       }) */
     },
     init(){
        pageObj.initData()
      
       pageObj.initEvent()
     }
+   
  } 
  $(function(){
 	 
@@ -442,5 +452,17 @@ let token=Global.getCookie("token");
  })
 
 </script>
+<script type="text/javascript">
+  function zixunjump(){
+ 	  	//alert("docid:"+docid+"                     cost:"+cost);
+ 	  	//alert("类型docid:"+typeof docid)
+ 	  	//alert("类型cost:"+typeof cost)
+      	test.ask(docid+"",cost+"");
+  }
+  function getPicId(picId){
+		alert("进入显示图片的方法");
+		alert("id为:"+picId);
+  }
+  </script>
 </body>
 </html>

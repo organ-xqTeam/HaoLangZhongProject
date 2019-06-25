@@ -32,7 +32,11 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 		@Column(name="remarks", attrName="remarks", label="remarks", queryType=QueryType.LIKE),
 		@Column(name="del_flag", attrName="delFlag", label="del_flag"),
 		@Column(name="nike_name", attrName="nikeName", label="昵称", queryType=QueryType.LIKE),
-		@Column(name="is_invite", attrName="isInvite", label="是否是被邀请的用户 0不是被邀请用户 ,1是被邀请的用户"),
+		@Column(name="is_invite", attrName="isInvite", label="是否是被邀请的用户 0不是被邀请用户 ,1是被邀请的用户"), 
+		@Column(name="third_id", attrName="thirdId", label="第三方的id"), 
+		@Column(name="third_type", attrName="thirdType", label="第三方类型 0无第三方 1:微信 2:qq"), 
+		@Column(name="third_icon", attrName="thirdIcon", label="第三方头像上传的id"), 
+		@Column(name="member_lv", attrName="memberLv", label="用户等级"), 
 	}, orderBy="a.update_date DESC"
 )
 public class UserInfo extends DataEntity<UserInfo> {
@@ -50,6 +54,10 @@ public class UserInfo extends DataEntity<UserInfo> {
 	private String nikeName;		// 昵称
 	private String isInvite;		// 是否是被邀请的用户 0不是被邀请用户 ,1是被邀请的用户
 	
+	private String thirdId;    //第三方的id
+	private String thirdType; //第三方类型 0无第三方 1:微信 2:qq
+	private String thirdIcon; //第三方头像上传的id
+	private String memberLv;   //用户的会员等级
 	public UserInfo() {
 		this(null);
 	}
@@ -156,5 +164,39 @@ public class UserInfo extends DataEntity<UserInfo> {
 	public void setIsInvite(String isInvite) {
 		this.isInvite = isInvite;
 	}
+	@Length(min=0, max=64, message="昵称长度不能超过 64 个字符")
+	public String getThirdId() {
+		return thirdId;
+	}
+
+	public void setThirdId(String thirdId) {
+		this.thirdId = thirdId;
+	}
+	@Length(min=0, max=64, message="昵称长度不能超过 64 个字符")
+	public String getThirdType() {
+		return thirdType;
+	}
+
+	public void setThirdType(String thirdType) {
+		this.thirdType = thirdType;
+	}
+	@Length(min=0, max=64, message="昵称长度不能超过 64 个字符")
+	public String getThirdIcon() {
+		return thirdIcon;
+	}
+
+	public void setThirdIcon(String thirdIcon) {
+		this.thirdIcon = thirdIcon;
+	}
+
+	public String getMemberLv() {
+		return memberLv;
+	}
+	@Length(min=0, max=64, message="昵称长度不能超过 64 个字符")
+	public void setMemberLv(String memberLv) {
+		this.memberLv = memberLv;
+	}
+	
+	
 	
 }

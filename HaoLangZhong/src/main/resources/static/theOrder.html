@@ -86,6 +86,7 @@
     </div> -->
   </div>
   <script>
+  	  
       var pageObj={
         initData(){
           var docid=window.location.href.split("?")[1].split("docid=")[1]
@@ -97,37 +98,35 @@
           console.log("dabai")
           console.log(postdata)
           console.log(Global)
-          $.ajax({
-                type: "post",
-                url:Global.api+"doctorInfo/queryConsultationList",
-                contentType: 'application/json',
-                dataType:"json",
-                data:postdata,
-                success: function (res) {
-                  console.log(res)
-                  let data=res.data.items
-                  data.forEach(function(item){
-                      $(".content").append(`
-                              <div class="content_list" data-id=${item.id}>
-                                <div class="list_top">
-                                  <div>${Global.formatTimestamp(item.time)}</div>
-                                 
-                                </div>
-                                <div class="list_content">
-                                    <img src="${Global.picUrl+item.icon}" class="img300"/>
-                                    <div>
-                                      <div class="title">${item.nickname}</div>
-                                      <span>${item.content}</span>
-                                    </div>
-                                </div>
-                              </div>
-                      `)
-                  })
-                },
-                error: function (e) {
-                  console.log(e)
-                }
-          })
+          
+          
+		setTimeout(function(){
+			
+			
+		}，1000); 
+          Global.ajaxRequest(Global.api+"/doctorInfo/queryConsultationList",postdata)
+		     .then((res) => {
+		    	 console.log(res)
+                 let data=res.data.items;
+                 data.forEach(function(item){
+                     $(".content").append(`
+                            <div class="content_list" data-id=${item.id}>
+                               <div class="list_top">
+                                 <div>${Global.formatTimestamp(item.time)}</div>
+                               </div>
+                               <div class="list_content">
+                                   <img src="${Global.picUrl+item.icon}" class="img300"/>
+                                   <div>
+                                     <div class="title">${item.nickname}</div>
+                                     <span>${item.content}</span>
+                                   </div>
+                               </div>
+                             </div>
+                     `)
+                 })
+		    	 
+		     })
+         
         },
         initEvent(){
            $(".content").delegate(".content_list","click",function(){

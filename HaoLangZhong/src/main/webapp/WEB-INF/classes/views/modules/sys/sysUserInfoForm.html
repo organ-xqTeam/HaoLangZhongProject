@@ -195,7 +195,24 @@
 				<input name="pass" type="hidden" maxlength="64" class="form-control"/>
 				
 			</div>
-			<div class="box-footer">
+
+			<div class="box-footer" style="position: fixed;bottom: 0px; width:100%" >
+				<div class="row">
+					<div class="col-xs-3">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('星级')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<% var starList=[{"value":"1",name:"1级"},{"value":"2","name":"2级"},{"value":"3","name":"3级"},{"value":"4","name":"4级"},{"value":"5","name":"5级"}]; %>
+								
+								<#form:select  name="starLv"  value="${starLv!1}" items="${starList}" 
+								itemLabel="name" itemValue="value" class="form-control required"  /> 
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-9">
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-sm-offset-2 col-sm-10">
 						<% if (hasPermi('sys:sysUserInfo:edit')){ %>
@@ -204,6 +221,7 @@
 						<button type="button" class="btn btn-sm btn-primary" id="btnPass" onclick="pageObj.doctorPass()"><i class="fa fa-check"></i> ${text('通过验证')}</button>
 						<button type="button" class="btn btn-sm btn-default" id="btnUnPass" onclick="pageObj.doctorUnPass()"><i class="fa fa-reply-all"></i> ${text('取消通过')}</button>
 						<button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> ${text('关 闭')}</button>
+					
 					</div>
 				</div>
 			</div>

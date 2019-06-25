@@ -3,6 +3,7 @@
  */
 package com.jeesite.modules.app.web;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -251,7 +252,9 @@ public class DoctorInfoController extends BaseController {
 					incomeSum=incomeSum*doucut;
 				}
 			}
-			return Result.success(incomeSum);
+			 DecimalFormat df = new DecimalFormat("#####0.00");
+			 String incomeSumStr= df.format(incomeSum);
+			return Result.success(incomeSumStr);
 		}
 		catch (RedisCheckException e2) {
 			logger.error(e2.getMessage(), e2);
