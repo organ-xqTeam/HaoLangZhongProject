@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+  <script type="text/javascript">
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+  </script>
+  <link rel="stylesheet" href="static/css/common.css">
+  <link rel="stylesheet" href="static/css/user.css">
+  <link rel="stylesheet" href="static/css/swiper.min.css">
+  <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/js/mianG.js"></script>
+	
+</head>
+
+<body>
+
+
+
+
+    <div class="wrapper" style="padding: 10px">
+        <div class="content"></div>
+        <div class="hospitalAddress"></div>
+        <div class="hospitalLv"></div>
+        <div class="hospitalType"></div>
+        <div class="offices"></div>
+    </div>
+
+<script>
+var userId="";
+var token="";
+var addressId="";
+var drudIds="";
+ var pageObj={
+    initData(){
+      /*  let url=window.location.href.split("?")[1] 
+      console.log("url") */
+      /* let id=url.split("id=")[1] */
+      /*  Global.projectApi+"/f/app/hospital/showHospitalInfoMain"*/
+     var  postdata=JSON.stringify({
+				 
+		     })
+      Global.ajaxRequest(Global.projectApi+"/f/app/hospital/showHospitalInfoMain", postdata)
+          .then((res) => {
+            console.log(res)
+            var hospitalInfo=res.result.data.hospitalInfo;
+            console.log(hospitalInfo);
+           /*  $(".dataintroduce").html(`${hospitalInfo.content}`); */
+           console.log(hospitalInfo.content)
+           console.log(typeof hospitalInfo.content)
+            var content = hospitalInfo.content.replace(/\r/g,"<br/>");
+            var hospitalAddress = hospitalInfo.hospitalAddress.replace(/\r/g,"<br/>");
+            var hospitalLv = hospitalInfo.hospitalLv.replace(/\r/g,"<br/>");
+            var hospitalType =hospitalInfo.hospitalType.replace(/\r/g,"<br/>");
+            var offices = hospitalInfo.offices.replace(/\r/g,"<br/>");
+            console.log(content)
+            $('.content').html(content);
+            $('.hospitalAddress').html(hospitalAddress);
+            $('.hospitalLv').html(hospitalLv);
+            $('.hospitalType').html(hospitalType);
+            $('.offices').html(offices);
+          })
+    },
+    init(){
+      pageObj.initData()
+    }
+ } 
+ $(function(){
+    pageObj.init()
+ })
+</script>
+</body>
+</html>
