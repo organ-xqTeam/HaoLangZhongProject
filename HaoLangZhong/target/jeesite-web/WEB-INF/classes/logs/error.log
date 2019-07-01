@@ -1,4 +1,4 @@
-2019-06-21 17:50:51.137 ERROR 10524 [           main] [o.apache.catalina.core.StandardService ] - Failed to start connector [Connector[HTTP/1.1-8980]]
+2019-06-28 17:32:58.893 ERROR 22604 [           main] [o.apache.catalina.core.StandardService ] - Failed to start connector [Connector[HTTP/1.1-8980]]
 
 org.apache.catalina.LifecycleException: Failed to start component [Connector[HTTP/1.1-8980]]
 	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:167)
@@ -31,7 +31,7 @@ Caused by: java.net.BindException: Address already in use: bind
 	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1018)
 	... 14 common frames omitted
 
-2019-06-21 17:50:51.162 ERROR 10524 [           main] [o.s.b.d.LoggingFailureAnalysisReporter ] - 
+2019-06-28 17:32:59.096 ERROR 22604 [           main] [o.s.b.d.LoggingFailureAnalysisReporter ] - 
 
 ***************************
 APPLICATION FAILED TO START

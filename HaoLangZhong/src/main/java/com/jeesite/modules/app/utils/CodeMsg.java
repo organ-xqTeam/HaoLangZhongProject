@@ -19,6 +19,7 @@ public class CodeMsg {
 	public static CodeMsg DOWNLOAD_FAIL = new CodeMsg(500108,"文件加载失败");
 	public static CodeMsg UPLOAD_NO_PIC = new CodeMsg(500109,"保存的文件不是图片");	
 	public static CodeMsg PRICE_FAIL = new CodeMsg(500110,"支队金额有误");	
+	public static CodeMsg DOCTORORDER_FALSE = new CodeMsg(500111,"支付有误");	
 	public static CodeMsg TOKEN_INVALID = new CodeMsg(400,"用户未登录");
 	public static CodeMsg NOT_EXIST =  new CodeMsg(401,"用户不存在");
 	public static CodeMsg ISAUTH_FALSE =  new CodeMsg(407,"用户未进行审核,跳转");
@@ -28,10 +29,14 @@ public class CodeMsg {
 	public static CodeMsg NOT_LOGIN = new CodeMsg(403,"用户未登录");
 	public static CodeMsg PASS_CHECK = new CodeMsg(404,"确认密码不正确");
 	public static CodeMsg CODE_CHECK = new CodeMsg(405,"验证码不正确");
+	public static CodeMsg MEMBER_FALSE = new CodeMsg(407,"不是会员");
+	public static CodeMsg MEMBER_EXPIRE = new CodeMsg(408,"会员过期");
 	public static CodeMsg MOBILE_REPEAT = new CodeMsg(406,"手机号已被注册过");
 	public static CodeMsg CODE_EXCEPTION = new CodeMsg(500111,"验证码不正确");
 	public static CodeMsg TRUE_THIRD_RE = new CodeMsg(200100,"第三方注册成功");
 	public static CodeMsg TRUE_THIRD_BING = new CodeMsg(200101,"第三方绑定成功");
+	public static CodeMsg MEMBER_TRUE = new CodeMsg(200102,"会员验证成功");
+	public static CodeMsg DOCTORORDER_TRUE = new CodeMsg(200103,"支付成功");
 	
 	private CodeMsg(int retCode, String message) {
 		this.msg = message;

@@ -12,10 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.alibaba.fastjson.JSONObject;
 import com.jeesite.common.web.BaseController;
+import com.jeesite.modules.app.entity.DoctorRegisterOrder;
 import com.jeesite.modules.app.entity.HospitalInfo;
 import com.jeesite.modules.app.entity.HospitalRegister;
+import com.jeesite.modules.app.service.DoctorRegisterOrderService;
 import com.jeesite.modules.app.service.HospitalInfoService;
 import com.jeesite.modules.app.service.HospitalRegisterService;
 import com.jeesite.modules.app.utils.CodeMsg;
@@ -28,6 +32,8 @@ public class HospitalController extends BaseController {
 	private HospitalInfoService hospitalInfoService;
 	@Autowired
 	private HospitalRegisterService hospitalRegisterService;
+	@Autowired
+	private  DoctorRegisterOrderService doctorRegisterOrderService;
 	
 	
 	/**
@@ -72,6 +78,7 @@ public class HospitalController extends BaseController {
 				private Date makeDate;		// 预约时间
 				private String content;		// 症状描述
 				private String userId;		// user_id
+				private String doctorUserId  //医生的用户表的userid)
 			 */
 			//System.out.println(requestParams);
 			//System.out.println(makeDates);
@@ -110,6 +117,7 @@ public class HospitalController extends BaseController {
 	 * }
 	 * */
 	@RequestMapping(value = "/getHospitalRegisterByUserId",method=RequestMethod.POST)
+
 	public Result getHospitalRegisterByUserId(HttpServletRequest request,@RequestBody Map<String, Object> requestParams) {
 		try {
 			HospitalRegister hospitalRegister=new HospitalRegister();
@@ -124,4 +132,82 @@ public class HospitalController extends BaseController {
 			return Result.error(CodeMsg.PARAMETER_ISNULL);
 		}
 	}
+	
+	
+	
+	
+
+	
+	//查询此挂号订单是否已经付款
+	/*
+	 * String token=requestParams.get("token").toString();
+	   String orderNo=requestParams.get("orderNo").toString();
+	   /hospital/getDoctorRegisterOrderSuccess
+	 */
+	@RequestMapping(value = "/getDoctorRegisterOrderSuccess",method=RequestMethod.POST)
+	@ResponseBody
+	public Result getDoctorRegisterOrderSuccess(HttpServletRequest request,@RequestBody Map<String, Object> requestParams) {
+		
+		try {
+			String token=requestParams.get("token").toString();
+			String orderNo=requestParams.get("orderNo").toString();
+			DoctorRegisterOrder doctorRegisterOrder =new DoctorRegisterOrder();
+			doctorRegisterOrder.setOrderNo(orderNo);
+			List<DoctorRegisterOrder> doctorRegisterOrderList= doctorRegisterOrderService.findList(doctorRegisterOrder);
+			if(doctorRegisterOrderList.size()>0) {
+				doctorRegisterOrder=doctorRegisterOrderList.get(0);
+				String orderStatus= doctorRegisterOrder.getOrderStatus().trim();
+				if(orderStatus.equals("1")) {
+					/**new CodeMsg(200103,"支付成功");*/
+					return  Result.success(CodeMsg.DOCTORORDER_TRUE);
+				}else {
+					/**	public static CodeMsg DOCTORORDER_FALSE = new CodeMsg(500111,"支队金额有误");	*/
+					return Result.success(CodeMsg.DOCTORORDER_FALSE);
+				}
+			}else {
+				System.out.println("订单没找到");
+				return Result.success(CodeMsg.PARAMETER_ISNULL);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+		    e.printStackTrace();
+		   return Result.success(CodeMsg.PARAMETER_ISNULL);
+		}
+		
+		
+	}
+	/**通过医生的userid得到当前次医生所有的挂号信息
+	 * {
+	 * 	"token":"123",
+	 *  "doctorUserId":"",
+	 *  "pageNum":"1",
+	 *  "pageSize":"100"
+	 * }
+	 * /hospital/getHospitalRegisterrByDoctorUserId
+	 *  */
+	@RequestMapping(value = "/getHospitalRegisterrByDoctorUserId",method=RequestMethod.POST)
+	@ResponseBody
+	public Result getHospitalRegisterrByDoctorUserId(HttpServletRequest request,@RequestBody Map<String, Object> requestParams) {
+		try {
+			String pageNum= requestParams.get("pageNum").toString();
+			String pageSize= requestParams.get("pageSize").toString();
+			HospitalRegister hospitalRegister=new HospitalRegister();
+			hospitalRegister.setDoctorUserId(requestParams.get("doctorUserId").toString());
+			hospitalRegister.setPageNo(Integer.valueOf(pageNum));
+			hospitalRegister.setPageSize(Integer.valueOf(pageSize));
+			List<HospitalRegister> hospitalRegisterList=  hospitalRegisterService.findPage(hospitalRegister).getList();
+			hospitalRegister=new HospitalRegister();
+			hospitalRegister.setDoctorUserId(requestParams.get("doctorUserId").toString());
+			String count= ( (Long)hospitalRegisterService.findCount(hospitalRegister)).toString();
+			JSONObject result = new JSONObject();
+			result.put("hospitalRegisterList", hospitalRegisterList);
+			result.put("count", count);
+			return Result.success(result);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Result.error(CodeMsg.PARAMETER_ISNULL);
+		}
+	}
+	
 }

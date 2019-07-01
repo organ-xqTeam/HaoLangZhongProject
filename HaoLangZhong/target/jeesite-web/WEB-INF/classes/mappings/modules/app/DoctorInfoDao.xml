@@ -197,7 +197,7 @@
 			p.introducepic2 as 'introducepic2',
 			p.introducepic3 as 'introducepic3',
 			p.introducevideo as 'introducevideo',
-			d.come_cost  as 'comecost',
+			IFNULL(sum(d.come_cost) , 0.00) as 'comecost',
 			d.come_flag  as 'comeflag',
 			d.own_flag  as   'ownflag'
 		from 
@@ -397,6 +397,9 @@
 	
 	<select id="findOrderCount" resultType="java.lang.Integer">
 		select count(*) from sys_consultation_order where del_flag='0' and doctorid=#{id}
+	</select>
+	<select id="getDoctorInfoMapByDoctorId" resultType="hashmap" parameterType="java.lang.String">
+		select * from sys_doctor_info where doctorid=#{doctorid}
 	</select>
 
 </mapper>

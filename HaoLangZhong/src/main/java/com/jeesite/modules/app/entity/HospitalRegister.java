@@ -35,6 +35,7 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 		@Column(name="update_by", attrName="updateBy", label="update_by", isQuery=false),
 		@Column(name="create_by", attrName="createBy", label="create_by", isUpdate=false, isQuery=false),
 		@Column(name="user_id", attrName="userId", label="user_id"),
+		@Column(name="doctor_user_id", attrName="doctorUserId", label="user_id"),
 	}, orderBy="a.update_date DESC"
 )
 public class HospitalRegister extends DataEntity<HospitalRegister> {
@@ -48,6 +49,7 @@ public class HospitalRegister extends DataEntity<HospitalRegister> {
 	private Date makeDate;		// 预约时间
 	private String content;		// 症状描述
 	private String userId;		// user_id
+	private String doctorUserId;
 	
 	
 	private String makeDates; //前台形式的makeDates
@@ -138,5 +140,14 @@ public class HospitalRegister extends DataEntity<HospitalRegister> {
 	public void setMakeDates(String makeDates) {
 		this.makeDates = makeDates;
 	}
+	@Length(min=0, max=64, message="")
+	public String getDoctorUserId() {
+		return doctorUserId;
+	}
+
+	public void setDoctorUserId(String doctorUserId) {
+		this.doctorUserId = doctorUserId;
+	}
+	
 	
 }

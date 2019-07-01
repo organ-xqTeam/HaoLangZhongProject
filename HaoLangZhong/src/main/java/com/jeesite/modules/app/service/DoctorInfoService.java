@@ -145,5 +145,10 @@ public class DoctorInfoService {
 		// TODO Auto-generated method stub
 		return doctorInfoDao.queryOwedCount(requestParams);
 	}
+
+	public Map<String, Object> getDoctorInfoMapByDoctorId(String docid) {
+		// TODO Auto-generated method stub
+		return doctorInfoDao.getDoctorInfoMapByDoctorId(docid);
+	}
 	
 }

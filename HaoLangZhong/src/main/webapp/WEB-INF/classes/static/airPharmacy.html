@@ -289,7 +289,7 @@
       },
       goAppHome(){
     	  //进入跳转主页的方法
-    	  alert("进入app主页 test.goHome()");
+    	  /* alert("进入app主页 test.goHome()"); */
     	  goHome.goHome();
       },
       //通过不用的状态展示订单
@@ -379,8 +379,9 @@
           $(window).on('popstate', function () {
                        window.history.pushState('forward', null, '#');
                        window.history.forward(1);
-                       alert("回退时触发跳转安卓主页的操作方法back.back(),不好使");
-                       back.back();
+                       /* alert("回退时触发跳转安卓主页的操作方法back.back(),不好使"); */
+                       /* back.back(); */
+                       goHome.goHome();
              });
 	  }
 

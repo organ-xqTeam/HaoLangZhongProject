@@ -139,9 +139,10 @@
 			<if test="technical != null">technical=#{technical},</if>
 			<if test="classify != null">classify=#{classify},</if>
 			<if test="introduce != null">introduce=#{introduce},</if>
-			<if test="cityid != null">cityid=#{cityid},</if>
 			<if test="comeFlag != null">come_flag=#{comeFlag},</if>
 			<if test="comeCost != null">come_cost=#{comeCost},</if>
+			<if test="changeAddress != null">change_address=#{changeAddress},</if>
+			<if test="cityid != null">cityid=#{cityid},</if>
 	    </set>
 		where doctorid=#{doctorid}
 	</update>

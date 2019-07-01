@@ -68,7 +68,7 @@ public class AlipayUtil {
 	 * @param requestParams
 	 * @return
 	 */
-	public static String aliPay_notify(Map requestParams){
+	public static Map<String,String> aliPay_notify(Map requestParams){
         System.out.println("支付宝支付结果通知"+requestParams.toString());
         //获取支付宝POST过来反馈信息
         Map<String,String> params = new HashMap<String,String>();
@@ -98,15 +98,15 @@ public class AlipayUtil {
                     //支付宝交易号
                     String trade_no = params.get("trade_no");
                     //附加数据
-                    String passback_params = URLDecoder.decode(params.get("passback_params"));
+                   /* String passback_params = URLDecoder.decode(params.get("passback_params"));*/
                     
-                    LOGGER.debug("将要存入数据库的参数"+ amount+","+out_trade_no+","+trade_no+","+passback_params);
+                    LOGGER.debug("将要存入数据库的参数"+ amount+","+out_trade_no+","+trade_no+",");
                 }
             }
         } catch (AlipayApiException e) {
             e.printStackTrace();
         }
-      return "success";
+      return params;
     }
 	
 	/** 

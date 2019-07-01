@@ -3,6 +3,8 @@
  */
 package com.jeesite.modules.app.entity;
 
+import java.util.Date;
+
 import org.hibernate.validator.constraints.Length;
 
 import com.jeesite.common.entity.DataEntity;
@@ -37,6 +39,9 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 		@Column(name="third_type", attrName="thirdType", label="第三方类型 0无第三方 1:微信 2:qq"), 
 		@Column(name="third_icon", attrName="thirdIcon", label="第三方头像上传的id"), 
 		@Column(name="member_lv", attrName="memberLv", label="用户等级"), 
+		@Column(name="member_flag", attrName="memberFlag", label="是否为会员"), 
+		@Column(name="member_start", attrName="memberStart", label="会员开始时间"), 
+		@Column(name="member_end", attrName="memberEnd", label="会员结束时间"), 
 	}, orderBy="a.update_date DESC"
 )
 public class UserInfo extends DataEntity<UserInfo> {
@@ -58,6 +63,9 @@ public class UserInfo extends DataEntity<UserInfo> {
 	private String thirdType; //第三方类型 0无第三方 1:微信 2:qq
 	private String thirdIcon; //第三方头像上传的id
 	private String memberLv;   //用户的会员等级
+	private String memberFlag;   //是否为会员
+	private Date memberStart;   //是否为会员
+	private Date memberEnd;   //是否为会员
 	public UserInfo() {
 		this(null);
 	}
@@ -196,6 +204,31 @@ public class UserInfo extends DataEntity<UserInfo> {
 	public void setMemberLv(String memberLv) {
 		this.memberLv = memberLv;
 	}
+
+	public String getMemberFlag() {
+		return memberFlag;
+	}
+
+	public void setMemberFlag(String memberFlag) {
+		this.memberFlag = memberFlag;
+	}
+
+	public Date getMemberStart() {
+		return memberStart;
+	}
+
+	public void setMemberStart(Date memberStart) {
+		this.memberStart = memberStart;
+	}
+
+	public Date getMemberEnd() {
+		return memberEnd;
+	}
+
+	public void setMemberEnd(Date memberEnd) {
+		this.memberEnd = memberEnd;
+	}
+	
 	
 	
 	

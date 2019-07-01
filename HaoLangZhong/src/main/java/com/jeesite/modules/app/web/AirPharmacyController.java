@@ -30,6 +30,7 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -75,6 +76,7 @@ import org.springframework.beans.factory.BeanFactoryAware;
 @RequestMapping(value = "${frontPath}/sys/airPharmacy")
 @PropertySource({"classpath:config/application.yml"})
 @PropertySource({"classpath:config/config.properties"})
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class AirPharmacyController extends BaseController  implements BeanFactoryAware {
 	
 	@Autowired
@@ -110,7 +112,7 @@ public class AirPharmacyController extends BaseController  implements BeanFactor
 	 *   userId
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/index" , produces="application/json")
+	@RequestMapping(value = "/index" ,method = {RequestMethod.POST,RequestMethod.OPTIONS})
 	public Result airPharmacyIndex (/*@RequestBody Map<String, Object> requestParams ,*/String token,HttpServletRequest request,HttpServletResponse response) {
 		JSONObject result;
 		try {  

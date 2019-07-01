@@ -220,7 +220,8 @@
 		    			 console.log("orderNo: "+orderNo)
 		    			 console.log("totalFee: "+totalFee);
 		    			 alert("调用安卓中的方法");
-		    			 pay.pay(totalFee,body,orderNo);
+		    			 								//0为微信
+		    			 pay.pay(totalFee,body,orderNo,"0");
 		    		 }else if(paytype=="zhifubao"){
 		    			 alert("跳转支付宝支付");
 		    			 var orderNo=res.data.orderNo
@@ -229,7 +230,8 @@
 		    			 console.log("orderNo: "+orderNo)
 		    			 console.log("totalFee: "+totalFee);
 		    			 alert("调用安卓中的方法");
-		    			 pay.pay(totalFee,body,orderNo);
+		    			 							//1是支付包
+		    			 pay.pay(totalFee,body,orderNo,"1");
 		    		 }else{
 		    			 alert("暂未开通");
 		    		 }

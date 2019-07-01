@@ -40,7 +40,7 @@ jdbc:
   #url: jdbc:mysql://192.168.1.15:3306/haolangzhong?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
   username: root
   #password: root
-  password: xq@2018
+  password: 4b6f1a6df813406f0f46b76c24d8c425
   testSql: SELECT 1
 
 #  # Oracle 数据库配置
@@ -377,8 +377,8 @@ logging:
 #  isAllowExternalSiteIframe: true
 #  
 #  # 是否允许跨域访问，如果允许，设置允许的域名，全部域名设置*号，如果不允许，此设置应该为空
-##  accessControlAllowOrigin: http://demo.jeesite.com
-##  accessControlAllowOrigin: '*'
+ #accessControlAllowOrigin: http://demo.jeesite.com
+  accessControlAllowOrigin: '*'
 #
 #  # 是否在登录后生成新的Session（默认false）
 #  isGenerateNewSessionAfterLogin: false

@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
+import com.jeesite.common.entity.Page;
 import com.jeesite.common.web.BaseController;
 import com.jeesite.modules.app.dao.CutDao;
 import com.jeesite.modules.app.entity.Cut;
 import com.jeesite.modules.app.entity.DoctorInfo;
+import com.jeesite.modules.app.entity.TiaoliOrder;
 import com.jeesite.modules.app.service.DoctorInfoService;
+import com.jeesite.modules.app.service.TiaoliOrderService;
 import com.jeesite.modules.app.utils.CodeMsg;
 import com.jeesite.modules.app.utils.PageModel;
 import com.jeesite.modules.app.utils.Result;
@@ -152,6 +155,7 @@ public class DoctorInfoController extends BaseController {
 	}
 	
 	/**
+	 * 
 	 * 查询医生问诊列表
 	 * */
 	@ResponseBody
@@ -259,6 +263,51 @@ public class DoctorInfoController extends BaseController {
 		catch (RedisCheckException e2) {
 			logger.error(e2.getMessage(), e2);
 			return Result.error(CodeMsg.TOKEN_INVALID);
+		}
+		catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return Result.error(CodeMsg.PARAMETER_ISNULL);
+		}
+	}
+	
+	@Autowired
+	private  TiaoliOrderService tiaoliOrderService;
+	
+	
+	/**
+	 * 通过医生id得到调理列表
+	 * getTiaoliOrderByDocid
+	 * doctorInfo/getTiaoliOrderByDocid
+	 */
+
+	@ResponseBody
+	@RequestMapping(value = "/getTiaoliOrderByDocid")
+	public Result getTiaoliOrderByDocid(@RequestBody Map<String, Object> requestMap) {
+		try {
+			String token= requestMap.get("token").toString();
+			String docid= requestMap.get("docid").toString();
+			String pageNum= requestMap.get("pageNum").toString();
+			String pageSize= requestMap.get("pageSize").toString();
+			TiaoliOrder tiaoliOrder =new TiaoliOrder();
+			tiaoliOrder.setDocid(docid);
+			tiaoliOrder.setPageNo(Integer.valueOf(pageNum));
+			tiaoliOrder.setPageSize(Integer.valueOf(pageSize));
+			List<TiaoliOrder> tiaoliOrderList= tiaoliOrderService.findPage(tiaoliOrder).getList();
+			
+			tiaoliOrder =new TiaoliOrder();
+			tiaoliOrder.setDocid(docid);
+			String count= ( (Long)tiaoliOrderService.findCount(tiaoliOrder)).toString();
+			JSONObject result = new JSONObject();
+			result.put("items", tiaoliOrderList);
+			result.put("count", count);
+			/*PageModel pageModel = new PageModel(requestParams.getPageNum(), requestParams.getPageSize());
+			requestParams.setPageModel(pageModel);
+			List<Map<String, Object>> resultList = doctorInfoService.queryConsultationList(requestParams);
+			JSONObject result = new JSONObject();
+			result.put("items", resultList);
+			result.put("count", doctorInfoService.queryCommentCount(requestParams));*/
+			
+			return Result.success(result);
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);

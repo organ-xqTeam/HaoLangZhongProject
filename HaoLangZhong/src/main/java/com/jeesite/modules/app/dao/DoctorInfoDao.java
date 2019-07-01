@@ -48,5 +48,7 @@ public interface DoctorInfoDao {
 	List<Map<String, Object>> queryOwedList(DoctorInfo requestParams);
 
 	Object queryOwedCount(DoctorInfo requestParams);
+
+	Map<String, Object> getDoctorInfoMapByDoctorId(String doctorid);
 	
 }

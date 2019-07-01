@@ -178,6 +178,7 @@
   var userId="";
   var token="";
   var orderId="";
+  var buyPrice="";
   var pageObj={
 		initData(){
 			    
@@ -211,19 +212,20 @@
 			 },
 			 //点击付款的操作
 			 buyPay(){
-				 let postdata=JSON.stringify({
+			     window.location.href="alwaysPay.html?orderId="+orderId+"&buyPrice="+buyPrice;
+				 /* let postdata=JSON.stringify({
 					 "token":token,
 					 "userId":userId,
 					 "orderId":orderId
-			      })
-				 Global.ajaxRequest(Global.api+"/basketController/buySuccessOrder",postdata)
+			      }) */
+				 /* Global.ajaxRequest(Global.api+"/basketController/buySuccessOrder",postdata)
 			     .then((res) => {
 			    	 var code=res.data.code;
 			    	 if(code=="0"){
 			    		 alert("付款成功");
 			    		 window.location.href="myorder.html";
 			    	 }
-			     })
+			     }) */
 			 },
 			 goOrderEvaluate(){
 				 window.location.href="orderEvaluate.html?orderId="+orderId;
@@ -260,6 +262,7 @@
 			    	console.log(res);
 			    	var orderDetailList=res.data.orderDetailList
 			    	var order=res.data.order;
+			    	buyPrice=res.data.order.reallyPrice
 			    	orderId=order.id
 			    	$(".rightWrap").append(`
 			    			<div class="flexWrap">
