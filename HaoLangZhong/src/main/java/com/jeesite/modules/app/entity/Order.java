@@ -44,6 +44,7 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 		@Column(name="delivery_address", attrName="deliveryAddress", label="到达地址"),
 		@Column(name="delivery_phone", attrName="deliveryPhone", label="到达电话"),
 		@Column(name="total_count", attrName="totalCount", label="商品总数"),
+		@Column(name="trade_no", attrName="tradeNo", label="支付宝交易号支付宝专用"),
 	},orderBy="a.update_date DESC"
 )
 public class Order extends DataEntity<Order> {
@@ -68,6 +69,7 @@ public class Order extends DataEntity<Order> {
 	private String deliveryAddress;		// 到达地址
 	private String deliveryPhone;		// 到达电话
 	private String totalCount;
+	private String tradeNo;//支付宝交易号支付宝专用
 	public Order() {
 		this(null);
 	}
@@ -240,5 +242,14 @@ public class Order extends DataEntity<Order> {
 	public void setDeliveryPhone(String deliveryPhone) {
 		this.deliveryPhone = deliveryPhone;
 	}
+	@Length(min=0, max=64, message="tradeNo")
+	public String getTradeNo() {
+		return tradeNo;
+	}
+
+	public void setTradeNo(String tradeNo) {
+		this.tradeNo = tradeNo;
+	}
+	
 	
 }

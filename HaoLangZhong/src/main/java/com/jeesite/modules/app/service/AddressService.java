@@ -127,7 +127,7 @@ public class AddressService extends CrudService<AddressDao,Address> {
 		Integer discountPrice=0;
 		if(discountMap!=null) {
 			discountPrice= Integer.parseInt(discountMap.get("discount_price").toString());
-			if(discountPrice>=productTotalPrice) {
+			if(discountPrice>productTotalPrice) {
 				//折扣金额大于商品总价格 返回折扣金额为 商品总金额
 				return productTotalPrice;
 			}else {

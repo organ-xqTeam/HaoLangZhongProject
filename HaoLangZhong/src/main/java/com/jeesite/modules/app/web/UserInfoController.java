@@ -73,6 +73,8 @@ public class UserInfoController extends BaseController {
 	
 	/**
 	 * 医生编辑个人信息
+	 * changeAddress 
+	 * cityid
 	 * */
 	@ResponseBody
 	@RequestMapping(value = "/saveDoctorInfo")

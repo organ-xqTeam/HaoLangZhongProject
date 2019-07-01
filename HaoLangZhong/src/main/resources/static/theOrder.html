@@ -130,7 +130,7 @@
         },
         initEvent(){
            $(".content").delegate(".content_list","click",function(){
-              console.log($(this).data("id"))
+              console.log($(this).data("id"));
               let id=$(this).data("id")
               window.location.href= window.location.href="detailsConsultation.html?id="+id
            })

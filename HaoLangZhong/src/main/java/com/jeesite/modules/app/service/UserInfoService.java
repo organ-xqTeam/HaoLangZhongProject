@@ -143,15 +143,21 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo>  {
 			}else {
 				throw new RuntimeException("doctorid不能为空");
 			}
-			if(requestMap.containsKey("cityid")) {
-				doctorMap.put("cityid", requestMap.get("cityid").toString());
-			}
 			if(requestMap.containsKey("comeFlag")) {
 				doctorMap.put("comeFlag", requestMap.get("comeFlag").toString());
 			}
 			if(requestMap.containsKey("comeCost")) {
 				doctorMap.put("comeCost", requestMap.get("comeCost").toString());
 			}
+			if(requestMap.containsKey("changeAddress")) {
+				doctorMap.put("changeAddress", requestMap.get("changeAddress").toString());
+			}
+
+			if(requestMap.containsKey("cityid")) {
+				doctorMap.put("cityid", requestMap.get("cityid").toString());
+			}
+			/**	 * changeAddress 
+			 	*/
 			userInfoDao.updateDoctorInfo(doctorMap);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

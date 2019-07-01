@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+  <meta charset="UTF-8">
+  <title>会员支付</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <script type="text/javascript">
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+  </script>
+  <link rel="stylesheet" href="static/css/common.css">
+  <link rel="stylesheet" href="static/css/user.css">
+  <link rel="stylesheet" href="static/css/swiper.min.css">
+  <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+  <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/bootstrap/js/bootstrap.min.js"></script>
+  <script src="static/js/mianG.js"></script>
+  <style>
+   .line{
+     width: 100;
+     height: .4em;
+     background: #cccccc47;
+   }
+   .img100{
+    width: .4rem;
+    border: 0.01rem solid #ccc;
+    border-radius: .1rem;
+    padding: .04rem;
+    margin-right: .10rem;
+   }
+   .content_top{
+     font-size: .15rem;
+     color: #7e1f01;
+     display: flex;
+     justify-content: space-between;
+     padding: .1rem;
+   }
+   .content_center{
+     padding: .1rem;
+   }
+   .center_head{
+     margin-bottom: .15rem;
+   }
+   .content_list{
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     border-bottom: .01rem solid #cccccc47;
+     padding-bottom: .06rem;
+     margin: .1rem 0;
+   }
+   .flex_item{
+     display: flex;
+     justify-content: space-between;
+     height: .4rem;
+   }
+   .flex_option{
+     display: flex;
+     justify-content: space-between;
+   }
+   .mCheck{
+     display: inline-block;
+     width: .2rem;
+     height: .2rem;
+     border-radius: 50%;
+     border:0.01rem solid #ccc;
+   }
+   .active{
+     border:none;
+     background: url(static/images/check.png) no-repeat center center;
+     background-size: 100%;
+   }
+   .content_button{
+    width: 86%;
+    margin: .5rem auto;
+  }
+  .content_button div{
+      background: #7e1f03;
+      color: #fff;
+      text-align: center;
+      padding: .1rem 0;
+      border-radius: .08rem;
+  }  
+  .h1, .h2, .h3, h1, h2, h3 {
+    margin : 0px;
+    padding: 0px;
+  } 
+  .gf-alert {
+    position: absolute;
+    left: 50%;
+    top: 3rem;
+    transform: translate(-50%, 0);
+    padding: .2rem;
+  }
+    .nav{
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      display: flex;
+      height: .4rem;
+      border-bottom: .01rem solid #cccccc47;
+    } 
+    .back{
+      position: absolute;
+      left: .1rem;
+      top: 0.1rem;
+    }
+   .img201{
+      height: auto !important;
+      width: .2rem;
+    }
+    .title{
+      font-size: .16rem;
+    }
+  </style>
+  <script type="text/javascript">
+	 /**
+
+	 * 	** token    token     随便    post
+	 *  userId     用户id   123
+	 *  drudIds 提交订单的 drudIds药品Id们  用,号分割 重复的重复显示  1,2,3,1
+	 *  
+	 *  prescriptionIds 提交订单的 选中的要查询的药方Id们用,号分割 重复的重复显示 1,1,1,2,2,3,4 (暂时不用)
+	 *  addressId   地址id  非必填
+	 *  buyPrice    付款总价格
+	 *  discountArithmeticPrice   折扣价格
+	 *  productTotalPrice    商品没打折时候的总价格		 
+				 **/
+  var userId="";
+  var token="";
+  var drudIds="";
+  var addressId="";
+  var buyPrice="";
+  var discountArithmeticPrice="";
+  var productTotalPrice="";
+  var shoppingcart="";
+  //医生id
+  var docid="";
+  //问诊单价
+  var comecost="";
+  //数量
+  var count="";
+  var totalcost="";
+  var pageObj={
+  /*docid=0f2067603f1111e99752bcaec5595fa3&comecost=1000&count=16*/
+		initData(){
+				////drugId="+drugId+"&drugCount="+drugCount; 直接购买商品
+			    //orderId="+orderId  //订单购买
+				var cookieStr=document.cookie.split(";")
+				console.log(cookieStr);
+			    token=Global.getCookie("token");
+			    userId=Global.getCookie("userid");
+				console.log("userId:"+userId)
+				console.log("token:"+token)
+				
+				
+				
+				
+				
+			    pageObj.showParmter();
+			 },
+			 init(){
+			   pageObj.initData()
+			 },
+			 //展示支付价钱
+			 showParmter(){
+				 //走后台拿出一年的价格119
+			    totalcost=comecost*count;
+			    console.log(totalcost);
+				$(".content_top").append(`
+						<span>支付金额</span>
+						  <span>￥119.00</span>
+						`)
+				 
+				
+				
+			 },
+			 //提交订单
+			 buyorder(){
+				 /**
+
+					 * 	** token    token     随便    post
+	 *  userId     用户id   123
+	 *  drudIds 提交订单的 drudIds药品Id们  用,号分割 重复的重复显示  1,2,3,1
+	 *  
+	 *  prescriptionIds 提交订单的 选中的要查询的药方Id们用,号分割 重复的重复显示 1,1,1,2,2,3,4 (暂时不用)
+	 *  addressId   地址id  非必填
+	 *  buyPrice    付款总价格
+	 *  discountArithmeticPrice   折扣价格
+	 *  productTotalPrice    商品没打折时候的总价格
+								 **/
+			 let postdata =null;				 
+				 
+			 postdata=JSON.stringify({
+				 "token":token,
+				 "userId":userId,
+				 "totalPrice":"119"
+		      })
+							 
+			 
+			 Global.ajaxRequest(Global.api+"/basketController/submitMemberOrder",postdata)
+		     .then((res) => {
+		    	 console.log(res);
+		    	 var code=res.code;
+		    	 if(code=="0"){
+		    		 var paytype= $("[name='payType']:checked").val();
+		    		 console.log(paytype)
+		    		 if(paytype=="weixin"){
+		    			 alert("跳转微信支付");
+		    			 var orderNo=res.data.orderNo
+		    			 var body="中药商品"
+		    			 var totalFee=res.data.totalPrice;
+		    			 console.log("orderNo: "+orderNo)
+		    			 console.log("totalFee: "+totalFee);
+		    			 alert("调用安卓中的方法");
+		    			 								//0为微信
+		    			 pay.pay(totalFee,body,orderNo,"0");
+		    		 }else if(paytype=="zhifubao"){
+		    			 alert("跳转支付宝支付");
+		    			 var orderNo=res.data.orderNo
+		    			 var body="中药商品"
+		    			 var totalFee=res.data.totalPrice;
+		    			 console.log("orderNo: "+orderNo)
+		    			 console.log("totalFee: "+totalFee);
+		    			 alert("调用安卓中的方法");
+		    			 							//1是支付包
+		    			 pay.pay(totalFee,body,orderNo,"1");
+		    		 }else{
+		    			 alert("暂未开通");
+		    		 }
+		    		 history.replaceState(null, null, "airPharmacy.html");
+		    		 //window.location.href="myorder.html";
+		    	 }
+		     })
+			 },
+		  }
+		  $(function(){
+			  	/* document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7";
+			  	document.cookie="userid=123"; */
+			    pageObj.init();
+			})
+			  
+  </script>  
+</head>
+<body>
+<div class="nav">
+    <img src="static/images/fanhui.png" class="back img201" onclick="javascript:window.history.go(-1)"/>
+    <span class="title">确认支付</span>
+</div>
+<div class="content_top">
+<!--   <span>支付金额</span>
+  <span>￥200.00</span> -->
+</div>
+<div class="line"></div>
+<div class="content_center">
+  <div class="center_head">
+     <span>支付金额</span>
+  </div>
+  <div class="content_list">
+     <div class="flex_item">
+       <img src="static/images/weixinzhifu.png" class="img100"/>
+       <div>
+         <h3>微信支付</h3>
+         <span>推荐安装6.0版本以上用户使用</span>
+       </div>
+     </div>
+     <div class="flex_option">
+       <span class="mCheck"></span>
+       <input type="radio" hidden="hidden" name="payType" value="weixin"/>
+     </div>
+  </div>
+  <div class="content_list">
+    <div class="flex_item">
+      <img src="static/images/zhifubaozhifu.png" class="img100"/>
+      <div>
+        <h3>支付宝支付</h3>
+        <span>推荐安装6.0版本以上用户使用</span>
+      </div>
+    </div>
+    <div class="flex_option">
+      <span class="mCheck"></span>
+      <input type="radio" hidden="hidden" name="payType" value="zhifubao"/>
+    </div>
+  </div>
+  <div class="content_list">
+    <div class="flex_item">
+      <img src="static/images/yinhangkazhifu.png" class="img100"/>
+      <div>
+        <h3>余额支付</h3>
+        <span>推荐安装6.0版本以上用户使用</span>
+      </div>
+    </div>
+    <div class="flex_option">
+      <span class="mCheck"></span>
+      <input type="radio" hidden="hidden" name="payType" value="yinhangka"/>
+    </div>
+  </div>
+</div>
+<div class="content_button">
+  <div onclick="pageObj.buyorder()" data-toggle="modal" data-target=".bs-example-modal-sm">支付</div>
+</div>
+
+
+<!-- Small modal -->
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content gf-alert">
+      订单提交成功
+    </div>
+  </div>
+</div>
+<script>
+ $(".mCheck").click(function(){
+    $(".mCheck").removeClass("active")
+    $(this).addClass("active")
+    $("input[name='payType']").prop("checked",false)
+    $(this).siblings("input").prop("checked",true)
+    console.log($("input[name='payType']:checked").val())
+ })
+
+</script>
+</body>
+</html>

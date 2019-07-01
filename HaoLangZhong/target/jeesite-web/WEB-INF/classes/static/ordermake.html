@@ -22,19 +22,38 @@
      justify-content: space-between;
      align-items: flex-start;
      /* background: #f6f6f6; */
+     border-bottom: 5px solid #eee;
+     border-image: url('./static/images/30e82a997bc6934325bba6e2c1cfd14.png') 30 30 round;
+     position: relative;
+     padding-right: 0;
+   }
+   .topWrap::before {
+   	 content: '';
+   	 display: block;
+   	 width: 20px;
+   	 height: 20px;
+   	 position: absolute;
+   	 right: 10px;
+   	 top: 50%;
+   	 transform: translateY(-50%);
+   	 background-image: url('./static/images/wode-gengduo.png');
+   	 background-size: cover
    }
    .flexWrap{
      display: flex;
      align-items: center;
      justify-content: space-between;
      padding-right: .3rem;
+     font-weight: 600;
+     font-size: 14px;
    }
    .backWrap{
      text-align: right;
    }
    .addressWrap{
      color:#ccc;
-     padding-right: .3rem
+     padding-right: .3rem;
+     padding-top: 10px;
    }
    .rightWrap{
      margin-left: .1rem;
@@ -49,18 +68,22 @@
     font-size: .15rem;
     padding: .15rem;
    }
+   .shopWrap span {
+   	margin-left: .1rem;
+   }
    .img200{
      width: 1rem;
    } 
    .shopContent{
      background: #FFF;
-     padding: .12rem;
+     padding: .12rem 0;
    }
    .contentList{
       background: #f6f6f6;
       display: flex;
       justify-content: space-between;
       margin-top: .12rem;
+      padding: .05rem .2rem;
       padding-right: .2rem;
    }
    .contentList img {
@@ -89,6 +112,7 @@
      color: #222222;
      padding: .12rem;
      border-bottom: 0.01rem solid #f6f6f6;
+     font-size: 14px;
    }
    .mingxi li{
      display: flex;
@@ -116,11 +140,13 @@
      font-size: .08rem;
    }
    .shifu{
-     font-size: .2rem;
+     font-size: 16px;
+     
    }
    .money{
-     font-size: .2rem;
+     font-size: 18px;
      color: #e2834b;
+     font-weight: 600;
    }
    .dingdan li{
      color: #222222;
@@ -140,6 +166,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
+    background: #f6f6f6;
    }
    .button_box{
      display: flex;
@@ -262,9 +289,6 @@
 			    			      <h3>收货人:${addressMap.real_name}</h3>
 			    			      <span>${addressMap.phone}</span>
 			    			    </div>
-			    			    <div class="backWrap">
-			    			      <img src="static/images/gouwuche-fanhui(small).png" class="img100"/>
-			    			    </div>
 			    			    <div class="addressWrap">
 			    			       	${addressMap.province} ${addressMap.city} ${addressMap.area} ${addressMap.street}
 			    			    </div>
@@ -344,7 +368,7 @@
   </div>
 -->
 </div>
-<div class="line"></div>
+<!-- <div class="line"></div> -->
 <div class="shopWrap">
   <img src="static/images/gouwuche-dianpu.png" class="img100"/>
   <span>空中药方</span>
@@ -408,7 +432,7 @@
     </li>
   </ul>
 </div>
-<div class="line"></div>
+<!-- <div class="line"></div> -->
 
 <div class="content_button">
   <div class="button_box">
