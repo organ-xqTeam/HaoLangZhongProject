@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: JeeSite Web
 Implementation-Version: 4.1.3-SNAPSHOT
-Built-By: 1111111
+Built-By: Administrator
 Implementation-Vendor-Id: com.jeesite
-Build-Jdk: 1.8.0_181
+Build-Jdk: 1.8.0_172
 Implementation-URL: http://jeesite.com
 Created-By: Maven Integration for Eclipse
 Implementation-Vendor: JeeSite

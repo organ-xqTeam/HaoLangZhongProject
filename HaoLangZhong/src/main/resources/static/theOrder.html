@@ -99,11 +99,7 @@
           console.log(postdata)
           console.log(Global)
           
-          
-		setTimeout(function(){
-			
-			
-		}，1000); 
+
           Global.ajaxRequest(Global.api+"/doctorInfo/queryConsultationList",postdata)
 		     .then((res) => {
 		    	 console.log(res)

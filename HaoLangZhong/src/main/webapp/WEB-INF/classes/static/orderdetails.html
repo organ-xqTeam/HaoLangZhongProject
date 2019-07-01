@@ -35,14 +35,15 @@
      display: flex;
      align-items: center;
      justify-content: space-between;
-     padding-right: .3rem;
+     font-weight: 600;
+	 font-size: 16px;
    }
    .backWrap{
      text-align: right;
    }
    .addressWrap{
      color:#ccc;
-     padding-right: .3rem
+     padding-top: 0.08rem;
    }
    .rightWrap{
      margin-left: .1rem;
@@ -262,11 +263,8 @@
 			    	orderId=order.id
 			    	$(".rightWrap").append(`
 			    			<div class="flexWrap">
-			    		      <h3>收货人:${order.deliveryName}</h3>
+			    		      <span>收货人:${order.deliveryName}</span>
 			    		      <span>${order.deliveryPhone}</span>
-			    		    </div>
-			    		    <div class="backWrap">
-			    		      <img src="static/images/gouwuche-fanhui(small).png" class="img100"/>
 			    		    </div>
 			    		    <div class="addressWrap">
 			    		     	  收货地址:${order.deliveryAddress}
