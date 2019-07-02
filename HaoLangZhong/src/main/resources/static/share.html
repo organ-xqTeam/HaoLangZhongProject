@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,44 +13,95 @@
             margin: 0;
             padding: 0;
         }
+
         body {
             width: 100%;
             height: 100vh;
-            background-image: url('./static/images/bg_s.png');
+            background-image: url('./static/images/bg_s2.png');
             background-size: 100% 100%;
             background-repeat: no-repeat;
         }
-        .share_bg {
+
+        .share {
+            position: fixed;
+            width: 90%;
+            height: 300px;
+            left: 5%;
+            top: 50%;
+            transform: translate(0%, -50%);
+        }
+
+        .share img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .share .code {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+        }
+
+        .share .code .right {
+            margin-left: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .share .code .right p {
+            text-align: center;
+        }
+
+        .share .code .right p:first-child {
+            font-size: 16px;
+        }
+
+        .share .code .right p:last-child {
+            color: #F01912;
+            font-size: 32px;
+        }
+
+        .share .code img {
+            width: 100px;
         }
     </style>
 </head>
+
 <body>
 
+    <div class="share">
+        <img src="../static/static/images/bg3.png" alt="">
+        <div class="code">
+            <div class="left">
+                <img src="../static/static/images/code.png" alt="">
+            </div>
+            <div class="right">
+                <p>您的邀请码</p>
+                <p>23456</p>
+            </div>
+        </div>
+    </div>
 
     <script>
-    
         $('body').click(function () {
             console.log('click')
-        var token=Global.getCookie("token");
-  	    var userId=Global.getCookie("userid");
-        let postdata = JSON.stringify({
-        	token: token,
-        	userId: userId,
-           
-          })
-        Global.ajaxRequest(Global.api + "/shareController/getShareCode", postdata)
-          .then((res) => {
-        	  var shareCode=  res.data.shareCode;
-        	  alert("邀请码:"+shareCode);
-          })
+            var token = Global.getCookie("token");
+            var userId = Global.getCookie("userid");
+            let postdata = JSON.stringify({
+                token: token,
+                userId: userId,
+            })
+            Global.ajaxRequest(Global.api + "/shareController/getShareCode", postdata)
+                .then((res) => {
+                    var shareCode = res.data.shareCode;
+                    alert("邀请码:" + shareCode);
+                })
         })
-
-
-
-
-
-
-
     </script>
 </body>
+
 </html>
