@@ -80,8 +80,8 @@
                 <img src="../static/static/images/code.png" alt="">
             </div>
             <div class="right">
-                <p>您的邀请码</p>
-                <p>23456</p>
+                <!-- <p>您的邀请码</p>
+                <p>23456</p> -->
             </div>
         </div>
     </div>
@@ -98,7 +98,11 @@
             Global.ajaxRequest(Global.api + "/shareController/getShareCode", postdata)
                 .then((res) => {
                     var shareCode = res.data.shareCode;
-                    alert("邀请码:" + shareCode);
+                    $(".right").append(`
+                    		<p>您的邀请码</p>
+                            <p>${shareCode}</p> 
+                    		`)
+                    /* alert("邀请码:" + shareCode); */
                 })
         })
     </script>
