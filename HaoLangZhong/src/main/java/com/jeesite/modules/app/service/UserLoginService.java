@@ -361,9 +361,9 @@ public class UserLoginService {
 			throw new PassCheckException();
 		}
 		// 校验验证码是否正确
-		if (!u.getCode().equals("1111")) {
+		/*if (!u.getCode().equals("1111")) {
 			throw new CodeCheckException();
-		}
+		}*/
 		// 设置新密码
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("password", MD5Utils.stringToMD5(u.getNewpass()));

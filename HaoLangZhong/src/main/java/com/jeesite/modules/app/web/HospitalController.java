@@ -183,7 +183,7 @@ public class HospitalController extends BaseController {
 	 *  "pageNum":"1",
 	 *  "pageSize":"100"
 	 * }
-	 * /hospital/getHospitalRegisterrByDoctorUserId
+	 * /app/hospital/getHospitalRegisterrByDoctorUserId
 	 *  */
 	@RequestMapping(value = "/getHospitalRegisterrByDoctorUserId",method=RequestMethod.POST)
 	@ResponseBody

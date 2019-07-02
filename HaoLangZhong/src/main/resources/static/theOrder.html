@@ -40,6 +40,9 @@
     .content_list {
       padding: .15rem;
     }
+    .content_lists {
+      padding: .15rem;
+    }
 
     .list_top {
       display: flex;
@@ -152,13 +155,18 @@
 
 
   <script>
+  var docid="";
+  var token ="";
+  var userId="";
     // 点击触发函数
     $('.tabBar p').click(function () {
       console.log($(this).attr('data-type'))
       switch($(this).attr('data-type')) {
         case '1': // 咨询
+        	pageObj.zixunDate();
           break;
         case '2': // 调理
+        	pageObj.tiaoliData();
           break;
         default:
           console.log('肯定是你传参传错了')
@@ -167,11 +175,14 @@
     })
     var pageObj = {
       initData() {
-        var docid = window.location.href.split("?")[1].split("docid=")[1]
+    	token=Global.getCookie("token");
+  	    userId=Global.getCookie("userid");
+        docid=Global.getParameter("docid");
+        console.log(docid);
         let postdata = JSON.stringify({
           id: docid,
           pageNum: "1",
-          pageSize: "2"
+          pageSize: "100"
         })
         console.log("dabai")
         console.log(postdata)
@@ -201,6 +212,75 @@
           })
 
       },
+      tiaoliData(){
+    	  /*  background: #eee;*/
+    	  $("[data-type='2']").css("background","#eee");
+    	  $("[data-type='1']").css("background","white");
+    	  let postdata = JSON.stringify({
+              docid: docid,
+              token:token,
+              pageNum: "1",
+              pageSize: "100"
+            })
+    	  Global.ajaxRequest(Global.api + "/doctorInfo/getTiaoliOrderByDocid", postdata)
+          .then((res) => {
+        	  
+            console.log(res)
+            let data = res.data.items;
+            $(".content").html("");
+             data.forEach(function (item) {
+            	 console.log(item);
+              $(".content").append(`
+                            <div class="content_lists" data-id=${item.id}>
+                               <div class="list_top">
+                                 <div>${item.createDate}</div>
+                               </div>
+                               <div class="list_content">
+                                   <img src="${Global.picUrl+item.userInfo.icon}" class="img300"/>
+                                   <div>
+                                     <div class="title">${item.userInfo.nikeName}</div>
+                                     <span>次数:${item.count}</span>
+                                   </div>
+                               </div>
+                             </div>
+                     `)
+            }) 
+
+          })  
+      },
+      zixunDate(){
+    	  $("[data-type='1']").css("background","#eee");
+    	  $("[data-type='2']").css("background","white");
+    	  let postdata = JSON.stringify({
+              id: docid,
+              pageNum: "1",
+              pageSize: "100"
+            })
+    	  Global.ajaxRequest(Global.api + "/doctorInfo/queryConsultationList", postdata)
+          .then((res) => {
+            console.log(res)
+            let data = res.data.items;
+            $(".content").html("");
+            data.forEach(function (item) {
+              $(".content").append(`
+                            <div class="content_list" data-id=${item.id}>
+                               <div class="list_top">
+                                 <div>${Global.formatTimestamp(item.time)}</div>
+                               </div>
+                               <div class="list_content">
+                                   <img src="${Global.picUrl+item.icon}" class="img300"/>
+                                   <div>
+                                     <div class="title">${item.nickname}</div>
+                                     <span>${item.content}</span>
+                                   </div>
+                               </div>
+                             </div>
+                     `)
+            })
+
+          }) 
+      },
+      
       initEvent() {
         $(".content").delegate(".content_list", "click", function () {
           console.log($(this).data("id"));

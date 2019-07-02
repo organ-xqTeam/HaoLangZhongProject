@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+    <script src="static/js/mianG.js"></script>
     <style>
         * {
             margin: 0;
@@ -26,8 +27,21 @@
 
 
     <script>
+    
         $('body').click(function () {
             console.log('click')
+        var token=Global.getCookie("token");
+  	    var userId=Global.getCookie("userid");
+        let postdata = JSON.stringify({
+        	token: token,
+        	userId: userId,
+           
+          })
+        Global.ajaxRequest(Global.api + "/shareController/getShareCode", postdata)
+          .then((res) => {
+        	  var shareCode=  res.data.shareCode;
+        	  alert("邀请码:"+shareCode);
+          })
         })
 
 

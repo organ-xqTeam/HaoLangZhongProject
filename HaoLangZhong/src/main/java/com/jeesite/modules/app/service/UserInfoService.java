@@ -26,8 +26,10 @@ import com.jeesite.common.service.CrudService;
 import com.jeesite.modules.Application;
 import com.jeesite.modules.app.dao.BasketDao;
 import com.jeesite.modules.app.dao.DoctorLabelDao;
+import com.jeesite.modules.app.dao.DoctorPicDao;
 import com.jeesite.modules.app.dao.UserInfoDao;
 import com.jeesite.modules.app.entity.Basket;
+import com.jeesite.modules.app.entity.DoctorPic;
 import com.jeesite.modules.app.entity.PublicDiscuss;
 import com.jeesite.modules.app.entity.UserInfo;
 import com.jeesite.modules.app.utils.DateUtil;
@@ -48,6 +50,8 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo>  {
 	private UserInfoDao userInfoDao;
 	@Autowired
 	private DoctorLabelDao doctorLabelDao;
+	@Autowired
+	private DoctorPicDao doctorPicDao;
 	
 	@Autowired
     	private StringRedisTemplate stringRedisTemplate;
@@ -195,16 +199,25 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo>  {
 				requestMap.containsKey("introducepic2") || 
 					requestMap.containsKey("introducepic3") ||
 						requestMap.containsKey("introducevideo")) {
+			DoctorPic doctorPic =new DoctorPic();
+			doctorPic.setDoctorid(requestMap.get("doctorid").toString());
+			List<DoctorPic> doctorPicList =doctorPicDao.findList(doctorPic);
+			if(doctorPicList.size()==0){
+				doctorPicDao.insert(doctorPic);
+			}
 			Map<String, Object> picMap = new HashMap<String, Object>();
 			picMap.put("doctorid", requestMap.get("doctorid").toString());
 			if(requestMap.get("introducepic1")!=null) {
 				picMap.put("introducepic1", requestMap.get("introducepic1").toString());
+				picMap.put("certificate1", requestMap.get("introducepic1").toString());
 			}
 			if(requestMap.get("introducepic2")!=null) {
 				picMap.put("introducepic2", requestMap.get("introducepic2").toString());
+				picMap.put("certificate2", requestMap.get("introducepic2").toString());
 			}
 			if(requestMap.get("introducepic3")!=null) {
 				picMap.put("introducepic3", requestMap.get("introducepic3").toString());
+				picMap.put("certificate3", requestMap.get("introducepic3").toString());
 			}
 			if(requestMap.get("introducevideo")!=null) {
 				picMap.put("introducevideo", requestMap.get("introducevideo").toString());

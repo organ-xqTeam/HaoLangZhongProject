@@ -36,7 +36,12 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 		@Column(name="trade_no", attrName="tradeNo", label="支付宝专用的号"),
 		@Column(name="pay_channel", attrName="payChannel", label="支付类型"),
 		@Column(name="del_flag", attrName="delFlag", label="是否删除"),
-	}, orderBy="a.update_date DESC"
+	},// 支持联合查询，如左右连接查询，支持设置查询自定义关联表的返回字段列
+	joinTable={
+		@JoinTable(type=Type.LEFT_JOIN, entity=UserInfo.class, alias="dd", 
+			on="a.userid = dd.id",
+			columns={@Column(includeEntity=UserInfo.class)}),
+	},orderBy="a.update_date DESC"
 )
 public class TiaoliOrder extends DataEntity<TiaoliOrder> {
 	
@@ -53,6 +58,8 @@ public class TiaoliOrder extends DataEntity<TiaoliOrder> {
 	private String tradeNo;		// 支付宝专用的号
 	private String payChannel;		// 支付类型
 	private String delFlag;		// 是否删除
+	
+	private UserInfo userInfo;
 	
 	public TiaoliOrder() {
 		this(null);
@@ -169,5 +176,14 @@ public class TiaoliOrder extends DataEntity<TiaoliOrder> {
 	public void setDelFlag(String delFlag) {
 		this.delFlag = delFlag;
 	}
+
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
+	}
+	
 	
 }

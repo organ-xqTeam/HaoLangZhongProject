@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head >
+
+<head>
   <meta charset="UTF-8">
   <title>订单</title>
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <script type="text/javascript">
     document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
   </script>
@@ -13,98 +15,185 @@
   <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
   <script src="static/js/mianG.js"></script>
   <style>
-  .nav{
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    width: 100%;
-    display: flex;
-    height: .4rem;
-    border-bottom: 0.01rem solid #cccccc47;
-    font-size: .18rem;
-  }
-  .back{
-    position: absolute;
-    right: .1rem;
-    top: 0.07rem;
-  }
-  .img200{
-    height: auto !important;
-    width: .25rem;
-  }
-  .content_list{
-    padding: .15rem;
-  }
-  .list_top{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 0.01rem solid #cccccc47;
-    padding-bottom: .15rem;
-  }
-  .button{
-    background: #7e1f01;
-    padding: .01rem .15rem;
-    border-radius: .05rem;
-    color: #fff;
-  }
-  .list_content{
-    display: flex;
-    align-items: center;
-    margin-top: .25rem;
-  }
-  .img300{
-    width: .55rem;
-    height:.55rem;
-    border-radius: 50%;
-    margin-right: .18rem;
-  }
-  .title{
-    font-size: .16rem;
-    font-weight: 600;
-  }
+    .nav {
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      display: flex;
+      height: .4rem;
+      border-bottom: 0.01rem solid #cccccc47;
+      font-size: .18rem;
+    }
+
+    .back {
+      position: absolute;
+      right: .1rem;
+      top: 0.07rem;
+    }
+
+    .img200 {
+      height: auto !important;
+      width: .25rem;
+    }
+
+    .content_list {
+      padding: .15rem;
+    }
+    .content_lists {
+      padding: .15rem;
+    }
+
+    .list_top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 0.01rem solid #cccccc47;
+      padding-bottom: .15rem;
+    }
+
+    .button {
+      background: #7e1f01;
+      padding: .01rem .15rem;
+      border-radius: .05rem;
+      color: #fff;
+    }
+
+    .list_content,
+    .list_content {
+      display: flex;
+      align-items: center;
+      margin-top: .25rem;
+    }
+
+    .img300 {
+      width: .55rem;
+      height: .55rem;
+      border-radius: 50%;
+      margin-right: .18rem;
+    }
+
+    .title {
+      font-size: .16rem;
+      font-weight: 600;
+    }
+
+    .tabBar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    .tabBar p {
+      flex: 1;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    .tabBar p.active {
+      background: #eee;
+    }
+    .content2 {
+      padding: 12px;
+    }
+    .bz {
+      border: 1px solid #eee;
+      border-radius: 2px;
+      margin-top: 6px;
+      padding: 4px;
+      opacity: .6;
+    }
   </style>
 </head>
+
 <body>
-<!--   <div class="nav">
+  <div class="tabBar">
+    <p class="active" data-type="1">咨询</p>
+    <p data-type="2">调理</p>
+  </div>
+  <!--   <div class="nav">
     <img src="static/images/shouye-sousuo.png" class="back img200"/>
     <span>订单</span>
   </div> -->
+<!-- 咨询 -->
   <div class="content">
-<!-- <div class="content_list">
-       <div class="list_top">
-         <div>订单时间：2019-02-04 13：22</div>
-         <div class="button">接单</div>
-       </div>
-       <div class="list_content">
-          <img src="static/images/head.png" class="img300"/>
-          <div>
-            <div class="title">傻子与白痴</div>
-            <span>头部 病症 针灸</span>
-          </div>
-       </div>
+    <!-- <div class="content_list">
+      <div class="list_top">
+        <div>订单时间：2019-02-04 13：22</div>
+        <div class="button">接单</div>
+      </div>
+      <div class="list_content">
+        <img src="static/images/head.png" class="img300" />
+        <div>
+          <div class="title">傻子与白痴</div>
+          <span>头部 病症 针灸</span>
+        </div>
+      </div>
     </div> -->
   </div>
+
+<!-- 调理 -->
+  <!-- <div class="content2">
+    <div class="item">
+      <div class="list_content">
+        <img src="static/images/head.png" class="img300" />
+        <div>
+          <div class="title">傻子与白痴</div>
+          <span>头部 病症 针灸</span>
+        </div>
+      </div>
+      <div class="bz">
+        <p>病症1：ppppppppppppppppppppppppppppppp</p>
+        <p>病症1：ppppppppppppppppppppppppppppppp</p>
+        <p>病症1：ppppppppppppppppppppppppppppppp</p>
+      </div>
+    </div>
+  </div> -->
+
+
+
+
   <script>
-  	  
-      var pageObj={
-        initData(){
-          var docid=window.location.href.split("?")[1].split("docid=")[1]
-          let postdata=JSON.stringify({
-                id:docid,
-                pageNum:"1",
-                pageSize:"2"
-          })
-          console.log("dabai")
-          console.log(postdata)
-          console.log(Global)
-          
-          Global.ajaxRequest(Global.api+"/doctorInfo/queryConsultationList",postdata)
-		     .then((res) => {
-		    	 console.log(res)
-                 let data=res.data.items;
-                 data.forEach(function(item){
-                     $(".content").append(`
+  var docid="";
+  var token ="";
+  var userId="";
+    // 点击触发函数
+    $('.tabBar p').click(function () {
+      console.log($(this).attr('data-type'))
+      switch($(this).attr('data-type')) {
+        case '1': // 咨询
+        	pageObj.zixunDate();
+          break;
+        case '2': // 调理
+        	pageObj.tiaoliData();
+          break;
+        default:
+          console.log('肯定是你传参传错了')
+          break;
+      }
+    })
+    var pageObj = {
+      initData() {
+    	token=Global.getCookie("token");
+  	    userId=Global.getCookie("userid");
+        docid=Global.getParameter("docid");
+        console.log(docid);
+        let postdata = JSON.stringify({
+          id: docid,
+          pageNum: "1",
+          pageSize: "100"
+        })
+        console.log("dabai")
+        console.log(postdata)
+        console.log(Global)
+
+        Global.ajaxRequest(Global.api + "/doctorInfo/queryConsultationList", postdata)
+          .then((res) => {
+            console.log(res)
+            let data = res.data.items;
+            data.forEach(function (item) {
+              $(".content").append(`
                             <div class="content_list" data-id=${item.id}>
                                <div class="list_top">
                                  <div>${Global.formatTimestamp(item.time)}</div>
@@ -118,26 +207,96 @@
                                </div>
                              </div>
                      `)
-                 })
-		    	 
-		     })
-         
-        },
-        initEvent(){
-           $(".content").delegate(".content_list","click",function(){
-              console.log($(this).data("id"));
-              let id=$(this).data("id")
-              window.location.href= window.location.href="detailsConsultation.html?id="+id
-           })
-        },
-        init(){
-          pageObj.initData()
-          pageObj.initEvent()
-        }
-     } 
-     $(function(){
-        pageObj.init()
-     })
+            })
+
+          })
+
+      },
+      tiaoliData(){
+    	  /*  background: #eee;*/
+    	  $("[data-type='2']").css("background","#eee");
+    	  $("[data-type='1']").css("background","white");
+    	  let postdata = JSON.stringify({
+              docid: docid,
+              token:token,
+              pageNum: "1",
+              pageSize: "100"
+            })
+    	  Global.ajaxRequest(Global.api + "/doctorInfo/getTiaoliOrderByDocid", postdata)
+          .then((res) => {
+        	  
+            console.log(res)
+            let data = res.data.items;
+            $(".content").html("");
+             data.forEach(function (item) {
+            	 console.log(item);
+              $(".content").append(`
+                            <div class="content_lists" data-id=${item.id}>
+                               <div class="list_top">
+                                 <div>${item.createDate}</div>
+                               </div>
+                               <div class="list_content">
+                                   <img src="${Global.picUrl+item.userInfo.icon}" class="img300"/>
+                                   <div>
+                                     <div class="title">${item.userInfo.nikeName}</div>
+                                     <span>次数:${item.count}</span>
+                                   </div>
+                               </div>
+                             </div>
+                     `)
+            }) 
+
+          })  
+      },
+      zixunDate(){
+    	  $("[data-type='1']").css("background","#eee");
+    	  $("[data-type='2']").css("background","white");
+    	  let postdata = JSON.stringify({
+              id: docid,
+              pageNum: "1",
+              pageSize: "100"
+            })
+    	  Global.ajaxRequest(Global.api + "/doctorInfo/queryConsultationList", postdata)
+          .then((res) => {
+            console.log(res)
+            let data = res.data.items;
+            $(".content").html("");
+            data.forEach(function (item) {
+              $(".content").append(`
+                            <div class="content_list" data-id=${item.id}>
+                               <div class="list_top">
+                                 <div>${Global.formatTimestamp(item.time)}</div>
+                               </div>
+                               <div class="list_content">
+                                   <img src="${Global.picUrl+item.icon}" class="img300"/>
+                                   <div>
+                                     <div class="title">${item.nickname}</div>
+                                     <span>${item.content}</span>
+                                   </div>
+                               </div>
+                             </div>
+                     `)
+            })
+
+          }) 
+      },
+      
+      initEvent() {
+        $(".content").delegate(".content_list", "click", function () {
+          console.log($(this).data("id"));
+          let id = $(this).data("id")
+          window.location.href = window.location.href = "detailsConsultation.html?id=" + id
+        })
+      },
+      init() {
+        pageObj.initData()
+        pageObj.initEvent()
+      }
+    }
+    $(function () {
+      pageObj.init()
+    })
   </script>
 </body>
+
 </html>

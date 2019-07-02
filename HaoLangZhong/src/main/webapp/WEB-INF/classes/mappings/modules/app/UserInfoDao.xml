@@ -178,7 +178,10 @@
 	      <if test="introducepic1 != null">introducepic1=#{introducepic1},</if>
 	      <if test="introducepic2 != null">introducepic2=#{introducepic2},</if>
 	      <if test="introducepic3 != null">introducepic3=#{introducepic3},</if>
-	      <if test="introducevideo != null">introducevideo=#{introducevideo}</if>	    
+	      <if test="certificate1 != null">certificate1=#{certificate1},</if>
+	      <if test="certificate2 != null">certificate2=#{certificate2},</if>
+	      <if test="certificate3 != null">certificate3=#{certificate3},</if>
+	      <if test="introducevideo != null">introducevideo=#{introducevideo},</if>	    
 	    </set>
 	  	where doctorid=#{doctorid}
 	</update>
