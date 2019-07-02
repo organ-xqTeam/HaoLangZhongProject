@@ -6,3 +6,6 @@
 |theOrder.html|订单|
 |guahao.html|挂号|
 |share.html|分享|
+|huiyuan.html|会员|
+
+
