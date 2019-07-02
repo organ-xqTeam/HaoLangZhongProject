@@ -17,7 +17,7 @@
         body {
             width: 100%;
             height: 100vh;
-            background-image: url('./static/images/bg_s2.png');
+            background-image: url('./static/images/bg_s3.png');
             background-size: 100% 100%;
             background-repeat: no-repeat;
         }
@@ -50,6 +50,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            white-space: nowrap;
         }
 
         .share .code .right p {
@@ -62,7 +63,7 @@
 
         .share .code .right p:last-child {
             color: #F01912;
-            font-size: 32px;
+            font-size: 28px;
         }
 
         .share .code img {
@@ -80,15 +81,15 @@
                 <img src="../static/static/images/code.png" alt="">
             </div>
             <div class="right">
-                <!-- <p>您的邀请码</p>
-                <p>23456</p> -->
+                <p>您的邀请码</p>
+                <p class="yaoqing_code">23456</p>
             </div>
         </div>
     </div>
 
     <script>
-        $('body').click(function () {
-            console.log('click')
+        window.onload = function () {
+            $('.yaoqing_code').text('加载中...')
             var token = Global.getCookie("token");
             var userId = Global.getCookie("userid");
             let postdata = JSON.stringify({
@@ -98,13 +99,23 @@
             Global.ajaxRequest(Global.api + "/shareController/getShareCode", postdata)
                 .then((res) => {
                     var shareCode = res.data.shareCode;
-                    $(".right").append(`
-                    		<p>您的邀请码</p>
-                            <p>${shareCode}</p> 
-                    		`)
-                    /* alert("邀请码:" + shareCode); */
+                    console.log("邀请码:" + shareCode);
+                    $('.yaoqing_code').text(shareCode)
                 })
-        })
+        }
+        // $('body').click(function () {
+        //     var token = Global.getCookie("token");
+        //     var userId = Global.getCookie("userid");
+        //     let postdata = JSON.stringify({
+        //         token: token,
+        //         userId: userId,
+        //     })
+        //     Global.ajaxRequest(Global.api + "/shareController/getShareCode", postdata)
+        //         .then((res) => {
+        //             var shareCode = res.data.shareCode;
+        //             alert("邀请码:" + shareCode);
+        //         })
+        // })
     </script>
 </body>
 
