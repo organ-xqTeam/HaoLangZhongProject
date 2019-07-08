@@ -41,11 +41,15 @@ import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.jeesite.common.web.BaseController;
+import com.jeesite.modules.app.dao.AirDrugLabelDao;
+import com.jeesite.modules.app.dao.DoctorLabelDao;
 import com.jeesite.modules.app.entity.AirAdPic;
 import com.jeesite.modules.app.entity.AirDrug;
 import com.jeesite.modules.app.entity.AirDrugCategory;
 import com.jeesite.modules.app.entity.AirDrugComment;
+import com.jeesite.modules.app.entity.AirDrugLabel;
 import com.jeesite.modules.app.entity.AirPrescription;
+import com.jeesite.modules.app.entity.DoctorLabel;
 import com.jeesite.modules.app.service.AirAdPicService;
 import com.jeesite.modules.app.service.AirDrugCategoryService;
 import com.jeesite.modules.app.service.AirDrugCommentSercvie;
@@ -101,8 +105,26 @@ public class AirPharmacyController extends BaseController  implements BeanFactor
 	
 	@Autowired
 	public FileInfoService fileInfoService;
+	@Autowired
+	public DoctorLabelDao doctorLabelDao;
 	
-
+	@ResponseBody
+	@RequestMapping(value = "/getasd" ,method = {RequestMethod.POST,RequestMethod.OPTIONS,RequestMethod.GET})
+	public void getasd () {
+		
+		List<DoctorLabel> doctorLabelList=new ArrayList<>();
+		String str="头痛、感冒发烧、慢性鼻炎、鼻出血、咽喉肿痛、咳嗽、咯血、呼吸困难、哮喘、胸腔积液、胸痛、胸闷气短、心慌心悸、心率过快、红斑狼疮、过敏性紫癜、低血压、高血压、白血病、淋巴结节、晕厥眩晕、恶心呕吐、食欲不正、胃胀腹胀、腹泻、便秘、呕血、便血、腹痛、腹水、黄疸、高血脂、肝硬化、贫血、紫绀、身体水肿、高血糖、低血糖、肥胖症、消瘦症、尿频、蛋白尿、血尿、排尿困难、尿失禁、尿潴留、尿毒症、感觉障碍、意识障碍、失眠、失语症、抽搐、肌肉萎缩、中风偏瘫、抑郁症、老年痴呆、口眼干燥、红眼、虹视、复视、白内障、飞纹症、老花眼、近视眼、视觉障碍、眼痛畏光、泪液过多、打鼾、耳聋、耳鸣、脑鸣、嗅觉障碍、声音嘶哑、口臭、口腔溃疡、牙龈出血、牙痛、颈肩腰腿痛、关节痛、脚跟痛、网球肘、骨折、脱臼、股骨头坏死、风湿、痛风、痔疮、良性肿瘤、恶性肿瘤、月经不调、子宫肌瘤、乳腺增生、妇科炎症、不孕不育、阳痿早泄、皮肤病、性病、中医美容、徒手整形、小儿推拿、推拿按摩、养生保健";
+		String[] strs=str.split("、");
+		for (int i = 0; i < strs.length; i++) {
+			DoctorLabel doctorLabel =new DoctorLabel();
+			doctorLabel.setType("4");
+			doctorLabel.setContent(strs[i]);
+			doctorLabel.setDelFlag("0");
+			doctorLabelList.add(doctorLabel);
+		}
+		doctorLabelDao.insertBatch(doctorLabelList);
+		
+	}
 	
 	/**
 	 *空中药房主页 数据

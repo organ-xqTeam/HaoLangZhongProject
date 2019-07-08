@@ -25,6 +25,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.jeesite.common.config.Global;
 import com.jeesite.common.entity.Page;
 import com.jeesite.common.web.BaseController;
+import com.jeesite.modules.app.entity.DashangOrder;
 import com.jeesite.modules.app.entity.DoctorInfos;
 import com.jeesite.modules.app.entity.DoctorRegisterOrder;
 import com.jeesite.modules.app.entity.HospitalRegister;
@@ -32,6 +33,7 @@ import com.jeesite.modules.app.entity.MemberOrder;
 import com.jeesite.modules.app.entity.Order;
 import com.jeesite.modules.app.entity.TiaoliOrder;
 import com.jeesite.modules.app.entity.UserInfo;
+import com.jeesite.modules.app.service.DashangOrderService;
 import com.jeesite.modules.app.service.HospitalRegisterService;
 import com.jeesite.modules.app.service.MemberOrderService;
 import com.jeesite.modules.app.service.OrderService;
@@ -248,6 +250,45 @@ public class OrderController extends BaseController {
 			if(orderList.size()>0) {
 				order=orderList.get(0);
 				String orderStatus= order.getOrderStatus().trim();
+				if(Integer.valueOf(orderStatus)>=1) {
+					/**new CodeMsg(200103,"支付成功");*/
+					return  Result.success(CodeMsg.DOCTORORDER_TRUE);
+				}else {
+					/**	public static CodeMsg DOCTORORDER_FALSE = new CodeMsg(500111,"支队金额有误");	*/
+					return Result.success(CodeMsg.DOCTORORDER_FALSE);
+				}
+			}else {
+				System.out.println("订单没找到");
+				return Result.success(CodeMsg.PARAMETER_ISNULL);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Result.success(CodeMsg.PARAMETER_ISNULL);
+		}
+		
+		
+	}	
+	@Autowired
+	private  DashangOrderService dashangOrderService;
+	//查询此打赏订单是否成功
+	/*
+	 * String token=requestParams.get("token").toString();
+	   String orderNo=requestParams.get("orderNo").toString();
+	   app/order/getDashangOrderSuccess
+	 */
+	@RequestMapping(value = "/getDashangOrderSuccess",method=RequestMethod.POST)
+	@ResponseBody
+	public Result getDashangOrderSuccess(HttpServletRequest request,@RequestBody Map<String, Object> requestParams) {
+		try {
+			String token=requestParams.get("token").toString();
+			String orderNo=requestParams.get("orderNo").toString();
+			DashangOrder dashangOrder =new DashangOrder();
+			dashangOrder.setOrderNo(orderNo);
+			List<DashangOrder> dashangOrderList= dashangOrderService.findList(dashangOrder);
+			if(dashangOrderList.size()>0) {
+				dashangOrder=dashangOrderList.get(0);
+				String orderStatus= dashangOrder.getOrderStatus().trim();
 				if(Integer.valueOf(orderStatus)>=1) {
 					/**new CodeMsg(200103,"支付成功");*/
 					return  Result.success(CodeMsg.DOCTORORDER_TRUE);

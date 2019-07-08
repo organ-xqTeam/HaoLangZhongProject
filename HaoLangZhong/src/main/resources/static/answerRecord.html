@@ -24,7 +24,8 @@
       align-items: center;
       justify-content: space-between;
       padding-bottom: .1rem;
-    border-bottom: 0.01rem solid rgba(0,0,0,0.05);
+      border-bottom: 0.01rem solid rgba(0,0,0,0.05);
+      padding: 10px 0;
     }
     .main_list img{
       width: .5rem;
@@ -87,10 +88,10 @@ var pageObj={
                         <img src="${Global.picUrl+item.icon}"/>
                         <div class="list_right">
                           <div class="main_right">
-                            <h3>${item.nickname}</h3>
-                            <span>2018-1-25</span>
+                            <h3 style="font-size: 14px;">${item.nickname}</h3>
+                            <span style="font-size: 13px;">2018-1-25</span>
                           </div>
-                          <span>${item.content}</span>
+                          <span style="font-size: 13px;">${item.content}</span>
                         </div>
                       </div>
                   `)

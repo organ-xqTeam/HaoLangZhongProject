@@ -130,6 +130,11 @@
 			 init(){
 			   pageObj.initData()
 			 },
+			goAppHome(){
+				 alert("点击按钮时触发跳转安卓主页的操作方法back.back(),不好使");
+                 /* window.location.href="airPharmacy.html"; */
+                  back.back();  
+			 },
 			 goOrderdetails(orderId){
 				 console.log(orderId);
 				 window.location.href="orderdetails.html?orderId="+orderId;
@@ -210,7 +215,7 @@
 			                       alert("回退时触发跳转安卓主页的操作方法back.back(),不好使");
 			                       /* window.location.href="airPharmacy.html"; */
 			                        back.back(); 
-			                       goHome.goHome();
+			                       //goHome.goHome();
 			             });
 				  }
 
@@ -223,7 +228,7 @@
 </head>
 <body>
 <div class="nav">
-    <img src="static/images/fanhui.png" class="back img200" onclick="back.back();"/>
+    <img src="static/images/fanhui.png" class="back img200" onclick="pageObj.goAppHome()"/>
     <span class="title">订单列表</span>
 </div>
 <div class="nav_tab">

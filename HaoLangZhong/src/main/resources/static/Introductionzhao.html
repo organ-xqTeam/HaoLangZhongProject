@@ -64,6 +64,8 @@
    }
    .button{
      padding-left: 4.5em;
+     display: flex;
+     align-items: center;
    }
    .button span{
     background: #eb6003;
@@ -74,6 +76,34 @@
     text-align: center;
     padding: .03rem 0rem;
     margin-top: .06rem;
+   }
+   .buy_number > div {
+     display: flex;
+     align-items: center;
+     justify-content: flex-start;
+   }
+   .button > div span {
+     background: #fff;
+     color: #222;
+    width: 18px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    height: 18px;
+    line-height: 18px;
+    margin-right: 4px;
+     /* display: inline-block;
+      border: 1px solid #ccc;
+      width: .2rem;
+      text-align: center; */
+   }
+   .button .tl {
+    background: #eb6003;
+    color: #fff;
+    margin-right: 10px;
+    width: 100px;
+    border: none;
+    height: 26px;
+    line-height: 26px;
    }
    .content_tab{
     font-size: 1.1em;
@@ -131,11 +161,15 @@
   .foot_button{
     display: inline-block;
     width: 100%;
-    margin-top: 1.5em;
+    /* margin-top: 1.5em; */
+    font-size: .17rem;
   }
   .button_right{
     background: #eb6003;
     color: #fff;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
   }
   .touxiang{
     width: .5rem;
@@ -163,6 +197,7 @@
     width: 100%;
     background: #fff;
     z-index: 9999;
+    font-size: 0;
   }
   .content_main{
     padding-bottom: 4em;
@@ -193,12 +228,12 @@
       padding: .1rem;
     }
 
-    .buy_number :nth-child(2) span {
+    /* .buy_number :nth-child(2) span {
       display: inline-block;
       border: 0.01rem solid #ccc;
       width: .2rem;
       text-align: center;
-    }
+    } */
   </style>
   <!-- 找郎中的专家详情 -->
 </head>
@@ -231,8 +266,8 @@
         <div class="button">
             <!-- <span class="goanswer">问诊记录</span>
             <span  class="goconsulting"  onclick="zixunjump()">咨询</span> -->
-              <div class="buy_number">
-			    <span>调理数量</span>
+            <div class="buy_number">
+			      <span class="tl">调理数量</span>
 			    <div>
 			      <span id="drug_count_reduce" onclick="pageObj.drugCounReduce()">-</span>
 			      <span id="drug_count">1</span>

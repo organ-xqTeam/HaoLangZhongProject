@@ -24,11 +24,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jeesite.modules.app.entity.DashangOrder;
 import com.jeesite.modules.app.entity.Discount;
 import com.jeesite.modules.app.entity.DoctorRegisterOrder;
 import com.jeesite.modules.app.entity.MemberOrder;
 import com.jeesite.modules.app.entity.Order;
 import com.jeesite.modules.app.entity.TiaoliOrder;
+import com.jeesite.modules.app.service.DashangOrderService;
 import com.jeesite.modules.app.service.DiscountService;
 import com.jeesite.modules.app.service.DoctorRegisterOrderService;
 import com.jeesite.modules.app.service.MemberOrderService;
@@ -63,6 +65,9 @@ public class PayController {
 	
 	@Autowired
 	private  DoctorRegisterOrderService  doctorRegisterOrderService;
+	
+	@Autowired
+	private DashangOrderService dashangOrderService;
 	/*
 	 * payController/aliAppPay
 	 * 
@@ -103,6 +108,10 @@ public class PayController {
 			doctorRegisterOrder.setOrderNo(orderNo);
 			List<DoctorRegisterOrder> doctorRegisterOrderList=doctorRegisterOrderService.findList(doctorRegisterOrder);
 			
+			
+			DashangOrder dashangOrder =new DashangOrder();
+			dashangOrder.setOrderNo(orderNo);
+			List<DashangOrder> dashangOrderList=dashangOrderService.findList(dashangOrder);
 			if(orderList.size()>0) {
 				order=orderList.get(0);
 				//更新订单的
@@ -121,6 +130,10 @@ public class PayController {
 				doctorRegisterOrder=doctorRegisterOrderList.get(0);
 				doctorRegisterOrder.setOutTradeNo(out_trade_no);
 				doctorRegisterOrderService.update(doctorRegisterOrder);
+			}else if(dashangOrderList.size()>0) {
+				dashangOrder=dashangOrderList.get(0);
+				dashangOrder.setOutTradeNo(out_trade_no);
+				dashangOrderService.update(dashangOrder);
 			}
 			return  Result.success(result);
 		} catch (Exception e) {
@@ -157,6 +170,10 @@ public class PayController {
 		doctorRegisterOrder.setOutTradeNo(outTradeNo);
 		List<DoctorRegisterOrder> doctorRegisterOrderList=doctorRegisterOrderService.findList(doctorRegisterOrder);
 
+		
+		DashangOrder dashangOrder =new DashangOrder();
+		dashangOrder.setOutTradeNo(outTradeNo);
+		List<DashangOrder> dashangOrderList=dashangOrderService.findList(dashangOrder);
         if(orderList.size()>0) {
      	   order= orderList.get(0);
      	   if(order.getPayDate()==null) {
@@ -201,6 +218,14 @@ public class PayController {
      		   doctorRegisterOrder.setPayChannel("支付宝");
      		   doctorRegisterOrder.setPayDate(new Date());
      		   doctorRegisterOrderService.update(doctorRegisterOrder);
+     	   }
+        }else if(dashangOrderList.size()>0) {
+     	   dashangOrder=dashangOrderList.get(0);
+     	   if(dashangOrder.getPayDate()==null) {
+     		   dashangOrder.setOrderStatus("1");
+     		   dashangOrder.setPayChannel("微信");
+     		   dashangOrder.setPayDate(new Date());
+     		   dashangOrderService.update(dashangOrder);
      	   }
         }
 		return  Result.success(true);
@@ -279,6 +304,10 @@ public class PayController {
 					doctorRegisterOrder.setOrderNo(orderNo);
 					List<DoctorRegisterOrder> doctorRegisterOrderList=doctorRegisterOrderService.findList(doctorRegisterOrder);
 					
+					DashangOrder dashangOrder =new DashangOrder();
+					dashangOrder.setOrderNo(orderNo);
+					List<DashangOrder> dashangOrderList=dashangOrderService.findList(dashangOrder);
+					
 					if(orderList.size()>0) {
 						order=orderList.get(0);
 						//更新订单的
@@ -296,6 +325,10 @@ public class PayController {
 						doctorRegisterOrder=doctorRegisterOrderList.get(0);
 						doctorRegisterOrder.setOutTradeNo(outTradeNo);
 						doctorRegisterOrderService.update(doctorRegisterOrder);
+					}else if(dashangOrderList.size()>0) {
+						dashangOrder=dashangOrderList.get(0);
+						dashangOrder.setOutTradeNo(outTradeNo);
+						dashangOrderService.update(dashangOrder);
 					}
 					
 					
@@ -378,7 +411,12 @@ public class PayController {
 			   DoctorRegisterOrder doctorRegisterOrder =new DoctorRegisterOrder();
 				doctorRegisterOrder.setOutTradeNo(outTradeNo);
 				List<DoctorRegisterOrder> doctorRegisterOrderList=doctorRegisterOrderService.findList(doctorRegisterOrder);
-	           if(orderList.size()>0) {
+	          
+				DashangOrder dashangOrder =new DashangOrder();
+				dashangOrder.setOutTradeNo(outTradeNo);
+				List<DashangOrder> dashangOrderList=dashangOrderService.findList(dashangOrder);
+				
+				if(orderList.size()>0) {
 	        	   order= orderList.get(0);
 	        	   if(order.getPayDate()==null) {
 	        		   
@@ -417,6 +455,14 @@ public class PayController {
 	        		   doctorRegisterOrder.setPayDate(new Date());
 	        		   doctorRegisterOrderService.update(doctorRegisterOrder);
 	        		
+	        	   }
+	           }else if(dashangOrderList.size()>0) {
+	        	   dashangOrder=dashangOrderList.get(0);
+	        	   if(dashangOrder.getPayDate()==null) {
+	        		   dashangOrder.setOrderStatus("1");
+	        		   dashangOrder.setPayChannel("微信");
+	        		   dashangOrder.setPayDate(new Date());
+	        		   dashangOrderService.update(dashangOrder);
 	        	   }
 	           }
 	           String notifyStr = XMLUtil.setXML("SUCCESS", "");

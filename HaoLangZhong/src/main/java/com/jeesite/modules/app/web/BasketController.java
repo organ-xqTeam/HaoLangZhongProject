@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSONObject;
+import com.jeesite.modules.app.entity.DashangOrder;
 import com.jeesite.modules.app.entity.DoctorInfo;
 import com.jeesite.modules.app.entity.DoctorRegisterOrder;
 import com.jeesite.modules.app.entity.MemberOrder;
@@ -30,6 +31,7 @@ import com.jeesite.modules.app.entity.UserInfo;
 import com.jeesite.modules.app.service.AddressService;
 import com.jeesite.modules.app.service.AirDrugCommentSercvie;
 import com.jeesite.modules.app.service.BasketService;
+import com.jeesite.modules.app.service.DashangOrderService;
 import com.jeesite.modules.app.service.DoctorInfoService;
 import com.jeesite.modules.app.service.DoctorRegisterOrderService;
 import com.jeesite.modules.app.service.MemberOrderService;
@@ -456,6 +458,31 @@ public class BasketController {
 			doctorRegisterOrder.setCreateDate(new Date());
 			doctorRegisterOrderService.insert(doctorRegisterOrder);
 			return Result.success(doctorRegisterOrder);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Result.error(CodeMsg.PARAMETER_ISNULL);
+		}
+	}
+	@Autowired
+	private  DashangOrderService  dashangOrderService;
+	@ResponseBody
+	@RequestMapping(value = "/submitDashangOrder", method = RequestMethod.POST)
+	public Result submitDashangOrder(HttpServletRequest request, @RequestBody Map<String, Object> requestParams) {
+		try {
+			String token = (String) requestParams.get("token");
+			String userId = (String) requestParams.get("userId");
+			String docid = (String) requestParams.get("docid");
+			String totalPrice = (String) requestParams.get("totalPrice");
+			DashangOrder dashangOrder =new DashangOrder();
+			dashangOrder.setOrderNo(RandomUtil.getOrderCode());
+			dashangOrder.setOrderStatus("0");
+			dashangOrder.setUserid(userId);
+			dashangOrder.setDocid(docid);
+			dashangOrder.setTotalPrice(totalPrice);
+			dashangOrder.setCreateDate(new Date());
+			dashangOrderService.insert(dashangOrder);
+			return Result.success(dashangOrder);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
