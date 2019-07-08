@@ -203,18 +203,19 @@
 			  	/* document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7";
 			  	document.cookie="userid=123"; */
 			    pageObj.init();
-			   /*  if (window.history && window.history.pushState) {
+			    if (window.history && window.history.pushState) {
 			          $(window).on('popstate', function () {
 			                       window.history.pushState('forward', null, '#');
 			                       window.history.forward(1);
 			                       alert("回退时触发跳转安卓主页的操作方法back.back(),不好使");
+			                       /* window.location.href="airPharmacy.html"; */
 			                        back.back(); 
 			                       goHome.goHome();
 			             });
 				  }
 
 				  window.history.pushState('forward', null, '#'); //在IE中必须得有这两行
-				  window.history.forward(1);   */
+				  window.history.forward(1);   
 			})
 			  
   </script>
@@ -222,7 +223,7 @@
 </head>
 <body>
 <div class="nav">
-    <img src="static/images/fanhui.png" class="back img200" onclick="javascript:window.history.go(-1)"/>
+    <img src="static/images/fanhui.png" class="back img200" onclick="back.back();"/>
     <span class="title">订单列表</span>
 </div>
 <div class="nav_tab">
@@ -271,6 +272,7 @@
 		$('.nav_tab div').removeClass('gf-active');
 		$(this).addClass('gf-active')
 	})
+	
   </script>
 </body>
 </html>

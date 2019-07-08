@@ -350,6 +350,7 @@ var comecost="";
               cost=data.cost;
               $(".item_left span").text(data.name)
               var introsub= data.introduce.substring(0,20);
+              $(".level").html(`星级:${data.starlv}`)
               $(".introduce").text(introsub);
               $(".title").text(data.name);
               $(".foot").html(`
