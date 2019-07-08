@@ -166,27 +166,27 @@
          <h3>赠送礼物</h3> 
        </div>
        <div class="foot_flex">
-         <div class="flex_foot">
+         <div class="flex_foot" data-id="1">
            <img src="static/images/jinqi.png" class="img100"/>
            <span>1面锦旗</span>
            <span>￥15</span>
          </div>
-         <div class="flex_foot">
+         <div class="flex_foot"  data-id="2">
           <img src="static/images/jinqi.png" class="img100"/>
           <span>2面锦旗</span>
           <span>￥30</span>
          </div>
-         <div class="flex_foot">
+         <div class="flex_foot" data-id="3">
           <img src="static/images/jinqi.png" class="img100"/>
           <span>3面锦旗</span>
           <span>￥45</span>
          </div>
-         <div class="flex_foot">
+         <div class="flex_foot" data-id="4">
           <img src="static/images/jinqi.png" class="img100"/>
           <span>4面锦旗</span>
           <span>￥60</span>
          </div>
-         <div class="flex_foot">
+         <div class="flex_foot" data-id="5">
           <img src="static/images/jinqi.png" class="img100"/>
           <span>5面锦旗</span>
           <span>￥100</span>
@@ -222,7 +222,9 @@
         })
  })
  $(".flex_foot").click(function(){
-    window.location.href="pay.html"
+	 var docid=Global.getParameter("docid");
+	 var giveid=this.getAttribute("data-id");
+     window.location.href="paypingjia.html?docid="+docid+"&giveid="+giveid; 
  })
 </script>
 <script>
