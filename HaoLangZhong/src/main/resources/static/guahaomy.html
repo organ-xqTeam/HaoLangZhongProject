@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的挂号我的</title>
+      <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/js/mianG.js"></script>
+    <script type="text/javascript">
+      document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            font-size: .14rem;
+        }
+        .list-wrap .item {
+            border-bottom: 1px solid #eee;
+            padding: 12px;
+        }
+        .list-wrap .item > div {
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+        .list-wrap .item > div p {
+            line-height: 2em;
+        }
+    </style>
+<script type="text/javascript">
+  var doctorUserId="";
+  var token="";
+  var addressId="";
+  var drudIds="";
+  var userId="";
+  var pageObj={
+	initData(){
+	    token=Global.getCookie("token");
+	    userId=Global.getCookie("userid");
+	    doctorUserId=Global.getParameter("doctorUserId");
+		console.log("token:"+token)
+		let postdata=JSON.stringify({
+			userId:userId,
+	            token:token,
+	            pageNum:1,
+	      	  pageSize:100
+	      })
+	  Global.ajaxRequest(Global.projectApi + "/f/app/order/getGuaHaoOrderList", postdata)
+          .then((res) => {
+        	  console.log(res)
+        	  let data = res.data.items;
+        	  data.forEach(function (item) {
+        		  $(".list-wrap").append(`
+            			  <li class="item">
+            	            <div class="r1">
+            	                <p>${item.doctorInfos.name}</p>
+            	               
+            	            </div>
+            	            <div class="r2">
+            	                <p>${item.content}</p>
+            	            </div>
+            	            <div class="r3">
+            	            ${item.createDate}
+            	            </div>
+            	        </li>
+            			  `)
+        		  
+        		  
+        	  })
+        	 
+
+          })      
+	      
+	 },
+	 init(){
+	   pageObj.initData()
+	 }
+  }
+
+  $(function(){
+	  	/* document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7";
+	  	document.cookie="userid=123"; */
+	    pageObj.init();
+	})
+  </script>    
+</head>
+<body>
+    
+    <ul class="list-wrap">
+        <!-- <li class="item">
+            <div class="r1">
+                <p>网xx</p>
+                <p>男</p>
+            </div>
+            <div class="r2">
+                <p>挂号内容</p>
+            </div>
+            <div class="r3">
+                <p>2016-7-11</p>
+                <p>10:32</p>
+            </div>
+        </li> -->
+    </ul>
+
+
+
+
+
+</body>
+</html>

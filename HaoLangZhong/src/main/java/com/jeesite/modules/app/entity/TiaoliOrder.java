@@ -41,7 +41,10 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 		@JoinTable(type=Type.LEFT_JOIN, entity=UserInfo.class, alias="dd", 
 			on="a.userid = dd.id",
 			columns={@Column(includeEntity=UserInfo.class)}),
-	},orderBy="a.update_date DESC"
+		@JoinTable(type=Type.LEFT_JOIN, entity=DoctorInfos.class, alias="di", 
+		on="a.docid = di.doctorid",
+		columns={@Column(includeEntity=DoctorInfos.class)}),
+	},orderBy="a.create_date DESC"
 )
 public class TiaoliOrder extends DataEntity<TiaoliOrder> {
 	
@@ -60,6 +63,8 @@ public class TiaoliOrder extends DataEntity<TiaoliOrder> {
 	private String delFlag;		// 是否删除
 	
 	private UserInfo userInfo;
+	
+	private DoctorInfos doctorInfos;
 	
 	public TiaoliOrder() {
 		this(null);
@@ -184,6 +189,15 @@ public class TiaoliOrder extends DataEntity<TiaoliOrder> {
 	public void setUserInfo(UserInfo userInfo) {
 		this.userInfo = userInfo;
 	}
+
+	public DoctorInfos getDoctorInfos() {
+		return doctorInfos;
+	}
+
+	public void setDoctorInfos(DoctorInfos doctorInfos) {
+		this.doctorInfos = doctorInfos;
+	}
+	
 	
 	
 }

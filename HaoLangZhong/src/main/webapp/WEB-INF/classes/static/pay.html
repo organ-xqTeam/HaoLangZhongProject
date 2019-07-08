@@ -160,7 +160,7 @@
 			 //展示支付价钱
 			 showParmter(){
 				$(".content_top").append(`
-						<span>支付金额</span>
+						<span>商品支付金额</span>
 						  <span>￥${parseFloat(buyPrice/100).toFixed(2)}</span>
 						`)
 				 
@@ -213,27 +213,28 @@
 		    		 var paytype= $("[name='payType']:checked").val();
 		    		 console.log(paytype)
 		    		 if(paytype=="weixin"){
-		    			 alert("跳转微信支付");
+		    			/*  alert("跳转微信支付"); */
 		    			 var orderNo=res.data.orderNo
 		    			 var body="中药商品"
 		    			 var totalFee=res.data.reallyPrice;
 		    			 console.log("orderNo: "+orderNo)
 		    			 console.log("totalFee: "+totalFee);
-		    			 alert("调用安卓中的方法");
-		    			 								//0为微信
-		    			 pay.pay(totalFee,body,orderNo,"0");
+		    			 /* alert("调用安卓中的方法"); */
+		    			 							//0为微信   1.空中药房
+		    			 pay.pay(totalFee,body,orderNo,"0","1");
 		    		 }else if(paytype=="zhifubao"){
-		    			 alert("跳转支付宝支付");
+		    			 /* alert("跳转支付宝支付"); */
 		    			 var orderNo=res.data.orderNo
 		    			 var body="中药商品"
 		    			 var totalFee=res.data.reallyPrice;
 		    			 console.log("orderNo: "+orderNo)
 		    			 console.log("totalFee: "+totalFee);
-		    			 alert("调用安卓中的方法");
-		    			 							//1是支付包
-		    			 pay.pay(totalFee,body,orderNo,"1");
+		    			 /* alert("调用安卓中的方法"); */				
+		    			 									// 1.空中药房
+		    			 pay.pay(totalFee,body,orderNo,"1","1");
 		    		 }else{
 		    			 alert("暂未开通");
+		    			 return;
 		    		 }
 		    		 history.replaceState(null, null, "airPharmacy.html");
 		    		 //window.location.href="myorder.html";
@@ -268,7 +269,7 @@
        <img src="static/images/weixinzhifu.png" class="img100"/>
        <div>
          <h3>微信支付</h3>
-         <span>推荐安装6.0版本以上用户使用</span>
+         <!-- <span>推荐安装6.0版本以上用户使用</span> -->
        </div>
      </div>
      <div class="flex_option">
@@ -281,7 +282,7 @@
       <img src="static/images/zhifubaozhifu.png" class="img100"/>
       <div>
         <h3>支付宝支付</h3>
-        <span>推荐安装6.0版本以上用户使用</span>
+        <!-- <span>推荐安装6.0版本以上用户使用</span> -->
       </div>
     </div>
     <div class="flex_option">
@@ -294,7 +295,7 @@
       <img src="static/images/yinhangkazhifu.png" class="img100"/>
       <div>
         <h3>余额支付</h3>
-        <span>推荐安装6.0版本以上用户使用</span>
+        <!-- <span>推荐安装6.0版本以上用户使用</span> -->
       </div>
     </div>
     <div class="flex_option">

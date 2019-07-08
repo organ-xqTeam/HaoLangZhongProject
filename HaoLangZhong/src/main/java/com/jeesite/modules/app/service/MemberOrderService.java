@@ -34,6 +34,7 @@ public class MemberOrderService extends CrudService<MemberOrderDao, MemberOrder>
 		calendar.add(calendar.YEAR, 1);//把日期往后增加一年.整数往后推,负数往前移动
 		date=calendar.getTime();
 		userInfo.setMemberEnd(date);
+		userInfoService.update(userInfo);
 	}
 
 }

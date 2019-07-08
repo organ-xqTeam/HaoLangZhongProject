@@ -36,7 +36,11 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 		@Column(name="create_by", attrName="createBy", label="create_by", isUpdate=false, isQuery=false),
 		@Column(name="user_id", attrName="userId", label="user_id"),
 		@Column(name="doctor_user_id", attrName="doctorUserId", label="user_id"),
-	}, orderBy="a.update_date DESC"
+	}, joinTable={
+			@JoinTable(type=Type.LEFT_JOIN, entity=DoctorInfos.class, alias="dd", 
+					on="a.doctor_user_id = dd.doctorid",
+					columns={@Column(includeEntity=DoctorInfos.class)}),
+	},orderBy="a.update_date DESC"
 )
 public class HospitalRegister extends DataEntity<HospitalRegister> {
 	
@@ -50,6 +54,10 @@ public class HospitalRegister extends DataEntity<HospitalRegister> {
 	private String content;		// 症状描述
 	private String userId;		// user_id
 	private String doctorUserId;
+	
+	private DoctorInfos doctorInfos;
+	
+	
 	
 	
 	private String makeDates; //前台形式的makeDates
@@ -148,6 +156,15 @@ public class HospitalRegister extends DataEntity<HospitalRegister> {
 	public void setDoctorUserId(String doctorUserId) {
 		this.doctorUserId = doctorUserId;
 	}
+
+	public DoctorInfos getDoctorInfos() {
+		return doctorInfos;
+	}
+
+	public void setDoctorInfos(DoctorInfos doctorInfos) {
+		this.doctorInfos = doctorInfos;
+	}
+	
 	
 	
 }

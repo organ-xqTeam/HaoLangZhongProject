@@ -19,9 +19,12 @@ import com.jeesite.common.web.BaseController;
 import com.jeesite.modules.app.dao.CutDao;
 import com.jeesite.modules.app.entity.Cut;
 import com.jeesite.modules.app.entity.DoctorInfo;
+import com.jeesite.modules.app.entity.DoctorInfos;
 import com.jeesite.modules.app.entity.TiaoliOrder;
+import com.jeesite.modules.app.entity.UserInfo;
 import com.jeesite.modules.app.service.DoctorInfoService;
 import com.jeesite.modules.app.service.TiaoliOrderService;
+import com.jeesite.modules.app.service.UserInfoService;
 import com.jeesite.modules.app.utils.CodeMsg;
 import com.jeesite.modules.app.utils.PageModel;
 import com.jeesite.modules.app.utils.Result;
@@ -272,7 +275,8 @@ public class DoctorInfoController extends BaseController {
 	
 	@Autowired
 	private  TiaoliOrderService tiaoliOrderService;
-	
+	@Autowired
+	private UserInfoService userInfoService;
 	
 	/**
 	 * 通过医生id得到调理列表
@@ -290,12 +294,22 @@ public class DoctorInfoController extends BaseController {
 			String pageSize= requestMap.get("pageSize").toString();
 			TiaoliOrder tiaoliOrder =new TiaoliOrder();
 			tiaoliOrder.setDocid(docid);
+			tiaoliOrder.setOrderStatus("1");
 			tiaoliOrder.setPageNo(Integer.valueOf(pageNum));
 			tiaoliOrder.setPageSize(Integer.valueOf(pageSize));
 			List<TiaoliOrder> tiaoliOrderList= tiaoliOrderService.findPage(tiaoliOrder).getList();
+			for (TiaoliOrder tiaoliOrder2 : tiaoliOrderList) {
+				DoctorInfos  doctorInfos=tiaoliOrder2.getDoctorInfos();
+				String docid2= doctorInfos.getDoctorid();
+				UserInfo userinfo =new UserInfo();
+				userinfo.setId(docid2);
+				userinfo=userInfoService.get(userinfo);
+				doctorInfos.setUserInfo(userinfo);
+			}
 			
 			tiaoliOrder =new TiaoliOrder();
 			tiaoliOrder.setDocid(docid);
+			tiaoliOrder.setOrderStatus("1");
 			String count= ( (Long)tiaoliOrderService.findCount(tiaoliOrder)).toString();
 			JSONObject result = new JSONObject();
 			result.put("items", tiaoliOrderList);

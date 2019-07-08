@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>我的调理支付成功订单</title>
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <script type="text/javascript">
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+  </script>
+  <link rel="stylesheet" href="static/css/common.css">
+  <link rel="stylesheet" href="static/css/user.css">
+  <link rel="stylesheet" href="static/css/swiper.min.css">
+  <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
+  <script src="static/js/mianG.js"></script>
+  <style>
+    .nav {
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      display: flex;
+      height: .4rem;
+      border-bottom: 0.01rem solid #cccccc47;
+      font-size: .18rem;
+    }
+
+    .back {
+      position: absolute;
+      right: .1rem;
+      top: 0.07rem;
+    }
+
+    .img200 {
+      height: auto !important;
+      width: .25rem;
+    }
+
+    .content_list {
+      padding: .15rem;
+    }
+    .content_lists {
+      padding: .15rem;
+    }
+
+    .list_top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 0.01rem solid #cccccc47;
+      padding-bottom: .15rem;
+    }
+
+    .button {
+      background: #7e1f01;
+      padding: .01rem .15rem;
+      border-radius: .05rem;
+      color: #fff;
+    }
+
+    .list_content,
+    .list_content {
+      display: flex;
+      align-items: center;
+      margin-top: .25rem;
+    }
+
+    .img300 {
+      width: .55rem;
+      height: .55rem;
+      border-radius: 50%;
+      margin-right: .18rem;
+    }
+
+    .title {
+      font-size: .16rem;
+      font-weight: 600;
+    }
+
+    .tabBar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    .tabBar p {
+      flex: 1;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    .tabBar p.active {
+      background: #eee;
+    }
+    .content2 {
+      padding: 12px;
+    }
+    .bz {
+      border: 1px solid #eee;
+      border-radius: 2px;
+      margin-top: 6px;
+      padding: 4px;
+      opacity: .6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!--   <div class="nav">
+    <img src="static/images/shouye-sousuo.png" class="back img200"/>
+    <span>订单</span>
+  </div> -->
+<!-- 咨询 -->
+  <div class="content">
+  <!-- 调理 -->
+  <!-- <div class="content2">
+    <div class="item">
+      <div class="list_content">
+        <img src="static/images/head.png" class="img300" />
+        <div>
+          <div class="title">傻子与白痴</div>
+          <span>头部 病症 针灸</span>
+        </div>
+      </div>
+      <div class="bz">
+        <p>病症1：ppppppppppppppppppppppppppppppp</p>
+        <p>病症1：ppppppppppppppppppppppppppppppp</p>
+        <p>病症1：ppppppppppppppppppppppppppppppp</p>
+      </div>
+    </div>
+  </div> -->
+
+  </div>
+
+
+
+
+
+
+  <script>
+  var docid="";
+  var token ="";
+  var userId="";
+  var pageObj = {
+      initData() {
+    	token=Global.getCookie("token");
+  	    userId=Global.getCookie("userid");
+        docid=Global.getParameter("docid");
+        console.log(docid);
+  	  let postdata = JSON.stringify({
+  		  userId: userId,
+          token:token,
+          pageNum: "1",
+          pageSize: "100"
+        })
+	  Global.ajaxRequest(Global.projectApi + "f/app/order/getTiaoliOrderList", postdata)
+      .then((res) => {
+        console.log(res)
+        let data = res.data.items;
+       /*  $(".content").html(""); */
+         data.forEach(function (item) {
+        	 console.log(item);
+          $(".content").append(`
+                        <div class="content_lists" data-id=${item.id}>
+                           <div class="list_top">
+                             <div>${item.createDate}</div>
+                           </div>
+                           <div class="list_content">
+                               <img src="${Global.picUrl+item.doctorInfos.userInfo.icon}" class="img300"/>
+                               <div>
+                                 <div class="title">${item.doctorInfos.name}</div>
+                                 <span>次数:${item.count}</span>
+                               </div>
+                           </div>
+                         </div>
+                 `)
+        }) 
+      })  
+
+      },
+      initEvent() {
+       /*  $(".content").delegate(".content_list", "click", function () {
+          console.log($(this).data("id"));
+          let id = $(this).data("id")
+          window.location.href = window.location.href = "detailsConsultation.html?id=" + id
+        }) */
+      },
+      init() {
+        pageObj.initData()
+        pageObj.initEvent()
+      }
+    }
+    $(function () {
+      pageObj.init()
+    })
+  </script>
+</body>
+
+</html>

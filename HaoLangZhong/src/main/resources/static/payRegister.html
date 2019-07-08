@@ -141,6 +141,7 @@
   //数量
   var count="";
   var totalcost="";
+  var registerCost="0.01";
   /*docid=0f2067603f1111e99752bcaec5595fa3&comecost=1000&count=16  */
   var pageObj={
 		initData(){
@@ -150,11 +151,15 @@
 				console.log(cookieStr);
 			    token=Global.getCookie("token");
 			    userId=Global.getCookie("userid");
-			    docid=Global.getParameter("docid");
+			    docid=Global.getParameter("docid"); 
+			    registerCost=Global.getParameter("registerCost"); 
 				console.log("userId:"+userId);
 				console.log("token:"+token);
-				
 			    pageObj.showParmter();
+			    $(".content_top").append(`
+						<span>挂号支付</span>
+						  <span>￥${parseFloat(registerCost).toFixed(2)}</span>
+						`)
 			 },
 			 init(){
 			   pageObj.initData()
@@ -166,13 +171,10 @@
 						<span>支付金额</span>
 						  <span>￥${parseFloat(totalcost).toFixed(2)}</span>
 						`) */
-				 
-				
-				
 			 },
 			 //提交订单
 			 buyorder(){
-				 /**
+	/**
 
 					 * 	** token    token     随便    post
 	 *  userId     用户id   123
@@ -201,27 +203,28 @@
 		    		 var paytype= $("[name='payType']:checked").val();
 		    		 console.log(paytype)
 		    		 if(paytype=="weixin"){
-		    			 alert("跳转微信支付");
+		    			 /* alert("跳转微信支付"); */
 		    			 var orderNo=res.data.orderNo
 		    			 var body="中医挂号"
 		    			 var totalFee=res.data.totalPrice;
 		    			 console.log("orderNo: "+orderNo)
 		    			 console.log("totalFee: "+totalFee);
-		    			 alert("调用安卓中的方法");
-		    			 								//0为微信
-		    			 pay.pay(totalFee,body,orderNo,"0");
+		    			 /* alert("调用安卓中的方法"); */
+		    			 								//0为微信  2.挂号订单
+		    			 pay.pay(totalFee,body,orderNo,"0","2");
 		    		 }else if(paytype=="zhifubao"){
-		    			 alert("跳转支付宝支付");
+		    			 /* alert("跳转支付宝支付"); */
 		    			 var orderNo=res.data.orderNo
 		    			 var body="中药商品"
 		    			 var totalFee=res.data.totalPrice;
 		    			 console.log("orderNo: "+orderNo)
 		    			 console.log("totalFee: "+totalFee);
-		    			 alert("调用安卓中的方法");
-		    			 							//1是支付包
-		    			 pay.pay(totalFee,body,orderNo,"1");
+		    			 /* alert("调用安卓中的方法"); */
+		    			 							//1是支付包 2.挂号订单
+		    			 pay.pay(totalFee,body,orderNo,"1","2");
 		    		 }else{
 		    			 alert("暂未开通");
+		    			 return ;
 		    		 }
 		    		 history.replaceState(null, null, "airPharmacy.html");
 		    		 //window.location.href="myorder.html";
@@ -243,7 +246,8 @@
     <span class="title">确认支付</span>
 </div>
 <div class="content_top">
-<!--   <span>支付金额</span>
+	
+<!--   <span>挂号支付</span>
   <span>￥200.00</span> -->
 </div>
 <div class="line"></div>
@@ -256,7 +260,7 @@
        <img src="static/images/weixinzhifu.png" class="img100"/>
        <div>
          <h3>微信支付</h3>
-         <span>推荐安装6.0版本以上用户使用</span>
+        <!--  <span>推荐安装6.0版本以上用户使用</span> -->
        </div>
      </div>
      <div class="flex_option">
@@ -269,7 +273,7 @@
       <img src="static/images/zhifubaozhifu.png" class="img100"/>
       <div>
         <h3>支付宝支付</h3>
-        <span>推荐安装6.0版本以上用户使用</span>
+        <!-- <span>推荐安装6.0版本以上用户使用</span> -->
       </div>
     </div>
     <div class="flex_option">
@@ -282,7 +286,7 @@
       <img src="static/images/yinhangkazhifu.png" class="img100"/>
       <div>
         <h3>余额支付</h3>
-        <span>推荐安装6.0版本以上用户使用</span>
+        <!-- <span>推荐安装6.0版本以上用户使用</span> -->
       </div>
     </div>
     <div class="flex_option">
