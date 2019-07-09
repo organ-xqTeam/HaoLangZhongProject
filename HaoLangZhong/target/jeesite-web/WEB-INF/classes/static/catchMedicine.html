@@ -35,6 +35,8 @@
 .addpicWrap .addedPic{
   display: flex;
   flex-wrap: wrap;
+  width:1rem;
+  height:1rem;
 }
 .addpicWrap .addedPic .picWrap{
   position: relative;
@@ -133,13 +135,13 @@
       position: relative;
       width: 100%;
       display: flex;
-      height: .4rem;
+      height: .6rem;
       border-bottom: .01rem solid #cccccc47;
     } 
     .back{
       position: absolute;
       left: .1rem;
-      top: 0.1rem;
+      top: 0.2rem;
     }
    .img200{
       height: auto !important;
@@ -165,11 +167,11 @@
         <a class="addpicBtn"></a>
       </div>
       <div class="addedPic">
-        <!-- <div class="picWrap" style="display:none;">
-          <img src="../static/images/timg.jpg" alt="图片">
-          <span class="delPic"></span>
-          <input type="file" style="display: none;">
-        </div> -->
+       <!-- <div class="picWrap" style="display:none;"> -->
+          <!-- <img src="../static/images/timg.jpg" alt="图片"> -->
+          <!-- <span class="delPic"></span>
+          <input type="file" style="display: none;"> -->
+        <!-- </div>  -->
       </div>
     </div>
     </div>
@@ -178,10 +180,11 @@
     </div>
 </div>
 <script>
+var picid="";
  $(".addpicBtn").click(function(){
-	 alert("选择图片"); 
+	 //alert("选择图片"); 
 	 test.take(500,500);
-      let $div = $(`
+      /* let $div = $(`
           <div class="picWrap" style="display:none;">
             <img class="img100" src="" alt="图片">
             <span class="delPic"></span>
@@ -190,22 +193,34 @@
         `)
         $(".addedPic").append($div)
         let input = $div.find("input[type='file']")[0]
-        input.click()   
+        input.click()    */
  })
  		  
 function getPicId(picId){
-			 alert("进入显示图片的方法");
+	       picid=picId;
+			 /* alert("进入显示图片的方法");
 			 alert("id为:"+picId);
-			alert("Global.api为:"+Global.api); 
-			 let $div = $(`
+			alert("Global.api为:"+Global.api);  */
+			 $(".addedPic").html(`
+		            <img class="img100" src="${Global.picUrl}/${picId}" alt="图片">
+					`) 
+			/* alert("添加成功");	 */	
+			/* $(".addedPic").html(`
+				<div class="picWrap" style="display:none;">
+		            <img class="img100" src="${Global.picUrl}/${picId}" alt="图片">
+		            <span class="delPic"></span>
+		            <input type="file" style="display: none;">
+		          </div>
+					`) */
+			 /* let $div = $(`
 			          <div class="picWrap" style="display:none;">
 			            <img class="img100" src="${Global.picUrl}/${picId}" alt="图片">
 			            <span class="delPic"></span>
 			            <input type="file" style="display: none;">
 			          </div>
-			        `)
-			        $(".addedPic").append($div)
-			        let input = $div.find("input[type='file']")[0]
+			        `) */
+			        /* $(".addedPic").append($div) */
+			        /* let input = $div.find("input[type='file']")[0] */
 			       /*  input.click()    */
 }
  $(".stars li").click(function(){
@@ -243,21 +258,28 @@ function getPicId(picId){
       console.log(document.cookie)
       var cookieStr=document.cookie.split(";")
       console.log(cookieStr)
-      let userid=cookieStr[0].split("=")[1]
-      let token=cookieStr[1].split("=")[1]
+      /* let token=Global.getCookie("token");
+      let userid=Global.getCookie("userid"); */
+       let userid=cookieStr[0].split("=")[1]
+      let token=cookieStr[1].split("=")[1] 
       console.log(userid)
       console.log(token)
-      var fileNodes=$(".addedPic input[type='file']")
+      /* var fileNodes=$(".addedPic input[type='file']") */
+      if($(".text").val()==""||$(".text").val()==null){
+    	  alert("请输入内容");
+    	  return;
+      }
       var formData=new FormData()
       formData.append("token",token)
       formData.append("content",$(".text").val())
       formData.append("userId",userid)
-      console.log(fileNodes)
+      formData.append("picid",picid)
+      /* console.log(fileNodes)
       fileNodes.each(function(){
          var file=this.files[0]
          formData.append("uploadFile",file)
          console.log(file)
-      })
+      }) */
       $.ajax({
         //  url:"http://192.168.1.30:8980/js/f/sys/airPharmacy/uploadPrescription",
          url:Global.api+"/airPharmacy/uploadPrescription",
