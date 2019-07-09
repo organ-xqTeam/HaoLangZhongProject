@@ -42,6 +42,7 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 		@Column(name="member_flag", attrName="memberFlag", label="是否为会员"), 
 		@Column(name="member_start", attrName="memberStart", label="会员开始时间"), 
 		@Column(name="member_end", attrName="memberEnd", label="会员结束时间"), 
+		@Column(name="invite_user_id", attrName="inviteUserId", label="邀请人的user_id  当 is_invite 为1 的时候才有值"), 
 	}, orderBy="a.update_date DESC"
 )
 public class UserInfo extends DataEntity<UserInfo> {
@@ -66,6 +67,8 @@ public class UserInfo extends DataEntity<UserInfo> {
 	private String memberFlag;   //是否为会员
 	private Date memberStart;   //是否为会员
 	private Date memberEnd;   //是否为会员
+	
+	private String inviteUserId;
 	public UserInfo() {
 		this(null);
 	}
@@ -228,6 +231,15 @@ public class UserInfo extends DataEntity<UserInfo> {
 	public void setMemberEnd(Date memberEnd) {
 		this.memberEnd = memberEnd;
 	}
+
+	public String getInviteUserId() {
+		return inviteUserId;
+	}
+	@Length(min=0, max=64, message="邀请人的user_id  当 is_invite 为1 的时候才有值")
+	public void setInviteUserId(String inviteUserId) {
+		this.inviteUserId = inviteUserId;
+	}
+	
 	
 	
 	

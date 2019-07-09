@@ -120,16 +120,19 @@
             $('.yaoqing_code').text('加载中...')
             var token = Global.getCookie("token");
             var userId = Global.getCookie("userid");
-            let postdata = JSON.stringify({
+            var shareCode = Global.getParameter("shareCode");
+            console.log("邀请码:" + shareCode);
+            $('.yaoqing_code').text(shareCode);
+           /*  let postdata = JSON.stringify({
                 token: token,
                 userId: userId,
-            })
-            Global.ajaxRequest(Global.api + "/shareController/getShareCode", postdata)
+            }) */
+            /* Global.ajaxRequest(Global.api + "/shareController/getShareCode", postdata)
                 .then((res) => {
                     var shareCode = res.data.shareCode;
                     console.log("邀请码:" + shareCode);
                     $('.yaoqing_code').text(shareCode)
-                })
+                }) */
         }
         $('.back').click(function () {
             window.history.back();

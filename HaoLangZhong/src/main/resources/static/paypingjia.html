@@ -219,8 +219,8 @@
 		    			 console.log("orderNo: "+orderNo)
 		    			 console.log("totalFee: "+totalFee);
 		    			 /* alert("调用安卓中的方法"); */
-		    			 							//0为微信   1.空中药房
-		    			 pay.pay(totalFee,body,orderNo,"0","1");
+		    			 							//0为微信   5.评价
+		    			 pay.pay(totalFee,body,orderNo,"0","5");
 		    		 }else if(paytype=="zhifubao"){
 		    			 /* alert("跳转支付宝支付"); */
 		    			 var orderNo=res.data.orderNo
@@ -229,8 +229,8 @@
 		    			 console.log("orderNo: "+orderNo)
 		    			 console.log("totalFee: "+totalFee);
 		    			 /* alert("调用安卓中的方法"); */				
-		    			 									// 1.空中药房
-		    			 pay.pay(totalFee,body,orderNo,"1","1");
+		    			 									// 5.评价
+		    			 pay.pay(totalFee,body,orderNo,"1","5");
 		    		 }else{
 		    			 alert("暂未开通");
 		    			 return;
@@ -250,10 +250,10 @@
   </script>  
 </head>
 <body>
-<!-- <div class="nav">
+ <div class="nav">
     <img src="static/images/fanhui.png" class="back img201" onclick="javascript:window.history.go(-1)"/>
     <span class="title">确认支付</span>
-</div> -->
+</div>
 <div class="content_top">
 <!--   <span>支付金额</span>
   <span>￥200.00</span> -->

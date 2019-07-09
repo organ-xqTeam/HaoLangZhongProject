@@ -13,9 +13,15 @@
 	<update id="updateIsInviteByMobile"  parameterType="hashmap">
 		UPDATE 
 	 	`sys_user_info` 
-		SET
+		<set>
 	  	`update_date` = now(),
-	  	`is_invite` = #{isInvite,jdbcType=VARCHAR} 
+	  	<if test="isInvite!=null">
+	  		`is_invite` = #{isInvite,jdbcType=VARCHAR} ,
+	  	</if>
+	  	<if test="inviteUserId !=null">
+	  	  `invite_user_id` = #{inviteUserId,jdbcType=VARCHAR},
+	  	</if>
+	  	</set>
 		WHERE `mobile` = #{mobile,jdbcType=VARCHAR}
 	</update>
 	

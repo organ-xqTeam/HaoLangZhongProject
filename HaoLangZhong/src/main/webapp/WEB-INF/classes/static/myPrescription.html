@@ -45,7 +45,7 @@
      padding: .16rem;
    }
    .content_text {
-    border-bottom: 0.01rem solid #ccc;
+    /* border-bottom: 0.01rem solid #ccc; */
    }
    .content_text li{ 
      line-height: .3rem;
@@ -83,7 +83,7 @@
    }
    .imgBox{
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
    }
    .peifang_content {
 /*   	border-bottom: 1px solid rgba(0,0,0,0.5);*/
@@ -123,16 +123,26 @@
 			    	 console.log(res);
 			    	 var airPrescriptionList=res.result.data.airPrescriptionList;
 			    	 airPrescriptionList.forEach(function(item,index){
+			    		 /* <img src='./static/images/head.png' class='img200'/> */
 			    		 var pics="";
-			    		 if(item.pic1!=null){
-			    			 pics+="<img src='"+Global.picUrl+item.pic1+"' class='img200'/>";
-			    		 }
-			    		 if(item.pic2!=null){
-			    			 pics+="<img src='"+Global.picUrl+item.pic2+"' class='img200'/>";
-			    		 }
-			    		 if(item.pic3!=null){
-			    			 pics+="<img src='"+Global.picUrl+item.pic3+"' class='img200'/>";
-			    		 }
+			    		  if(item.pic1!=null&&item.pic1!=""){
+			    			  pics+="<img src='"+Global.picUrl+item.pic1+"' class='img200'/>"
+			    		 } 
+			    		  if(item.pic2!=null&&item.pic2!=""){
+			    			  pics+="<img src='"+Global.picUrl+item.pic2+"' class='img200'/>"
+			    		 } 
+			    		  if(item.pic3!=null&&item.pic3!=""){
+			    			  pics+="<img src='"+Global.picUrl+item.pic3+"' class='img200'/>"
+			    		 } 
+			    		//  if(item.pic1!=null){
+			    		// 	 pics+="<img src='"+Global.picUrl+item.pic1+"' class='img200'/>";
+			    		//  }
+			    		//  if(item.pic2!=null){
+			    		// 	 pics+="<img src='"+Global.picUrl+item.pic2+"' class='img200'/>";
+			    		//  }
+			    		//  if(item.pic3!=null){
+			    		// 	 pics+="<img src='"+Global.picUrl+item.pic3+"' class='img200'/>";
+			    		//  }
 				    	 $(".peifangList").append(`
 				    			  <div class="peifang_head">
 				    			    <div class="head_left">
@@ -154,7 +164,7 @@
 				    			        </div>
 				    			        <div class="content_content">
 				    			          <div class="imgBox">
-				    			            ${pics}
+											${pics}
 				    			          </div>
 				    			        </div>
 				    			    </div>  

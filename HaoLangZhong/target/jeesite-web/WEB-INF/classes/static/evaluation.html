@@ -41,6 +41,10 @@
   padding: calc(16.6666% - 0.05rem);
   margin: 0.05rem;
 }
+.addedPic{
+	height:1rem;
+	width:1rem;
+}
 .addpicWrap .addedPic .picWrap>img{
   position: absolute;
   left: 0;
@@ -166,27 +170,27 @@
          <h3>赠送礼物</h3> 
        </div>
        <div class="foot_flex">
-         <div class="flex_foot">
+         <div class="flex_foot" data-id="1">
            <img src="static/images/jinqi.png" class="img100"/>
            <span>1面锦旗</span>
            <span>￥15</span>
          </div>
-         <div class="flex_foot">
+         <div class="flex_foot"  data-id="2">
           <img src="static/images/jinqi.png" class="img100"/>
           <span>2面锦旗</span>
           <span>￥30</span>
          </div>
-         <div class="flex_foot">
+         <div class="flex_foot" data-id="3">
           <img src="static/images/jinqi.png" class="img100"/>
           <span>3面锦旗</span>
           <span>￥45</span>
          </div>
-         <div class="flex_foot">
+         <div class="flex_foot" data-id="4">
           <img src="static/images/jinqi.png" class="img100"/>
           <span>4面锦旗</span>
           <span>￥60</span>
          </div>
-         <div class="flex_foot">
+         <div class="flex_foot" data-id="5">
           <img src="static/images/jinqi.png" class="img100"/>
           <span>5面锦旗</span>
           <span>￥100</span>
@@ -198,8 +202,11 @@
     </div>
 </div>
 <script>
+ var picid="";
  $(".addpicBtn").click(function(){
-        let $div = $(`
+	 alert("选择图片"); 
+	 test.take(500,500);
+        /* let $div = $(`
           <div class="picWrap" style="display:none;">
             <img class="img100" src="" alt="图片">
             <span class="delPic"></span>
@@ -208,8 +215,35 @@
         `)
         $(".addedPic").append($div)
         let input = $div.find("input[type='file']")[0]
-        input.click()   
+        input.click()    */
  })
+ function getPicId(picId){
+	       picid=picId;
+			/* alert("进入显示图片的方法");
+			 alert("id为:"+picId);
+			alert("Global.api为:"+Global.api);   */
+			 $(".addedPic").html(`
+		            <img class="img100" src="${Global.picUrl}/${picId}" alt="图片">
+					`) 
+			/* alert("添加成功");	 */	
+			/* $(".addedPic").html(`
+				<div class="picWrap" style="display:none;">
+		            <img class="img100" src="${Global.picUrl}/${picId}" alt="图片">
+		            <span class="delPic"></span>
+		            <input type="file" style="display: none;">
+		          </div>
+					`) */
+			 /* let $div = $(`
+			          <div class="picWrap" style="display:none;">
+			            <img class="img100" src="${Global.picUrl}/${picId}" alt="图片">
+			            <span class="delPic"></span>
+			            <input type="file" style="display: none;">
+			          </div>
+			        `) */
+			        /* $(".addedPic").append($div) */
+			        /* let input = $div.find("input[type='file']")[0] */
+			       /*  input.click()    */
+}
  $(".stars li").click(function(){
       let index=$(".stars li").index($(this))
       console.log(index)
@@ -222,7 +256,9 @@
         })
  })
  $(".flex_foot").click(function(){
-    window.location.href="pay.html"
+	 var docid=Global.getParameter("docid");
+	 var giveid=this.getAttribute("data-id");
+     window.location.href="paypingjia.html?docid="+docid+"&giveid="+giveid; 
  })
 </script>
 <script>
@@ -241,7 +277,8 @@ var pageObj={
                 doctorid:docid,
                 content:$(".text").val(),
                 token:token,
-                start:startnum
+                start:startnum,
+                picid:picid
             })
             console.log(postdata)
            $.ajax({

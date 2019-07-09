@@ -13,6 +13,9 @@
 			start, 
 			content, 
 			create_date,
+			<if test="picid !=null">
+				picid,
+			</if>
 			del_flag
 		)
 		values (
@@ -22,6 +25,9 @@
 			#{start,jdbcType=INTEGER}, 
 			#{content,jdbcType=VARCHAR},
 			#{create_date,jdbcType=VARCHAR},
+			<if test="picid !=null">
+				#{picid,jdbcType=VARCHAR},
+			</if>
 			#{del_flag,jdbcType=VARCHAR}
 		)
 	</insert>

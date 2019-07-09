@@ -226,6 +226,7 @@ public class AirPharmacyController extends BaseController  implements BeanFactor
 		
 		String content=(String)request.getParameter("content");
 		String userId= (String)request.getParameter("userId");
+		String picid= (String)request.getParameter("picid");
 		
 		
 		
@@ -237,7 +238,7 @@ public class AirPharmacyController extends BaseController  implements BeanFactor
 		String msg = "";
 		String returnUrl = fileurl;
 		try {
-			if (files != null && files.length > 0) {
+			/*if (files != null && files.length > 0) {
 				for(int i = 0; i < files.length; i++) {
 					int w = 0;
 					int h = 0;
@@ -287,8 +288,8 @@ public class AirPharmacyController extends BaseController  implements BeanFactor
 					}
 				}
 			} else {
-				/*return Result.error(CodeMsg.UPLOAD_FAIL1);*/
-			}
+				return Result.error(CodeMsg.UPLOAD_FAIL1);
+			}*/
 			
 			
 			AirPrescription airPrescription =new AirPrescription();
@@ -298,7 +299,19 @@ public class AirPharmacyController extends BaseController  implements BeanFactor
 			airPrescription.setCheckState("0");
 			airPrescription.setCreateBy("创建人");
 			airPrescription.setDelFlag("0");
-			if (items != null && !items.isEmpty()) {
+			String[] picids= picid.split(",");
+			int index=0;
+			if(picids.length>=3) {
+				index=3;
+			}else {
+				index=picids.length;
+			}
+			for (int j = 0; j < index; j++) {
+				Method m=airPrescription.getClass().getDeclaredMethod("setPic"+(j+1), String.class);
+				m.invoke(airPrescription, picids[j]);
+			}
+			
+			/*if (items != null && !items.isEmpty()) {
 				int j=0;
 				for(Map<String, Object> map : items) {
 					fileInfoService.save(map);
@@ -312,7 +325,7 @@ public class AirPharmacyController extends BaseController  implements BeanFactor
 					}
 					j++;
 				}//插入数据
-			}
+			}*/
 			airPrescriptionService.insertAirPrescription(airPrescription);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);

@@ -41,6 +41,10 @@
   padding: calc(16.6666% - 0.05rem);
   margin: 0.05rem;
 }
+.addedPic{
+	height:1rem;
+	width:1rem;
+}
 .addpicWrap .addedPic .picWrap>img{
   position: absolute;
   left: 0;
@@ -198,8 +202,11 @@
     </div>
 </div>
 <script>
+ var picid="";
  $(".addpicBtn").click(function(){
-        let $div = $(`
+	 alert("选择图片"); 
+	 test.take(500,500);
+        /* let $div = $(`
           <div class="picWrap" style="display:none;">
             <img class="img100" src="" alt="图片">
             <span class="delPic"></span>
@@ -208,8 +215,35 @@
         `)
         $(".addedPic").append($div)
         let input = $div.find("input[type='file']")[0]
-        input.click()   
+        input.click()    */
  })
+ function getPicId(picId){
+	       picid=picId;
+			/* alert("进入显示图片的方法");
+			 alert("id为:"+picId);
+			alert("Global.api为:"+Global.api);   */
+			 $(".addedPic").html(`
+		            <img class="img100" src="${Global.picUrl}/${picId}" alt="图片">
+					`) 
+			/* alert("添加成功");	 */	
+			/* $(".addedPic").html(`
+				<div class="picWrap" style="display:none;">
+		            <img class="img100" src="${Global.picUrl}/${picId}" alt="图片">
+		            <span class="delPic"></span>
+		            <input type="file" style="display: none;">
+		          </div>
+					`) */
+			 /* let $div = $(`
+			          <div class="picWrap" style="display:none;">
+			            <img class="img100" src="${Global.picUrl}/${picId}" alt="图片">
+			            <span class="delPic"></span>
+			            <input type="file" style="display: none;">
+			          </div>
+			        `) */
+			        /* $(".addedPic").append($div) */
+			        /* let input = $div.find("input[type='file']")[0] */
+			       /*  input.click()    */
+}
  $(".stars li").click(function(){
       let index=$(".stars li").index($(this))
       console.log(index)
@@ -243,7 +277,8 @@ var pageObj={
                 doctorid:docid,
                 content:$(".text").val(),
                 token:token,
-                start:startnum
+                start:startnum,
+                picid:picid
             })
             console.log(postdata)
            $.ajax({

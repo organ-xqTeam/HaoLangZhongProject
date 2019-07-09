@@ -30,7 +30,7 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 		@Column(name="create_by", attrName="createBy", label="创建人"),
 		@Column(name="update_by", attrName="updateBy", label="添加人"),
 		@Column(name="del_flag", attrName="delFlag", label="是否删除 0", comment="是否删除 0:未删除 ,1:删除"),
-	}, orderBy="a.update_date DESC"
+	}, orderBy="a.create_date DESC"
 )
 public class AirPrescription extends DataEntity<AirPrescription> {
 	
