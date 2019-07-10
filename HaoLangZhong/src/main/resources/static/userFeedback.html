@@ -31,15 +31,16 @@
   background: url(static/images/add.png) center center no-repeat;
   background-size: 100%;
 }
-.picWrap{
-	width:100%;
-	height:100%;
-}
+ .picWrap{
+
+	width:1%
+} 
 .addpicWrap .addedPic{
   display: flex;
+   flex-direction: column;
   flex-wrap: wrap;
-  display: inline-block;
-  width: 0.6rem;
+  /* display: inline-block; */
+  width: 100%;
   height: 0.6rem;
   background-size: 100%;
 }
@@ -56,6 +57,7 @@
   top: 0;
   bottom: 0;
 }
+
 .addpicWrap .delPic{
   display: inline-block;
   width: 0.2rem;
@@ -175,11 +177,21 @@
         <a class="addpicBtn" onclick="pageObj.choosePic()"></a>
       </div>
       <div class="addedPic">
-         <div class="picWrap" >
-          <!-- <img src="../static/static/images/logo.png"  alt="图片"> -->
-          <!-- <span class="delPic"></span>
-          <input type="file" style="display: none;"> -->
+        <!--  <div class="picWrap" >
+          <img src="../static/static/images/logo.png"  alt="图片"> 
+          <span class="delPic"></span>
+          <input type="file" style="display: none;">
         </div> 
+         <div class="picWrap" >
+          <img src="../static/static/images/logo.png"  alt="图片"> 
+          <span class="delPic"></span>
+          <input type="file" style="display: none;">
+        </div> 
+         <div class="picWrap" >
+          <img src="../static/static/images/logo.png"  alt="图片"> 
+          <span class="delPic"></span>
+          <input type="file" style="display: none;">
+        </div>  -->
 
       </div>
     </div>
@@ -232,7 +244,9 @@ var pageObj={
 		    	 var data=res.data;
 		    	 if(data.id!=null){
 		    		 alert("反馈成功");
-		    		 //window.history.go(-1);
+		    		 $("textarea").val("");
+		    		 window.history.go(-1);
+		    		 back.back();
 		    	 }
 		    })
 		 },
@@ -248,10 +262,15 @@ var pageObj={
 		})
 		  
 		function getPicId(picId){
+			var piclength= $(".addedPic .picWrap").length;
+			if(piclength>=3){
+				/* alert("大于3"); */
+				return;
+			}
 			/* alert("进入显示图片的方法");
 			alert("id为:"+picId);
 			alert("Global.api为:"+Global.api); */
-			$(".addedPic").html(`
+			$(".addedPic").append(`
 					 <div class="picWrap" >
 			          <img src="${Global.picUrl}/${picId}"  alt="图片">
 			        </div> 

@@ -170,13 +170,14 @@
         window.location.href = 'memberpay.html'
     })
     $('.bt1').click(function () {
-        window.location.href = 'share.html'
+    	var shareCode=Global.getParameter("shareCode");
+        window.location.href = 'share.html?shareCode='+shareCode;
     })
     $('.back').click(function () {
         window.history.back();
     })
     function goappback(){
-    	alert("回退 back.back();");
+    	/* alert("回退 back.back();"); */
     	back.back();
     }
 </script>

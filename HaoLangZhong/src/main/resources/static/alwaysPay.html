@@ -203,23 +203,23 @@
 		    		 var paytype= $("[name='payType']:checked").val();
 		    		 console.log(paytype)
 		    		 if(paytype=="weixin"){
-		    			 alert("跳转微信支付");
+		    			/*  alert("跳转微信支付"); */
 		    			 var orderNo=res.data.orderNo
 		    			 var body="中药商品"
 		    			 var totalFee=res.data.reallyPrice;
 		    			 console.log("orderNo: "+orderNo)
 		    			 console.log("totalFee: "+totalFee);
-		    			 alert("调用安卓中的方法");
+		    			/*  alert("调用安卓中的方法"); */
 		    			 								//0为微信
 		    			 pay.pay(totalFee,body,orderNo,"0");
 		    		 }else if(paytype=="zhifubao"){
-		    			 alert("跳转支付宝支付");
+		    			/*  alert("跳转支付宝支付"); */
 		    			 var orderNo=res.data.orderNo
 		    			 var body="中药商品"
 		    			 var totalFee=res.data.reallyPrice;
 		    			 console.log("orderNo: "+orderNo)
 		    			 console.log("totalFee: "+totalFee);
-		    			 alert("调用安卓中的方法");
+		    			/*  alert("调用安卓中的方法"); */
 		    			 							//1是支付包
 		    			 pay.pay(totalFee,body,orderNo,"1");
 		    		 }else{
