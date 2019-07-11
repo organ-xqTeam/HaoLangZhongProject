@@ -273,7 +273,7 @@
       })  
     },
 	 choosePic(){
-		 alert("选择图片");
+		 /* alert("选择图片"); */
 		 test.take(500,500);
 	 }
  }
@@ -287,10 +287,10 @@ function choosePic(){
 	 test.take(500,500);
  }
 function getPicId(picId){
-	alert("进入显示图片的方法");
+	/* alert("进入显示图片的方法");
 	alert("id为:"+picId);
-	alert("Global.api为:"+Global.api);
-	$(".addedPic").html(`
+	alert("Global.api为:"+Global.api); */
+	$(".addedPic").append(`
 			<div class="picWrap" >
 		     <img src="${Global.picUrl}/${picId}"  alt="图片">
 		     </div> 

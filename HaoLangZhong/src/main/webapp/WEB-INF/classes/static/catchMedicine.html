@@ -35,8 +35,12 @@
 .addpicWrap .addedPic{
   display: flex;
   flex-wrap: wrap;
-  width:1rem;
+ width:100%; 
   height:1rem;
+}
+.addedPic img{
+    height: 100%;
+    width: auto;
 }
 .addpicWrap .addedPic .picWrap{
   position: relative;
@@ -44,6 +48,7 @@
   padding: calc(16.6666% - 0.05rem);
   margin: 0.05rem;
 }
+
 .addpicWrap .addedPic .picWrap>img{
   position: absolute;
   left: 0;
@@ -129,20 +134,25 @@
 .upImgtext{
   line-height: .4rem;
 }
-   .nav{
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      width: 100%;
-      display: flex;
-      height: .6rem;
-      border-bottom: .01rem solid #cccccc47;
-    } 
-    .back{
-      position: absolute;
-      left: .1rem;
-      top: 0.2rem;
-    }
+
+.nav{
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    display: flex;
+    height: .6rem;
+    border-bottom: 1px solid #cccccc47;
+} 
+.back{
+    position: absolute;
+    left: .1rem;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    transform: translateY(-50%)
+}
+
    .img200{
       height: auto !important;
       width: .2rem;
@@ -154,11 +164,11 @@
 </head>
 <body>
  <div class="nav">
-    <img src="static/images/fanhui.png" class="back img200" onclick="javascript:window.history.go(-1)"/>
+    <img src="static/images/fanhui.png" class="back " onclick="javascript:window.history.go(-1)"/>
     <span class="title">按方抓药</span>
 </div> 
 <div class="content_main">
-   <div class="line"></div>
+   <!-- <div class="line"></div> -->
    <div class="content_top">
      <textarea class="text" placeholder="请输入药名，例如：当归50g，黑枸杞100g"></textarea>
      <P class="upImgtext">请上传相关照片，以确保信息的准确度</P>
@@ -167,6 +177,9 @@
         <a class="addpicBtn"></a>
       </div>
       <div class="addedPic">
+      <!-- <img src="../static/static/images/logo.png" alt="图片"> 
+      <img src="../static/static/images/logo.png" alt="图片"> 
+      <img src="../static/static/images/logo.png" alt="图片">  -->
        <!-- <div class="picWrap" style="display:none;"> -->
           <!-- <img src="../static/images/timg.jpg" alt="图片"> -->
           <!-- <span class="delPic"></span>
@@ -197,11 +210,16 @@ var picid="";
  })
  		  
 function getPicId(picId){
-	       picid=picId;
+	       
+	       var piclength= $(".addedPic img.img100").length;
+	 	   if(piclength>=3){
+	 		   return;
+	 	   }
+	 	   picid+=picId+",";
 			 /* alert("进入显示图片的方法");
 			 alert("id为:"+picId);
 			alert("Global.api为:"+Global.api);  */
-			 $(".addedPic").html(`
+			 $(".addedPic").append(`
 		            <img class="img100" src="${Global.picUrl}/${picId}" alt="图片">
 					`) 
 			/* alert("添加成功");	 */	
