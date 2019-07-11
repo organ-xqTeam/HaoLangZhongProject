@@ -330,6 +330,7 @@
 			    		      ${ order.payChannel=='0'? '微信支付' : '' } 
 			    		      ${ order.payChannel=='1'? '支付宝' : '' } 
 			    		      ${ order.payChannel=='2'? '银联' : '' } 
+			    		      ${ order.payChannel!='0'&&order.payChannel!='1'&&order.payChannel!='2'&&order.payChannel!='null'? order.payChannel : '' } 
 			    		      </span>
 			    		    </li>
 			    		  </ul>			    			
