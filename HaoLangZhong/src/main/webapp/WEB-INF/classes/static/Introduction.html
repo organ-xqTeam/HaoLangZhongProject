@@ -43,6 +43,13 @@
      justify-content: space-between;
      align-items: center;
    }
+   .item_flex div:first-child {
+     display: flex;
+     align-items: center;
+   }
+   .item_flex div:first-child .level {
+    margin-left: 8px;
+   }
    .item_flex>span{
      color: #eb6003;
    }
@@ -50,8 +57,11 @@
     background: #7e1f03;
     color: #fff;
     font-size: 8px;
-    padding: 2px 13px;
-    border-radius: 15px;
+    padding: 0 13px;
+    border-radius: 50px;
+    height: 20px;
+    display: inline-block;
+    line-height: 20px;
    }
    .title{
      font-size: 1.2em;
