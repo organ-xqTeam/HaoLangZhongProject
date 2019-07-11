@@ -203,7 +203,7 @@
                   <span class="title"><!-- 专家姓名 --></span>
                   <span class="level"><!-- 等级 --></span>
                 </div>
-                <span class="cost"><!-- ￥200 --></span>
+               <!--  <span class="cost">￥200</span> -->
             </div>
             <div>
                 <span class="introduce"><!-- 主要服务或者行医案例主要服务或者行主要服务或者行医案 --></span>
@@ -335,10 +335,13 @@ var pics=Global.getParameter("pics");
             success: function (res) {
               console.log(res)
               let data=res.data.doctorInfo
-              cost=data.cost;
+             /*  cost=data.cost; */
               $(".level").html(`星级:${data.starlv}`)
               $(".item_left span").text(data.name)
-              var introsub= data.introduce.substring(0,20);
+              var introsub="";
+              if(data.introduce!=null){
+              	introsub= data.introduce.substring(0,20);
+              }
               $(".introduce").text(introsub);
               $(".title").text(data.name);
               $(".foot").html(`
@@ -350,7 +353,7 @@ var pics=Global.getParameter("pics");
 					 </div>		  
                       <span>${data.name}</span>
                     `);
-              $(".cost").html(`￥${data.cost}`);
+              /* $(".cost").html(`￥${data.cost}`); */
               var i=1;
               var imgs="";
               while(i<100){

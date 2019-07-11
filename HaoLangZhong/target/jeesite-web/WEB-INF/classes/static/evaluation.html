@@ -43,7 +43,7 @@
 }
 .addedPic{
 	height:1rem;
-	width:1rem;
+	/* width:1rem; */
 }
 .addpicWrap .addedPic .picWrap>img{
   position: absolute;
@@ -95,7 +95,7 @@
   justify-content: space-between;
 }
 .img100{
-  width: 3.5em;
+  width: 5.5em;
 }
 .content_foot{
   padding: .8em;
@@ -143,6 +143,9 @@
         <a class="addpicBtn"></a>
       </div>
       <div class="addedPic">
+      <!-- <img class="img100" src="../static/static/images/logo.png" alt="图片">
+      <img class="img100" src="../static/static/images/logo.png" alt="图片">
+      <img class="img100" src="../static/static/images/logo.png" alt="图片"> -->
         <!-- <div class="picWrap" style="display:none;">
           <img src="../static/images/timg.jpg" alt="图片">
           <span class="delPic"></span>
@@ -204,7 +207,7 @@
 <script>
  var picid="";
  $(".addpicBtn").click(function(){
-	 alert("选择图片"); 
+	/*  alert("选择图片");  */
 	 test.take(500,500);
         /* let $div = $(`
           <div class="picWrap" style="display:none;">
@@ -218,11 +221,15 @@
         input.click()    */
  })
  function getPicId(picId){
-	       picid=picId;
+	 	   var piclength= $(".addedPic img.img100").length;
+	 	   if(piclength>=3){
+	 		   return;
+	 	   }
+	       picid+=picId+",";
 			/* alert("进入显示图片的方法");
 			 alert("id为:"+picId);
 			alert("Global.api为:"+Global.api);   */
-			 $(".addedPic").html(`
+			 $(".addedPic").append(`
 		            <img class="img100" src="${Global.picUrl}/${picId}" alt="图片">
 					`) 
 			/* alert("添加成功");	 */	

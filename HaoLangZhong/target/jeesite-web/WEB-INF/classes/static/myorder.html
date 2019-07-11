@@ -131,9 +131,9 @@
 			   pageObj.initData()
 			 },
 			goAppHome(){
-				 alert("点击按钮时触发跳转安卓主页的操作方法back.back(),不好使");
+				/*  alert("点击按钮时触发跳转安卓主页的操作方法back.back(),不好使"); */
                  /* window.location.href="airPharmacy.html"; */
-                  back.back();  
+				goHome.goHome();  
 			 },
 			 goOrderdetails(orderId){
 				 console.log(orderId);
@@ -212,10 +212,10 @@
 			          $(window).on('popstate', function () {
 			                       window.history.pushState('forward', null, '#');
 			                       window.history.forward(1);
-			                       alert("回退时触发跳转安卓主页的操作方法back.back(),不好使");
+			                       /* alert("回退时触发跳转安卓主页的操作方法goHome.goHome(),不好使");  */
 			                       /* window.location.href="airPharmacy.html"; */
-			                        back.back(); 
-			                       //goHome.goHome();
+			                        //back.back(); 
+			                       goHome.goHome();
 			             });
 				  }
 

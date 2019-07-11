@@ -14,9 +14,6 @@
   <script src="static/bootstrap/js/bootstrap.min.js"></script>
   <script src="static/js/mianG.js"></script>
   <style>
-  	body {
-  		font-size: 0.18rem;
-  	}
    .line{
      width: 100;
      height: .8em;
@@ -33,12 +30,21 @@
   display: inline-block;
   width: 0.6rem;
   height: 0.6rem;
-  background: url(static/images/8bf9e4cb3c66c2ab9f10284992b1120.png) center center no-repeat;
+  background: url(static/images/add.png) center center no-repeat;
   background-size: 100%;
 }
+ .picWrap{
+
+	width:1%
+} 
 .addpicWrap .addedPic{
   display: flex;
+   flex-direction: column;
   flex-wrap: wrap;
+  /* display: inline-block; */
+  width: 100%;
+  height: 0.6rem;
+  background-size: 100%;
 }
 .addpicWrap .addedPic .picWrap{
   position: relative;
@@ -53,6 +59,7 @@
   top: 0;
   bottom: 0;
 }
+
 .addpicWrap .delPic{
   display: inline-block;
   width: 0.2rem;
@@ -156,14 +163,6 @@
     .title{
       font-size: .16rem;
     }
-    .gf-alert {
-    position: absolute;
-    top: 2.5rem;
-    left: 50%;
-    transform: translate(-50%, 0);
-    padding: 0.2rem;
-    white-space: nowrap;
-    }
 </style>
 </head>
 <body>
@@ -234,7 +233,9 @@ var pageObj={
 		    	 if(data.id!=null){
 		    		 //alert("反馈成功");
 		    		 $('.gf-alert').text('反馈成功')
+		    		  $("textarea").val("");
 		    		 window.history.go(-1);
+		    		 back.back();
 		    	 }
 		    })
 		 },
@@ -251,8 +252,18 @@ var pageObj={
 		})
 		
 		function getPicId(picId){
-			alert("进入显示图片的方法");
-			alert("id为:"+picId);
+			/* alert("进入显示图片的方法");
+			alert("id为:"+picId); */
+			var piclength= $(".addedPic .picWrap").length;
+			if(piclength>=3){
+				/* alert("大于3"); */
+				return;
+			}
+			$(".addedPic").append(`
+					 <div class="picWrap" >
+			          <img src="${Global.picUrl}/${picId}"  alt="图片">
+			        </div> 
+					`)
 		}
 		  
 </script>

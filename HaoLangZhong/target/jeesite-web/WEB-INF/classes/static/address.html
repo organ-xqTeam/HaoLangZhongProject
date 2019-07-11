@@ -174,6 +174,8 @@
   //回退页面
   function goback(){
 	  window.history.go(-1);
+	 /*  alert("触发回退"); */
+	  back.back();
   }
   $(function(){
 	  	/* document.cookie="token=e5e4510963f843fead83b5f70e8b9ec7";
@@ -184,11 +186,11 @@
 </head>
 <body>
 <div>
-  <!-- <div class="nav">
+ <div class="nav">
     <img src="static/images/fanhui.png" class="back img200" onclick="goback()"/>
     <span>地址管理</span>
-    <span onclick="addAddress()">新增地址</span>
-  </div> -->
+    <span onclick=""></span>
+  </div> 
   <div class="nav gf-add-btn">
     <span></span>
     <span onclick="addAddress()">新增地址</span>
