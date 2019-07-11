@@ -202,7 +202,7 @@ img {
 					<a class="addpicBtn" onclick="pageObj.choosePic()"></a>
 				</div>
 				<div class="addedPic">
-		         <div class="picWrap" >
+		         <div id="picWrap" class="picWrap" >
 		         <!-- <img src="../static/static/images/logo.png"  alt="图片">
 		         <img src="../static/static/images/logo.png"  alt="图片">
 		         <img src="../static/static/images/logo.png"  alt="图片"> -->
@@ -296,12 +296,11 @@ function getPicId(picId){
 	/* alert("进入显示图片的方法");
 	alert("id为:"+picId);
 	alert("Global.api为:"+Global.api); */
-	var piclength= $(".picWrap>img").length;
-	alert(piclength);
+	var piclength= $("#picWrap.picWrap>img").length;
 	if(piclength>=3){
 		return;
 	}
-	$(".addedPic .picWrap").append(`
+	$("#picWrap.picWrap").append(`
 		     <img src="${Global.picUrl}/${picId}"  alt="图片">
 		`)
 }
