@@ -62,3 +62,14 @@ guahao.html
     <img src="static/images/fanhui.png" class="back " onclick="javascript:window.history.go(-1)"/>
     <span class="title">地址选择</span>
 </div>
+
+onclick="javascript:window.history.go(-1)"
+
+
+- 支付
+
+1. alwaysPay.html
+2. memberpay.html
+3. pay.html
+4. payRegister.html
+5. tiaolipay.html
