@@ -272,10 +272,10 @@
 var pageObj={
     initEvent(){
       $(".content_button").click(function(){
-            var docid=window.location.href.split("?")[1].split("docid=")[1]
+            var docid=Global.getParameter("docid");
             var cookieStr=document.cookie.split(";")
-            let userid=cookieStr[0].split("=")[1]
-            let token=cookieStr[1].split("=")[1]
+            let userid=Global.getCookie("userid");
+            let token=Global.getCookie("token");
             //获取星星个数
             var startnum=$(".stars1").length
             console.log(startnum)
