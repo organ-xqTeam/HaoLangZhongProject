@@ -35,12 +35,8 @@
 .addpicWrap .addedPic{
   display: flex;
   flex-wrap: wrap;
- width:100%; 
+  width:1rem;
   height:1rem;
-}
-.addedPic img{
-    height: 100%;
-    width: auto;
 }
 .addpicWrap .addedPic .picWrap{
   position: relative;
@@ -48,7 +44,6 @@
   padding: calc(16.6666% - 0.05rem);
   margin: 0.05rem;
 }
-
 .addpicWrap .addedPic .picWrap>img{
   position: absolute;
   left: 0;
@@ -177,9 +172,6 @@
         <a class="addpicBtn"></a>
       </div>
       <div class="addedPic">
-      <!-- <img src="../static/static/images/logo.png" alt="图片"> 
-      <img src="../static/static/images/logo.png" alt="图片"> 
-      <img src="../static/static/images/logo.png" alt="图片">  -->
        <!-- <div class="picWrap" style="display:none;"> -->
           <!-- <img src="../static/images/timg.jpg" alt="图片"> -->
           <!-- <span class="delPic"></span>
@@ -210,16 +202,11 @@ var picid="";
  })
  		  
 function getPicId(picId){
-	       
-	       var piclength= $(".addedPic img.img100").length;
-	 	   if(piclength>=3){
-	 		   return;
-	 	   }
-	 	   picid+=picId+",";
+	       picid=picId;
 			 /* alert("进入显示图片的方法");
 			 alert("id为:"+picId);
 			alert("Global.api为:"+Global.api);  */
-			 $(".addedPic").append(`
+			 $(".addedPic").html(`
 		            <img class="img100" src="${Global.picUrl}/${picId}" alt="图片">
 					`) 
 			/* alert("添加成功");	 */	

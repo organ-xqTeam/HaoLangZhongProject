@@ -13,20 +13,23 @@
   <script src="static/js/js-build/jquery-3.1.1.min.js"></script>
   <script src="static/js/mianG.js"></script>
   <style>
-    .nav{
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      width: 100%;
-      display: flex;
-      height: .4rem;
-      border-bottom: .01rem solid #cccccc47;
-    }
-    .back{
-      position: absolute;
-      left: .1rem;
-      top: 0.1rem;
-    }
+      .nav{
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          width: 100%;
+          display: flex;
+          height: .6rem;
+          border-bottom: 1px solid #cccccc47;
+      } 
+      .back{
+          position: absolute;
+          left: .1rem;
+          top: 50%;
+          width: 14px;
+          height: 14px;
+          transform: translateY(-50%)
+      }
     .img100{
       width: .1rem;
     }
@@ -152,7 +155,7 @@
 </head>
 <body>
 <div class="nav">
-  <img src="static/images/fanhui.png" class="back img200"/>
+  <img src="static/images/fanhui.png" class="back" onclick="javascript:window.history.go(-1)"/>
   <span class="title">个人信息</span>
 </div>
 <div class="content">

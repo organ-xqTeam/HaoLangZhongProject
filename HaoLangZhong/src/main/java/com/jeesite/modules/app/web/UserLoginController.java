@@ -245,8 +245,8 @@ public class UserLoginController extends BaseController {
 				redis.delete(mobile);
 			}
 			String code=AliMessageUtils.sendMsg(mobile);
-			//1分钟有效时间
-			redis.opsForValue().set(mobile, code,60,TimeUnit.SECONDS);
+			//3分钟有效时间
+			redis.opsForValue().set(mobile, code,180,TimeUnit.SECONDS);
 			/*JSONObject result = new JSONObject();*/
 			return Result.success(true);
 		} catch (Exception e) {

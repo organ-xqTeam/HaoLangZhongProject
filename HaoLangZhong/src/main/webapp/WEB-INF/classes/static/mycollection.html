@@ -232,13 +232,7 @@
   
 </body>
 <script>
-$(".main").delegate(".main_list","click",function(e){
-	console.log($(this).data("id"))
-    let id=$(this).data("id")
-	window.location.href="articledetails.html?id="+id
-})
-  $(".main").delegate(".main_list button","click",function(e){
-	  e.stopPropagation();
+  $(".main").delegate(".main_list","click",function(){
     console.log($(this).data("id"))
     let id=$(this).data("id")
     let $msgDiv = $(`
@@ -289,7 +283,7 @@ $(".main").delegate(".main_list","click",function(e){
       var cookieStr=document.cookie.split(";")
       let userid=cookieStr[0].split("=")[1]
       let token=cookieStr[1].split("=")[1]
-      type?type=type:type=null;
+      type?type=type:type="1"
       let postdata=JSON.stringify({
         token:token,
         userid:userid,
@@ -310,15 +304,14 @@ $(".main").delegate(".main_list","click",function(e){
             success: function (res) {
               console.log(res)
               let data=res.data.items
-              $(".content_list").html("");
               data.forEach(function(item){
                   $(".content_list").append(`
                         <div class="main_list" data-id=${item.id}>
                           <div class="main_center">
-                            <img style="width:1rem;height:0.5rem;" src="${Global.picUrl+item.pic}" class="img100"/>
+                            <img src=${item.pic} class="img100"/>
                             <div class="gf-right">
                               <h4 class="title">${item.title}</h4>
-                              <span class="item"><button>取消收藏</button>  </span>
+                              <span class="item">  </span>
                             </div>
                           </div>
                         </div>

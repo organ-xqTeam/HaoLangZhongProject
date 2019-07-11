@@ -492,16 +492,20 @@
             $('#gf-wrap').html(`
               <div class="memo">${data.airDrugOne.name}</div>
               <div class="gf-item">
-                <div class="gf-left">[性味功效]</div>
-                <div class="gf-right">${data.airDrugOne.property }</div>
+                <div class="gf-left">[产地]</div>
+                <div class="gf-right">${data.airDrugOne.place }</div>
               </div>
               <div class="gf-item">
-                <div class="gf-left">[归经]</div>
-                <div class="gf-right">${data.airDrugOne.channel }</div>
+                <div class="gf-left">[规格]</div>
+                <div class="gf-right">${data.airDrugOne.spec }</div>
               </div>
               <div class="gf-item">
-                <div class="gf-left">[出售价格]</div>
-                <div class="gf-right">${parseFloat(data.airDrugOne.pay_price/100).toFixed(2)}</div>
+                <div class="gf-left">[存储]</div>
+                <div class="gf-right">${data.airDrugOne.store }</div>
+              </div>
+              <div class="gf-item">
+                <div class="gf-left">[品牌]</div>
+                <div class="gf-right">${data.airDrugOne.brand}</div>
               </div>
             
             `)
