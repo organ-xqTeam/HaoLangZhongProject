@@ -4,13 +4,13 @@
 #======================================#
 
 # 产品或项目名称、软件开发公司名称
-productName: JeeSite Demo
-companyName: ThinkGem
+productName: 好郎中
+companyName:  好郎中
 baseDir: E:\Download
 
 # 产品版本、版权年份
 productVersion: V4.1
-copyrightYear: 2018
+copyrightYear: 2019
 
 #是否演示模式
 demoMode: false

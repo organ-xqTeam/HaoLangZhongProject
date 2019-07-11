@@ -30,7 +30,8 @@ public class WeixinPayConfig {
     /**
      * 微信服务器回调通知url
      */
-    public static String NOTIFY_URL="http://25368527vi.zicp.vip/js/f/sys/payController/wxnotify";
+    //public static String NOTIFY_URL="http://25368527vi.zicp.vip/js/f/sys/payController/wxnotify";
+    public static String NOTIFY_URL="http://120.92.10.2:81/hlz/f/sys/payController/wxnotify";
     
    
     

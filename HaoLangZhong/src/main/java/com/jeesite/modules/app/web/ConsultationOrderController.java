@@ -43,6 +43,12 @@ public class ConsultationOrderController extends BaseController {
 	@RequestMapping(value = "/saveOrder")
 	public Result saveOrder(@RequestBody Map<String, Object> requestMap) {
 		try {
+			String content=requestMap.get("content").toString();
+			System.out.println(content);
+			content=new String(content.getBytes("iso8859-1"),"UTF-8");
+			System.out.println(content);
+			//解码后重新放入
+			requestMap.put("content", content);
 			/*TokenTools.checkToken(requestMap.get("token").toString(), redis);*/
 			Map<String, Object> items = new HashMap<String, Object>();
 			items = consultationOrderService.saveConsultationOrder(requestMap);

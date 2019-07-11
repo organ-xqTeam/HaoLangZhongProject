@@ -51,7 +51,8 @@ public class AlipayUtil {
         model.setProductCode("QUICK_MSECURITY_PAY");// 销售产品码，商家和支付宝签约的产品码，为固定值QUICK_MSECURITY_PAY
         request.setBizModel(model);
         // 设置后台异步通知的地址，在手机端支付成功后支付宝会通知后台，手机端的真实支付结果依赖于此地址
-        request.setNotifyUrl("http://25368527vi.zicp.vip/js/f/sys/payController/aliPayNotify");
+        //request.setNotifyUrl("http://25368527vi.zicp.vip/js/f/sys/payController/aliPayNotify");
+        request.setNotifyUrl("http://120.92.10.2:81/hlz/f/sys/payController/aliPayNotify");
         AlipayTradeAppPayResponse response = new AlipayTradeAppPayResponse();
         try {
             //这里和普通的接口调用不同，使用的是sdkExecute
