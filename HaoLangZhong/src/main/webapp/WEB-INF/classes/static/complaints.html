@@ -44,24 +44,27 @@
 	display: flex;
 	flex-wrap: wrap;
 	display: inline-block;
-	width: 0.6rem;
+	width: 100%;
 	height: 0.6rem;
 	background-size: 100%;
 }
-
+img {
+    width: 1rem;
+    height: 1rem;
+}
 .addpicWrap .addedPic .picWrap {
 	position: relative;
 	/* padding: 16.6666%; */
-	padding: calc(16.6666% - 0.05rem);
+	/* padding: calc(16.6666% - 0.05rem); */
 	margin: 0.05rem;
 }
 
 .addpicWrap .addedPic .picWrap>img {
-	position: absolute;
+	/* position: absolute;
 	left: 0;
 	right: 0;
 	top: 0;
-	bottom: 0;
+	bottom: 0; */
 }
 
 .addpicWrap .delPic {
@@ -200,6 +203,9 @@
 				</div>
 				<div class="addedPic">
 		         <div class="picWrap" >
+		         <!-- <img src="../static/static/images/logo.png"  alt="图片">
+		         <img src="../static/static/images/logo.png"  alt="图片">
+		         <img src="../static/static/images/logo.png"  alt="图片"> -->
 		          <!-- <img src="../static/static/images/logo.png"  alt="图片"> -->
 		          <!-- <span class="delPic"></span>
 		          <input type="file" style="display: none;"> -->
@@ -290,10 +296,13 @@ function getPicId(picId){
 	/* alert("进入显示图片的方法");
 	alert("id为:"+picId);
 	alert("Global.api为:"+Global.api); */
-	$(".addedPic").append(`
-			<div class="picWrap" >
+	var piclength= $(".picWrap>img").length;
+	alert(piclength);
+	if(piclength>=3){
+		return;
+	}
+	$(".addedPic .picWrap").append(`
 		     <img src="${Global.picUrl}/${picId}"  alt="图片">
-		     </div> 
 		`)
 }
 </script>
