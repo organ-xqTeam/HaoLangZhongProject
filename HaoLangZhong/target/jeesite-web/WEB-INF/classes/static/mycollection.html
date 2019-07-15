@@ -170,6 +170,17 @@
 .gf-right h4 {
     text-align: left;
 }
+.logic {
+  border: none;
+  background: #fff;
+  background-image: url('./static/images/zaixianwenzhen-shoucang');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.logic img {
+width: 20px;
+height: 20px;
+}
 </style>
 </head>
 <body>
@@ -318,7 +329,11 @@ $(".main").delegate(".main_list","click",function(e){
                             <img style="width:1rem;height:0.5rem;" src="${Global.picUrl+item.pic}" class="img100"/>
                             <div class="gf-right">
                               <h4 class="title">${item.title}</h4>
-                              <span class="item"><button>取消收藏</button>  </span>
+                              <span class="item">
+							  <button class="logic" data-id=${item.id}>
+                                <image  src="./static/images/zaixianwenzhen-shoucang.png" />
+                              </button>  
+							  </span>
                             </div>
                           </div>
                         </div>
@@ -346,4 +361,5 @@ $(".main").delegate(".main_list","click",function(e){
     pageObj.init()
  })
 </script>
+
 </html>

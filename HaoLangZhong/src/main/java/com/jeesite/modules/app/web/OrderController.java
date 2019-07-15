@@ -80,6 +80,7 @@ public class OrderController extends BaseController {
 			tiaoliOrder.setPageSize(Integer.valueOf(pageSize));
 			List<TiaoliOrder> tiaoliOrderList= tiaoliOrderService.findPage(tiaoliOrder).getList();
 			for (TiaoliOrder tiaoliOrder2 : tiaoliOrderList) {
+				
 				DoctorInfos  doctorInfos=tiaoliOrder2.getDoctorInfos();
 				String docid= doctorInfos.getDoctorid();
 				UserInfo userinfo =new UserInfo();
@@ -94,12 +95,14 @@ public class OrderController extends BaseController {
 			JSONObject result = new JSONObject();
 			result.put("items", tiaoliOrderList);
 			result.put("count", count);
-			/*PageModel pageModel = new PageModel(requestParams.getPageNum(), requestParams.getPageSize());
+			/*
+			PageModel pageModel = new PageModel(requestParams.getPageNum(), requestParams.getPageSize());
 			requestParams.setPageModel(pageModel);
 			List<Map<String, Object>> resultList = doctorInfoService.queryConsultationList(requestParams);
 			JSONObject result = new JSONObject();
 			result.put("items", resultList);
-			result.put("count", doctorInfoService.queryCommentCount(requestParams));*/
+			result.put("count", doctorInfoService.queryCommentCount(requestParams));
+			*/
 			
 			return Result.success(result);
 		}

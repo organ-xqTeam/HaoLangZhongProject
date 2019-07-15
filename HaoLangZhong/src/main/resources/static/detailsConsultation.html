@@ -197,14 +197,26 @@
 			    	//用户信息
 			    	var userInfo=res.data.userInfo;
 			    	console.log(userInfo);
+			    	var icon="";
+		    		var nikeName="";
+		    		if(userInfo!=undefined&&userInfo!=null){
+		    			icon=userInfo.icon;
+		    			nikeName=userInfo.nikeName;
+		    		}
+		    		if(nikeName==null){
+		    			nikeName="无昵称"
+		    		}
+		    		if(icon==null){
+		    			icon="wutou";
+		    		}
 					if(userInfo!=null&&userInfo!=undefined){
 						$(".main_list").append(`
 								<div class="wrap_img">
-				    				<img src="${Global.picUrl+userInfo.icon}"/>
+				    				<img src="${Global.picUrl+icon}"/>
 				    			</div>
 						        <div class="list_right">
 						          <div class="main_right">
-						            <h4 class="title">${userInfo.nikeName}</h4>
+						            <h4 class="title">${nikeName}</h4>
 						          </div>
 						          <span class="time">${consultation.consultation_time}</span>
 						        </div>
@@ -220,12 +232,15 @@
 			    		 
 			    	 }) */
 			    	//病症部位
+			    	if(disease!=null){
 			    	 disease.forEach(function(item){
 				    	$(".bodylist").append(`
 				    		      <span>${item.content}</span>
 				    			`)
 			    		 
 			    	 }) 
+			    		
+			    	}
 			    	//接受疗法
 			    	/* therapys.forEach(function(item){
 			    		$(".therapyslist").append(`
@@ -234,12 +249,15 @@
 			    	}) */
 			    	//症状描述
 			    	$(".miaosulist").html(`${consultation.content}`)
+			    	if(pics!=null){
+			    		
 			    	pics.forEach(function(item){
 			    		$(".dataPic").append(`      
 			    				<div class="imgWrap">
 			    		         <img src="${Global.picUrl+item.pic}" class="imgPic"/>
 			    			    </div>`);
 			    	})
+			    	}
 			    	consultationDiscussList.forEach(function(item){
 			    		var icon="";
 			    		var nikeName="";
@@ -247,6 +265,12 @@
 			    		if(item.userInfo!=undefined&&item.userInfo!=null){
 			    			icon=item.userInfo.icon;
 			    			nikeName=item.userInfo.nikeName;
+			    		}
+			    		if(nikeName==null){
+			    			nikeName="无昵称"
+			    		}
+			    		if(icon==null){
+			    			icon="wutou";
 			    		}
 			    		 /* if(typeof (item.userInfo.icon)  !="undefined"){
 			    			  icon=item.userInfo.icon;

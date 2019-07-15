@@ -354,8 +354,14 @@ var pics=Global.getParameter("pics");
               }
               $(".introduce").text(introsub);
               $(".title").text(data.name);
+              var gifts="0";
+              if(data.gifts!=null){
+            	  gifts="0";
+              }else{
+            	  gifts=data.gifts;
+              }
               $(".foot").html(`
-                      <span>咨询次数:${data.consultation_times}次</span><span>评价次数:${data.comment_times}次</span><span>锦旗:${data.gifts}面</span>
+                      <span>调理次数:${data.tiaolicount}次</span><span>评价次数:${data.comment_times}次</span><span>锦旗:${gifts}面</span>
                       `);
               $('.item_left').html(`
 					  <div class="wrap_img">

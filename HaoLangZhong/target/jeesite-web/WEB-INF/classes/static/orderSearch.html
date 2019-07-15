@@ -24,9 +24,16 @@
     font-size: .18rem;
   }
   .back{
-    position: absolute;
+    /* position: absolute;
     right: .1rem;
     top: 0.07rem;
+     */
+    position: absolute;
+    left: .1rem;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    transform: translateY(-50%)
   }
   .img200{
     height: auto !important;
@@ -78,6 +85,7 @@
       align-items: center;
       box-sizing: border-box;
       padding:.06rem .12rem;
+      position: relative;
     }
     .img_input{
       display: flex;
@@ -118,7 +126,7 @@
 <body>
   <div class="top">
     <div class="img_wrap">
-      <img src="static/images/wode-left.png" class="img500"/>
+      <img src="static/images/wode-left.png" class="back" onclick="javascript:window.history.go(-1)"/>
     </div>
     <div class="img_input">
       <img src="static/images/shouye-sousuo.png" class="img400"/>

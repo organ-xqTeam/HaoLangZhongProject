@@ -43,6 +43,13 @@
      justify-content: space-between;
      align-items: center;
    }
+   .item_flex div:first-child {
+     display: flex;
+     align-items: center;
+   }
+   .item_flex div:first-child .level {
+    margin-left: 8px;
+   }
    .item_flex>span{
      color: #eb6003;
    }
@@ -50,8 +57,11 @@
     background: #7e1f03;
     color: #fff;
     font-size: 8px;
-    padding: 2px 13px;
-    border-radius: 15px;
+    padding: 0 13px;
+    border-radius: 50px;
+    height: 20px;
+    display: inline-block;
+    line-height: 20px;
    }
    .title{
      font-size: 1.2em;
@@ -344,8 +354,14 @@ var pics=Global.getParameter("pics");
               }
               $(".introduce").text(introsub);
               $(".title").text(data.name);
+              var gifts="0";
+              if(data.gifts!=null){
+            	  gifts="0";
+              }else{
+            	  gifts=data.gifts;
+              }
               $(".foot").html(`
-                      <span>咨询次数:${data.consultation_times}次</span><span>评价次数:${data.comment_times}次</span><span>锦旗:${data.gifts}面</span>
+                      <span>调理次数:${data.tiaolicount}次</span><span>评价次数:${data.comment_times}次</span><span>锦旗:${gifts}面</span>
                       `);
               $('.item_left').html(`
 					  <div class="wrap_img">
@@ -490,22 +506,39 @@ var pics=Global.getParameter("pics");
 "token":"9fe32383047040abaa9b855c39d99c9b"		//*必填 用户token
 	  */
 	  /* alert("进入咨询方法"); */
-	  var pic=pics.split(",")
+	  var pic="";
+	  if(pics!=null&&pics!=""){
+	  	pic=pics.split(",")
+		  
+	  }
 	  console.log(pic);
 	  console.log(content);
 	  /* var contents=decodeURIComponent(content); */
 	  /* console.log("contents:"+contents); */
 	  console.log(userid);
 	  console.log(disease);
-	  let postdata=JSON.stringify({
-		content:content,
-	     token:token,
-	     pic:pic,
-	     create_by:userid,
-	     doctorid:docid,
-	     amount :"0",
-	     disease:disease
-	   })
+	  let postdata=null;
+	  if(pic!=null){
+		  postdata=JSON.stringify({
+			content:content,
+		     token:token,
+		     pic:pic,
+		     create_by:userid,
+		     doctorid:docid,
+		     amount :"0",
+		     disease:disease
+		   })
+		  
+	  }else{
+		  postdata=JSON.stringify({
+				content:content,
+			     token:token,
+			     create_by:userid,
+			     doctorid:docid,
+			     amount :"0",
+			     disease:disease
+			   })
+	  }
 	  
 	  Global.ajaxRequest(Global.projectApi + "/f/sys/consultationOrder/saveOrder", postdata)
       .then((res) => {

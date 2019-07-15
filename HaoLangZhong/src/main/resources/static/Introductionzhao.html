@@ -276,7 +276,7 @@
             <!-- <span class="goanswer">问诊记录</span>
             <span  class="goconsulting"  onclick="zixunjump()">咨询</span> -->
             <div class="buy_number">
-			      <span class="tl">调理数量</span>
+			      <span class="tl">调理次数</span>
 			    <div>
 			      <span id="drug_count_reduce" onclick="pageObj.drugCounReduce()">-</span>
 			      <span id="drug_count">1</span>
@@ -337,7 +337,7 @@
       <div class="foot_button">
         <div class="flex_button button_right jiaoli">
             <img src="static/images/zaixianwenzhen-pinjia.png" class="tubiao"/>
-            <span>购买调理</span>
+            <span>立即购买</span>
           </div>
       </div>
     </div> 
@@ -367,6 +367,13 @@ var swiper = new Swiper('.swiper-container', {
  $(".jiaoli").click(function(){
     var docid=window.location.href.split("?")[1].split("docid=")[1]
     var count=$("#drug_count").text();
+    try {
+    	title.title("支付详情");
+    	  // code...
+    } catch(e){
+    	 console.log(e);
+    }
+    
     //上门服务金额单位元
     window.location.href="tiaolipay.html?docid="+docid+"&comecost="+comecost+"&count="+count;
  })
@@ -392,13 +399,20 @@ var comecost="";
               console.log(res)
               let data=res.data.doctorInfo
               cost=data.cost;
+              var gifts="0";
+              if(data.gifts!=null){
+            	  gifts="0";
+              }else{
+            	  gifts=data.gifts;
+              }
               $(".item_left span").text(data.name)
               var introsub= data.introduce.substring(0,20);
               $(".level").html(`星级:${data.starlv}`)
               $(".introduce").text(introsub);
               $(".title").text(data.name);
+              /*    <span>咨询次数:${data.consultation_times}次</span><span>评价次数:${data.comment_times}次</span><span>锦旗:${gifts}面</span> */
               $(".foot").html(`
-                      <span>咨询次数:${data.consultation_times}次</span><span>评价次数:${data.comment_times}次</span><span>锦旗:${data.gifts}面</span>
+                      <span>调理次数:${data.tiaolicount}次</span><span>评价次数:${data.comment_times}次</span><span>锦旗:${gifts}面</span>
                       `);
               $('.item_left').html(`
 					  <div class="wrap_img">
@@ -536,6 +550,12 @@ var comecost="";
  $(function(){
 	 
     pageObj.init()
+    try {
+    	title.title("专家详情");
+    	  // code...
+    } catch(e){
+    	 console.log(e);
+    }
  })
 
 </script>

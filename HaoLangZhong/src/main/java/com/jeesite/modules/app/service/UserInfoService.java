@@ -160,6 +160,9 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo>  {
 			if(requestMap.containsKey("cityid")) {
 				doctorMap.put("cityid", requestMap.get("cityid").toString());
 			}
+			if(requestMap.containsKey("adress")) {
+				doctorMap.put("adress", requestMap.get("adress").toString());
+			}
 			/**	 * changeAddress 
 			 	*/
 			userInfoDao.updateDoctorInfo(doctorMap);
