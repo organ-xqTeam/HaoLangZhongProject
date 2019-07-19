@@ -83,8 +83,8 @@
     display: inline-block;
     width: 6em;
     text-align: center;
-    padding: .03rem 0rem;
-    margin-top: .06rem;
+    /* padding: .03rem 0rem; */
+    /* margin-top: .06rem; */
    }
    .buy_number > div {
      display: flex;
@@ -99,17 +99,29 @@
     border-radius: 2px;
     height: 18px;
     line-height: 18px;
-    margin-right: 4px;
+    /* margin-right: 2px; */
+    border-radius: 50%;
      /* display: inline-block;
       border: 1px solid #ccc;
       width: .2rem;
       text-align: center; */
    }
+   #drug_count {
+     border: none;
+   }
+   .payNow {
+     background: #eb6003;
+     margin-left: 10px;
+     color: #fff;
+    padding: 2px 14px;
+    font-size: 12px;
+    border-radius: 2px;
+   }
    .button .tl {
-    background: #eb6003;
-    color: #fff;
+    /* background: #eb6003; */
+    color: #222;
     margin-right: 10px;
-    width: 100px;
+    /* width: 100px; */
     border: none;
     height: 26px;
     line-height: 26px;
@@ -234,9 +246,12 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      padding: .1rem;
+      /* padding: .1rem; */
     }
-
+  ._tt1 {
+    font-weight: bold;
+    padding-bottom: 10px;
+  }
     /* .buy_number :nth-child(2) span {
       display: inline-block;
       border: 0.01rem solid #ccc;
@@ -276,12 +291,13 @@
             <!-- <span class="goanswer">问诊记录</span>
             <span  class="goconsulting"  onclick="zixunjump()">咨询</span> -->
             <div class="buy_number">
-			      <span class="tl">调理次数</span>
+			      <div class="tl">调理次数</div>
 			    <div>
 			      <span id="drug_count_reduce" onclick="pageObj.drugCounReduce()">-</span>
 			      <span id="drug_count">1</span>
 			      <span id="drug_count_add" onclick="pageObj.drugCountAdd()">+</span>
-			    </div>
+          </div>
+          <div class="payNow">立即购买</div>
   		</div>
         </div>
       </div>
@@ -291,6 +307,7 @@
         <span class="user" data-tab="u">用户评价</span>
       </div>
       <div class="person_content">
+        <div>提供上门服务</div>
         <span><!-- 主要服务或者行医案例主要服务或者行医案例主要服务或者行医案例主要服务或者行医案例主要服务或者行医案例主要服务或者行医案例主要服务或者行医案例 --></span>
         <div class="pic">
         </div>
@@ -311,6 +328,7 @@
         </div>
       </div>
       <div class="user_content">
+        <p class="_tt2">用户评价</p>
 		<!-- <div class="user_content_list">
             <img src="static/images/head.png" class="touxiang"/>
             <div style="margin-left: .1rem;">
@@ -327,7 +345,7 @@
         </div>  -->
       </div> 
     </div>     
-    <div class="foot_feet">
+    <div class="foot_feet" style="display: none">
       <!-- <div class="foot_button tousu">
        <div class="flex_button">  
         <img src="static/images/zaixianwenzhen-tousu.png" class="tubiao"/>
@@ -359,12 +377,14 @@ var swiper = new Swiper('.swiper-container', {
       $(".person_content").show();
       $(".user_content").hide();
     }else{
+      $('._tt2').hide();
       $(".person_content").hide(); 
       $(".user_content").show();
       
     } 
  })
- $(".jiaoli").click(function(){
+//  $(".jiaoli").click(function(){
+ $(".payNow").click(function(){
     var docid=window.location.href.split("?")[1].split("docid=")[1]
     var count=$("#drug_count").text();
     try {
@@ -438,6 +458,7 @@ var comecost="";
             	i++;
               }
               $(".person_content").html(`
+                      <p class="_tt1">提供上门服务</p>
                       <span>${data.introduce}</span>
                       <div class="pic">
                       <img src="${Global.picUrl+data.introducepic1}" style="width:100%;height:100%">

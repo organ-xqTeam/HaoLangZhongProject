@@ -22,7 +22,7 @@
 	       } else {
 	           return null;
 	       }
-	   }
+   }
 
   //格式化时间
   var formatTimestamp=  function  (shijianchuo){

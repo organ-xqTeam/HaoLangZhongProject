@@ -251,7 +251,8 @@ var pageObj={
 		    })
 		 },
 		 choosePic(){
-			/*  alert("选择图片"); */
+			 alert("选择图片");
+			 alert("用户的反馈");	
 			 test.take(500,500);
 		 }
 	  }
@@ -262,6 +263,8 @@ var pageObj={
 		})
 		  
 		function getPicId(picId){
+			alert("进入选择图片的方法");	
+			
 			var piclength= $(".addedPic .picWrap").length;
 			if(piclength>=3){
 				/* alert("大于3"); */

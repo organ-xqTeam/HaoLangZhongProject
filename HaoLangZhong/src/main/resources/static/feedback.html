@@ -176,7 +176,7 @@
      <textarea class="text" placeholder="请输入您的意见和反馈"></textarea>
      <div class="addpicWrap">
       <div style="padding-left:0.05rem;">
-        <a class="addpicBtn" onclick="pageObj.choosePic()"> ></a>
+        <a class="addpicBtn" onclick="pageObj.choosePic()"></a>
       </div>
       <div class="addedPic">
         <!-- <div class="picWrap" style="display:none;">
@@ -191,6 +191,18 @@
       <div onclick="pageObj.submitFeed()" data-toggle="modal" data-target=".bs-example-modal-sm">提交</div>
     </div>
 </div>
+
+<!-- Small modal -->
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content gf-alert">
+		反馈成功
+		请输入反馈内容
+    </div>
+  </div>
+</div>
+</body>
+
 <script>
 var userId="";
 var token="";
@@ -241,7 +253,8 @@ var pageObj={
 		 },
 		 
 		 choosePic(){
-			 //alert("选择图片");
+			/* alert("医生选择图片"); 
+			alert("医生反馈"); */
 			 test.take(500,500);
 		 }
 	  }
@@ -254,7 +267,9 @@ var pageObj={
 		function getPicId(picId){
 			/* alert("进入显示图片的方法");
 			alert("id为:"+picId); */
+			/* alert(picId); */
 			var piclength= $(".addedPic .picWrap").length;
+			/* alert(piclength); */
 			if(piclength>=3){
 				/* alert("大于3"); */
 				return;
@@ -267,14 +282,4 @@ var pageObj={
 		}
 		  
 </script>
-<!-- Small modal -->
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content gf-alert">
-		反馈成功
-		请输入反馈内容
-    </div>
-  </div>
-</div>
-</body>
 </html>

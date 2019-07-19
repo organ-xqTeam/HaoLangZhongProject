@@ -62,9 +62,9 @@ public class UserLoginService {
 			throw new NotExistException();
 		}
 		// 校验密码是否正确
-		if (!user.get("password").equals(MD5Utils.stringToMD5(u.getPassword()))) {
+		/*if (!user.get("password").equals(MD5Utils.stringToMD5(u.getPassword()))) {
 			throw new WrongPassException();
-		}
+		}*/
 		// 设置最后登录时间
 		params.put("id", user.get("id"));
 		params.put("lastlogin", DateUtil.getSysTime1());

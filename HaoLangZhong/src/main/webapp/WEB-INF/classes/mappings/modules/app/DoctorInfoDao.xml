@@ -8,11 +8,11 @@
 			u.icon as 'icon',
 			d.name as 'name',
 			d.cost as 'cost',
-			d.star_lv as 'starlv',
+			IFNULL(d.star_lv,0) as 'starlv',
 			IFNULL((select  IFNULL(sum(count) , 0) from sys_tiaoli_order where docid=u.id group by docid),0) as tiaolicount,
-			(select GROUP_CONCAT(content) from sys_doctor_label where del_flag='0' and type='3' and id in (select labelid from sys_doctor_label_item where doctorid=u.id and del_flag='0')) as 'label',
+			left((select GROUP_CONCAT(content) from sys_doctor_label where del_flag='0'  and id in (select labelid from sys_doctor_label_item where doctorid=u.id and del_flag='0')),18) as 'label',
 			(select count(*) from sys_consultation_order where doctorid=u.id and orderstate='7' and del_flag='0') as 'consultation_times',
-			(select sum(total) from sys_doctor_gift_order where doctorid=u.id and del_flag='0' and orderstate='2') as 'gifts'
+			IFNULL((select sum(total) from sys_doctor_gift_order where doctorid=u.id and del_flag='0' and orderstate='2'),0) as 'gifts'
 		from 
 			sys_user_info u
 		left join 
@@ -93,12 +93,12 @@
 			u.icon as 'icon',
 			d.name as 'name',
 			d.cost as 'cost',
-			d.star_lv as 'starlv',
+			IFNULL(d.star_lv,0) as 'starlv',
 			d.own_flag as 'ownFlag',
 			IFNULL((select  IFNULL(sum(count) , 0) from sys_tiaoli_order where docid=u.id group by docid),0) as tiaolicount,
-			(select GROUP_CONCAT(content) from sys_doctor_label where del_flag='0' and type='3' and id in (select labelid from sys_doctor_label_item where doctorid=u.id and del_flag='0')) as 'label',
+			left((select GROUP_CONCAT(content) from sys_doctor_label where del_flag='0'  and id in (select labelid from sys_doctor_label_item where doctorid=u.id and del_flag='0')),18) as 'label',
 			((select count(*) from sys_consultation_order where doctorid=u.id and orderstate='7' and del_flag='0' )+ first_count ) as 'consultation_times',
-			(select sum(total) from sys_doctor_gift_order where doctorid=u.id and del_flag='0' and orderstate='2') as 'gifts'
+			IFNULL((select sum(total) from sys_doctor_gift_order where doctorid=u.id and del_flag='0' and orderstate='2'),0) as 'gifts'
 		from 
 			sys_user_info u
 		left join 
@@ -124,15 +124,15 @@
 			u.icon as 'icon',
 			d.name as 'name',
 			d.cost as 'cost',
-			d.star_lv as 'starlv',
+			IFNULL(d.star_lv,0) as 'starlv',
 			d.come_cost as 'comecost',
 			d.come_flag as 'comeflag',
 			d.register_price as 'registerprice',
 			d.own_flag as 'ownFlag',
 			IFNULL((select  IFNULL(sum(count) , 0) from sys_tiaoli_order where docid=u.id group by docid),0) as tiaolicount,
-			(select GROUP_CONCAT(content) from sys_doctor_label where del_flag='0' and type='3' and id in (select labelid from sys_doctor_label_item where doctorid=u.id and del_flag='0')) as 'label',
+			left((select GROUP_CONCAT(content) from sys_doctor_label where del_flag='0'  and id in (select labelid from sys_doctor_label_item where doctorid=u.id and del_flag='0')),18) as 'label',
 			((select count(*) from sys_consultation_order where doctorid=u.id and orderstate='7' and del_flag='0' )+ first_count ) as 'consultation_times',
-			(select sum(total) from sys_doctor_gift_order where doctorid=u.id and del_flag='0' and orderstate='2') as 'gifts'
+			IFNULL((select sum(total) from sys_doctor_gift_order where doctorid=u.id and del_flag='0' and orderstate='2'),0) as 'gifts'
 		from 
 			sys_user_info u
 		left join 
@@ -197,11 +197,11 @@
 			u.icon as 'icon',
 			d.name as 'name',
 			d.cost as 'cost',
-			d.star_lv as 'starlv',
+			IFNULL(d.star_lv,0) as 'starlv',
 			IFNULL((select  IFNULL(sum(count) , 0) from sys_tiaoli_order where docid=u.id group by docid),0) as tiaolicount,
-			(select GROUP_CONCAT(content) from sys_doctor_label where del_flag='0' and type='3' and id in (select labelid from sys_doctor_label_item where doctorid=u.id and del_flag='0')) as 'label',
+			left((select GROUP_CONCAT(content) from sys_doctor_label where del_flag='0'  and id in (select labelid from sys_doctor_label_item where doctorid=u.id and del_flag='0'))+'....',18) as 'label',
 			(select count(*) from sys_consultation_order where doctorid=u.id and orderstate='7' and del_flag='0') as 'consultation_times',
-			(select sum(total) from sys_doctor_gift_order where doctorid=u.id and del_flag='0' and orderstate='2') as 'gifts',
+			IFNULL((select sum(total) from sys_doctor_gift_order where doctorid=u.id and del_flag='0' and orderstate='2'),0) as 'gifts',
 			(select count(*) from sys_doctor_comment where doctorid=u.id and del_flag='0') as 'comment_times',
 			d.introduce as 'introduce',
 			p.introducepic1 as 'introducepic1',

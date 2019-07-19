@@ -6,6 +6,7 @@
 		select 
 			u.id as 'id',
 			u.icon as 'icon',
+			IFNULL(d.star_lv,0) as 'starlv',
 			d.name as 'name',
 			d.cost as 'cost',
 			(select GROUP_CONCAT(content) from sys_doctor_label where del_flag='0' and type='3' and id in (select labelid from sys_doctor_label_item where doctorid=u.id and del_flag='0')) as 'label',

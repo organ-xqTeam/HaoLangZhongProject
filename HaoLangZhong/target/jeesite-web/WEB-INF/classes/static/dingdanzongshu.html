@@ -255,7 +255,7 @@ var swiper = new Swiper('.swiper-container', {
       $.ajax({
             type: "get",
             // url:Global.api+"doctorInfo/findOrderCount/"+docid+"/"+token,
-            url:"http://120.92.10.2:81/hlz/f/sys/doctorInfo/findOrderCount/"+docid+"/"+token,
+            url:Global.projectApi+"/f/sys/doctorInfo/findOrderCount/"+docid+"/"+token,
             dataType:"json",
             // contentType:"application/json",
             success: function (res) {

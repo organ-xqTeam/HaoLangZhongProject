@@ -186,7 +186,7 @@ public class DoctorInfoController extends BaseController {
 	@RequestMapping(value = "/findOrderCount/{id}/{token}")
 	public Result findOrderCount(@PathVariable String id, @PathVariable String token) {
 		try {			
-			TokenTools.checkToken(token, redis);
+			/*TokenTools.checkToken(token, redis);*/
 			return Result.success(doctorInfoService.findOrderCount(id));
 		}
 		catch (RedisCheckException e2) {

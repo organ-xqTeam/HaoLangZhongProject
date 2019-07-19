@@ -1,0 +1,237 @@
+<% layout('/layouts/default.html', {title: 'sys_order管理', libs: ['dataGrid']}){ %>
+<div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa fa-list-alt"></i> ${text('sys_order管理')}
+			</div>
+			<div class="box-tools pull-right">
+				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
+				<% if(hasPermi('sys:sysOrder:edit')){ %>
+					<a href="${ctx}/sys/sysOrder/form" class="btn btn-default btnTool" title="${text('新增sys_order')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
+				<% } %>
+			</div>
+		</div>
+		<div class="box-body">
+			<#form:form id="searchForm" model="${sysOrder}" action="${ctx}/sys/sysOrder/listData" method="post" class="form-inline hide"
+					data-page-no="${parameter.pageNo}" data-page-size="${parameter.pageSize}" data-order-by="${parameter.orderBy}">
+				<div class="form-group">
+					<label class="control-label">${text('订单编号')}：</label>
+					<div class="control-inline">
+						<#form:input path="orderNo" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('订单状态 0未付款')}：</label>
+					<div class="control-inline">
+						<#form:input path="orderStatus" maxlength="2" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('商品类别数量')}：</label>
+					<div class="control-inline">
+						<#form:input path="productCount" maxlength="2" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('商品总价')}：</label>
+					<div class="control-inline">
+						<#form:input path="totalPrice" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('运费金额')}：</label>
+					<div class="control-inline">
+						<#form:input path="logisticsPrice" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('折扣价格')}：</label>
+					<div class="control-inline">
+						<#form:input path="discountPrice" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('真实支付价格')}：</label>
+					<div class="control-inline">
+						<#form:input path="reallyPrice" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('支付类型')}：</label>
+					<div class="control-inline">
+						<#form:input path="payChannel" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('第三方支付编号')}：</label>
+					<div class="control-inline">
+						<#form:input path="outTradeNo" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('付款时间')}：</label>
+					<div class="control-inline">
+						<#form:input path="payDate" readonly="true" maxlength="20" class="form-control Wdate-datetime"
+							dataFormat="datetime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',isShowClear:false});"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('用户id')}：</label>
+					<div class="control-inline">
+						<#form:input path="userId" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('与用户地址表主键对应')}：</label>
+					<div class="control-inline">
+						<#form:input path="addressId" maxlength="20" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('与物流表主键对应')}：</label>
+					<div class="control-inline">
+						<#form:input path="logisticsId" maxlength="20" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('发货时间')}：</label>
+					<div class="control-inline">
+						<#form:input path="deliveryDate" readonly="true" maxlength="20" class="form-control Wdate-datetime"
+							dataFormat="datetime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',isShowClear:false});"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('是否删除')}：</label>
+					<div class="control-inline">
+						<#form:input path="delFlag" maxlength="1" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('remarks')}：</label>
+					<div class="control-inline">
+						<#form:input path="remarks" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('收货人姓名')}：</label>
+					<div class="control-inline">
+						<#form:input path="deliveryName" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('到达地址')}：</label>
+					<div class="control-inline">
+						<#form:input path="deliveryAddress" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('到达电话')}：</label>
+					<div class="control-inline">
+						<#form:input path="deliveryPhone" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('trade_no')}：</label>
+					<div class="control-inline">
+						<#form:input path="tradeNo" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('商品总数量')}：</label>
+					<div class="control-inline">
+						<#form:input path="totalCount" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">${text('查询')}</button>
+					<button type="reset" class="btn btn-default btn-sm">${text('重置')}</button>
+				</div>
+			</#form:form>
+			<table id="dataGrid"></table>
+			<div id="dataGridPage"></div>
+		</div>
+	</div>
+</div>
+<% } %>
+<script>
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		{header:'${text("用户id")}', name:'userId', index:'a.user_id', width:150, align:"left"},
+		{header:'${text("姓名")}', name:'sysUserInfo.nikeName', index:'', width:150, align:"left"},
+		{header:'${text("订单编号")}', name:'orderNo', index:'a.order_no', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="${ctx}/sys/sysOrder/form?id='+row.id+'" class="btnList" data-title="${text("编辑sys_order")}">'+(val||row.id)+'</a>';
+		}},
+		{header:'${text("订单状态")}', name:'orderStatus', index:'a.order_status', width:150, align:"left", formatter: function(val, obj, row, act){
+			var val_ = '';
+			/*  0未付款 1已付款, 2已发货,3已收货,-2发货出现问题,-3收货出现问题,4已评价',  */
+			switch(val) {
+			case '0':
+				val_ = '未支付';
+			  	break;
+			case '1':
+				val_ = '已付款';
+			 	break;
+			case '3':
+				val_ = '已收货';
+				break;
+			case '4':
+				val_ = '已评价';
+				break;
+			default:
+			 	break
+			}
+			return val_;
+		}},
+		{header:'${text("商品类别数量")}', name:'productCount', index:'a.product_count', width:150, align:"left"},
+		{header:'${text("商品总价")}', name:'totalPrice', index:'a.total_price', width:150, align:"left", formatter: function(val, obj, row, act){
+			var val_ = '';
+			val_=parseFloat(val/100).toFixed(2);
+			return val_;
+		}},
+		{header:'${text("运费金额")}', name:'logisticsPrice', index:'a.logistics_price', width:150, align:"left", formatter: function(val, obj, row, act){
+			var val_ = '';
+			val_=parseFloat(val/100).toFixed(2);
+			return val_;
+		}},
+		{header:'${text("折扣价格")}', name:'discountPrice', index:'a.discount_price', width:150, align:"left", formatter: function(val, obj, row, act){
+			var val_ = '';
+			val_=parseFloat(val/100).toFixed(2);
+			return val_;
+		}},
+		{header:'${text("真实支付价格")}', name:'reallyPrice', index:'a.really_price', width:150, align:"left", formatter: function(val, obj, row, act){
+			var val_ = '';
+			val_=parseFloat(val/100).toFixed(2);
+			return val_;
+		}},
+		{header:'${text("支付类型")}', name:'payChannel', index:'a.pay_channel', width:150, align:"left"},
+		{header:'${text("第三方支付编号")}', name:'outTradeNo', index:'a.out_trade_no', width:150, align:"left"},
+		{header:'${text("更新时间")}', name:'updateDate', index:'a.update_date', width:150, align:"center"},
+		{header:'${text("付款时间")}', name:'payDate', index:'a.pay_date', width:150, align:"center"},
+		{header:'${text("与用户地址表主键对应")}', name:'addressId', index:'a.address_id', width:150, align:"center"},
+		{header:'${text("与物流表主键对应")}', name:'logisticsId', index:'a.logistics_id', width:150, align:"center"},
+		{header:'${text("发货时间")}', name:'deliveryDate', index:'a.delivery_date', width:150, align:"center"},
+		{header:'${text("是否删除")}', name:'delFlag', index:'a.del_flag', width:150, align:"left"},
+		{header:'${text("remarks")}', name:'remarks', index:'a.remarks', width:150, align:"left"},
+		{header:'${text("收货人姓名")}', name:'deliveryName', index:'a.delivery_name', width:150, align:"left"},
+		{header:'${text("到达地址")}', name:'deliveryAddress', index:'a.delivery_address', width:150, align:"left"},
+		{header:'${text("到达电话")}', name:'deliveryPhone', index:'a.delivery_phone', width:150, align:"left"},
+		{header:'${text("trade_no")}', name:'tradeNo', index:'a.trade_no', width:150, align:"left"},
+		{header:'${text("商品总数量")}', name:'totalCount', index:'a.total_count', width:150, align:"left"},
+		{header:'${text("操作")}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
+			var actions = [];
+			<% if(hasPermi('sys:sysOrder:edit')){ %>
+				actions.push('<a href="${ctx}/sys/sysOrder/form?id='+row.id+'" class="btnList" title="${text("查看订单")}"><i class="glyphicon glyphicon-search"></i></a>&nbsp;');
+				/* actions.push('<a href="${ctx}/sys/sysOrder/delete?id='+row.id+'" class="btnList" title="${text("删除sys_order")}" data-confirm="${text("确认要删除该sys_order吗？")}"><i class="fa fa-trash-o"></i></a>&nbsp;'); */
+			<% } %>
+			return actions.join('');
+		}}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+</script>

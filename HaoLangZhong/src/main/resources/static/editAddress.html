@@ -10,10 +10,13 @@
   <link rel="stylesheet" href="static/css/common.css">
   <link rel="stylesheet" href="static/css/user.css">
   <link rel="stylesheet" href="static/css/swiper.min.css">
-<!--   <script src="static/js/js-build/jquery-3.1.1.min.js"></script> -->
-<script src="static/js/js-build/jquery1.9.js"></script> 
+<!-- <script src="static/js/js-build/jquery-3.1.1.min.js"></script> -->
   <script src="static/js/mianG.js"></script>
+<script src="static/js/js-build/jquery1.9.js"></script> 
+  <script src="static/js/distpicker/distpicker.js"></script>
   <script src="static/js/js-build/jquery-html5Validate.js?v=14"></script>
+  
+  
   <style>
    .guodabai_line{
      width: 100;
@@ -193,7 +196,7 @@
 			  	document.cookie="userid=123"; */
 			    pageObj.init();
 			    $("#address_form").html5Validate(function() {
-			    	//alert("全部通过！");
+			    	alert("全部通过！");
 			    	//this.submit();	
 				    var cookieStr=document.cookie.split(";")
 					console.log(cookieStr);
@@ -204,9 +207,15 @@
 		            var phone= $("#phone").val();
 		            var areaMore=  $("#areaMore").val();
 		            var areaMores=areaMore.split("/");
-		            var province= areaMores[0];
+		            /* var province= areaMores[0];
 		            var city= areaMores[1];
-		            var area= areaMores[2];
+		            var area= areaMores[2]; */
+		             var province= $('#chooseadd select').eq(0).val();
+		            var city= $('#chooseadd select').eq(1).val();
+		            var area= $('#chooseadd select').eq(2).val(); 
+		            console.log(province)
+		            console.log(city)
+		            console.log(area)
 		            var street=$("#street").val();
 		            var isChecked=$("#isDefault")[0].checked;
 		            var isDefault="0";
@@ -227,7 +236,7 @@
 		            	 "isDefault":isDefault,
 		            	 "addressId":addressId
 			      })
-			      $.ajax({
+			       $.ajax({
 				    	   type: "post",
 				           url:Global.api+"basketController/addAddress", 
 				           contentType: 'application/json',
@@ -241,7 +250,7 @@
 				            error: function (e) {
 				              console.log(e)
 				            }
-				   })
+				   }) 
 			    }, {
 			    	
 			    });
@@ -255,7 +264,7 @@
     <img src="static/images/fanhui.png" class="back " onclick="javascript:window.history.go(-1)"/>
     <span class="title">编辑地址</span>
 </div>
-<form id="address_form" action="#"  method="post">
+<form id="address_form" action="#"  method="get">
 <div class="guodabai_line"></div>
 <div class="guodabai_main_top">
    <ul class="guodabai_ul">
@@ -269,7 +278,12 @@
       </li>
       <li>
         <span class="guodabai_span">所在地区</span>
-        <input id="areaMore" type="text" placeholder="如:辽宁省/沈阳市/于洪区" class="guodabai_input" required pattern="^\S+/\S+/\S+$"/>
+       <!--  <input id="areaMore" type="text" placeholder="如:辽宁省/沈阳市/于洪区" class="guodabai_input" required pattern="^\S+/\S+/\S+$"/> -->
+      	<div id="chooseadd"><!-- container -->
+		  <select  required></select>
+  		  <select  required></select>
+  		  <select  required></select>
+		</div>
       </li>
       <li>
         <span class="guodabai_span">详细地址</span>
@@ -311,8 +325,12 @@ $('#isDefault').on('click', function (e) {
 	}
 })
 
-
-
+$('#chooseadd').distpicker({
+  province: '---- 所在省 ----',
+  city: '---- 所在市 ----',
+  district: '---- 所在区 ----'
+});
+/* console.log($('#chooseadd').distpicker("province")); */
 </script>
 </body>
 </html>

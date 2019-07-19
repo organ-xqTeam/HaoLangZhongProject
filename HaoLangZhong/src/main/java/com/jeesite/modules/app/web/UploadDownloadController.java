@@ -211,6 +211,10 @@ public class UploadDownloadController extends BaseController {
 							}
 							try {
 								logger.debug("进入6");
+								if(!targetFile.exists()) {
+									File returnUrlfile=  new File(returnUrl);
+									returnUrlfile.mkdir();
+								}
 								files[i].transferTo(targetFile);
 								msg = returnUrl + fileName;
 								code = 0;
