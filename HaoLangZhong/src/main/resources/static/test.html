@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+        .box {
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            background: #333;
+            height: 50px;
+        }
+    
+    </style>
+</head>
+<body>
+
+
+
+
+    <div class="top"></div>
+
+
+
+
+
+
+
+
+    <div class="box">
+        <input type="text" id="test">
+    </div>
+
+    <script src="./static/js/js-build/jquery-3.1.1.min.js"></script>
+    <script>
+        $('#test').focus(function () {
+            console.log('test')
+            // $(this).scrollIntoViewIfNeeded()
+            // document.getElementById('test').scrollIntoViewIfNeeded(true) 
+            // element.scrollIntoViewIfNeeded(); // 等同于element.scrollIntoViewIfNeeded(true) 
+            // element.scrollIntoViewIfNeeded(true); 
+            // element.scrollIntoViewIfNeeded(false);
+
+
+            document.getElementById('test').scrollIntoViewIfNeeded(); // 等同于element.scrollIntoViewIfNeeded(true) 
+            document.getElementById('test').scrollIntoViewIfNeeded(true); 
+            document.getElementById('test').scrollIntoViewIfNeeded(false);
+        })
+    
+    </script>
+
+
+
+
+    
+</body>
+</html>
