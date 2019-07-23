@@ -160,7 +160,7 @@ $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
 		{header:'${text("用户id")}', name:'userId', index:'a.user_id', width:150, align:"left"},
-		{header:'${text("姓名")}', name:'sysUserInfo.nikeName', index:'', width:150, align:"left"},
+		 {header:'${text("姓名")}', name:'sysUserInfo.nikeName', index:'', width:150, align:"left"}, 
 		{header:'${text("订单编号")}', name:'orderNo', index:'a.order_no', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
 			return '<a href="${ctx}/sys/sysOrder/form?id='+row.id+'" class="btnList" data-title="${text("编辑sys_order")}">'+(val||row.id)+'</a>';
 		}},
@@ -234,4 +234,7 @@ $('#dataGrid').dataGrid({
 		
 	}
 });
+
+
+
 </script>

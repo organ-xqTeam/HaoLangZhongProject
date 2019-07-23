@@ -10,7 +10,7 @@ import java.util.List;
 import com.jeesite.common.mybatis.annotation.JoinTable;
 import com.jeesite.common.mybatis.annotation.JoinTable.Type;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
+import com.jeesite.common.collect.ListUtils;
 import com.jeesite.common.entity.DataEntity;
 import com.jeesite.common.mybatis.annotation.Column;
 import com.jeesite.common.mybatis.annotation.Table;
@@ -50,15 +50,13 @@ import com.jeesite.modules.app.entity.DoctorInfos;
 		@Column(name="delivery_phone", attrName="deliveryPhone", label="到达电话"),
 		@Column(name="trade_no", attrName="tradeNo", label="trade_no"),
 		@Column(name="total_count", attrName="totalCount", label="商品总数量"),
+
 	}, 	
 	// 支持联合查询，如左右连接查询，支持设置查询自定义关联表的返回字段列
 	joinTable={
 		@JoinTable(type=Type.JOIN, entity=SysUserInfo.class, alias="sad", 
 			on="a.user_id = sad.id",
 			columns={@Column(includeEntity=SysUserInfo.class)}),
-		@JoinTable(type=Type.JOIN, entity=SysOrderDetail.class, alias="sas", 
-		on="a.id = sas.orderId",
-		columns={@Column(attrName="sysOrderDetailList")}),
 	}, orderBy="a.create_date DESC"
 )
 public class SysOrder extends DataEntity<SysOrder> {
@@ -86,10 +84,10 @@ public class SysOrder extends DataEntity<SysOrder> {
 	private String totalCount;		// 商品总数量
 	
 	
-	private  List<SysOrderDetail> sysOrderDetailList;
+	private  List<SysOrderDetail> sysOrderDetailList=ListUtils.newArrayList();;
 	
 	
-	private SysUserInfo sysUserInfo;
+	private SysUserInfo sysUserInfo=new SysUserInfo();
 	
 	public SysOrder() {
 		this(null);

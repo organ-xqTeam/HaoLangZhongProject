@@ -34,7 +34,7 @@ public class AliMessageUtils {
          request.setVersion("2017-05-25");
          request.setAction("SendSms");
          request.putQueryParameter("PhoneNumbers", phone);
-         request.putQueryParameter("SignName", "好郎中");
+         request.putQueryParameter("SignName", "百科郎中");
          request.putQueryParameter("TemplateCode", "SMS_167325151");
          String checkCode = CoreUtils.randomString(6, true);//此处是生成6位数验证码工具类
          request.putQueryParameter("TemplateParam", "{\"code\":\""+checkCode+"\"}");

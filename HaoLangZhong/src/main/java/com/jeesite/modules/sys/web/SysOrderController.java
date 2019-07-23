@@ -25,6 +25,7 @@ import com.jeesite.modules.sys.entity.SysAirDrug;
 import com.jeesite.modules.sys.entity.SysOrder;
 import com.jeesite.modules.sys.entity.SysOrderDetail;
 import com.jeesite.modules.sys.service.SysAirDrugService;
+import com.jeesite.modules.sys.service.SysOrderDetailService;
 import com.jeesite.modules.sys.service.SysOrderService;
 
 /**
@@ -40,18 +41,26 @@ public class SysOrderController extends BaseController {
 	private SysOrderService sysOrderService;
 	@Autowired
 	private SysAirDrugService  sysAirDrugService;
+	@Autowired
+	private SysOrderDetailService sysOrderDetailService;
 	/**
 	 * 获取数据
 	 */
 	@ModelAttribute
 	public SysOrder get(String id, boolean isNewRecord) {
 		SysOrder sysOrder= sysOrderService.get(id, isNewRecord);
-		List<SysOrderDetail>   sysOrderDetailList=sysOrder.getSysOrderDetailList();
-		for (SysOrderDetail sysOrderDetail : sysOrderDetailList) {
-			SysAirDrug sysAirDrug =new SysAirDrug();
-			sysAirDrug.setId(sysOrderDetail.getGrudId().toString());
-			sysAirDrug=sysAirDrugService.get(sysAirDrug);
-			sysOrderDetail.setSysAirDrug(sysAirDrug);
+		SysOrderDetail sysOrderDetail =new SysOrderDetail();
+		if(sysOrder.getId()!=null) {
+			sysOrderDetail.setOrderId(Long.valueOf(sysOrder.getId()));
+			sysOrderDetail.setSysOrderId(sysOrder);
+			List<SysOrderDetail>   sysOrderDetailList=sysOrderDetailService.findList(sysOrderDetail);
+			/*for (SysOrderDetail sysOrderDetails : sysOrderDetailList) {
+				SysAirDrug sysAirDrug =new SysAirDrug();
+				sysAirDrug.setId(sysOrderDetails.getGrudId().toString());
+				sysAirDrug=sysAirDrugService.get(sysAirDrug);
+				sysOrderDetails.setSysAirDrug(sysAirDrug);
+			}*/
+			sysOrder.setSysOrderDetailList(sysOrderDetailList);
 		}
 		return sysOrder;
 	}

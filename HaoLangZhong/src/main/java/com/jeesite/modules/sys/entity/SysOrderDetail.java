@@ -35,20 +35,22 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 		@Column(name="update_date", attrName="updateDate", label="更新时间", isQuery=false),
 		@Column(name="create_by", attrName="createBy", label="create_by", isUpdate=false, isQuery=false),
 		@Column(name="update_by", attrName="updateBy", label="update_by", isQuery=false),
-		@Column(name="order_id", attrName="orderId", label="与订单表主键对应"),
+		/*@Column(name="order_id", attrName="orderId", label="与订单表主键对应"),*/
+		@Column(name="order_id", attrName="sysOrderId.id", label="与订单表主键对应"),
+		@Column(name="grud_id", attrName="sysAirDrug.id", label="与订单表主键对应"),
 	}, 	
 // 支持联合查询，如左右连接查询，支持设置查询自定义关联表的返回字段列
-joinTable={
+/*joinTable={
 	@JoinTable(type=Type.JOIN, entity=SysAirDrug.class, alias="sad", 
 		on="a.grud_id = sad.id",
 		columns={@Column(includeEntity=SysAirDrug.class)}),
-}, orderBy="a.update_date DESC"
+},*/ orderBy="a.update_date DESC"
 )
 public class SysOrderDetail extends DataEntity<SysOrderDetail> {
 	
 	private static final long serialVersionUID = 1L;
 	private String orderCode;		// 订单编号
-	private Long grudId;		// 药品id(二选一)
+	private String grudId;		// 药品id(二选一)
 	private Long prescriptionId;		// 药方id(二选一)
 	private String productName;		// 商品名称
 	private String productPrice;		// 商品价格(没打折的时候)
@@ -59,6 +61,8 @@ public class SysOrderDetail extends DataEntity<SysOrderDetail> {
 	private String invalidFlag;		// 是否失效  0:不失效,1:失效
 	private String delFlag;		// 是否删除 0 不删除 1删除
 	private Long orderId;		// 与订单表主键对应
+	
+	private SysOrder sysOrderId;
 	
 	private SysAirDrug sysAirDrug;
 	
@@ -79,14 +83,13 @@ public class SysOrderDetail extends DataEntity<SysOrderDetail> {
 		this.orderCode = orderCode;
 	}
 	
-	public Long getGrudId() {
+	public String getGrudId() {
 		return grudId;
 	}
-
-	public void setGrudId(Long grudId) {
+	public void setGrudId(String grudId) {
 		this.grudId = grudId;
 	}
-	
+
 	public Long getPrescriptionId() {
 		return prescriptionId;
 	}
@@ -181,6 +184,17 @@ public class SysOrderDetail extends DataEntity<SysOrderDetail> {
 	public void setSysAirDrug(SysAirDrug sysAirDrug) {
 		this.sysAirDrug = sysAirDrug;
 	}
+
+	public SysOrder getSysOrderId() {
+		return sysOrderId;
+	}
+
+	public void setSysOrderId(SysOrder sysOrderId) {
+		this.sysOrderId = sysOrderId;
+	}
+
+	
+	
 	
 	
 }

@@ -1,0 +1,143 @@
+<% layout('/layouts/default.html', {title: 'sys_member_order管理', libs: ['dataGrid']}){ %>
+<div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa fa-list-alt"></i> ${text('sys_member_order管理')}
+			</div>
+			<div class="box-tools pull-right">
+				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
+				<% if(hasPermi('sys:sysMemberOrder:edit')){ %>
+					<a href="${ctx}/sys/sysMemberOrder/form" class="btn btn-default btnTool" title="${text('新增sys_member_order')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
+				<% } %>
+			</div>
+		</div>
+		<div class="box-body">
+			<#form:form id="searchForm" model="${sysMemberOrder}" action="${ctx}/sys/sysMemberOrder/listData" method="post" class="form-inline hide"
+					data-page-no="${parameter.pageNo}" data-page-size="${parameter.pageSize}" data-order-by="${parameter.orderBy}">
+				<div class="form-group">
+					<label class="control-label">${text('是否删除')}：</label>
+					<div class="control-inline">
+						<#form:input path="delFlag" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('订单编号')}：</label>
+					<div class="control-inline">
+						<#form:input path="orderNo" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('支付状态')}：</label>
+					<div class="control-inline">
+						<#form:input path="orderStatus" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('第三方订单号')}：</label>
+					<div class="control-inline">
+						<#form:input path="outTradeNo" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('支付类型')}：</label>
+					<div class="control-inline">
+						<#form:input path="payChannel" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('支付时间')}：</label>
+					<div class="control-inline">
+						<#form:input path="payDate" readonly="true" maxlength="20" class="form-control Wdate-datetime"
+							dataFormat="datetime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',isShowClear:false});"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('备注')}：</label>
+					<div class="control-inline">
+						<#form:input path="remarks" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('支付总价')}：</label>
+					<div class="control-inline">
+						<#form:input path="totalPrice" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('支付宝订单号回调')}：</label>
+					<div class="control-inline">
+						<#form:input path="tradeNo" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('用户id')}：</label>
+					<div class="control-inline">
+						<#form:input path="userid" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">${text('查询')}</button>
+					<button type="reset" class="btn btn-default btn-sm">${text('重置')}</button>
+				</div>
+			</#form:form>
+			<table id="dataGrid"></table>
+			<div id="dataGridPage"></div>
+		</div>
+	</div>
+</div>
+<% } %>
+<script>
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		{header:'${text("是否删除")}', name:'delFlag', index:'a.del_flag', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="${ctx}/sys/sysMemberOrder/form?id='+row.id+'" class="btnList" data-title="${text("编辑sys_member_order")}">'+(val||row.id)+'</a>';
+		}},
+		{header:'${text("订单编号")}', name:'orderNo', index:'a.order_no', width:150, align:"left"},
+		{header:'${text("订单状态")}', name:'orderStatus', index:'a.order_status', width:150, align:"left", formatter: function(val, obj, row, act){
+			var val_ = '';
+			/*  0未付款 1已付款, 2已发货,3已收货,-2发货出现问题,-3收货出现问题,4已评价',  */
+			switch(val) {
+			case '0':
+				val_ = '未支付';
+			  	break;
+			case '1':
+				val_ = '已付款';
+			 	break;
+			case '3':
+				val_ = '已收货';
+				break;
+			case '4':
+				val_ = '已评价';
+				break;
+			default:
+			 	break
+			}
+			return val_;
+		}},
+		{header:'${text("第三方订单号")}', name:'outTradeNo', index:'a.out_trade_no', width:150, align:"left"},
+		{header:'${text("支付用户名")}', name:'sysUserInfo.nikeName', index:'', width:150, align:"left"},
+		{header:'${text("支付类型")}', name:'payChannel', index:'a.pay_channel', width:150, align:"left"},
+		{header:'${text("支付日期")}', name:'payDate', index:'a.pay_date', width:150, align:"center"},
+		{header:'${text("备注")}', name:'remarks', index:'a.remarks', width:150, align:"left"},
+		{header:'${text("支付总价")}', name:'totalPrice', index:'a.total_price', width:150, align:"left"},
+		{header:'${text("支付宝回调订单号")}', name:'tradeNo', index:'a.trade_no', width:150, align:"left"},
+		{header:'${text("更新时间")}', name:'updateDate', index:'a.update_date', width:150, align:"center"},
+		{header:'${text("用户id")}', name:'userid', index:'a.userid', width:150, align:"left"},
+		{header:'${text("操作")}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
+			var actions = [];
+			<% if(hasPermi('sys:sysMemberOrder:edit')){ %>
+				actions.push('<a href="${ctx}/sys/sysMemberOrder/form?id='+row.id+'" class="btnList" title="${text("编辑sys_member_order")}"><i class="glyphicon glyphicon-search"></i></a>&nbsp;');
+				/* actions.push('<a href="${ctx}/sys/sysMemberOrder/delete?id='+row.id+'" class="btnList" title="${text("删除sys_member_order")}" data-confirm="${text("确认要删除该sys_member_order吗？")}"><i class="fa fa-trash-o"></i></a>&nbsp;'); */
+			<% } %>
+			return actions.join('');
+		}}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+</script>

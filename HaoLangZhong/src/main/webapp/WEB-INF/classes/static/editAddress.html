@@ -11,10 +11,10 @@
   <link rel="stylesheet" href="static/css/user.css">
   <link rel="stylesheet" href="static/css/swiper.min.css">
 <!-- <script src="static/js/js-build/jquery-3.1.1.min.js"></script> -->
-  <script src="static/js/mianG.js"></script>
 <script src="static/js/js-build/jquery1.9.js"></script> 
-  <script src="static/js/distpicker/distpicker.js"></script>
+  <script src="static/js/mianG.js"></script>
   <script src="static/js/js-build/jquery-html5Validate.js?v=14"></script>
+  <script src="static/js/distpicker/distpicker.js"></script>
   
   
   <style>
@@ -122,6 +122,11 @@
 					pageObj.editGetData();
 				}else{
 					//如果为空
+					$('#chooseadd').distpicker({
+						  province: '---- 所在省 ----',
+						  city: '---- 所在市 ----',
+						  district: '---- 所在区 ----'
+						});
 				}
 				
 		
@@ -148,7 +153,12 @@
 			            	var addressMap=res.data.addressMap
 			            	$("#realName").val(addressMap.real_name);
 			            	$("#phone").val(addressMap.phone);
-			            	$("#areaMore").val(addressMap.province+"/"+addressMap.city+"/"+addressMap.area);
+			            	$('#chooseadd').distpicker({
+			            		  province: addressMap.province,
+			            		  city: addressMap.city,
+			            		  district: addressMap.area
+			            		});
+			            	/* $("#areaMore").val(addressMap.province+"/"+addressMap.city+"/"+addressMap.area); */
 			            	$("#street").val(addressMap.street);
 			            	if(addressMap.is_default=="1"){
 			            		$("#isDefault")[0].checked=true;
@@ -196,7 +206,7 @@
 			  	document.cookie="userid=123"; */
 			    pageObj.init();
 			    $("#address_form").html5Validate(function() {
-			    	alert("全部通过！");
+			    	/* alert("全部通过！"); */
 			    	//this.submit();	
 				    var cookieStr=document.cookie.split(";")
 					console.log(cookieStr);
@@ -205,8 +215,8 @@
 				    var addressId=Global.getParameter("id");
 			    	var realName=$("#realName").val();
 		            var phone= $("#phone").val();
-		            var areaMore=  $("#areaMore").val();
-		            var areaMores=areaMore.split("/");
+		            /* var areaMore=  $("#areaMore").val();
+		            var areaMores=areaMore.split("/"); */
 		            /* var province= areaMores[0];
 		            var city= areaMores[1];
 		            var area= areaMores[2]; */
@@ -280,9 +290,9 @@
         <span class="guodabai_span">所在地区</span>
        <!--  <input id="areaMore" type="text" placeholder="如:辽宁省/沈阳市/于洪区" class="guodabai_input" required pattern="^\S+/\S+/\S+$"/> -->
       	<div id="chooseadd"><!-- container -->
-		  <select  required></select>
-  		  <select  required></select>
-  		  <select  required></select>
+		  <select ></select>
+  		  <select ></select>
+  		  <select ></select>
 		</div>
       </li>
       <li>
@@ -325,11 +335,7 @@ $('#isDefault').on('click', function (e) {
 	}
 })
 
-$('#chooseadd').distpicker({
-  province: '---- 所在省 ----',
-  city: '---- 所在市 ----',
-  district: '---- 所在区 ----'
-});
+/*  */
 /* console.log($('#chooseadd').distpicker("province")); */
 </script>
 </body>
