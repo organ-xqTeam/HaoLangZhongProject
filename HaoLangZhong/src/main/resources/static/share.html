@@ -28,11 +28,17 @@
 
         .share {
             position: fixed;
-            width: 90%;
-            height: 330px;
-            left: 5%;
+            width: 80%;
+            height: 300px;
+            left: 10%;
             top: 50%;
             transform: translate(0%, -50%);
+            background: #fff;
+            border-radius: 2px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .share img {
@@ -41,18 +47,18 @@
         }
 
         .share .code {
-            position: absolute;
+            /* position: absolute;
             bottom: 10px;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%); */
             display: flex;
             align-items: center;
         }
         .share .codes {
-            position: absolute;
+            /* position: absolute;
             bottom: 90px;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%); */
             display: flex;
             align-items: center;
         }
@@ -84,7 +90,7 @@
             font-size: 16px;
         }
         .share .codes .right p:first-child {
-            font-size: 10px;
+            font-size: 18px;
         }
 
         .share .code .right p:last-child {
@@ -93,12 +99,14 @@
         }
         .share .codes .right p:last-child {
             color: #F01912;
-            font-size: 18px;
+            font-size: 36px;
+            padding-bottom: 10px;
         }
 
         .share .code img {
-            width: 60px;
-            height: 60px;
+            width: 100px;
+            height: 100px;
+            padding-bottom: 10px;
         }
         .topBar {
             justify-content: center;
@@ -131,7 +139,7 @@
             font-size: 0;
         }
         .code p {
-            font-size: 14px;
+            font-size: 16px;
             text-align: center;
         }
         .code div:first-child {
@@ -141,12 +149,12 @@
 </head>
 
 <body>
-        <div class="nav">
+        <!-- <div class="nav">
                 <img src="static/images/fanhui.png" alt="" class="back">
                 <span class="title">分享推荐</span>
-            </div>
+            </div> -->
     <div class="share">
-        <img src="../static/static/images/bg3.png" alt="">
+        <!-- <img src="../static/static/images/bg3.png" alt=""> -->
         <div class="codes">
         	<div class="right">
                 <p>您的邀请码</p>
