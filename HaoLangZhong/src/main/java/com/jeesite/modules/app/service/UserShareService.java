@@ -60,7 +60,7 @@ public class UserShareService extends CrudService<UserShareDao, UserShare>  {
 		if(userInfoMap!=null) {
 			isInvite= (String) userInfoMap.get("is_invite");
 		}
-		if(shareCode!=null&&shareCode.equals("")&&(userInfoMap==null||isInvite.equals("0"))) {
+		if(shareCode!=null&&!shareCode.equals("")&&(userInfoMap==null||isInvite.equals("0"))) {
 			//未填写过邀请码
 			//验证该邀请码的用户是谁
 			Map shareUserInfoMap= userInfoDao.getByshareCode(shareCode);

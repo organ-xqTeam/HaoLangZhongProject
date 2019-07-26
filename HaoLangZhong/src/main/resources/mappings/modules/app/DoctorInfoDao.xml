@@ -3,7 +3,10 @@
 <mapper namespace="com.jeesite.modules.app.dao.DoctorInfoDao">
 	
 	<select id="queryListByLabel" resultType="hashmap" parameterType="com.jeesite.modules.app.entity.DoctorInfo">
-		select 
+		select
+			IFNULL(d.agenum,'0') as 'agenum',
+			IFNULL(d.professional,'') as 'professional',
+			IFNULL(d.workyear,'0') as 'workyear',  
 			u.id as 'id',
 			u.icon as 'icon',
 			d.name as 'name',
@@ -89,6 +92,9 @@
 	
 	<select id="queryList" resultType="hashmap" parameterType="com.jeesite.modules.app.entity.DoctorInfo">
 		select 
+			IFNULL(d.agenum,'0') as 'agenum',
+			IFNULL(d.professional,'') as 'professional',
+			IFNULL(d.workyear,'0') as 'workyear',
 			u.id as 'id',
 			u.icon as 'icon',
 			d.name as 'name',
@@ -99,6 +105,7 @@
 			left((select GROUP_CONCAT(content) from sys_doctor_label where del_flag='0'  and id in (select labelid from sys_doctor_label_item where doctorid=u.id and del_flag='0')),18) as 'label',
 			((select count(*) from sys_consultation_order where doctorid=u.id and orderstate='7' and del_flag='0' )+ first_count ) as 'consultation_times',
 			IFNULL((select sum(total) from sys_doctor_gift_order where doctorid=u.id and del_flag='0' and orderstate='2'),0) as 'gifts'
+		
 		from 
 			sys_user_info u
 		left join 
@@ -120,6 +127,9 @@
 	</select>
 	<select id="queryOwedList" resultType="hashmap" parameterType="com.jeesite.modules.app.entity.DoctorInfo">
 		select 
+			IFNULL(d.agenum,'0') as 'agenum',
+			IFNULL(d.professional,'') as 'professional',
+			IFNULL(d.workyear,'0') as 'workyear',
 			u.id as 'id',
 			u.icon as 'icon',
 			d.name as 'name',
@@ -192,7 +202,10 @@
 	</select>
 	
 	<select id="findOneByDoctorid" resultType="hashmap">
-		select 
+		select
+			IFNULL(d.agenum,'0') as 'agenum',
+			IFNULL(d.professional,'') as 'professional',
+			IFNULL(d.workyear,'0') as 'workyear', 
 			u.id as 'id',
 			u.icon as 'icon',
 			d.name as 'name',

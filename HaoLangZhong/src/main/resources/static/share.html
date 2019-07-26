@@ -48,6 +48,14 @@
             display: flex;
             align-items: center;
         }
+        .share .codes {
+            position: absolute;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+        }
 
         .share .code .right {
             margin-left: 10px;
@@ -60,19 +68,37 @@
         .share .code .right p {
             text-align: center;
         }
+        .share .codes .right {
+            margin-left: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            white-space: nowrap;
+        }
+
+        .share .codes .right p {
+            text-align: center;
+        }
 
         .share .code .right p:first-child {
             font-size: 16px;
         }
+        .share .codes .right p:first-child {
+            font-size: 10px;
+        }
 
         .share .code .right p:last-child {
             color: #F01912;
-            font-size: 28px;
+            font-size: 20px;
+        }
+        .share .codes .right p:last-child {
+            color: #F01912;
+            font-size: 18px;
         }
 
         .share .code img {
-            width: 96px;
-            height: 96px;
+            width: 60px;
+            height: 60px;
         }
         .topBar {
             justify-content: center;
@@ -121,7 +147,13 @@
             </div>
     <div class="share">
         <img src="../static/static/images/bg3.png" alt="">
-        <div class="code">
+        <div class="codes">
+        	<div class="right">
+                <p>您的邀请码</p>
+                <p class="yaoqing_code">23456</p>
+            </div>
+         </div>   
+         <div class="code">
             <div class="">
                 <img src="../static/static/images/jishiduan.png" alt="">
                 <p>郎中端</p>

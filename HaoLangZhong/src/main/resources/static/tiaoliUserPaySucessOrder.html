@@ -110,7 +110,7 @@
   </style>
 </head>
 
-<body>
+<body >
 
   <!--   <div class="nav">
     <img src="static/images/shouye-sousuo.png" class="back img200"/>
@@ -177,6 +177,9 @@
                                  <div class="title">${item.doctorInfos.name}</div>
                                  <span>次数:${item.count}</span>
                                </div>
+                               <div class="pingjia" onclick="pingjia('${item.docid}')">
+                                 <button>评价</button>
+                               </div>
                            </div>
                          </div>
                  `)
@@ -199,6 +202,9 @@
     $(function () {
       pageObj.init()
     })
+    function pingjia(docid){
+    	window.location.href="evaluation.html?docid="+docid
+   }
   </script>
 </body>
 

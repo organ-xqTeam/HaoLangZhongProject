@@ -1,9 +1,9 @@
-<% layout('/layouts/default.html', {title: 'sys_member_order管理', libs: ['dataGrid']}){ %>
+<% layout('/layouts/default.html', {title: '会员订单管理', libs: ['dataGrid']}){ %>
 <div class="main-content">
 	<div class="box box-main">
 		<div class="box-header">
 			<div class="box-title">
-				<i class="fa fa-list-alt"></i> ${text('sys_member_order管理')}
+				<i class="fa fa-list-alt"></i> ${text('会员订单管理')}
 			</div>
 			<div class="box-tools pull-right">
 				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
@@ -92,7 +92,7 @@
 $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
-		{header:'${text("是否删除")}', name:'delFlag', index:'a.del_flag', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
+		{header:'${text("id")}', name:'id', index:'a.id', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
 			return '<a href="${ctx}/sys/sysMemberOrder/form?id='+row.id+'" class="btnList" data-title="${text("编辑sys_member_order")}">'+(val||row.id)+'</a>';
 		}},
 		{header:'${text("订单编号")}', name:'orderNo', index:'a.order_no', width:150, align:"left"},

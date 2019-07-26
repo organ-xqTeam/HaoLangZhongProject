@@ -1,0 +1,369 @@
+<% layout('/layouts/default.html', {title: '用户管理', libs: ['validate','dataGrid']}){ %>
+<div class="main-content">
+	<div class="box box-main">
+		<div class="box-header with-border">
+			<div class="box-title">
+				<i class="fa fa-list-alt"></i> ${text(sysUserInfo.isNewRecord ? '新增sys_user_info' : '编辑sys_user_info')}
+			</div>
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			</div>
+		</div>
+		<#form:form id="inputForm" model="${sysUserInfo}" action="${ctx}/sys/sysUserInfo/usersave" method="post" class="form-horizontal">
+			<div class="box-body">
+				<div class="form-unit">${text('基本信息')}</div>
+				<#form:hidden path="id"/>
+				<div class="row">
+					
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('电话')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="mobile" maxlength="64" class="form-control" readonly="true" disabled="true"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('昵称')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="nikeName" maxlength="64" class="form-control" readonly="true" disabled="true"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('密码MD5')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="password" maxlength="64" class="form-control" readonly="true" disabled="true"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('是否删除')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<% var delFlagList=[{"value":"0",name:"否"},{"value":"1","name":"是"}]; %>
+								<#form:select disabled="true" name="delFlag"  value="${sysUserInfo.delFlag!0}" items="${delFlagList}" 
+								itemLabel="name" itemValue="value" class="form-control required"  /> 
+								<!-- <#form:input path="delFlag" maxlength="64" class="form-control" readonly="true" disabled="true"/> -->
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('头像')}：<i class="fa icon-question hide"></i></label>
+							<!-- <div class="col-sm-8">
+								<#form:input path="icon" maxlength="64" class="form-control" readonly="true" disabled="true"/>
+							</div> -->
+							<div class="col-sm-8">
+							<% if (sysUserInfo.icon==null){ %>
+								<p>暂无头像</p>
+							<% }else{ %>
+								<p><img src="http://120.92.10.2/hlz/f/sys/fileInfo/showPic/${sysUserInfo.icon!}" class="img-responsive" width="300" height="300"></p>
+							<% } %>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('invite_user_id')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="inviteUserId" maxlength="64" class="form-control" readonly="true" disabled="true"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('is_invite')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="isInvite" maxlength="64" class="form-control" readonly="true" disabled="true"/>
+							</div>
+						</div>
+					</div>
+				</div> -->
+				<!-- <div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('isauthentication')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="isauthentication" maxlength="64" class="form-control" readonly="true" disabled="true"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('islock')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="islock" maxlength="64" class="form-control" readonly="true" disabled="true"/>
+							</div>
+						</div>
+					</div>
+				</div> -->
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('是否为会员')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<% var memberFlagList=[{"value":"0",name:"否"},{"value":"1","name":"是"}]; %>
+								<#form:select disabled="true" name="memberFlag"  value="${sysUserInfo.memberFlag!0}" items="${memberFlagList}" 
+								itemLabel="name" itemValue="value" class="form-control required"  /> 
+								<!-- <#form:input path="memberFlag" maxlength="64" class="form-control" readonly="true" disabled="true"/> -->
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('会员等级')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="memberLv" maxlength="64" class="form-control" readonly="true" disabled="true"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('会员结束时间')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="memberEnd" readonly="true" maxlength="20" class="form-control Wdate"
+									dataFormat="datetime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',isShowClear:true});" readonly="true" disabled="true"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('会员开始时间')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="memberStart" readonly="true" maxlength="20" class="form-control Wdate"
+									dataFormat="datetime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',isShowClear:true});" readonly="true"  disabled="true"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('最后登录时间')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="lastlogin" maxlength="64" class="form-control" readonly="true" disabled="true"/>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				
+				
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('注册时间')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="regtime" maxlength="64" class="form-control" readonly="true" disabled="true"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-sm-2" title="">
+								<span class="required hide">*</span> ${text('备注')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-10">
+								<#form:textarea path="remarks" rows="4" maxlength="64" class="form-control" readonly="true" disabled="true"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<!-- <div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('third_icon')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="thirdIcon" maxlength="64" class="form-control" readonly="true" disabled="true"/>
+							</div>
+						</div>
+					</div> -->
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('第三方id')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="thirdId" maxlength="64" class="form-control" readonly="true" disabled="true"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('第三方登录类型')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="thirdType" maxlength="64" class="form-control" readonly="true" disabled="true"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('类型')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<% var typeList=[{"value":"0",name:"未知"},{"value":"1","name":"用户"},{"value":"2","name":"医生"}]; %>
+								<#form:select disabled="true" name="type"  value="${sysUserInfo.type!0}" items="${typeList}" 
+								itemLabel="name" itemValue="value" class="form-control required"  /> 
+								<!-- <#form:input path="type" maxlength="64" class="form-control" readonly="true" disabled="true"/> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="text-center">
+					<h4>一级分享</h4>
+				</div>
+				<div class="ml10 mr10">
+					<table id="shareUserOne"></table>
+				</div>
+				<div class="text-center">
+					<h4>二级分享</h4>
+				</div>
+				<div class="ml10 mr10">
+					<table id="shareUserTwo"></table>
+				</div>
+			</div>
+			<div class="box-footer">
+				<div class="row">
+					<div class="col-sm-offset-2 col-sm-10">
+						<% if (hasPermi('app:sysUserInfo:edit')){ %>
+							<!-- <button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> ${text('保 存')}</button>&nbsp; -->
+						<% } %>
+						<button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> ${text('关 闭')}</button>
+					</div>
+				</div>
+			</div>
+		</#form:form>
+	</div>
+</div>
+<% } %>
+<script>
+$("#inputForm").validate({
+	submitHandler: function(form){
+		js.ajaxSubmitForm($(form), function(data){
+			js.showMessage(data.message);
+			if(data.result == Global.TRUE){
+				js.closeCurrentTabPage(function(contentWindow){
+					contentWindow.page();
+				});
+			}
+		}, "json");
+    }
+});
+
+
+$("#shareUserOne").dataGrid({
+	data: ${toJson(sysUserInfoOneShareList)},
+	datatype: "local", // 设置本地数据
+	autoGridHeight: function(){return 'auto'}, // 设置自动高度
+	// 设置数据表格列
+	columnModel: [
+		{header:'状态', name:'status', editable:true, hidden:true},
+		{header:'主键', name:'id', editable:true, hidden:true},
+		{header:'${text("姓名")}', name:'nikeName', width:150, editable:false, edittype:'text', editoptions:{'maxlength':'64', 'class':'form-control'}},
+		{header:'${text("电话")}', name:'mobile', editable:false, edittype:'text'},
+		{header:'${text("分享状态")}', name:'share', editable:false, edittype:'text',sortable:false, fixed:true, formatter: function(val, obj, row, act){
+			return '一级分享';
+		}},
+		{header:'${text("获取红包")}', name:'share', editable:false, edittype:'text',sortable:false, fixed:true, formatter: function(val, obj, row, act){
+			return '5元';
+		}},
+		/* {header:'${text("商品价格")}', name:'productPrice', editable:false, edittype:'text',formatter: function(val, obj, row, act){
+			return  parseFloat(val/100).toFixed(2);
+		}},
+		{header:'${text("折扣比例")}', name:'discountRate', editable:false, edittype:'text'},
+		{header:'${text("折后价格")}', name:'onlyPrice', editable:false, edittype:'text',formatter: function(val, obj, row, act){
+			return  parseFloat(val/100).toFixed(2);
+		}},
+		{header:'${text("购买小计")}', name:'subtotalPrice', editable:false, edittype:'text',formatter: function(val, obj, row, act){
+			return  parseFloat(val/100).toFixed(2);
+		}}, */
+		/* {header:'${text("操作")}', name:'actions', width:80, sortable:false, fixed:true, formatter: function(val, obj, row, act){
+			var actions = [];
+			if (val == 'new'){
+				actions.push('<a href="#" onclick="js.confirm(\'${text("你确认要删除这条数据吗？")}\', function(){$(\'#peopleDetDataGrid\').dataGrid(\'delRowData\',\''+obj.rowId+'\')});return false;"><i class="fa fa-trash-o"></i></a>&nbsp;');
+			}else{
+				actions.push('<a href="#" onclick="js.confirm(\'${text("你确认要删除这条数据吗？")}\', function(){$(\'#peopleDetDataGrid\').dataGrid(\'setRowData\',\''+obj.rowId+'\',null,{display:\'none\'});$(\'#'+obj.rowId+'_status\').val(\''+Global.STATUS_DELETE+'\');});return false;"><i class="fa fa-trash-o"></i></a>&nbsp;');
+			}
+			return actions.join('');
+		}, editoptions: {defaultValue: 'new'}} */
+	],
+	
+	// 编辑表格参数
+	/* editGrid: true,				// 是否是编辑表格 */
+	/* editGridInitRowNum: 1,		// 编辑表格的初始化新增行数 */
+	editGridAddRowBtn: $('#peopleDetDataGridAddRowBtn'),	// 子表增行按钮
+	/* editGridAddRowInitData: {id: '', status: Global.STATUS_NORMAL},	// 新增行的时候初始化的数据 */
+	
+	// 编辑表格的提交数据参数
+	editGridInputFormListName: 'peopleDetList', // 提交的数据列表名
+	editGridInputFormListAttrs: 'status,id,num,peopleId.id,', // 提交数据列表的属性字段
+	
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+$("#shareUserTwo").dataGrid({
+	data: ${toJson(sysUserInfoTwoShareList)},
+	datatype: "local", // 设置本地数据
+	autoGridHeight: function(){return 'auto'}, // 设置自动高度
+	// 设置数据表格列
+	columnModel: [
+		{header:'状态', name:'status', editable:true, hidden:true},
+		{header:'主键', name:'id', editable:true, hidden:true},
+		{header:'${text("姓名")}', name:'nikeName', width:150, editable:false, edittype:'text', editoptions:{'maxlength':'64', 'class':'form-control'}},
+		{header:'${text("电话")}', name:'mobile', editable:false, edittype:'text'},
+		{header:'${text("分享状态")}', name:'share', editable:false, edittype:'text',sortable:false, fixed:true, formatter: function(val, obj, row, act){
+			return '二级分享';
+		}},
+		{header:'${text("获取红包")}', name:'share', editable:false, edittype:'text',sortable:false, fixed:true, formatter: function(val, obj, row, act){
+			return '2元';
+		}}
+	],
+	
+	// 编辑表格参数
+	/* editGrid: true,				// 是否是编辑表格 */
+	/* editGridInitRowNum: 1,		// 编辑表格的初始化新增行数 */
+	editGridAddRowBtn: $('#peopleDetDataGridAddRowBtn'),	// 子表增行按钮
+	/* editGridAddRowInitData: {id: '', status: Global.STATUS_NORMAL},	// 新增行的时候初始化的数据 */
+	
+	// 编辑表格的提交数据参数
+	editGridInputFormListName: 'peopleDetList', // 提交的数据列表名
+	editGridInputFormListAttrs: 'status,id,num,peopleId.id,', // 提交数据列表的属性字段
+	
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+</script>

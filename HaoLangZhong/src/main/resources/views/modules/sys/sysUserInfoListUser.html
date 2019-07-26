@@ -1,0 +1,194 @@
+<% layout('/layouts/default.html', {title: '用户信息列表', libs: ['dataGrid']}){ %>
+<div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa fa-list-alt"></i> ${text('sys_user_info管理')}
+			</div>
+			<div class="box-tools pull-right">
+				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
+				<% if(hasPermi('app:sysUserInfo:edit')){ %>
+					<a href="${ctx}/app/sysUserInfo/form" class="btn btn-default btnTool" title="${text('新增sys_user_info')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
+				<% } %>
+			</div>
+		</div>
+		<div class="box-body">
+			<#form:form id="searchForm" model="${sysUserInfo}" action="${ctx}/sys/sysUserInfo/userlistData" method="post" class="form-inline hide"
+					data-page-no="${parameter.pageNo}" data-page-size="${parameter.pageSize}" data-order-by="${parameter.orderBy}">
+				<div class="form-group">
+					<label class="control-label">${text('是否删除')}：</label>
+					<div class="control-inline">
+						<#form:input path="delFlag" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<!-- <div class="form-group">
+					<label class="control-label">${text('icon')}：</label>
+					<div class="control-inline">
+						<#form:input path="icon" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div> -->
+				<!-- <div class="form-group">
+					<label class="control-label">${text('invite_user_id')}：</label>
+					<div class="control-inline">
+						<#form:input path="inviteUserId" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div> -->
+				<!-- <div class="form-group">
+					<label class="control-label">${text('is_invite')}：</label>
+					<div class="control-inline">
+						<#form:input path="isInvite" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div> -->
+				<!-- <div class="form-group">
+					<label class="control-label">${text('isauthentication')}：</label>
+					<div class="control-inline">
+						<#form:input path="isauthentication" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div> -->
+				<!-- <div class="form-group">
+					<label class="control-label">${text('islock')}：</label>
+					<div class="control-inline">
+						<#form:input path="islock" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div> -->
+				<!-- <div class="form-group">
+					<label class="control-label">${text('最后登陆时间')}：</label>
+					<div class="control-inline">
+						<#form:input path="lastlogin" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div> -->
+				<div class="form-group">
+					<label class="control-label">${text('会员结束日期')}：</label>
+					<div class="control-inline">
+						<#form:input path="memberEnd" readonly="true" maxlength="20" class="form-control Wdate-datetime"
+							dataFormat="datetime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',isShowClear:false});"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('是否为会员')}：</label>
+					<div class="control-inline">
+						<#form:input path="memberFlag" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('会员等级')}：</label>
+					<div class="control-inline">
+						<#form:input path="memberLv" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('会员开始时间')}：</label>
+					<div class="control-inline">
+						<#form:input path="memberStart" readonly="true" maxlength="20" class="form-control Wdate-datetime"
+							dataFormat="datetime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',isShowClear:false});"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('电话')}：</label>
+					<div class="control-inline">
+						<#form:input path="mobile" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('昵称')}：</label>
+					<div class="control-inline">
+						<#form:input path="nikeName" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('密码')}：</label>
+					<div class="control-inline">
+						<#form:input path="password" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<!-- <div class="form-group">
+					<label class="control-label">${text('regtime')}：</label>
+					<div class="control-inline">
+						<#form:input path="regtime" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div> -->
+				<div class="form-group">
+					<label class="control-label">${text('备注')}：</label>
+					<div class="control-inline">
+						<#form:input path="remarks" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<!-- <div class="form-group">
+					<label class="control-label">${text('third_icon')}：</label>
+					<div class="control-inline">
+						<#form:input path="thirdIcon" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div> -->
+				<!-- <div class="form-group">
+					<label class="control-label">${text('third_id')}：</label>
+					<div class="control-inline">
+						<#form:input path="thirdId" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div> -->
+				<div class="form-group">
+					<label class="control-label">${text('第三方类型')}：</label>
+					<div class="control-inline">
+						<#form:input path="thirdType" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('类型')}：</label>
+					<div class="control-inline">
+						<#form:input path="type" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">${text('查询')}</button>
+					<button type="reset" class="btn btn-default btn-sm">${text('重置')}</button>
+				</div>
+			</#form:form>
+			<table id="dataGrid"></table>
+			<div id="dataGridPage"></div>
+		</div>
+	</div>
+</div>
+<% } %>
+<script>
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		/* {header:'${text("del_flag")}', name:'delFlag', index:'a.del_flag', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="${ctx}/app/sysUserInfo/form?id='+row.id+'" class="btnList" data-title="${text("编辑sys_user_info")}">'+(val||row.id)+'</a>';
+		}}, */
+		/* {header:'${text("icon")}', name:'icon', index:'a.icon', width:150, align:"left"}, */
+		/* {header:'${text("invite_user_id")}', name:'inviteUserId', index:'a.invite_user_id', width:150, align:"left"}, */
+		/* {header:'${text("is_invite")}', name:'isInvite', index:'a.is_invite', width:150, align:"left"}, */
+		{header:'${text("电话")}', name:'mobile', index:'a.mobile', width:150, align:"left"},
+		{header:'${text("昵称")}', name:'nikeName', index:'a.nike_name', width:150, align:"left"},
+		{header:'${text("密码")}', name:'password', index:'a.password', width:150, align:"left"},
+		/* {header:'${text("isauthentication")}', name:'isauthentication', index:'a.isauthentication', width:150, align:"left"},
+		{header:'${text("islock")}', name:'islock', index:'a.islock', width:150, align:"left"}, */
+		{header:'${text("最后登录时间")}', name:'lastlogin', index:'a.lastlogin', width:150, align:"left"},
+		{header:'${text("会员结束时间")}', name:'memberEnd', index:'a.member_end', width:150, align:"center"},
+		{header:'${text("是否为会员")}', name:'memberFlag', index:'a.member_flag', width:150, align:"left"},
+		{header:'${text("会员等级")}', name:'memberLv', index:'a.member_lv', width:150, align:"left"},
+		{header:'${text("会员开始时间")}', name:'memberStart', index:'a.member_start', width:150, align:"center"},
+		/* {header:'${text("regtime")}', name:'regtime', index:'a.regtime', width:150, align:"left"}, */
+		{header:'${text("备注")}', name:'remarks', index:'a.remarks', width:150, align:"left"},
+		/* {header:'${text("third_icon")}', name:'thirdIcon', index:'a.third_icon', width:150, align:"left"}, */
+		{header:'${text("第三方id")}', name:'thirdId', index:'a.third_id', width:150, align:"left"},
+		{header:'${text("第三方登录类型")}', name:'thirdType', index:'a.third_type', width:150, align:"left"},
+		{header:'${text("类型")}', name:'type', index:'a.type', width:150, align:"left"},
+		{header:'${text("更新时间")}', name:'updateDate', index:'a.update_date', width:150, align:"center"},
+		{header:'${text("创建时间")}', name:'createDate', index:'a.create_date', width:150, align:"center"},
+		{header:'${text("操作")}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
+			var actions = [];
+			<% if(hasPermi('app:sysUserInfo:edit')){ %>
+				actions.push('<a href="${ctx}/sys/sysUserInfo/userform?id='+row.id+'" class="btnList" title="${text("编辑sys_user_info")}"><i class="glyphicon glyphicon-search"></i></a>&nbsp;');
+				/* actions.push('<a href="${ctx}/app/sysUserInfo/delete?id='+row.id+'" class="btnList" title="${text("删除sys_user_info")}" data-confirm="${text("确认要删除该sys_user_info吗？")}"><i class="fa fa-trash-o"></i></a>&nbsp;'); */
+			<% } %>
+			return actions.join('');
+		}}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+</script>

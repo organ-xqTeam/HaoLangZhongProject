@@ -40,7 +40,7 @@
 								<span class="required hide">*</span> ${text('订单状态')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
 							<% var orderStatusList=[{"value":"0",name:"未支付"},{"value":"1","name":"已付款"},{"value":"2","name":"已发货"},{"value":"3","name":"已收获"}]; %>
-								<#form:select disabled="true" name="orderStatus"  value="${sysOrder.orderStatus!0}" items="${orderStatusList}" 
+								<#form:select disabled="true" name="orderStatus"  value="${sysMemberOrder.orderStatus!0}" items="${orderStatusList}" 
 								itemLabel="name" itemValue="value" class="form-control required"  /> 
 								
 							</div>
@@ -72,7 +72,7 @@
 								<span class="required hide">*</span> ${text('支付日期')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
 								<#form:input path="payDate" readonly="true" maxlength="20" class="form-control Wdate"
-									dataFormat="datetime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',isShowClear:true});"readonly="true" disable="true"/>
+									dataFormat="datetime" readonly="true" disable="true"/>
 							</div>
 						</div>
 					</div>
@@ -124,7 +124,7 @@
 				<div class="row">
 					<div class="col-sm-offset-2 col-sm-10">
 						<% if (hasPermi('sys:sysMemberOrder:edit')){ %>
-							<button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> ${text('保 存')}</button>&nbsp;
+							<!-- <button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> ${text('保 存')}</button>&nbsp; -->
 						<% } %>
 						<button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> ${text('关 闭')}</button>
 					</div>

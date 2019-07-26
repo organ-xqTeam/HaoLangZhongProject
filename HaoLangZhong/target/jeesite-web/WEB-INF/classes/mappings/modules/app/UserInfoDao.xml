@@ -150,6 +150,13 @@
 			<if test="changeAddress != null">change_address=#{changeAddress},</if>
 			<if test="cityid != null">cityid=#{cityid},</if>
 			<if test="adress != null">adress=#{adress},</if>
+			
+			<!--
+		
+			  -->
+			<if test="agenum != null">agenum=#{agenum},</if>
+			<if test="professional != null">professional=#{professional},</if>
+			<if test="workyear != null">workyear=#{workyear},</if>
 	    </set>
 		where doctorid=#{doctorid}
 	</update>

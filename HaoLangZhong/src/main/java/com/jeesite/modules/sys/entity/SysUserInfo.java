@@ -1,5 +1,7 @@
 package com.jeesite.modules.sys.entity;
 
+import java.util.Date;
+
 import com.jeesite.common.entity.DataEntity;
 import com.jeesite.common.mybatis.annotation.Column;
 import com.jeesite.common.mybatis.annotation.Table;
@@ -23,7 +25,15 @@ import com.jeesite.modules.app.utils.PageModel;
 		@Column(name="remarks", attrName="remarks", label="remarks", queryType=QueryType.LIKE),
 		@Column(name="del_flag", attrName="delFlag", label="del_flag"),
 		@Column(name="nike_name", attrName="nikeName", label="昵称", queryType=QueryType.LIKE),
-		@Column(name="is_invite", attrName="isInvite", label="是否是被邀请的用户 0不是被邀请用户 ,1是被邀请的用户"),
+		@Column(name="is_invite", attrName="isInvite", label="是否是被邀请的用户 0不是被邀请用户 ,1是被邀请的用户"), 
+		@Column(name="third_id", attrName="thirdId", label="第三方的id"), 
+		@Column(name="third_type", attrName="thirdType", label="第三方类型 0无第三方 1:微信 2:qq"), 
+		@Column(name="third_icon", attrName="thirdIcon", label="第三方头像上传的id"), 
+		@Column(name="member_lv", attrName="memberLv", label="用户等级"), 
+		@Column(name="member_flag", attrName="memberFlag", label="是否为会员"), 
+		@Column(name="member_start", attrName="memberStart", label="会员开始时间"), 
+		@Column(name="member_end", attrName="memberEnd", label="会员结束时间"), 
+		@Column(name="invite_user_id", attrName="inviteUserId", label="邀请人的user_id  当 is_invite 为1 的时候才有值"), 
 	}, orderBy="a.update_date DESC"
 )
 public class SysUserInfo extends DataEntity<SysUserInfo> {
@@ -34,10 +44,8 @@ public class SysUserInfo extends DataEntity<SysUserInfo> {
 	private String age;					// 年龄 
 	private String idcard;				// 身份证
 	private String classify;			// 分类
-	private String nikeName;			// 昵称
 	private String telephone;			// 电话	
 	private String technical;			// 职称
-	private String isauthentication;	// 是否完成认证
 	private String    orderBy;
 	private PageModel pageModel;
 	private boolean   isNewRecord;
@@ -48,9 +56,21 @@ public class SysUserInfo extends DataEntity<SysUserInfo> {
 	private String regtime;		// 注册时间
 	private String lastlogin;		// 最后登录时间
 	private String islock;		// 是否被锁定：1.未锁定，0.已锁定
+	private String isauthentication;		// 是否完成认证：1.未认证，0.已认证，2.未通过
 	private String type;		// 类型：1.普通用户，2.医生
 	private String delFlag;		// del_flag
+	private String nikeName;		// 昵称
 	private String isInvite;		// 是否是被邀请的用户 0不是被邀请用户 ,1是被邀请的用户
+	
+	private String thirdId;    //第三方的id
+	private String thirdType; //第三方类型 0无第三方 1:微信 2:qq
+	private String thirdIcon; //第三方头像上传的id
+	private String memberLv;   //用户的会员等级
+	private String memberFlag;   //是否为会员
+	private Date memberStart;   //是否为会员
+	private Date memberEnd;   //是否为会员
+	
+	private String inviteUserId;
 	public String getId() {
 		return id;
 	}
@@ -191,6 +211,54 @@ public class SysUserInfo extends DataEntity<SysUserInfo> {
 	}
 	public void setNewRecord(boolean isNewRecord) {
 		this.isNewRecord = isNewRecord;
+	}
+	public String getThirdId() {
+		return thirdId;
+	}
+	public void setThirdId(String thirdId) {
+		this.thirdId = thirdId;
+	}
+	public String getThirdType() {
+		return thirdType;
+	}
+	public void setThirdType(String thirdType) {
+		this.thirdType = thirdType;
+	}
+	public String getThirdIcon() {
+		return thirdIcon;
+	}
+	public void setThirdIcon(String thirdIcon) {
+		this.thirdIcon = thirdIcon;
+	}
+	public String getMemberFlag() {
+		return memberFlag;
+	}
+	public void setMemberFlag(String memberFlag) {
+		this.memberFlag = memberFlag;
+	}
+	public Date getMemberStart() {
+		return memberStart;
+	}
+	public void setMemberStart(Date memberStart) {
+		this.memberStart = memberStart;
+	}
+	public Date getMemberEnd() {
+		return memberEnd;
+	}
+	public void setMemberEnd(Date memberEnd) {
+		this.memberEnd = memberEnd;
+	}
+	public String getInviteUserId() {
+		return inviteUserId;
+	}
+	public void setInviteUserId(String inviteUserId) {
+		this.inviteUserId = inviteUserId;
+	}
+	public String getMemberLv() {
+		return memberLv;
+	}
+	public void setMemberLv(String memberLv) {
+		this.memberLv = memberLv;
 	}
 	
 	
