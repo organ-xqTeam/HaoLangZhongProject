@@ -100,6 +100,7 @@ public class UploadDownloadController extends BaseController {
 		}
 
 	}
+
 	public BufferedImage toBufferedImage(Image image) {
 		if (image instanceof BufferedImage) {
 			return (BufferedImage) image;
@@ -128,7 +129,6 @@ public class UploadDownloadController extends BaseController {
 		g.dispose();
 		return bimage;
 	}
-
 	
 	
 	

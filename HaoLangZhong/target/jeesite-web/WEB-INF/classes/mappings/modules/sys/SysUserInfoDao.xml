@@ -47,7 +47,7 @@
   			and u.isauthentication = #{isauthentication}
   		</if>
 		${orderBy}
-		limit #{pageModel.start}, #{pageModel.end}
+		<!-- limit #{pageModel.start}, #{pageModel.end} -->
 	</select>
 	
 	<select id="queryCount" resultType="java.lang.Integer" 

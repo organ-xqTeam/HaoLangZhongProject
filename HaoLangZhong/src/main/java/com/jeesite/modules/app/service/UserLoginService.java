@@ -84,6 +84,18 @@ public class UserLoginService {
 			Map<String, Object> docMap = new  HashMap<>();
 			docMap.put("doctorid",userInfo.getId());
 			Map<String, Object> map= userLoginDao.getDoctorBydoctorid(docMap);
+			if(!map.containsKey("agenum")) {
+				map.put("agenum", "0");
+			}
+			if(!map.containsKey("professional")) {
+				map.put("professional", "");
+			}
+			if(!map.containsKey("workyear")) {
+				map.put("workyear", "0");
+			}
+			if(!map.containsKey("agenum")) {
+				map.put("agenum", "");
+			}
 			if(map!=null&&map.containsKey("id")&&!isauthentication.trim().equals("0")) {
 				result.put("isauth", true);
 				return result;

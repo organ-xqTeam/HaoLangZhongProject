@@ -80,7 +80,7 @@ public class UserInfoController extends BaseController {
 	@RequestMapping(value = "/saveDoctorInfo")
 	public Result saveDoctorInfo(@RequestBody Map<String, Object> requestMap) {
 		try {
-			/*TokenTools.checkToken(requestMap.get("token").toString(), redis);*/
+			TokenTools.checkToken(requestMap.get("token").toString(), redis);
 			userInfoService.saveDoctorInfo(requestMap);
 			return Result.success(true);			
 		}
@@ -101,7 +101,7 @@ public class UserInfoController extends BaseController {
 	@RequestMapping(value = "/getDoctorInfo/{id}/{token}")
 	public Result getDoctorInfo(@PathVariable String id, @PathVariable String token) {
 		try {
-			/*TokenTools.checkToken(token, redis);*/
+			TokenTools.checkToken(token, redis);
 			return Result.success(userInfoService.findDoctorInfo(id));			
 		}
 		catch (RedisCheckException e2) {

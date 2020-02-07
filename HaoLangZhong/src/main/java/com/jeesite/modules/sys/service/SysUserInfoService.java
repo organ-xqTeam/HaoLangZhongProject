@@ -42,10 +42,10 @@ public class SysUserInfoService   extends CrudService<SysUserInfoDao,SysUserInfo
 	 * @param sysUserInfo.page 分页对象
 	 * @return
 	 */
-	public void findPage(SysUserInfo sysUserInfo, Page<SysUserInfo> page) {
+/*	public void findPage(SysUserInfo sysUserInfo, Page<SysUserInfo> page) {
 		page.setList(sysUserInfoDao.queryList(sysUserInfo));
 		page.setCount(sysUserInfoDao.queryCount(sysUserInfo));
-	}
+	}*/
 	/**
 	  * 查询普通用户的分页
 	 * @param sysUserInfo 查询条件

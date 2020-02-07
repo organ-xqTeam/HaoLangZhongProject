@@ -36,11 +36,12 @@ jdbc:
   # Mysql 数据库配置
   type: mysql
   driver: com.mysql.jdbc.Driver
-  url: jdbc:mysql://120.92.10.2:3306/haolangzhong?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+  #url: jdbc:mysql://localhost:3306/haolangzhong?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+  url: jdbc:mysql://49.233.174.102:3306/haolangzhong?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
   #url: jdbc:mysql://192.168.1.15:3306/haolangzhong?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
-  username: root
+  username: zhouxin
   #password: root
-  password: xq@2018
+  password: 3rbGiMZ7QtPmmx9n
   testSql: SELECT 1
 
 #  # Oracle 数据库配置

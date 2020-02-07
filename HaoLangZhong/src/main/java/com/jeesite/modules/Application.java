@@ -18,6 +18,8 @@ public class Application extends SpringBootServletInitializer {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
+		///ss说
+		//zzz
 	}
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		this.setRegisterErrorPageFilter(false); // 错误页面有容器来处理，而不是SpringBoot

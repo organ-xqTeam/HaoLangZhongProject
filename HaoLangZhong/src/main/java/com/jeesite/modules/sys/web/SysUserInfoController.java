@@ -120,15 +120,18 @@ public class SysUserInfoController extends BaseController {
 	public Page<SysUserInfo> listData(@ModelAttribute SysUserInfo sysUserInfo, HttpServletRequest request, HttpServletResponse response) {	
 		Page<SysUserInfo> page = new Page<>(request, response);
 		try {
-			PageModel pageModel = new PageModel(page.getPageNo(), page.getPageSize());
-			sysUserInfo.setPageModel(pageModel);
+		/*	PageModel pageModel = new PageModel(page.getPageNo(), page.getPageSize());
+			sysUserInfo.setPageModel(pageModel);*/
+			sysUserInfo.setType("2");
 			if (page.getOrderBy() != null) {
 				sysUserInfo.setOrderBy("order by " + page.getOrderBy());
 			}
 			else {
 				sysUserInfo.setOrderBy(null);
 			}
-			sysUserInfoService.findPage(sysUserInfo, page);
+			sysUserInfo.setPage(page);
+			sysUserInfoService.findPage(sysUserInfo);
+			/*sysUserInfoService.findPage(sysUserInfo, page);*/
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e.getMessage(), e);
